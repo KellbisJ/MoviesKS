@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles/style.css">
+  <link rel="stylesheet" href="./styles/edits.css">
+  <script src="https://kit.fontawesome.com/6718b6d2c6.js" crossorigin="anonymous"></script>
+  <title>MoviesKS</title>
+</head>
+<body>
+  <header class="header-container">
+    <h1 class="header-text">MoviesKs</h1>
+    <span class="header-arrow disabled">&lt;</span>
+    <h1 class="header-text2">Peliculas, busca, observa, encuentra.</h1>
+
+    <form class="searchForm-container">
+      <div class="searchForm-input">
+        <input class="searchText" type="text" placeholder="Buscar Peliculas" />
+        <button class="searchBtn">
+          <i class="fa-solid fa-magnifying-glass searchIcon"></i>
+        </button>
+      </div>
+    </form>
+    
+  </header>
+
+  <article class="previewCategories-container">
+    <section class="previewCategories-links">
+      <!-- <a class="movieLink">Acción</a>
+      <a class="movieLink">romance</a>
+      <a class="movieLink">thriller</a>
+      <a class="movieLink">comedia</a>
+      <a class="movieLink">accion</a>
+      <a class="movieLink">accion</a>
+      <a class="movieLink">accion</a>
+      <a class="movieLink">accion</a>
+      <a class="movieLink">accion</a>
+      <a class="movieLink">accion</a>
+      <a class="movieLink">accion</a>
+      <a class="movieLink">accion</a>
+      <a class="movieLink">accion</a> -->
+    </section>
+  </article>
+
+  <article class="trendingPreview-container">
+    <div class="trendingPreview-header">
+      <h2 class="trendingPreview-text">Peliculas en Tendencia</h2>
+      <button class="trendingPreview-btn">Ver mas</button>
+    </div>
+    <section class="trendingPreview-movies">
+      <!-- <div class="movie-container">
+        <img class="movie-img" src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg" alt="movie name">
+      </div> -->
+    </section>
+  </article>
+
+  <article class="genericMovies disabled">
+
+    <div class="movie-container">
+      <img class="movie-img" src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg" alt="movie name">
+    </div>
+
+    <div class="movie-container">
+      <img class="movie-img" src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg" alt="movie name">
+    </div>
+
+    <div class="movie-container">
+      <img class="movie-img" src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg" alt="movie name">
+    </div>
+
+    <div class="movie-container">
+      <img class="movie-img" src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg" alt="movie name">
+    </div>
+    <div class="movie-container">
+      <img class="movie-img" src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg" alt="movie name">
+    </div>
+    <div class="movie-container">
+      <img class="movie-img" src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg" alt="movie name">
+    </div>
+
+  </article>
+
+  <article class="movieDetail-container disabled">
+    <h1 class="movieDetail-text">Deadpool</h1>
+    <img class="movieDetail-img" src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg" alt="movie name">
+    <p class="movieDetail-description">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, animi velit! Voluptatum consequatur esse reprehenderit qui, in ipsam repellendus corrupti aspernatur, ex atque pariatur, dicta eum. Nostrum fugiat ea fuga?
+    </p>
+    <p class="movieDetail-rating-container">Rating:
+    <i class="fa-solid fa-star ratingIcon"></i> 
+    <span class="movieDetail-rating">8.0</span>
+    </p>
+
+    <section class="categoriesList-container">
+      <div class="category-container">
+        <a class="movieLink">Acción</a>
+      </div>
+
+      <div class="category-container">
+        <a class="movieLink">Acción</a>
+      </div>
+
+      <div class="category-container">
+        <a class="movieLink">Acción</a>
+      </div>
+    </section>
+
+    <section class="relatedMovies-container">
+      <h2 class="relatedMovies-text">Peliculas Similares</h2>
+
+      <div class="relatedMovies-gridContainer">
+        <div class="movie-container">
+          <img class="movie-img" src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg" alt="movie name">
+        </div>
+
+        <div class="movie-container">
+          <img class="movie-img" src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg" alt="movie name">
+        </div>
+
+        <div class="movie-container">
+          <img class="movie-img" src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg" alt="movie name">
+        </div>
+        
+      </div>
+    </section>
+  </article>
+
+  <footer class="footer-container">MoviesKS</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="./src/auth.js"></script>
+  <script src="./src/index.js"></script>
+</body>
+</html>
