@@ -1,8 +1,8 @@
 /* header */
 .header-container {
   display: flex;
-  width: 800px;
-  flex-wrap: wrap;
+  width: 90%;
+  max-width: 1200px;
   flex-direction: column;
   height: 150px;
   margin: auto;
@@ -10,14 +10,14 @@
   align-items: center;
 }
 .header-text {
-  color: #d80ddf;
-  font-size: 28px;
+  color: #cfcdcd;
+  font-size: 34px;
   margin-top: 8px;
 }
 .header-text2 {
-  color: #060422;
-  font-size: 20px;
-  margin-top: 4px;
+  color: #c0e4f5;
+  font-size: 21px;
+  margin-top: 6px;
 }
 .header-arrow {
   font-size: 34px;
@@ -31,6 +31,9 @@
 /* barra de busqueda header */
 .searchForm-container {
   display: flex;
+  width: 100%;
+  max-width: 1000px;
+  height: 40px;
   margin: auto;
   justify-content: center;
   align-items: center;
@@ -38,60 +41,71 @@
 .searchForm-input {
   display: flex;
   position: relative;
-  width: 570px;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
+  max-width: 700px;
+  height: 40px;
 }
 .searchText {
   position: absolute;
-  width: 100%;
-  max-width: 570px;
-  height: 40px;
-  font-size: 18px;
-  border: 1px solid #9b949400;
-  border-radius: 20px;
+  width: inherit;
+  max-width: inherit;
+  height: inherit;
+  font-size: 20px;
+  border: 2px solid #9b949400;
+  border-radius: 24px;
   margin-top: auto;
   margin-bottom: auto;
   padding-left: 16px;
   outline: none;
-  background: #fdfbfbe5;
-}
-.searchText::placeholder {
-  font-size: 14spx;
-  color: #052363;
+  background: #fdfbfbf5;
 }
 .searchBtn {
+  padding: 0;
   position: absolute;
-  right: 0;
-  width: 44px;
-  height: 44px;
+  top: 9px;
+  right: 16px;
   line-height: 18px;
   color: #282c2c;
   text-align: center;
   border: none;
   background: none;
-  cursor: pointer;
+  
 }
 .searchIcon {
-  font-size: 18px;
+  font-size: 20px;
+  cursor: pointer;
 }
 /* tipos de generos de peliculas */
-.previewCategories-container {
+.previewCategories-up-container {
+  display: flex;
+  justify-content: center;
+  width: auto;
+  margin: 40px auto auto auto;
+}
+.previewCategories-links {
+  display: grid;
+  grid-template-columns: repeat(4, 200px);
+  grid-template-rows: auto;
+  justify-items: center;
+  font-size: 18px;
+  font-weight: bolder;
+  color: #cfcdcd;
+}
+.previewCategories-down-container {
   display: flex;
   justify-content: center;
   width: 350px;
   margin: auto;
 }
-.previewCategories-links {
+.previewCategories-links2 {
   display: grid;
-  grid-template-columns: repeat(2, 200px);
+  grid-template-columns: repeat(4, 200px);
   grid-template-rows: auto;
-  justify-items: center;
   margin-top: 50px;
+  justify-items: center;
   font-size: 18px;
   font-weight: bolder;
-  color: #3a3a3a;
-  margin-bottom: 20px;
+  color: #cfcdcd;
 }
 .movieLink {
   margin: 6px;
@@ -99,14 +113,11 @@
 /* preview de las peliculas en tendencia */
 .trendingPreview-container {
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
-  align-content: center;
   margin-top: 20px;
 }
 .trendingPreview-header {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-around;
   align-content: center;
   align-items: center;
@@ -114,34 +125,35 @@
 }
 .trendingPreview-text {
   font-size: 22px;
-  color: #db9942;
+  color: #c0e4f5;
 }
 .trendingPreview-btn {
   width: 172px;
   height: 42px;
   border: 1px solid #cec8c844;
-  border-radius: 14px;
+  border-radius: 12px;
   font-size: 18px;
   font-weight: bold;
   color: #031c70c2;
 }
 .trendingPreview-movies {
   display: grid;
-  height: auto;
-  grid-template-columns: repeat(3, 300px);
-  grid-template-rows: auto;
-  margin-top: 28px;
-  background-color: #070433;
+  grid-template-columns: repeat(4, 220px);
+  grid-template-rows: repeat(5, 380px);
+  margin-top: 20px;
+  justify-content: center;
   justify-items: center;
 }
 .movie-container {
-  width: 280px;
-  height: 280px;
+  display: flex;
+  width: auto;
+  height: auto;
+  justify-content: center;
+  align-items: center;
 }
 .movie-img {
-  width: 280px;
-  height: 280px;
-  padding: 16px 0;
+  width: 190px;
+  height: 350px;
   cursor: pointer;
 }
 /* lista larga de peliculas que se buscan */

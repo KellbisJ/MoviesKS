@@ -5,7 +5,7 @@ body {
   margin: 0;
   font-family: sans-serif;
   background: #170966da;
-  background: linear-gradient(#2381d8da, #170966da);
+  background: linear-gradient(#031c70c2 8%, #1e2c3a 26%);
 }
 .disabled {
   display: none;
@@ -18,70 +18,64 @@ a:hover {
   cursor: pointer;
 }
 
-@media (max-width: 960px) {
-  .header-text2 { display: none;}
+@media (max-width: 1050px) {
+  .trendingPreview-movies {grid-template-columns: repeat(4, 220px);}
+  .movie-img {
+    width: 180px;
+    height: 340px;
+    cursor: pointer;
+  }
 }
-@media (max-width: 770px) {
-  .header-container {
-    width: auto;
-  }
-  .searchForm-input {
-    display: flex;
-    position: relative;
-    width: 500px;
-    justify-content: center;
-    align-items: center;
-  }
+@media (max-width: 800px) {
+  .header-text2 {display: none;}
+  .searchForm-container {width: 80%;}
   .header-arrow {
     top: 0;
     left: 3%;
   }
   .trendingPreview-movies {
-    grid-template-columns: repeat(3, 220px);
+    grid-template-columns: repeat(2, 250px);
+    grid-template-rows: repeat(5, 355px);
   }
   .movie-img {
-    width: 180px;
-    height: 216px;
+    width: 212px;
+    height: 320px;
   }
   .genericMovies {
-    grid-template-columns: repeat(3, 220px);
+    grid-template-columns: repeat(2, 220px);
     height: 600px;
   }
 }
 @media (max-width: 500px) {
-  .searchForm-input {
-    display: flex;
-    position: relative;
-    width: 240px;
-    justify-content: center;
-    align-items: center; 
-  }
-  .header-container {
-    width: 350px;
-  }
+  .header-container {width: 74%;}
+  .previewCategories-container {width: 280px;}
+  .previewCategories-links {grid-template-columns: repeat(2, 150px);}
   .trendingPreview-movies {
-    grid-template-columns: repeat(3, 120px);
+    grid-template-columns: repeat(2, 160px);
+    grid-template-rows: repeat(5, 290px);
+    margin-top: 20px;
   }
-  .trendingPreview-header {
-    flex-direction: column;
+  .trendingPreview-header {flex-direction: column;}
+  .trendingPreview-header {height: 100px;}
+  .movie-container {
+    width: 140px;
+    height: 280px;
   }
   .movie-img {
-    width: 105px;
-    height: 180px;
+    width: 130px;
+    height: 260px;
   }
   .genericMovies {
     width: auto;
     height: 450px;
     justify-content: center;
-    grid-template-columns: repeat(3, 120px);
+    grid-template-columns: repeat(2, 120px);
   }
   .movieDetail-img {
     width: 340px;
     height: 400px;
   }
-  .movieDetail-description{
-    width: 360px;
-  }
+  .movieDetail-description{width: 360px;}
   .movieDetail-rating-container {
     font-size: 22px;
     font-weight: bold;
@@ -91,9 +85,7 @@ a:hover {
     font-weight: bold;
     color: #dffafa;
   }
-  .relatedMovies-container {
-    width: 400px;
-  }
+  .relatedMovies-container {width: 400px;}
   .relatedMovies-text{ 
     font-size: 22px;
     padding: 6px;
@@ -103,17 +95,25 @@ a:hover {
     justify-content: center;
     grid-template-columns: repeat(3, 130px);
   }
-  .movie-container {
-    width: 120px;
-  }
 }
 @media (max-width: 380px) {
-  /* .header-container {
-    width: 362px;
+  .header-container {width: 85%;}
+  .previewCategories-links {
+    width: 300px;
+    grid-template-columns: repeat(2, 150px);
   }
-  .previewCategories-container {
-    width: 362px;
-  } */
+  .trendingPreview-movies {
+    grid-template-columns: repeat(2, 140px);
+    grid-template-rows: repeat(5, 260px);
+  }
+  .movie-container {
+    width: 130px;
+    height: 240px;
+  }
+  .movie-img {
+    width: 120px;
+    height: 240px;
+  }
   .genericMovies {
     width: 320px;
     height: 450px;
@@ -136,9 +136,7 @@ a:hover {
     font-size: 18px;
     font-weight: bold;
   }
-  .relatedMovies-container {
-    width: 350px;
-  }
+  .relatedMovies-container {width: 350px;}
   .relatedMovies-text{ 
     font-size: 22px;
     padding: 12px;
@@ -146,9 +144,6 @@ a:hover {
   .relatedMovies-gridContainer {
     width: auto;
     justify-content: center;
-    grid-template-columns: repeat(3, 120px);
-  }
-  .movie-container {
-    width: 120px;
+    grid-template-columns: repeat(2, 120px);
   }
 }

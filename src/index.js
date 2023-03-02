@@ -1,12 +1,18 @@
 const api = axios.create({
   baseURL: 'https://api.themoviedb.org/3',
+  headers: {
+    'Content-Type': 'application/json;charset=utf-8',
+  },
+  params: {
+    'api_key': API_KEY,
+  },
 });
 
 function createMovies(movies) {
   movies.forEach(movie => {
 
-    const trendingMovieContainer = document.querySelector('.trendingPreview-container');
-    const trendingPreviewMovies = document.querySelector('.trendingPreview-movies')
+    const trendingMovieContainer = articleTrendingPreview;
+    const trendingPreviewMovies = containerTrendingPreviewMovies;
 
     
     const movieContainer = document.createElement('div');
@@ -23,18 +29,38 @@ function createMovies(movies) {
   });
 };
 
-function CreateCategoriesPreview(categories) {
-  categories.forEach(category => {
-    const previewCategoriesContainer = document.querySelector('.previewCategories-container');
-    const previewLinksCategories = document.querySelector('.previewCategories-links')
+function CreateCategoriesPreview(categoriesUp, categoriesDown) {
+  categoriesUp.forEach(category => {
+    const previewCategoriesContainer = articleUpPreviewCategories;
+    const previewLinksCategories = containerLinks;
 
     const categoryLink = document.createElement('a');
     const categoryTitle = document.createTextNode(category.name);
+    // const categoryIcon = document.createElement('i');
+    // const filmIconClass = ['fa-sharp','fa-solid','film-icon']
     
     categoryLink.classList.add('movieLink');
     categoryLink.setAttribute('id', category.id);
     categoryLink.append(categoryTitle);
+    // categoryIcon.classList.add(filmIconClass);
 
+    previewLinksCategories.append(categoryLink);
+    previewCategoriesContainer.append(previewLinksCategories);
+
+  });
+  categoriesDown.forEach(category => {
+    const previewCategoriesContainer = articleDownPreviewCategories;
+    const previewLinksCategories = containerLinks2;
+
+    const categoryLink = document.createElement('a');
+    const categoryTitle = document.createTextNode(category.name);
+    // const categoryIcon = document.createElement('i');
+    // const filmIconClass = ['fa-sharp','fa-solid','film-icon']
+    
+    categoryLink.classList.add('movieLink');
+    categoryLink.setAttribute('id', category.id);
+    categoryLink.append(categoryTitle);
+    // categoryIcon.classList.add(filmIconClass);
 
     previewLinksCategories.append(categoryLink);
     previewCategoriesContainer.append(previewLinksCategories);
@@ -59,12 +85,9 @@ async function getCategoriesPreview() {
     const { data } = await api.get(API_GENRE_MOVIE_URL);
     console.log(data);
     const categories = data.genres
-    CreateCategoriesPreview(categories);
+    CreateCategoriesPreview(categories, categories);
 
   } catch (error) {
     console.error(error);
   }
 }
-
-getPreviewTrendingMovies();
-getCategoriesPreview();
