@@ -6,4 +6,9 @@
 <p>Generos</p>
 <p>Informacion Detallada</p>
 
+
+
+<h3>Platzi Student</h3>
+<h3>The MovieDB API</h3>
+<h3>Profesor JuanDC</h3>
 ///////////////////

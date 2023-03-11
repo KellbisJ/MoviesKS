@@ -1,5 +1,5 @@
 // header
-const sectionHeader = document.querySelector('.header-container');
+const sectionHeader = document.querySelector('.header-container', '.header-container-category');
 
 // articles
 const articleUpPreviewCategories = document.querySelector('.previewCategories-up-container');
@@ -40,6 +40,7 @@ const containerRelatedMoviesGrid = document.querySelector('.relatedMovies-gridCo
 
 // elements
 const headerText = document.querySelector('.header-text');
+const headerCategoryText = document.querySelector('.header-category-text');
 const headerText2 = document.querySelector('.header-text2');
 const arrowBack = document.querySelector('.header-arrow');
 const searchText = document.querySelector('.searchText');

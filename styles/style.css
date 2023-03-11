@@ -9,10 +9,21 @@
   justify-content: center;
   align-items: center;
 }
+.header-container-category {
+  display: flex;
+  height: 100px;
+  flex-direction: column;
+  justify-content: flex-end;
+}
 .header-text {
   color: #cfcdcd;
   font-size: 34px;
   margin-top: 8px;
+}
+.header-category-text {
+  color: #ace5f3;
+  font-size: 22px;
+  margin-left: 50px;
 }
 .header-text2 {
   color: #c0e4f5;
@@ -22,7 +33,7 @@
 .header-arrow {
   font-size: 34px;
   font-weight: 600;
-  color: #e08813;
+  color: #291536;
   position: absolute;
   top: 3%;
   left: 5%;
@@ -39,22 +50,19 @@
   align-items: center;
 }
 .searchForm-input {
-  display: flex;
+  display: inline-flex;
   position: relative;
   width: 100%;
   max-width: 700px;
   height: 40px;
 }
 .searchText {
-  position: absolute;
   width: inherit;
   max-width: inherit;
   height: inherit;
-  font-size: 20px;
-  border: 2px solid #9b949400;
+  font-size: 21px;
+  border: 2px solid #a8a3a300;
   border-radius: 24px;
-  margin-top: auto;
-  margin-bottom: auto;
   padding-left: 16px;
   outline: none;
   background: #fdfbfbf5;
@@ -69,7 +77,6 @@
   text-align: center;
   border: none;
   background: none;
-  
 }
 .searchIcon {
   font-size: 20px;
@@ -79,8 +86,7 @@
 .previewCategories-up-container {
   display: flex;
   justify-content: center;
-  width: auto;
-  margin: 40px auto auto auto;
+  margin-top: 40px;
 }
 .previewCategories-links {
   display: grid;
@@ -94,32 +100,29 @@
 .previewCategories-down-container {
   display: flex;
   justify-content: center;
-  width: 350px;
-  margin: auto;
+  margin-top: 40px;
 }
 .previewCategories-links2 {
   display: grid;
   grid-template-columns: repeat(4, 200px);
   grid-template-rows: auto;
-  margin-top: 50px;
   justify-items: center;
   font-size: 18px;
   font-weight: bolder;
   color: #cfcdcd;
 }
 .movieLink {
-  margin: 6px;
+  padding: 10px;
 }
 /* preview de las peliculas en tendencia */
 .trendingPreview-container {
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+  margin-top: 45px;
 }
 .trendingPreview-header {
   display: flex;
   justify-content: space-around;
-  align-content: center;
   align-items: center;
   height: 80px;
 }
@@ -131,41 +134,37 @@
   width: 172px;
   height: 42px;
   border: 1px solid #cec8c844;
-  border-radius: 12px;
+  border-radius: 14px;
   font-size: 18px;
   font-weight: bold;
   color: #031c70c2;
 }
 .trendingPreview-movies {
   display: grid;
-  grid-template-columns: repeat(4, 220px);
-  grid-template-rows: repeat(5, 380px);
+  grid-template-columns: repeat(4, 300px);
+  grid-template-rows: repeat(5, 465px);
   margin-top: 20px;
   justify-content: center;
   justify-items: center;
 }
 .movie-container {
   display: flex;
-  width: auto;
-  height: auto;
   justify-content: center;
   align-items: center;
 }
 .movie-img {
-  width: 190px;
-  height: 350px;
+  width: 220px;
+  height: 400px;
   cursor: pointer;
 }
 /* lista larga de peliculas que se buscan */
 .genericMovies {
   display: grid;
-  width: auto;
-  height: 600px;
-  grid-template-columns: repeat(3, 280px);
-  grid-template-rows: auto;
+  grid-template-columns: repeat(4, 300px);
+  grid-template-rows: repeat(5, 460px);
   justify-content: center;
   justify-items: center;
-  margin: auto;
+  margin: 50px;
 }
 /* detalle de la pelicula */
 .movieDetail-container {
