@@ -105,6 +105,10 @@ a:hover {
     justify-content: center;
     grid-template-columns: repeat(3, 130px);
   }
+  .footer__flex {
+    font-size: 14px;
+    padding: 12px;
+  }
 }
 @media (max-width: 350px) {
   .searchForm-container {width: 80%;}

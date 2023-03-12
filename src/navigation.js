@@ -8,6 +8,9 @@ searchBtn.addEventListener('click', () => {
   searchText.value.length >= 2 ? location.hash = `#search=${searchText.value}` :
   console.warn('Busqueda debe llevar minimo 2 carácteres');
 });
+trendingBtn.addEventListener('click', () => {
+  location.hash = `#trends`;
+});
 
 function navigationPaths() {
   console.log({ location });
@@ -48,8 +51,8 @@ const homePath = () => {
 const trendsPath = () => {
   console.log("trends");
 
-  sectionHeader.classList.remove('header-container-category');
   sectionHeader.classList.add('header-container');
+  sectionHeader.classList.remove('header-container-category');
   arrowBack.classList.remove('disabled');
   containerFormSearch.classList.add('disabled');
   headerCategoryText.classList.add('disabled');
@@ -83,7 +86,6 @@ const searchPath = () => {
   const [_, query] = location.hash.split('=');
   
   getMoviesBySearch(query);
-  // headerCategoryText.textContent = CategoryName;
 } 
 
 const moviePath = () => {
@@ -101,6 +103,11 @@ const moviePath = () => {
   articleUpPreviewCategories.classList.add('disabled');
   articleDownPreviewCategories.classList.add('disabled');
   articleGenericMovies.classList.add('disabled');
+
+  const [_, movieId] = location.hash.split('=');
+  
+  getMovieDetail(movieId);
+  getSimilarMoviesDetail(movieId)
 } 
 
 const categoryPath = () => {

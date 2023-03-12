@@ -4,7 +4,6 @@
   width: 90%;
   max-width: 1200px;
   flex-direction: column;
-  height: 150px;
   margin: auto;
   justify-content: center;
   align-items: center;
@@ -45,7 +44,7 @@
   width: 100%;
   max-width: 1000px;
   height: 40px;
-  margin: auto;
+  margin-top: 20px;
   justify-content: center;
   align-items: center;
 }
@@ -95,7 +94,6 @@
   justify-items: center;
   font-size: 18px;
   font-weight: bolder;
-  color: #cfcdcd;
 }
 .previewCategories-down-container {
   display: flex;
@@ -109,9 +107,9 @@
   justify-items: center;
   font-size: 18px;
   font-weight: bolder;
-  color: #cfcdcd;
 }
 .movieLink {
+  color: #cfcdcd;
   padding: 10px;
 }
 /* preview de las peliculas en tendencia */
@@ -138,6 +136,7 @@
   font-size: 18px;
   font-weight: bold;
   color: #031c70c2;
+  cursor: pointer;
 }
 .trendingPreview-movies {
   display: grid;
@@ -176,30 +175,30 @@
 .movieDetail-text {
   font-size: 26px;
   font-weight: bold;
-  margin-top: 20px;
-  color: #b82cc5;
+  color: #b5dce2;
 }
 .movieDetail-img {
-  width: 100%;
-  max-width: 500px;
-  height: 100%;
-  max-height: 600px;
+  width: 280px;
+  height: 450px;
   margin-top: 20px;
-  border: 4px solid #7faef58c;
   border-radius: 10px;
 }
 .movieDetail-description {
   width: 480px;
   font-size: 18px;
-  color: #15e6db;
+  color: #a8cac9;
 }
 .movieDetail-rating-container {
   font-size: 24px;
   font-weight: bold;
   text-align: center;
+  color: #39e764;
+}
+.movieDetail-rating {
+  color: #8ac7c7;
 }
 .ratingIcon {
-  color: #e7f524;
+  color: #dbe72a;
 }
 .categoriesList-container {
   display: flex;
@@ -224,15 +223,20 @@
 }
 .relatedMovies-gridContainer {
   display: grid;
-  grid-template-columns: repeat(3, 260px);
-  grid-template-rows: auto;
+  grid-template-columns: repeat(4, 200px);
+  grid-template-rows: repeat(5, 360px);
   justify-content: center;
   align-items: center;
   justify-items: center;
 }
 .footer-container {
-  margin: 30px;
-  height: 80px;
-  text-align: center;
-  color: #30dd0e;
+  margin-top: 40px;
+  border-radius: 2px;
+  background: linear-gradient(#1e2c3a, #213d5e);
+}
+.footer__flex {
+  display: flex;
+  padding: 40px;
+  justify-content: space-between;
+  color: #bbe7c6;
 }

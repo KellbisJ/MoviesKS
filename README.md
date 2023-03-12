@@ -2,13 +2,13 @@
 
 <h1>Página de peliculas</h1>
 
-<p>Tendencias</p>
-<p>Generos</p>
-<p>Informacion Detallada</p>
+<h3>Tendencias</h3>
+<h3>Generos</h3>
+<h3>Informacion Detallada</h3>
 
 
 
-<h3>Platzi Student</h3>
-<h3>The MovieDB API</h3>
-<h3>Profesor JuanDC</h3>
+<p>Platzi Student</p>
+<p>The MovieDB API</p>
+<p>Profesor JuanDC</p>
 ///////////////////

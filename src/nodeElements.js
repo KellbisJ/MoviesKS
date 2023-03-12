@@ -21,7 +21,6 @@ const containerLinks = document.querySelector('.previewCategories-links');
 
 const containerLinks2 = document.querySelector('.previewCategories-links2');
 
-
 const containerTrendingPreviewHeader = document.querySelector('.trendingPreview-header');
 
 const containerTrendingPreviewMovies = document.querySelector('.trendingPreview-movies');
@@ -29,8 +28,6 @@ const containerTrendingPreviewMovies = document.querySelector('.trendingPreview-
 const containerMovies = document.querySelector('.movie-container');
 
 const containerCategoriesList = document.querySelector('.categoriesList-container');
-
-const containerCategory = document.querySelector('.category-container');
 
 const containerMovieDetailRating = document.querySelector('.movieDetail-rating-container');
 
