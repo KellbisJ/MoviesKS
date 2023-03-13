@@ -25,6 +25,8 @@ function createMovies(movies, container) {
   });
 };
 function createCategoriesPreview(categoriesUp, categoriesDown) {
+  containerLinks.classList.remove('previwCategories-loading');
+  containerLinks2.classList.remove('previwCategories-loading');
   categoriesUp.forEach(category => {
     const categoryLink = document.createElement('a');
     const categoryTitle = document.createTextNode(category.name);
