@@ -10,33 +10,36 @@
 }
 .header-container-category {
   display: flex;
-  height: 100px;
+  height: 64px;
   flex-direction: column;
   justify-content: flex-end;
+  align-items: center;
 }
 .header-text {
-  color: #cfcdcd;
+  color: #c7def0;
+  filter: drop-shadow(2px 4px 2px #243e4e);
   font-size: 34px;
   margin-top: 8px;
 }
 .header-category-text {
-  color: #ace5f3;
-  font-size: 22px;
-  margin-left: 50px;
+  color: #e4eff0;
+  filter: drop-shadow(0px 0px 2px #232836);
 }
 .header-text2 {
-  color: #c0e4f5;
+  color: #e6eaec;
+  filter: drop-shadow(2px 0px 2px #162235);
   font-size: 21px;
   margin-top: 6px;
 }
 .header-arrow {
   font-size: 34px;
   font-weight: 600;
-  color: #291536;
+  color: #ecf3f3de;
   position: absolute;
   top: 3%;
   left: 5%;
   cursor: pointer;
+  filter: drop-shadow(0px 2px 1px #0b0f11);
 }
 /* barra de busqueda header */
 .searchForm-container {
@@ -52,19 +55,19 @@
   display: inline-flex;
   position: relative;
   width: 100%;
-  max-width: 700px;
+  max-width: 670px;
   height: 40px;
+  background: #f1efeffd;
+  border: 2px solid #8b898900;
+  border-radius: 22px;
 }
 .searchText {
-  width: inherit;
-  max-width: inherit;
-  height: inherit;
-  font-size: 21px;
-  border: 2px solid #a8a3a300;
-  border-radius: 24px;
+  width: 94%;
+  font-size: 18px;
+  border: 1px solid #a8a3a300;
   padding-left: 16px;
   outline: none;
-  background: #fdfbfbf5;
+  background: none;
 }
 .searchBtn {
   padding: 0;
@@ -82,6 +85,26 @@
   cursor: pointer;
 }
 /* tipos de generos de peliculas */
+
+/* estilos mientras carga la pagina */
+.previwCategories-loading {
+  width: 110px;
+  border: 10px solid #e7e7e7ce;
+  border-radius: 3px;
+  margin: auto;
+  animation: skeleton-loading infinite 2.4s;
+  animation-delay: 0.8s;
+}
+.previwCategories-loading:nth-child(2) {
+  animation-delay: 1s;
+}
+.previwCategories-loading:nth-child(3) {
+  animation-delay: 1.3s;
+}
+.previwCategories-loading:nth-child(4) {
+  animation-delay: 1.5s;
+}
+/* estilos mientras carga la pagina */
 .previewCategories-up-container {
   display: flex;
   justify-content: center;
@@ -92,7 +115,6 @@
   grid-template-columns: repeat(4, 200px);
   grid-template-rows: auto;
   justify-items: center;
-  font-size: 18px;
   font-weight: bolder;
 }
 .previewCategories-down-container {
@@ -105,14 +127,42 @@
   grid-template-columns: repeat(4, 200px);
   grid-template-rows: auto;
   justify-items: center;
-  font-size: 18px;
   font-weight: bolder;
 }
 .movieLink {
-  color: #cfcdcd;
-  padding: 10px;
+  width: 120px;
+  color: #d3cece;
+  box-shadow: 2px 3px 3px 0px #212a2eb0;
+  border-radius: 2px;
+  font-size: 18px;
+  margin: auto;
+  text-align: center;
 }
 /* preview de las peliculas en tendencia */
+.movie-loading {
+  display: flex;
+  background-color: #d4d4d4ea;
+  width: 280px;
+  min-width: 280px;
+  max-width: 280px;
+  height: 560px;
+  min-height: 560px;
+  max-height: 560px;
+  border-radius: 16px;
+  animation: skeleton-loading infinite 2s;
+}
+.movie-loading-detail {
+  display: flex;
+  background-color: #d4d4d4ea;
+  width: 680px;
+  min-width: 680px;
+  max-width: 680px;
+  height: 1050px;
+  min-height: 1050px;
+  max-height: 1050px;
+  border-radius: 16px;
+  animation: skeleton-loading infinite 2s;
+}
 .trendingPreview-container {
   display: flex;
   flex-direction: column;
@@ -126,41 +176,62 @@
 }
 .trendingPreview-text {
   font-size: 22px;
-  color: #c0e4f5;
+  color: #e6eaec;
+  filter: drop-shadow(0px 0px 2px #130e1b);
+  box-shadow: 0px 1.5px 0px 0px #212a2eb0;
 }
-.trendingPreview-btn {
-  width: 172px;
-  height: 42px;
-  border: 1px solid #cec8c844;
-  border-radius: 14px;
-  font-size: 18px;
-  font-weight: bold;
-  color: #031c70c2;
+.trendingHome-btn,
+.trendingPage-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 25px auto auto auto;
+  width: 260px;
+  height: 60px;
+  font-size: 20px;
+  border: 2px solid #51575b;
+  border-radius: 20px;
+  background-color: #32324e7c;
+  color: #d3cece;
+  font-family: inherit;
   cursor: pointer;
 }
 .trendingPreview-movies {
   display: grid;
-  grid-template-columns: repeat(4, 300px);
-  grid-template-rows: repeat(5, 465px);
-  margin-top: 20px;
+  grid-template-columns: repeat(4, 330px);
+  grid-template-rows: max-content;
   justify-content: center;
   justify-items: center;
+  align-items: center;
 }
 .movie-container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  width: 290px;
+  height: 600px;
+  margin: 30px 0 15px 0;
 }
 .movie-img {
-  width: 220px;
-  height: 400px;
+  width: inherit;
+  height: inherit;
   cursor: pointer;
+  border-radius: 16px;
+  box-shadow: 3px 3px 7px 8px #111516;
 }
+/* .movie-void {
+  width: 290px;
+  height: 600px;
+  background-color: #d1d4d4;
+  border-radius: 16px;
+  box-shadow: 3px 3px 7px 8px #111516;
+  font-size: 24px;
+  text-align: center;
+} */
 /* lista larga de peliculas que se buscan */
 .genericMovies {
   display: grid;
-  grid-template-columns: repeat(4, 300px);
-  grid-template-rows: repeat(5, 460px);
+  grid-template-columns: repeat(4, 350px);
+  grid-template-rows: repeat(5, 650px);
   justify-content: center;
   justify-items: center;
   margin: 50px;
@@ -168,28 +239,51 @@
 /* detalle de la pelicula */
 .movieDetail-container {
   display: flex;
+  align-content: center;
   flex-wrap: wrap;
   flex-direction: column;
+}
+.movieImgDetail-container {
+  display: flex;
+  justify-content: center;
   align-items: center;
+  width: 680px;
+  object-fit: cover;
+  height: 1050px;
+  margin: 50px auto auto auto;
 }
-.movieDetail-text {
-  font-size: 26px;
+.movieImgDetail {
+  width: inherit;
+  height: inherit;
+  cursor: pointer;
+  border-radius: 16px;
+  box-shadow: 2px 2px 8px 8px #161b1d;
+}
+.movieDetail-info {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: column-reverse;
+  align-content: center;
+  align-items: center;
+  margin: 60px 20px 0px 20px;
+}
+.movieDetail-name {
+  font-size: 24px;
   font-weight: bold;
-  color: #b5dce2;
+  color: #e4eff0;
+  filter: drop-shadow(0px 0px 2px #232836);
 }
-.movieDetail-img {
-  width: 280px;
-  height: 450px;
-  margin-top: 20px;
-  border-radius: 10px;
-}
+
 .movieDetail-description {
-  width: 480px;
-  font-size: 18px;
+  width: 660px;
+  font-size: 21px;
+  font-family: 'Heebo', sans-serif;
   color: #a8cac9;
+  text-align: justify;
 }
 .movieDetail-rating-container {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: bold;
   text-align: center;
   color: #39e764;
@@ -202,14 +296,13 @@
 }
 .categoriesList-container {
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
-  height: 40px;
-  font-size: 20px;
-  font-weight: bold;
+  flex-direction: row;
   text-align: center;
+  height: 40px;
+  font-size: 22px;
+  font-weight: bold;
 }
 .relatedMovies-container {
   display: flex;
@@ -218,25 +311,38 @@
   align-items: center;
 }
 .relatedMovies-text {
-  font-size: 24px;
+  font-size: 22px;
   padding: 24px;
 }
 .relatedMovies-gridContainer {
   display: grid;
-  grid-template-columns: repeat(4, 200px);
-  grid-template-rows: repeat(5, 360px);
+  grid-template-columns: repeat(4, 330px);
+  grid-template-rows: repeat(5, 640px);
   justify-content: center;
   align-items: center;
   justify-items: center;
 }
+/* footer */
 .footer-container {
   margin-top: 40px;
   border-radius: 2px;
-  background: linear-gradient(#1e2c3a, #213d5e);
+  background: linear-gradient(#263b4e, #213d5e);
 }
 .footer__flex {
   display: flex;
   padding: 40px;
   justify-content: space-between;
   color: #bbe7c6;
+}
+
+/* animaciones */
+
+@keyframes skeleton-loading {
+  0%,
+  100% {
+    opacity: 100%;
+  }
+  50% {
+    opacity: 20%;
+  }
 }

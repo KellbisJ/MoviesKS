@@ -25,7 +25,11 @@ const containerTrendingPreviewHeader = document.querySelector('.trendingPreview-
 
 const containerTrendingPreviewMovies = document.querySelector('.trendingPreview-movies');
 
-const containerMovies = document.querySelector('.movie-container');
+const containerMovies = document.querySelector('.movie-container', '.movie-loading');
+
+// const containerTrendingPreviewBtn = document.querySelector('trendingPreview-btn-container', 'movie-loading');
+
+const containerMovieInfo = document.querySelector('.movieDetail-info');
 
 const containerCategoriesList = document.querySelector('.categoriesList-container');
 
@@ -44,13 +48,17 @@ const searchText = document.querySelector('.searchText');
 const searchBtn = document.querySelector('.searchBtn');
 const movieLink = document.querySelector('.movieLink');
 const trendingText = document.querySelector('.trendingPreview-text');
-const trendingBtn = document.querySelector('.trendingPreview-btn');
+const trendingHomeBtn = document.querySelector('.trendingHome-btn');
+const trendingPageBtn = document.querySelector('.trendingPage-btn');
+// const trendingBtn = document.querySelector('.trendingPreview-btn');
 const movieImg = document.querySelector('.movie-img');
-const movieDetailText = document.querySelector('.movieDetail-text');
-const movieDetailImg = document.querySelector('.movieDetail-img');
+const movieDetailBackground = document.querySelector('.movieDetail-background');
+const movieDetailImgContainer = document.querySelector('.movieImgDetail-container');
+const movieDetailImg = document.querySelector('.movieImgDetail');
+const movieDetailName = document.querySelector('.movieDetail-name');
 const movieDetailDescription = document.querySelector('.movieDetail-description');
 const movieDetailRating = document.querySelector('.movieDetail-rating');
 const relatedMoviesText = document.querySelector('.relatedMovies-text');
 
-//footer 
+//footer
 const footer = document.querySelector('.footer-container');
