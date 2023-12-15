@@ -5,6 +5,7 @@ const api = axios.create({
   },
   params: {
     api_key: API_KEY,
+    language: 'es',
   },
 });
 
@@ -27,14 +28,34 @@ function createMovies(movies, container, { intersectionObserver = false, cleanCo
 
   movies.forEach((movie) => {
     const movieContainer = document.createElement('div');
+    const movieDetailContainer = document.createElement('div');
     const movieImg = document.createElement('img');
+    const movieCardTitle = document.createElement('span');
+    const movieCardRating = document.createElement('span');
+    const movieName = document.createElement('h2');
+    const movieRating = document.createElement('i');
 
-    movieContainer.classList.add('movie-container');
+    movieContainer.classList.add('movie_container');
+    movieDetailContainer.classList.add('movie-container_detail');
     movieImg.classList.add('movie-img');
+    movieCardTitle.classList.add('movie_name_title');
+    movieCardRating.classList.add('rating_card');
     movieImg.setAttribute('alt', movie.title);
-    movieImg.setAttribute(intersectionObserver ? 'data-img' : 'src', `https://image.tmdb.org/t/p/original/${movie.poster_path}`);
+    movieImg.setAttribute(intersectionObserver ? 'data-img' : 'src', `https://image.tmdb.org/t/p/w300/${movie.poster_path}`);
+    trendingBtnMore.textContent = 'Ver todas las peliculas';
+    trendingText.textContent = 'Lo mas reciente en tendencia';
+    trendingPageBtn.textContent = 'Ver mas';
 
-    movieContainer.append(movieImg);
+    movieRating.setAttribute('class', 'fa-solid fa-star rating_icon');
+    movieName.textContent = movie.title;
+    movieCardRating.textContent = movie.vote_average.toFixed(1);
+
+    movieCardTitle.append(movieName);
+    movieCardRating.append(movieRating);
+
+    movieDetailContainer.append(movieCardTitle, movieCardRating);
+
+    movieContainer.append(movieImg, movieDetailContainer);
     container.append(movieContainer);
 
     if (intersectionObserver) {
@@ -48,36 +69,21 @@ function createMovies(movies, container, { intersectionObserver = false, cleanCo
       movieImg.setAttribute('src', 'https://img.freepik.com/vector-gratis/ilustracion-concepto-pagina-no-encontrada_114360-1869.jpg');
     });
   });
-
-  // container == containerTrendingPreviewMovies ? container.append(movieVoid) : movieVoid.classList.add('disabled');
 }
 
-function createCategoriesPreview(categoriesUp, categoriesDown) {
-  containerLinks.innerHTML = '';
-  containerLinks2.innerHTML = '';
-  categoriesUp.forEach((category) => {
+function createCategoriesPreview(categories) {
+  containerPreviewLinks.innerHTML = '';
+  categories.forEach((category) => {
     const categoryLink = document.createElement('a');
     const categoryTitle = document.createTextNode(category.name);
+
+    containerPreviewText.textContent = 'BUSCAR PELICULA POR GÉNERO';
 
     categoryLink.classList.add('movieLink');
     categoryLink.setAttribute('id', category.id);
     categoryLink.append(categoryTitle);
 
-    containerLinks.append(categoryLink);
-
-    categoryLink.addEventListener('click', () => {
-      location.hash = `#category=${category.id}-${category.name}`;
-    });
-  });
-  categoriesDown.forEach((category) => {
-    const categoryLink = document.createElement('a');
-    const categoryTitle = document.createTextNode(category.name);
-
-    categoryLink.classList.add('movieLink');
-    categoryLink.setAttribute('id', category.id);
-    categoryLink.append(categoryTitle);
-
-    containerLinks2.append(categoryLink);
+    containerPreviewLinks.append(categoryLink);
 
     categoryLink.addEventListener('click', () => {
       location.hash = `#category=${category.id}-${category.name}`;
@@ -85,10 +91,11 @@ function createCategoriesPreview(categoriesUp, categoriesDown) {
   });
 }
 
-async function getPreviewTrendingMoviesHome() {
+async function getPreviewTrendingMovies() {
   try {
     const { data: movies } = await api.get(API_TRENDING_MOVIES_URL);
-    console.log(movies);
+    maxPage = movies.total_pages;
+
     createMovies(movies.results, containerTrendingPreviewMovies, { intersectionObserver: false, cleanContain: true });
   } catch (error) {
     console.error(error);
@@ -98,27 +105,31 @@ async function getPreviewTrendingMoviesHome() {
 async function getPreviewCategories() {
   try {
     const { data } = await api.get(API_GENRE_MOVIE_URL);
-    console.log(data);
+
     const categories = data.genres;
-    createCategoriesPreview(categories, categories);
+    createCategoriesPreview(categories);
   } catch (error) {
     console.error(error);
   }
 }
 
-let page = 1;
-
 async function getNextMoviesTrendingSection() {
   try {
-    page++;
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+    const scrollEnd = scrollTop + clientHeight >= scrollHeight - 600;
+    const pageIsNotMax = page < maxPage;
 
-    const { data: movies } = await api.get(API_TRENDING_MOVIES_URL, {
-      params: {
-        page,
-      },
-    });
-    console.log(movies);
-    createMovies(movies.results, containerTrendingPreviewMovies, { intersectionObserver: true, cleanContain: false });
+    if (scrollEnd && pageIsNotMax) {
+      page++;
+
+      const { data: movies } = await api.get(API_TRENDING_MOVIES_URL, {
+        params: {
+          page,
+        },
+      });
+      createMovies(movies.results, containerTrendingPreviewMovies, { intersectionObserver: true, cleanContain: false });
+    }
+    return;
   } catch (error) {
     console.error(error);
   }
@@ -131,39 +142,100 @@ async function getMoviesByCategory(id) {
         with_genres: id,
       },
     });
-    console.log(movies);
+    maxPage = movies.total_pages;
 
     createMovies(movies.results, articleGenericMovies, { intersectionObserver: true, cleanContain: true });
   } catch (error) {
     console.error(error);
   }
 }
+function getNextMoviesByCategory(id) {
+  return async function () {
+    try {
+      const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+      const scrollEnd = scrollTop + clientHeight >= scrollHeight - 30;
+      const pageIsNotMax = page < maxPage;
 
-async function getMoviesBySearch(id) {
+      if (scrollEnd && pageIsNotMax) {
+        page++;
+
+        const { data: movies } = await api.get(API_MOVIE_CATEGORY, {
+          params: {
+            with_genres: id,
+            page,
+          },
+        });
+        console.log(movies);
+
+        createMovies(movies.results, articleGenericMovies, { intersectionObserver: true, cleanContain: false });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+}
+
+async function getMoviesBySearch(query) {
   try {
     const { data: movies } = await api.get(API_MOVIE_SEARCH, {
       params: {
-        query: id,
+        query,
+        language: 'es',
       },
     });
-    console.log(movies);
+
+    maxPage = movies.total_pages;
 
     createMovies(movies.results, articleGenericMovies, { intersectionObserver: true, cleanContain: true });
+    movies.total_results === 0
+      ? mensajeResultadosDeBusquedaNoEncontrados.classList.remove('disabled')
+      : mensajeResultadosDeBusquedaNoEncontrados.classList.add('disabled');
+    console.log(movies);
   } catch (error) {
     console.error(error);
   }
+}
+
+function getNextMoviesBySearch(query) {
+  return async function () {
+    try {
+      const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+      const scrollEnd = scrollTop + clientHeight >= scrollHeight - 30;
+      const pageIsNotMax = page < maxPage;
+
+      if (scrollEnd && pageIsNotMax) {
+        page++;
+
+        const { data: movies } = await api.get(API_MOVIE_SEARCH, {
+          params: {
+            query,
+            page,
+          },
+        });
+
+        createMovies(movies.results, articleGenericMovies, { intersectionObserver: true, cleanContain: false });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 }
 
 async function getMovieDetail(id) {
   try {
     const { data: movie } = await api.get(API_MOVIE_DETAIL(id));
 
-    movieDetailImgContainer.classList.remove('movie-loading-detail');
+    movieDetailImg.src = `https://image.tmdb.org/t/p/w300/${movie.poster_path}`;
+    movieDetailImg.classList.remove('movie_loading');
+
+    const movieRating = document.createElement('i');
+    movieRating.setAttribute('class', 'fa-solid fa-star rating_icon');
+
     movieDetailName.textContent = movie.title;
-    movieDetailRating.textContent = movie.vote_average;
-    movieDetailDescription.textContent = movie.overview;
-    movieDetailImg.src = `https://image.tmdb.org/t/p/original/${movie.poster_path}`;
-    movieDetailImg.classList.remove('disabled');
+    containerMovieDetailRating.textContent = movie.vote_average.toFixed(1);
+    containerMovieDetailRating.append(movieRating);
+    movieDetailDescription.textContent = movie.overview ? movie.overview : 'Sin descripción';
+    movieReleaseInfo.textContent = movie.release_date ? `Fecha de lanzamiento: ${movie.release_date}` : 'Sin fecha de lanzamiento';
 
     movieDetailImg.addEventListener('error', () => {
       movieDetailImg.setAttribute('src', 'https://img.freepik.com/vector-gratis/ilustracion-concepto-pagina-no-encontrada_114360-1869.jpg');
@@ -171,11 +243,12 @@ async function getMovieDetail(id) {
 
     const createSimilarGenres = (genres) => {
       containerCategoriesList.innerHTML = '';
+      containerCategoriesList.textContent = 'Genero:';
       genres.forEach((genre) => {
         const categoryLink = document.createElement('a');
-        const categoryTitle = document.createTextNode(genre.name);
+        const categoryTitle = document.createTextNode(`(${genre.name})`);
 
-        categoryLink.classList.add('movieLink');
+        categoryLink.classList.add('movieLink2');
         categoryLink.setAttribute('id', genre.id);
         categoryLink.append(categoryTitle);
 
@@ -187,6 +260,7 @@ async function getMovieDetail(id) {
       });
     };
     createSimilarGenres(movie.genres);
+    console.log({ movie });
   } catch (error) {
     console.error(error);
   }
@@ -194,6 +268,10 @@ async function getMovieDetail(id) {
 
 async function getSimilarMoviesDetail(id) {
   const { data: movie } = await api.get(API_MOVIE_DETAIL_SIMILAR(id));
+
+  movie.total_results == 0
+    ? mensajesDePeliculasSimilaresNoEncontrados.classList.remove('disabled')
+    : mensajesDePeliculasSimilaresNoEncontrados.classList.add('disabled');
 
   createMovies(movie.results, containerRelatedMoviesGrid, { intersectionObserver: false, cleanContain: true });
 }
