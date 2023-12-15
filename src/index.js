@@ -153,7 +153,7 @@ function getNextMoviesByCategory(id) {
   return async function () {
     try {
       const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-      const scrollEnd = scrollTop + clientHeight >= scrollHeight - 30;
+      const scrollEnd = scrollTop + clientHeight >= scrollHeight - 600;
       const pageIsNotMax = page < maxPage;
 
       if (scrollEnd && pageIsNotMax) {
@@ -200,7 +200,7 @@ function getNextMoviesBySearch(query) {
   return async function () {
     try {
       const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-      const scrollEnd = scrollTop + clientHeight >= scrollHeight - 30;
+      const scrollEnd = scrollTop + clientHeight >= scrollHeight - 600;
       const pageIsNotMax = page < maxPage;
 
       if (scrollEnd && pageIsNotMax) {
