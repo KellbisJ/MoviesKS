@@ -1,102 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./styles/style.css">
-  <link rel="stylesheet" href="./styles/edits.css">
-  <script src="https://kit.fontawesome.com/6718b6d2c6.js" crossorigin="anonymous"></script>
-  <title>MoviesKS</title>
-</head>
-<body>
-  <header class="header-container header-container-category">
-    <h1 class="header-text">MoviesKs</h1>
-    <h2 class="header-category-text disabled">Acción</h2>
-    <span class="header-arrow disabled">&lt;</span>
-    <h1 class="header-text2">Peliculas, busca, observa, encuentra.</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@600&family=Merriweather&family=Roboto+Condensed:wght@700&display=swap"
+      rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/6718b6d2c6.js" crossorigin="anonymous"></script>
+    <title>MoviesKS</title>
+  </head>
+  <body>
+    <header class="header-container">
+      <!-- <header class="header-container header-container-category"> -->
+      <div class="text_header_bar_left">
+        <h1 class="page_name">MoviesKS</h1>
+      </div>
 
-    <form class="searchForm-container">
-      <div class="searchForm-input">
+      <div class="text_header_bar_center">
+        <h2 class="header-text">Peliculas, busca, descubre y analiza.</h2>
+      </div>
+
+      <button class="button_bar_search_right">
+        <i class="fa-solid fa-magnifying-glass searchIcon"></i>
+      </button>
+      <!-- <i class="fa-solid fa-bars bar_menu">
+        <span class="bar_menu_trends"></span>
+        <span class="bar_menu_category"></span>
+      </i> -->
+
+      <form class="searchForm-container disabled">
         <input class="searchText" type="text" placeholder="Buscar Peliculas" />
-        <button class="searchBtn">
-          <i class="fa-solid fa-magnifying-glass searchIcon"></i>
-        </button>
-      </div>
-    </form>
-  </header>
+        <button class="searchBtn_results">BUSCAR</button>
+      </form>
+    </header>
 
-  <article class="previewCategories-up-container">
-    <section class="previewCategories-links">
-      <!-- <a class="movieLink">Acción</a> -->
-      <!-- <i class="fa-sharp fa-solid fa-film"></i> -->
-    </section>
-  </article>
-
-  <article class="trendingPreview-container">
-    <div class="trendingPreview-header">
-      <h2 class="trendingPreview-text">Peliculas en Tendencia</h2>
-      <button class="trendingPreview-btn">Ver mas</button>
-    </div>
-    <section class="trendingPreview-movies">
-      <!-- <div class="movie-container">
-        <img class="movie-img" src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg" alt="movie name">
-      </div> -->
-    </section>
-  </article>
-
-  <article class="previewCategories-down-container">
-    <section class="previewCategories-links2">
-    </section>
-  </article>
-
-  <article class="genericMovies disabled">
-
-    <div class="movie-container disabled">
-      <img class="movie-img disabled" src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg" alt="movie name">
+    <div class="name_category_container disabled">
+      <h2 class="name_category">Acción</h2>
     </div>
 
-  </article>
+    <h2 class="trending_text">...</h2>
 
-  <article class="movieDetail-container disabled">
-    <h1 class="movieDetail-text"></h1>
-    <img class="movieDetail-img" src="https://image.tmdb.org/t/p/w300/" alt="movie name">
-    <p class="movieDetail-description">
-    </p>
-    <p class="movieDetail-rating-container">Rating:
-    <i class="fa-solid fa-star ratingIcon"></i> 
-    <span class="movieDetail-rating"></span>
-    </p>
+    <article class="trendingPreview-container">
+      <section class="trendingPreview-movies">
+        <div class="movie_container movie_loading">
+          <div class="movie-container_detail">
+            <span class="movie_name_title"></span>
+            <span class="rating_card"></span>
+          </div>
+        </div>
+        <div class="movie_container movie_loading"></div>
+        <div class="movie_container movie_loading"></div>
+        <div class="movie_container movie_loading"></div>
+        <div class="movie_container movie_loading"></div>
+        <div class="movie_container movie_loading"></div>
+        <div class="movie_container movie_loading"></div>
+        <div class="movie_container movie_loading"></div>
+        <div class="movie_container movie_loading"></div>
+        <div class="movie_container movie_loading"></div>
+        <div class="movie_container movie_loading"></div>
+        <div class="movie_container movie_loading"></div>
+        <div class="movie_container movie_loading"></div>
+        <div class="movie_container movie_loading"></div>
+        <div class="movie_container movie_loading"></div>
+        <div class="movie_container movie_loading"></div>
+        <div class="movie_container movie_loading"></div>
+        <div class="movie_container movie_loading"></div>
+        <div class="movie_container movie_loading"></div>
+        <div class="movie_container movie_loading"></div>
+        <!-- <div class="movie-void movie_loading"></div> -->
+      </section>
+      <button class="trendingPage-btn">...</button>
+    </article>
 
-    <section class="categoriesList-container">
-        <!-- <a class="movieLink">Acción</a>
-        <a class="movieLink">Acción</a>
-        <a class="movieLink">Acción</a> -->
-    </section>
+    <button class="trending_text_btn">...</button>
 
-    <section class="relatedMovies-container">
-      <h2 class="relatedMovies-text">Peliculas Similares</h2>
-
-      <div class="relatedMovies-gridContainer">
-        <!-- <div class="movie-container">
-          <img class="movie-img" src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg" alt="movie name">
-        </div>   -->
+    <article class="previewCategories_container">
+      <div class="previewCategories_text_icon">
+        <h2 class="previewCategories_text"></h2>
+        <i class="fa-solid fa-list previewCategories_icon"></i>
       </div>
-    </section>
-  </article>
+      <section class="previewCategories_links">
+        <div class="previewCategories-loading"></div>
+        <div class="previewCategories-loading"></div>
+        <div class="previewCategories-loading"></div>
+        <div class="previewCategories-loading"></div>
+      </section>
+    </article>
 
-  <footer class="footer-container">
-    <div class="footer__flex">
-      <h4 class="footerText">MoviesKS</h4>
-      <h4 class="footerText">TheMovieDB</h4>
-      <h4 class="footerText">Kellbis Salazar</h4>
-  </div>
-  </footer>
+    <h2 class="noResults_message disabled">Oops No hay Resultados</h2>
+    <article class="genericMovies disabled">
+      <div class="movie_container movie_loading"></div>
+      <div class="movie_container movie_loading"></div>
+      <div class="movie_container movie_loading"></div>
+      <div class="movie_container movie_loading"></div>
+      <div class="movie_container movie_loading"></div>
+      <div class="movie_container movie_loading"></div>
+      <div class="movie_container movie_loading"></div>
+      <div class="movie_container movie_loading"></div>
+      <div class="movie_container movie_loading"></div>
+      <div class="movie_container movie_loading"></div>
+      <div class="movie_container movie_loading"></div>
+      <div class="movie_container movie_loading"></div>
+      <div class="movie_container movie_loading"></div>
+      <div class="movie_container movie_loading"></div>
+      <div class="movie_container movie_loading"></div>
+      <div class="movie_container movie_loading"></div>
+      <div class="movie_container movie_loading"></div>
+      <div class="movie_container movie_loading"></div>
+      <div class="movie_container movie_loading"></div>
+      <div class="movie_container movie_loading"></div>
+    </article>
 
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="./src/auth.js"></script>
-  <script src="./src/nodeElements.js"></script>
-  <script src="./src/index.js"></script>
-  <script src="./src/navigation.js"></script>
-</body>
+    <article class="movieDetail_container_general disabled">
+      <div class="movieDetail_container_info">
+        <div class="movieDetail_movie">
+          <h2 class="movieDetail-name disabled"></h2>
+          <img class="movieImgDetail movie_loading" src="" alt="movie name" />
+          <span class="movieDetail-rating-container">
+            ...
+            <i class="fa-solid fa-star rating_icon"></i>
+          </span>
+        </div>
+
+        <div class="movieDetail-info">
+          <h2 class="movie_release_info"></h2>
+
+          <div class="categoriesList-container">
+            <div class="movieLink2 previewCategories-loading"></div>
+            <div class="movieLink2 previewCategories-loading"></div>
+            <div class="movieLink2 previewCategories-loading"></div>
+          </div>
+
+          <span class="movieDetail-description"></span>
+        </div>
+      </div>
+
+      <section class="relatedMovies-container">
+        <h2 class="relatedMovies-text">Peliculas Similares</h2>
+        <h2 class="NoSimilarMoviesText disabled">No se encontraron peliculas similares</h2>
+
+        <div class="relatedMovies-gridContainer">
+          <div class="movie_container movie_loading"></div>
+          <div class="movie_container movie_loading"></div>
+          <div class="movie_container movie_loading"></div>
+          <div class="movie_container movie_loading"></div>
+          <div class="movie_container movie_loading"></div>
+          <div class="movie_container movie_loading"></div>
+          <div class="movie_container movie_loading"></div>
+          <div class="movie_container movie_loading"></div>
+          <div class="movie_container movie_loading"></div>
+          <div class="movie_container movie_loading"></div>
+          <div class="movie_container movie_loading"></div>
+          <div class="movie_container movie_loading"></div>
+          <div class="movie_container movie_loading"></div>
+          <div class="movie_container movie_loading"></div>
+          <div class="movie_container movie_loading"></div>
+          <div class="movie_container movie_loading"></div>
+          <div class="movie_container movie_loading"></div>
+          <div class="movie_container movie_loading"></div>
+          <div class="movie_container movie_loading"></div>
+        </div>
+      </section>
+    </article>
+
+    <footer class="footer-container"></footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./src/auth.js"></script>
+    <script src="./src/nodeElements.js"></script>
+    <script src="./src/navigation.js"></script>
+    <script src="./src/index.js"></script>
+  </body>
 </html>

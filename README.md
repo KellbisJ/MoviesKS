@@ -14,9 +14,8 @@
 <h3>1. Clona el repositorio.</h3>
 <h3>2. Y listo ya esta empieza a modificar lo que quieras con tu editor de codigo no necesitas instalar depencias por el momento porque el proyecto no las posee.</h3>
 
-
-<h6>en branch (master) y (pro) puedes ver diferentes commits y cambios ocurridos por el proceso.</h6>
-<h6>branch (template-loading-skeletons) es una rama de un solo cambio en particular, que es implementar el diseño de carga de la pagina.</h6>
-<h6>branch (pagina) es la rama de produccion, la que se uso para poner en produccion.</h6>
+<p>Platzi Student</p>
+<p>The MovieDB API</p>
+<p>Profesor JuanDC</p>
 
 👍👍👍

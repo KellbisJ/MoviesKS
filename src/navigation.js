@@ -1,134 +1,159 @@
+let page = 1;
+let maxPage;
+let infiniteScroll;
+
 window.addEventListener('DOMContentLoaded', navigationPaths, false);
 window.addEventListener('hashchange', navigationPaths, false);
+window.addEventListener('scroll', infiniteScroll, false);
 
-arrowBack.addEventListener('click', () => {
-  window.history.back();
+pageName.addEventListener('click', () => {
+  location.hash = '';
+  window.location.reload();
+  // window.history.back();
+  window.scroll({ top: 0 });
+  movieDetailImg.src = `https://image.tmdb.org/t/p/original/`;
 });
-searchBtn.addEventListener('click', () => {
-  searchText.value.length >= 2 ? location.hash = `#search=${searchText.value}` :
-  console.warn('Busqueda debe llevar minimo 2 carácteres');
+
+search_btn_icon.addEventListener('click', (e) => {
+  e.preventDefault();
+  containerFormSearch.classList.toggle('disabled');
 });
-trendingBtn.addEventListener('click', () => {
-  location.hash = `#trends`;
+
+buttonBarResults.addEventListener('click', (e) => {
+  e.preventDefault();
+  searchText.value.length >= 1 ? (location.hash = `#search=${searchText.value}`) : console.warn('Busqueda debe llevar minimo 2 carácteres');
+});
+
+trendingBtnMore.addEventListener('click', () => {
+  location.hash = '#trends';
 });
 
 function navigationPaths() {
-  console.log({ location });
+  infiniteScroll
+    ? (window.removeEventListener('scroll', infiniteScroll, { passive: false }), (infiniteScroll = undefined))
+    : (infiniteScroll = undefined);
 
-  location.hash.startsWith('#trends') ? 
-  trendsPath() : 
-  location.hash.startsWith('#search=') ?
-  searchPath() :
-  location.hash.startsWith('#movie=') ?
-  moviePath() :
-  location.hash.startsWith('#category=') ?
-  categoryPath() :
-  homePath();
+  location.hash.startsWith('#trends')
+    ? trendsPath()
+    : location.hash.startsWith('#search=')
+    ? searchPath()
+    : location.hash.startsWith('#movie=')
+    ? moviePath()
+    : location.hash.startsWith('#category=')
+    ? categoryPath()
+    : homePath();
 
-  window.scroll({ top: 0})
-};
+  window.scroll({ top: 0 });
+
+  infiniteScroll ? window.addEventListener('scroll', infiniteScroll, { passive: false }) : (infiniteScroll = undefined);
+}
 
 const homePath = () => {
-  console.log("home");
-
-  sectionHeader.classList.remove('header-container-category');
-  sectionHeader.classList.add('header-container');
-  arrowBack.classList.add('disabled');
+  trendingPageBtn.classList.add('disabled');
+  movieDetailName.classList.add('disabled');
   articleGenericMovies.classList.add('disabled');
   articleMovieDetail.classList.add('disabled');
-  headerCategoryText.classList.add('disabled');
+  nameMovieCategory.classList.add('disabled');
+  mensajeResultadosDeBusquedaNoEncontrados.classList.add('disabled');
   headerText.classList.remove('disabled');
-  headerText2.classList.remove('disabled');
-  containerFormSearch.classList.remove('disabled');
-  articleTrendingPreview.classList.remove('disabled')
-  articleUpPreviewCategories.classList.remove('disabled');
-  articleDownPreviewCategories.classList.remove('disabled');
+  trendingText.classList.remove('disabled');
+  pageName.classList.remove('disabled');
+  articleTrendingPreview.classList.remove('disabled');
+  articlePreviewCategories.classList.remove('disabled');
+  trendingBtnMore.classList.remove('disabled');
+  nameMovieCategory.classList.add('disabled');
+  document.body.style.backgroundImage = '';
+  searchText.value = '';
 
   getPreviewTrendingMovies();
   getPreviewCategories();
 };
- 
-const trendsPath = () => {
-  console.log("trends");
 
-  sectionHeader.classList.add('header-container');
-  sectionHeader.classList.remove('header-container-category');
-  arrowBack.classList.remove('disabled');
+const trendsPath = () => {
+  trendingText.classList.remove('disabled');
+  trendingBtnMore.classList.add('disabled');
+  trendingPageBtn.classList.remove('disabled');
+  movieDetailName.classList.add('disabled');
   containerFormSearch.classList.add('disabled');
-  headerCategoryText.classList.add('disabled');
+  nameMovieCategory.classList.add('disabled');
   articleMovieDetail.classList.add('disabled');
+  nameMovieCategory.classList.add('disabled');
   headerText.classList.add('disabled');
-  headerText2.classList.add('disabled');
   articleGenericMovies.classList.add('disabled');
-  articleTrendingPreview.classList.remove('disabled')
-  articleUpPreviewCategories.classList.add('disabled');
-  articleDownPreviewCategories.classList.remove('disabled');
+  articleTrendingPreview.classList.remove('disabled');
+  articlePreviewCategories.classList.add('disabled');
+  mensajeResultadosDeBusquedaNoEncontrados.classList.add('disabled');
+  nameMovieCategory.classList.add('disabled');
 
   getPreviewTrendingMovies();
   getPreviewCategories();
-} 
+
+  infiniteScroll = getNextMoviesTrendingSection;
+};
 
 const searchPath = () => {
-  console.log("search");
-
-  arrowBack.classList.remove('disabled');
   containerFormSearch.classList.remove('disabled');
-  headerCategoryText.classList.remove('disabled');
   articleGenericMovies.classList.remove('disabled');
-  
+
+  trendingText.classList.add('disabled');
+  nameMovieCategory.classList.add('disabled');
+  trendingBtnMore.classList.add('disabled');
+  movieDetailName.classList.add('disabled');
+  nameMovieCategory.classList.add('disabled');
   headerText.classList.add('disabled');
-  headerText2.classList.add('disabled');
   articleTrendingPreview.classList.add('disabled');
   articleMovieDetail.classList.add('disabled');
-  articleUpPreviewCategories.classList.add('disabled');
-  articleDownPreviewCategories.classList.add('disabled');
+  articlePreviewCategories.classList.add('disabled');
+  nameMovieCategory.classList.add('disabled');
+  document.body.style.backgroundImage = '';
 
   const [_, query] = location.hash.split('=');
-  
+  searchText.value = decodeURIComponent(query);
+
   getMoviesBySearch(query);
-} 
+
+  infiniteScroll = getNextMoviesBySearch(query);
+};
 
 const moviePath = () => {
-  console.log("movieDetail");
-
-  sectionHeader.classList.remove('header-container');
-  sectionHeader.classList.add('header-container-category');
-  arrowBack.classList.remove('disabled');
+  movieDetailName.classList.remove('disabled');
   articleMovieDetail.classList.remove('disabled');
-  headerCategoryText.classList.add('disabled');
+  trendingText.classList.add('disabled');
+  trendingBtnMore.classList.add('disabled');
   headerText.classList.add('disabled');
-  headerText2.classList.add('disabled');
-  containerFormSearch.classList.add('disabled');
-  articleTrendingPreview.classList.add('disabled')
-  articleUpPreviewCategories.classList.add('disabled');
-  articleDownPreviewCategories.classList.add('disabled');
+  articleTrendingPreview.classList.add('disabled');
+  articlePreviewCategories.classList.add('disabled');
   articleGenericMovies.classList.add('disabled');
+  mensajeResultadosDeBusquedaNoEncontrados.classList.add('disabled');
+  nameMovieCategory.classList.add('disabled');
 
   const [_, movieId] = location.hash.split('=');
-  
+
   getMovieDetail(movieId);
-  getSimilarMoviesDetail(movieId)
-} 
+  getSimilarMoviesDetail(movieId);
+};
 
 const categoryPath = () => {
-  console.log("categories");
-  
-  sectionHeader.classList.remove('header-container');
-  sectionHeader.classList.add('header-container-category');
-  arrowBack.classList.remove('disabled');
+  pageName.classList.remove('disabled');
+  trendingBtnMore.classList.add('disabled');
+  movieDetailName.classList.add('disabled');
+  trendingText.classList.add('disabled');
   articleGenericMovies.classList.remove('disabled');
-  headerCategoryText.classList.remove('disabled');
+  nameMovieCategory.classList.remove('disabled');
   articleMovieDetail.classList.add('disabled');
   headerText.classList.add('disabled');
-  headerText2.classList.add('disabled');
   containerFormSearch.classList.add('disabled');
-  articleTrendingPreview.classList.add('disabled')
-  articleUpPreviewCategories.classList.add('disabled');
-  articleDownPreviewCategories.classList.add('disabled');
+  articleTrendingPreview.classList.add('disabled');
+  articlePreviewCategories.classList.add('disabled');
+  mensajeResultadosDeBusquedaNoEncontrados.classList.add('disabled');
+  nameMovieCategory.classList.remove('disabled');
+  document.body.style.backgroundImage = '';
 
   const [_, categoryData] = location.hash.split('=');
   const [categoryId, categoryName] = categoryData.split('-');
-  headerCategoryText.textContent = categoryName;
+  nameCategoryText.textContent = `Has buscado peliculas por el genero "${decodeURIComponent(categoryName)}"`;
 
   getMoviesByCategory(categoryId);
-}; 
+
+  infiniteScroll = getNextMoviesByCategory(categoryId);
+};
