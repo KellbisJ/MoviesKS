@@ -1,9 +1,33 @@
-// src/index.jsx
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-// import App from './App';
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { createHashRouter, RouterProvider, Outlet } from 'react-router-dom';
+import { Menu } from './components/Menu';
+import { Footer } from './components/Footer';
+import { Home } from './Pages/Home';
 
-// ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+const Layout = () => (
+	<>
+		<Menu />
+		<Outlet />
+		<Footer />
+	</>
+);
 
-const api_key = process.env.API_KEY;
-console.log(api_key);
+const router = createHashRouter([
+	{
+		path: '/',
+		element: <Layout />,
+		children: [
+			{
+				index: true,
+				element: <Home />,
+			},
+		],
+	},
+]);
+
+createRoot(document.getElementById('root')).render(
+	<StrictMode>
+		<RouterProvider router={router} />
+	</StrictMode>
+);
