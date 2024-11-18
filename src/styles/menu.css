@@ -2,8 +2,11 @@
 	position: fixed;
 	top: 0;
 	width: 100%;
-	background-color: #1c1c26f5;
-	padding: 15px 0;
+	height: 56px;
+
+	background-color: #1a0334f8;
+	padding: 1rem;
+	color: white;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -31,7 +34,8 @@
 }
 
 .navItem:hover {
-	background-color: #363646;
+	background-color: #8a2be2;
+	color: white;
 }
 
 .navLink {
@@ -42,5 +46,27 @@
 	display: flex;
 }
 .filterBar {
-	margin-top: 80px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 180px 16px 0 16px;
+	padding: 0 8px 0 8px;
+	/* background-color: #2c2e4a; */
+	border-radius: 8px;
+	border: 2px solid #8a2be2;
+	height: 60px;
 }
+.item {
+	color: white;
+	font-size: 18px;
+	text-decoration: none;
+	border-bottom: 2px solid #cfd1d4;
+	border-radius: 8px 8px 0 0;
+	padding: 4px;
+	cursor: pointer;
+}
+/* .item:hover,
+.item.active {
+	background-color: #8a2be2;
+	border-bottom: 2px solid #8a2be2;
+} */

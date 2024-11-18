@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { getPreviewCategories } from '../services/PreviewCategories';
 import { CreatePreviewCategories } from '../components/CreatePreviewCategories';
 import { getPreviewTrendingMovies } from '../services/PreviewTrendingMovies';
 import { createMovies } from '../components/CreateMovies';
+import { getNextMoviesTrendingSection } from '../services/NextMoviesTrendingSection';
 import { Link } from 'react-router-dom';
 
 function Home() {
 	const [movies, setMovies] = useState([]);
-	const [categories, setCategoriess] = useState([]);
+	const [categories, setCategories] = useState([]);
+	const [moreMovies, setMoreMovies] = useState([]);
+	const [page, setPage] = useState(1);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		async function fetchCategories() {
 			const previewCategories = await getPreviewCategories();
-			console.log(previewCategories);
-
-			setCategoriess(previewCategories);
+			setCategories(previewCategories);
 		}
 		async function fetchMovies() {
 			const previewMovies = await getPreviewTrendingMovies();
-			console.log(previewMovies);
-
 			setMovies(previewMovies);
 		}
 
@@ -27,16 +27,35 @@ function Home() {
 		fetchMovies();
 	}, []);
 
-	const movieElements = createMovies(movies);
+	const handleScroll = useCallback(async () => {
+		const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+
+		if (scrollTop + clientHeight >= scrollHeight - 600 && !loading) {
+			setLoading(true);
+			const newMovies = await getNextMoviesTrendingSection(page);
+			if (newMovies && newMovies.length > 0) {
+				setMoreMovies((prevMovies) => {
+					const movieIds = new Set([...movies, ...prevMovies].map((movie) => movie.id));
+					const uniqueNewMovies = newMovies.filter((movie) => !movieIds.has(movie.id));
+					return [...prevMovies, ...uniqueNewMovies];
+				});
+				setPage((prevPage) => prevPage + 1);
+			}
+			setLoading(false);
+		}
+	}, [page, loading, movies]);
+
+	useEffect(() => {
+		window.addEventListener('scroll', handleScroll);
+		return () => window.removeEventListener('scroll', handleScroll);
+	}, [handleScroll]);
+
+	const allMovies = [...movies, ...moreMovies];
+	const movieElements = createMovies(allMovies);
 	const categoryElements = CreatePreviewCategories(categories);
 
 	return (
 		<>
-			<div className="filterBar">
-				<p>See all</p>
-				<p>Categories</p>
-				<Link>Favorites</Link>
-			</div>
 			<section className="trendingPreviewCategories">
 				<div className="categoriesContainer">{categoryElements}</div>
 			</section>
