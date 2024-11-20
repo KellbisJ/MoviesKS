@@ -3,7 +3,8 @@ import { createRoot } from 'react-dom/client';
 import { createHashRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { Menu } from './components/Menu';
 import { Footer } from './components/Footer';
-import { Home } from './Pages/Home';
+import { Home } from './pages/Home';
+import { Categories } from './pages/Categories';
 
 const Layout = () => (
 	<>
@@ -21,6 +22,10 @@ const router = createHashRouter([
 			{
 				index: true,
 				element: <Home />,
+			},
+			{
+				path: '/categories',
+				element: <Categories />,
 			},
 		],
 	},
