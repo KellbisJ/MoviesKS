@@ -1,14 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { getPreviewTrendingMovies } from '../services/PreviewTrendingMovies';
-import { createMovies } from '../components/CreateMovies';
-import { getNextMoviesTrendingSection } from '../services/NextMoviesTrendingSection';
-import { Link } from 'react-router-dom';
+import { CreateMovies } from '../components/CreateMovies';
+import { saveMovie, removeMovie } from '../services/saveMovie';
 
 function Home() {
 	const [movies, setMovies] = useState([]);
-	const [moreMovies, setMoreMovies] = useState([]);
-	const [page, setPage] = useState(1);
-	const [loading, setLoading] = useState(false);
+	const [favoritesMovies, setFavoritesMovies] = useState([]);
 
 	useEffect(() => {
 		async function fetchMovies() {
@@ -18,35 +15,28 @@ function Home() {
 		fetchMovies();
 	}, []);
 
-	const handleScroll = useCallback(async () => {
-		const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-
-		if (scrollTop + clientHeight >= scrollHeight - 600 && !loading) {
-			setLoading(true);
-			const newMovies = await getNextMoviesTrendingSection(page);
-			if (newMovies && newMovies.length > 0) {
-				setMoreMovies((prevMovies) => {
-					const movieIds = new Set([...movies, ...prevMovies].map((movie) => movie.id));
-					const uniqueNewMovies = newMovies.filter((movie) => !movieIds.has(movie.id));
-					return [...prevMovies, ...uniqueNewMovies];
-				});
-				setPage((prevPage) => prevPage + 1);
-			}
-			setLoading(false);
-		}
-	}, [page, loading, movies]);
-
 	useEffect(() => {
-		window.addEventListener('scroll', handleScroll);
-		return () => window.removeEventListener('scroll', handleScroll);
-	}, [handleScroll]);
+		const storedMovies = localStorage.getItem('favoriteMovies');
+		const favorites = storedMovies ? JSON.parse(storedMovies) : [];
+		setFavoritesMovies(favorites);
+	}, []);
 
-	const allMovies = [...movies, ...moreMovies];
-	const movieElements = createMovies(allMovies);
+	const handleFavoriteClick = (movie) => {
+		const isFavorite = saveMovie(movie);
+		let updatedFavorites;
+		if (!isFavorite) {
+			updatedFavorites = favoritesMovies.filter((m) => m.id !== movie.id);
+		} else {
+			updatedFavorites = [...favoritesMovies, movies];
+		}
+		setFavoritesMovies(updatedFavorites);
+	};
 
 	return (
 		<>
-			<section className="trendingPreviewMovies">{movieElements}</section>
+			<section className="trendingPreviewMovies">
+				<CreateMovies movies={movies} favoritesMovies={favoritesMovies} handleFavoriteClick={handleFavoriteClick} />
+			</section>
 		</>
 	);
 }

@@ -1,0 +1,207 @@
+.navBar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	background-color: #050d18;
+	z-index: 100;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.navBarWide {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	background-color: #050d18;
+	z-index: 1000;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	padding: 10px 20px;
+}
+
+.navList {
+	display: flex;
+	align-items: center;
+	list-style: none;
+	justify-content: space-between;
+	margin: 0;
+	padding: 1vh;
+	width: 100%;
+	/* border-bottom: 2px solid #8a2be2; */
+}
+.navListWide {
+	display: flex;
+	align-items: center;
+	list-style: none;
+	justify-content: space-between;
+	margin: 0;
+	padding: 2vh;
+	width: 50%;
+	/* border-bottom: 2px solid #8a2be2; */
+}
+.navListWideSearch {
+	display: flex;
+	align-items: center;
+	list-style: none;
+	justify-content: space-between;
+	margin: 0;
+}
+
+.navItem {
+	font-size: 2.5vw;
+	font-weight: 600;
+	text-decoration: none;
+	text-align: center;
+	border-radius: 5px;
+	transition: 0.3s background-color;
+	padding: 12px;
+	list-style: none;
+}
+.navItemSideBar {
+	text-align: justify;
+}
+.navItemWide {
+	font-size: 16px;
+	font-weight: 600;
+	text-decoration: none;
+	text-align: center;
+	transition: 0.3s background-color;
+	cursor: pointer;
+}
+.navItemWideSearch {
+	font-weight: 600;
+	text-decoration: none;
+	text-align: center;
+	transition: 0.3s background-color;
+	width: 100%;
+	list-style: none;
+	/* padding: 2px 40px 2px 40px; */
+}
+.navBtn {
+	background: none;
+	border: none;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: auto;
+	height: auto;
+	cursor: pointer;
+}
+/* .navItemSideBarButton {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	background: none;
+	border: none;
+	padding: 0;
+} */
+
+.navSideBar {
+	display: flex;
+	position: fixed;
+	background-color: #151b23;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	overflow-x: hidden;
+	transition: 0.5s;
+	z-index: 50;
+	justify-content: space-between;
+}
+.navSideBarList {
+	margin-top: 80px;
+}
+
+.navItemSideBarButton {
+	background: none;
+	border: none;
+	padding: 0;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.navLink {
+	color: white;
+	text-decoration: none;
+	font-size: 20px;
+	font-weight: bold;
+	display: flex;
+}
+
+.navItemSearchButton {
+	background: none;
+	border: none;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: auto;
+	height: auto;
+	cursor: pointer;
+}
+
+.navBtn .svg-inline--fa {
+	font-size: 14px;
+	color: white;
+}
+
+.navItemSearchButton .svg-inline--fa {
+	font-size: 18px;
+	color: white;
+}
+.navItemSearchButtonWide {
+	background: none;
+	border: none;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	top: 40%;
+	right: 4.5%;
+	width: auto;
+	height: auto;
+	cursor: pointer;
+}
+.navListWideSearch {
+	display: flex;
+	align-items: center;
+	list-style: none;
+	justify-content: space-between;
+	margin: 0 10px 0 0;
+}
+.navItemSearchInput {
+	border: 2px solid #ffffff;
+	border-radius: 5px;
+	outline: none;
+	width: 45vw;
+	max-width: 650px;
+	min-width: 150px;
+	padding: 4px;
+	background-color: #050d18;
+}
+.toggleSideBar {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+	position: fixed;
+	padding: 4px;
+	background-color: #1a0334eb;
+	border-bottom-left-radius: 4%;
+	border-bottom-right-radius: 4%;
+	border: 2px solid #8a2be2;
+	box-shadow: inset 0 0 10px #2b1b39, 0 0 10px #290f41;
+	transition: all 0.4s ease-in-out;
+	top: 56px;
+	z-index: 1000;
+}
+@media (max-width: 730px) {
+	.navBarWide {
+		display: none;
+	}
+}

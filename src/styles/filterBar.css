@@ -1,0 +1,51 @@
+.filterBarContainer {
+	display: flex;
+	align-items: center;
+	padding: 14px;
+	flex-direction: column;
+	background-color: #151b23;
+	position: relative;
+	top: 56px;
+	width: 100%;
+}
+.filterBar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	padding: 10px 20px;
+	background-color: #290f41;
+	margin: 8px;
+	border-radius: 6px;
+	position: relative;
+}
+.filterBarBoxContent {
+	position: absolute;
+	top: 0;
+	left: 100%;
+	width: 600px;
+	padding: 10px;
+	background-color: #050d18;
+
+	z-index: 50;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+}
+.filterBarBoxHeader {
+	margin: 0 0 10px 10px;
+}
+
+.filterBarBoxElements {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	gap: 10px;
+}
+
+@media (min-width: 740px) {
+	.filterBarContainer {
+		align-items: normal;
+	}
+	.filterBar {
+		width: 31vw;
+	}
+}

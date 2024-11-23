@@ -1,4 +1,4 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCoffee, faUser, faHome, faSearch, faBars, faTimes, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faCoffee, faUser, faHome, faSearch, faBars, faTimes, faChevronDown, faHeart } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faCoffee, faUser, faHome, faSearch, faBars, faTimes, faChevronDown);
+library.add(faCoffee, faUser, faHome, faSearch, faBars, faTimes, faChevronDown, faHeart);

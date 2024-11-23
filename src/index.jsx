@@ -1,10 +1,14 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createHashRouter, RouterProvider, Outlet } from 'react-router-dom';
+import { MenuProvider } from './context/MenuContext';
 import { Menu } from './components/Menu';
 import { Footer } from './components/Footer';
 import { Home } from './pages/Home';
+import { Movies } from './pages/Movies';
 import { Categories } from './pages/Categories';
+import { MoviesFavorites } from './pages/MoviesFavorites';
+import { FavoriteMoviesProvider } from './context/FavoriteMoviesContext';
 
 const Layout = () => (
 	<>
@@ -24,8 +28,16 @@ const router = createHashRouter([
 				element: <Home />,
 			},
 			{
+				path: 'movies/all',
+				element: <Movies />,
+			},
+			{
 				path: '/categories',
 				element: <Categories />,
+			},
+			{
+				path: '/favorites',
+				element: <MoviesFavorites />,
 			},
 		],
 	},
@@ -33,6 +45,10 @@ const router = createHashRouter([
 
 createRoot(document.getElementById('root')).render(
 	<StrictMode>
-		<RouterProvider router={router} />
+		<MenuProvider>
+			<FavoriteMoviesProvider>
+				<RouterProvider router={router} />
+			</FavoriteMoviesProvider>
+		</MenuProvider>
 	</StrictMode>
 );

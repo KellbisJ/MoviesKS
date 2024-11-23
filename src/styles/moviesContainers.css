@@ -9,6 +9,17 @@
 	align-items: start;
 	margin: 128px 8px 28px 8px;
 }
+/* Trending (Movies all) */
+.allTrendingMedia {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	/* grid-template-columns: repeat(auto-fill, 300px); */
+	grid-auto-rows: auto;
+	justify-content: center;
+	justify-items: center;
+	align-items: start;
+	margin: 128px 8px 28px 8px;
+}
 /* All movies container */
 .movieContainer {
 	width: 100%;
@@ -41,5 +52,26 @@
 	position: absolute;
 	cursor: pointer;
 	z-index: 2;
-	font-size: 24px;
+	font-size: 18px;
+	color: #7e7b7b;
+	transition: color 0.3s ease;
+}
+
+.movieFavoriteIcon:hover {
+	color: #ffd700;
+}
+.moviesFavoritesContainer {
+	display: flex;
+	flex-direction: column;
+	margin-top: 20px;
+}
+.moviesFavorites {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	/* grid-template-columns: repeat(auto-fill, 300px); */
+	grid-auto-rows: auto;
+	justify-content: center;
+	justify-items: center;
+	align-items: start;
+	margin: 128px 8px 28px 8px;
 }

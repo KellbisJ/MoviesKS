@@ -18,4 +18,23 @@ const api = axios.create({
 	},
 });
 
+const setLanguageBasedOnLocation = async () => {
+	try {
+		const response = await axios.get('https://ipapi.co/json/');
+		const { country, languages } = response.data;
+
+		// Extract the first language from the returned list
+		const userLanguage = languages.split(',')[0];
+
+		// Update api instance with user's language
+		api.defaults.params.language = userLanguage || 'es'; // Default to 'es' if no language is detected
+
+		// console.log(`Detected language: ${userLanguage}`);
+	} catch (error) {
+		console.error('Error detecting location:', error);
+	}
+};
+
+setLanguageBasedOnLocation();
+
 export { api };
