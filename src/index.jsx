@@ -4,10 +4,10 @@ import { createHashRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { MenuProvider } from './context/MenuContext';
 import { Menu } from './components/Menu';
 import { Footer } from './components/Footer';
-import { Home } from './pages/Home';
-import { Movies } from './pages/Movies';
-import { Categories } from './pages/Categories';
-import { MoviesFavorites } from './pages/MoviesFavorites';
+import { Home } from './routes/Home';
+import { Movies } from './routes/Movies';
+import { Categories } from './routes/Categories';
+import { MoviesFavorites } from './routes/MoviesFavorites';
 import { FavoriteMoviesProvider } from './context/FavoriteMoviesContext';
 
 const Layout = () => (

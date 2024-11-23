@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { getPreviewTrendingMovies } from '../services/PreviewTrendingMovies';
 import { CreateMovies } from '../components/CreateMovies';
-import { saveMovie, removeMovie } from '../services/saveMovie';
+import { saveMovie } from '../services/saveMovie';
 
 function Home() {
 	const [movies, setMovies] = useState([]);

@@ -16,10 +16,4 @@ const saveMovie = (movie) => {
 	}
 };
 
-const removeMovie = (movieId) => {
-	let favoriteMovies = JSON.parse(localStorage.getItem('favoriteMovies') || []);
-	favoriteMovies = favoriteMovies.filter((favMovie) => favMovie.id !== movieId);
-	localStorage.setItem('favoriteMovies', JSON.stringify(favoriteMovies));
-};
-
-export { saveMovie, removeMovie };
+export { saveMovie };

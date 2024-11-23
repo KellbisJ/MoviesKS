@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { saveMovie, removeMovie } from '../services/saveMovie';
+import { saveMovie } from '../services/saveMovie';
 
 const FavoriteMoviesContext = createContext();
 
