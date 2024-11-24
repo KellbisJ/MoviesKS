@@ -31,19 +31,15 @@
 	flex-direction: column;
 	margin-top: 20px;
 }
-.favoritesMoviesGrid {
+.favoritesTVShows {
+	display: flex;
+	flex-direction: column;
+	margin-top: 20px;
+}
+.favoriteMediaGrid {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 
-	grid-auto-rows: auto;
-	justify-content: center;
-	justify-items: center;
-	align-items: start;
-	margin: 128px 8px 28px 8px;
-}
-.favoritesTVShows {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 	grid-auto-rows: auto;
 	justify-content: center;
 	justify-items: center;

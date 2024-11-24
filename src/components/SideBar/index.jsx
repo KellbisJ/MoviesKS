@@ -20,7 +20,7 @@ function SideBar({ isMobile, isSideBarOpen, toggleSideBar }) {
 						<li className="navItem navItemSideBar" onClick={() => handleNavigation('/movies/all')}>
 							Movies
 						</li>
-						<li className="navItem navItemSideBar" onClick={() => handleNavigation('/tv')}>
+						<li className="navItem navItemSideBar" onClick={() => handleNavigation('/tv/all')}>
 							TV
 						</li>
 						<li className="navItem navItemSideBar" onClick={() => handleNavigation('/favorites')}>

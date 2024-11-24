@@ -5,12 +5,13 @@ import { CreateMedia } from '../components/CreateMedia';
 import { getNextMoviesTrendingSection } from '../services/NextMoviesTrendingSection';
 import { useMenuContext } from '../context/MenuContext';
 import { useFavoriteMedia } from '../context/FavoriteMediaContext';
+import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 
 function Movies() {
 	const { setShowMenuComponents } = useMenuContext();
 	const location = useLocation();
 	const { favorites, saveFavoriteMedia } = useFavoriteMedia();
-	const favoriteMovies = favorites.movies;
+	// const favoriteMovies = favorites.movies;
 
 	useEffect(() => {
 		setShowMenuComponents(false);
@@ -21,43 +22,34 @@ function Movies() {
 	const [moreMovies, setMoreMovies] = useState([]);
 	const [page, setPage] = useState(1);
 	const [loading, setLoading] = useState(false);
+	const canLoadMore = true;
 
 	useEffect(() => {
 		if (location.pathname !== '/movies/all') return;
 
-		async function fetchMovies() {
+		async function fetchMedia() {
 			const previewMovies = await getPreviewTrendingMovies();
 			setMovies(previewMovies);
 			setPage(2);
 		}
-		fetchMovies();
+		fetchMedia();
 	}, [location]);
 
-	useEffect(() => {
-		if (location.pathname !== '/movies/all') return;
+	const fetchMoreMovies = async () => {
+		setLoading(true);
+		const nextMovies = await getNextMoviesTrendingSection(page);
+		if (nextMovies && nextMovies.length > 0) {
+			setMoreMovies((prevMovies) => {
+				const movieIds = new Set([...movies, ...prevMovies].map((movie) => movie.id));
+				const uniqueNextMovies = nextMovies.filter((movie) => !movieIds.has(movie.id));
+				return [...prevMovies, ...uniqueNextMovies];
+			});
+			setPage((prevPage) => prevPage + 1);
+		}
+		setLoading(false);
+	};
 
-		const handleScroll = async () => {
-			const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-
-			if (scrollTop + clientHeight >= scrollHeight - 600 && !loading) {
-				setLoading(true);
-				const newMovies = await getNextMoviesTrendingSection(page);
-				if (newMovies && newMovies.length > 0) {
-					setMoreMovies((prevMovies) => {
-						const movieIds = new Set([...movies, ...prevMovies].map((movie) => movie.id));
-						const uniqueNewMovies = newMovies.filter((movie) => !movieIds.has(movie.id));
-						return [...prevMovies, ...uniqueNewMovies];
-					});
-					setPage((prevPage) => prevPage + 1);
-				}
-				setLoading(false);
-			}
-		};
-		window.addEventListener('scroll', handleScroll);
-		return () => {
-			window.removeEventListener('scroll', handleScroll);
-		};
-	}, [location, page, loading, movies]);
+	useInfiniteScroll(fetchMoreMovies, loading, canLoadMore);
 
 	const allMovies = [...movies, ...moreMovies];
 

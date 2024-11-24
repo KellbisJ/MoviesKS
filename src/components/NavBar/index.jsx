@@ -48,7 +48,7 @@ function NavBar({ isMobile, toggleSideBar, isSideBarOpen }) {
 						<li className="navItemWide" onClick={() => handleNavigation('/favorites')}>
 							Favorites
 						</li>
-						<li className="navItemWide" onClick={() => handleNavigation('/tv')}>
+						<li className="navItemWide" onClick={() => handleNavigation('/tv/all')}>
 							TV
 						</li>
 					</ul>

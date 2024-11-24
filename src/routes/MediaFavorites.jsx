@@ -18,13 +18,13 @@ function MediaFavorites() {
 			<h1>My Favorites</h1>
 			<div className="favoritesMovies">
 				<h2>Movies</h2>
-				<div className="favoritesMoviesGrid">
+				<div className="favoriteMediaGrid">
 					<CreateMedia media={favoriteMovies} type="movies" handleFavoriteClick={(movie) => handleFavoriteClick(movie)} />
 				</div>
 			</div>
 			<div className="favoritesTVShows">
 				<h2>TV Shows</h2>
-				<div className="favoritesTVShowsGrid">
+				<div className="favoriteMediaGrid">
 					<CreateMedia media={favoriteTVShows} type="tv" handleFavoriteClick={(tvShow) => handleFavoriteClick(tvShow)} />
 				</div>
 			</div>
