@@ -15,12 +15,10 @@
 .modalContentMovies,
 .modalContentGenres {
 	background-color: #151b23;
-	padding: 20px;
 	border-radius: 8px;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-.modalContentGenres {
 	overflow-y: scroll;
+	min-height: 70vh;
 	max-height: 70vh;
 	width: 80%;
 	margin: 0 auto;
@@ -29,6 +27,13 @@
 .modalContentGenres h2 {
 	margin-bottom: 15px;
 	color: #fff;
+}
+.modalContentMovies h2 {
+	margin-bottom: 15px;
+	color: #fff;
+}
+.modalContentMovies {
+	padding: 20px 30px 20px 0;
 }
 .closeModal {
 	display: flex;

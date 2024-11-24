@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const API_TRENDING_MOVIES_URL = `/api/trending/movie/day`;
+export const API_TRENDING_TV_URL = `/api/trending/tv/day`;
 export const API_MOVIE_SEARCH = `/api/search/movie`;
 export const API_MOVIE_DETAIL = (id) => `/api/movie/${id}`;
 export const API_MOVIE_DETAIL_SIMILAR = (id) => `/api/movie/${id}/similar`;

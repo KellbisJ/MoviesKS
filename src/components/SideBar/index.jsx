@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/menu.css';
+import './SideBar.css';
 
 function SideBar({ isMobile, isSideBarOpen, toggleSideBar }) {
 	const navigate = useNavigate();
@@ -20,11 +20,8 @@ function SideBar({ isMobile, isSideBarOpen, toggleSideBar }) {
 						<li className="navItem navItemSideBar" onClick={() => handleNavigation('/movies/all')}>
 							Movies
 						</li>
-						<li className="navItem navItemSideBar" onClick={() => handleNavigation('/series')}>
-							Series
-						</li>
-						<li className="navItem navItemSideBar" onClick={() => handleNavigation('/genres')}>
-							Genres
+						<li className="navItem navItemSideBar" onClick={() => handleNavigation('/tv')}>
+							TV
 						</li>
 						<li className="navItem navItemSideBar" onClick={() => handleNavigation('/favorites')}>
 							Favorites

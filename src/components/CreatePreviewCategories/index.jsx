@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/categoriesContainer.css';
+import './CategoriesPreviewContainer.css';
 import { Link } from 'react-router-dom';
 
 function CreatePreviewCategories(categories) {

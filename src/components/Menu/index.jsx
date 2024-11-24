@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/menu.css';
-import '../services/icons.js';
-import { NavBar } from './NavBar.jsx';
-import { FilterBar } from './FilterBar.jsx';
-import { SideBar } from './SideBar.jsx';
-import { useWindowSize } from '../hooks/useWindowSize.js';
-import { useCategories } from '../hooks/useCategories.js';
-import { useMenuContext } from '../context/MenuContext.jsx';
+// import './Menu.css';
+import '../../services/icons.js';
+import { NavBar } from '../NavBar';
+import { FilterBar } from '../FilterBar';
+import { SideBar } from '../SideBar';
+import { useWindowSize } from '../../hooks/useWindowSize.js';
+import { useCategories } from '../../hooks/useCategories.js';
+import { useMenuContext } from '../../context/MenuContext.jsx';
 
 function Menu() {
 	const { isMobile } = useWindowSize();

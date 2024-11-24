@@ -1,13 +1,16 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getPreviewTrendingMovies } from '../services/PreviewTrendingMovies';
-import { CreateMovies } from '../components/CreateMovies';
+import { CreateMedia } from '../components/CreateMedia';
 import { getNextMoviesTrendingSection } from '../services/NextMoviesTrendingSection';
 import { useMenuContext } from '../context/MenuContext';
+import { useFavoriteMedia } from '../context/FavoriteMediaContext';
 
 function Movies() {
 	const { setShowMenuComponents } = useMenuContext();
 	const location = useLocation();
+	const { favorites, saveFavoriteMedia } = useFavoriteMedia();
+	const favoriteMovies = favorites.movies;
 
 	useEffect(() => {
 		setShowMenuComponents(false);
@@ -18,14 +21,6 @@ function Movies() {
 	const [moreMovies, setMoreMovies] = useState([]);
 	const [page, setPage] = useState(1);
 	const [loading, setLoading] = useState(false);
-
-	// useEffect(() => {
-	// 	return () => {
-	// 		setMovies([]);
-	// 		setMoreMovies([]);
-	// 		setPage(1);
-	// 	};
-	// }, [location]);
 
 	useEffect(() => {
 		if (location.pathname !== '/movies/all') return;
@@ -66,9 +61,15 @@ function Movies() {
 
 	const allMovies = [...movies, ...moreMovies];
 
+	const handleFavoriteClick = (item) => {
+		const type = item.media_type;
+
+		saveFavoriteMedia(item, type);
+	};
+
 	return (
-		<section className="allTrendingMedia">
-			<CreateMovies movies={allMovies} />
+		<section className="allTrendingMediaContainer">
+			<CreateMedia media={allMovies} type="movies" handleFavoriteClick={handleFavoriteClick} />
 		</section>
 	);
 }

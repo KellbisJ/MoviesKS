@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import './FilterBar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { SelectMovies, SelectGenres } from '../common/Modals';
-import { CreatePreviewCategories } from './CreatePreviewCategories';
-import '../styles/filterBar.css';
+import { SelectMovies, SelectGenres } from '../../common/Modals';
+import { CreatePreviewCategories } from '../CreatePreviewCategories';
+import { useNavigate } from 'react-router-dom';
 
 function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMoviesModal, toggleGenresModal, categories }) {
+	const navigate = useNavigate();
+	const handleNavigation = (route) => {
+		navigate(route);
+	};
+
 	const categoryElements = CreatePreviewCategories(categories);
 
 	if (isMoviesModalOpen) {
@@ -16,14 +22,14 @@ function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMovie
 	return (
 		<div className="filterBarContainer">
 			<div className="filterBar filterBarType">
-				Media
+				Trending Media
 				<button onClick={toggleMoviesModal} className="navBtn">
 					<FontAwesomeIcon icon="chevron-down" />
 				</button>
 				{!isMobile && isMoviesModalOpen && (
 					<div className="filterBarBoxContent">
 						<div className="filterBarBoxHeader">
-							<h1>Media</h1>
+							<h1>Trending Media</h1>
 						</div>
 						<div className="filterBarBoxElements">movies</div>
 					</div>
@@ -47,7 +53,30 @@ function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMovie
 			{isMobile && (
 				<>
 					<SelectMovies isOpen={isMoviesModalOpen} onClose={toggleMoviesModal}>
-						<h1>Media</h1>
+						<div className="filterBarBoxElementsMedia">
+							<h2>Trending Media</h2>
+
+							<div className="mediaElementContainer">
+								<span
+									className="mediaElement selected"
+									onClick={() => {
+										handleNavigation('/');
+										toggleMoviesModal();
+									}}>
+									Movies
+								</span>
+							</div>
+							<div className="mediaElementContainer">
+								<span
+									className="mediaElement"
+									onClick={() => {
+										handleNavigation('/tv');
+										toggleMoviesModal();
+									}}>
+									TV
+								</span>
+							</div>
+						</div>
 					</SelectMovies>
 					<SelectGenres isOpen={isGenresModalOpen} onClose={toggleGenresModal}>
 						<h2>Genres</h2>

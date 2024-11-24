@@ -1,41 +1,33 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { getPreviewTrendingMovies } from '../services/PreviewTrendingMovies';
-import { CreateMovies } from '../components/CreateMovies';
-import { saveMovie } from '../services/saveMovie';
+import { CreateMedia } from '../components/CreateMedia';
+import { useFavoriteMedia } from '../context/FavoriteMediaContext';
 
 function Home() {
-	const [movies, setMovies] = useState([]);
-	const [favoritesMovies, setFavoritesMovies] = useState([]);
+	const { favorites, saveFavoriteMedia } = useFavoriteMedia();
+	const [media, setMedia] = useState([]);
+	const favoriteMovies = favorites.movies;
 
 	useEffect(() => {
 		async function fetchMovies() {
 			const previewMovies = await getPreviewTrendingMovies();
-			setMovies(previewMovies);
+			// console.log(previewMovies);
+
+			setMedia(previewMovies);
 		}
 		fetchMovies();
 	}, []);
 
-	useEffect(() => {
-		const storedMovies = localStorage.getItem('favoriteMovies');
-		const favorites = storedMovies ? JSON.parse(storedMovies) : [];
-		setFavoritesMovies(favorites);
-	}, []);
+	const handleFavoriteClick = (item) => {
+		const type = item.media_type;
 
-	const handleFavoriteClick = (movie) => {
-		const isFavorite = saveMovie(movie);
-		let updatedFavorites;
-		if (!isFavorite) {
-			updatedFavorites = favoritesMovies.filter((m) => m.id !== movie.id);
-		} else {
-			updatedFavorites = [...favoritesMovies, movies];
-		}
-		setFavoritesMovies(updatedFavorites);
+		saveFavoriteMedia(item, type);
 	};
 
 	return (
 		<>
-			<section className="trendingPreviewMovies">
-				<CreateMovies movies={movies} favoritesMovies={favoritesMovies} handleFavoriteClick={handleFavoriteClick} />
+			<section className="trendingPreviewMediaContainer">
+				<CreateMedia media={media} type="movies" favorites={favoriteMovies} handleFavoriteClick={handleFavoriteClick} />
 			</section>
 		</>
 	);

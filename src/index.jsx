@@ -7,8 +7,8 @@ import { Footer } from './components/Footer';
 import { Home } from './routes/Home';
 import { Movies } from './routes/Movies';
 import { Categories } from './routes/Categories';
-import { MoviesFavorites } from './routes/MoviesFavorites';
-import { FavoriteMoviesProvider } from './context/FavoriteMoviesContext';
+import { MediaFavorites } from './routes/MediaFavorites';
+import { FavoriteMediaProvider } from './context/FavoriteMediaContext';
 
 const Layout = () => (
 	<>
@@ -37,7 +37,7 @@ const router = createHashRouter([
 			},
 			{
 				path: '/favorites',
-				element: <MoviesFavorites />,
+				element: <MediaFavorites />,
 			},
 		],
 	},
@@ -46,9 +46,9 @@ const router = createHashRouter([
 createRoot(document.getElementById('root')).render(
 	<StrictMode>
 		<MenuProvider>
-			<FavoriteMoviesProvider>
+			<FavoriteMediaProvider>
 				<RouterProvider router={router} />
-			</FavoriteMoviesProvider>
+			</FavoriteMediaProvider>
 		</MenuProvider>
 	</StrictMode>
 );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
-import '../styles/navBar.css';
+import './NavBar.css';
 import { useNavigate } from 'react-router-dom';
 
 function NavBar({ isMobile, toggleSideBar, isSideBarOpen }) {
@@ -48,11 +48,8 @@ function NavBar({ isMobile, toggleSideBar, isSideBarOpen }) {
 						<li className="navItemWide" onClick={() => handleNavigation('/favorites')}>
 							Favorites
 						</li>
-						<li className="navItemWide" onClick={() => handleNavigation('/series')}>
-							Series
-						</li>
-						<li className="navItemWide" onClick={() => handleNavigation('/genres')}>
-							Genres
+						<li className="navItemWide" onClick={() => handleNavigation('/tv')}>
+							TV
 						</li>
 					</ul>
 					<ul className="navListWideSearch">
