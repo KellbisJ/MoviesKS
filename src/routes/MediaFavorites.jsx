@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CreateMedia } from '../components/CreateMedia';
 import { useFavoriteMedia } from '../context/FavoriteMediaContext';
+import { useMenuContext } from '../context/MenuContext';
 
 function MediaFavorites() {
+	const { setShowMenuComponents } = useMenuContext();
+
+	useEffect(() => {
+		setShowMenuComponents(false);
+		return () => setShowMenuComponents(true);
+	}, [setShowMenuComponents]);
+
 	const { favorites, saveFavoriteMedia } = useFavoriteMedia();
 	const favoriteMovies = favorites.movies;
 	const favoriteTVShows = favorites.tv;

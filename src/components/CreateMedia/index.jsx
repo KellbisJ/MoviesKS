@@ -8,6 +8,10 @@ const CreateMedia = ({ media = [], type }) => {
 	const favoriteMedia = favorites[type] || [];
 
 	const handleFavoriteClick = (item) => {
+		if (!['movies', 'tv'].includes(type)) {
+			console.error(`Invalid media type: ${type}`);
+			return;
+		}
 		saveFavoriteMedia(item, type);
 	};
 

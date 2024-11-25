@@ -6,7 +6,9 @@ export const API_MOVIE_SEARCH = `/api/search/movie`;
 export const API_MOVIE_DETAIL = (id) => `/api/movie/${id}`;
 export const API_MOVIE_DETAIL_SIMILAR = (id) => `/api/movie/${id}/similar`;
 export const API_MOVIE_CATEGORY = `/api/discover/movie`;
+export const API_TV_CATEGORY = `/api/discover/tv`;
 export const API_GENRE_MOVIE_URL = `/api/genre/movie/list`;
+export const API_GENRE_TV_URL = `/api/genre/tv/list`;
 
 const api = axios.create({
 	baseURL: '',

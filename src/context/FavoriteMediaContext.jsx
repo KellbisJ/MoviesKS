@@ -16,6 +16,11 @@ const FavoriteMediaProvider = ({ children }) => {
 	}, []);
 
 	const saveFavoriteMedia = (media, type) => {
+		if (!favorites[type]) {
+			console.error(`invalid media type: ${type}`);
+			return;
+		}
+
 		const isFavorite = saveMedia(media, type);
 		let updatedFavorites;
 		if (!isFavorite) {

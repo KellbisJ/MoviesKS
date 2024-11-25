@@ -68,7 +68,7 @@
 	padding-left: 10px;
 }
 
-.mediaElement.selected {
+.selected {
 	border-left-color: #007bff;
 }
 
