@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { getMediaDetail } from '../services/getMediaDetail';
+import { getSimilarMediaDetail } from '../services/SimilarMediaDetail';
 import { useMenuContext } from '../context/MenuContext';
 import { useFavoriteMedia } from '../context/FavoriteMediaContext';
-import { createSimilarGenres } from '../components/CreateSimilarGenres';
+import { CreateSimilarGenres } from '../components/CreateSimilarGenres';
+import { CreateSimilarMediaDetail } from '../components/CreateSimilarMediaDetail';
 import { useParams } from 'react-router-dom';
 
 function MediaDetail() {
@@ -10,6 +12,7 @@ function MediaDetail() {
 	const { id, type } = useParams(); // Obtener id y tipo de los parámetros de la URL
 	const [mediaDetail, setMediaDetail] = useState(null);
 	const [similarGenres, setSimilarGenres] = useState([]);
+	const [similarMedia, setSimilarMedia] = useState([]);
 
 	useEffect(() => {
 		setShowMenuComponents(false);
@@ -19,12 +22,15 @@ function MediaDetail() {
 	useEffect(() => {
 		async function fetchMediaDetail() {
 			const mediaData = await getMediaDetail(id, type);
+			const similarMediaData = await getSimilarMediaDetail(id, type);
 
 			if (mediaData && mediaData.genres) {
-				const similarGenresData = createSimilarGenres(mediaData.genres);
+				const similarGenresData = CreateSimilarGenres(mediaData.genres);
 				setSimilarGenres(similarGenresData);
 			}
-
+			if (similarMediaData) {
+				setSimilarMedia(<CreateSimilarMediaDetail media={similarMediaData} type={type} />);
+			}
 			setMediaDetail(mediaData);
 		}
 
@@ -32,7 +38,7 @@ function MediaDetail() {
 	}, [id, type]);
 
 	if (!mediaDetail) {
-		return <div>Cargando...</div>;
+		return <div>Loading...</div>;
 	}
 
 	return (
@@ -43,6 +49,7 @@ function MediaDetail() {
 			<div className="mediaDetailInfo">
 				<div className="MediaDetailSimilarGenres">{similarGenres}</div>
 			</div>
+			<div className="SimilarMoviesContainer">{similarMedia}</div>
 		</div>
 	);
 }

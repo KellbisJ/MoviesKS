@@ -18,9 +18,14 @@ const CreateMedia = ({ media = [], type }) => {
 	};
 
 	const handleNavigation = (item) => {
-		const idParam = item.id; // Ya sea movie o TV, generalmente el ID es 'id'
+		const idParam = item.id;
 		navigate(`/${type}/detail/${idParam}`);
 	};
+
+	if (!Array.isArray(media)) {
+		console.error('Invalid media data:', media);
+		return null;
+	}
 
 	return (
 		<>

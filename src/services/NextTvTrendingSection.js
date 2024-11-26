@@ -1,3 +1,4 @@
+import React from 'react';
 import { api, API_TRENDING_TV_URL } from './api';
 
 async function getNextTvTrendingSection(currentPage) {
