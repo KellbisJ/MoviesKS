@@ -4,6 +4,7 @@ export const API_TRENDING_MOVIES_URL = `/api/trending/movie/day`;
 export const API_TRENDING_TV_URL = `/api/trending/tv/day`;
 export const API_MOVIE_SEARCH = `/api/search/movie`;
 export const API_MOVIE_DETAIL = (id) => `/api/movie/${id}`;
+export const API_TV_DETAIL = (series_id) => `/api/tv/${series_id}`;
 export const API_MOVIE_DETAIL_SIMILAR = (id) => `/api/movie/${id}/similar`;
 export const API_MOVIE_CATEGORY = `/api/discover/movie`;
 export const API_TV_CATEGORY = `/api/discover/tv`;

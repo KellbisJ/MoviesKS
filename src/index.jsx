@@ -11,6 +11,7 @@ import { MediaFavorites } from './routes/MediaFavorites';
 import { FavoriteMediaProvider } from './context/FavoriteMediaContext';
 import { MediaTV } from './routes/MediaTV';
 import { MediaAllTV } from './routes/MediaAllTV';
+import { MediaDetail } from './routes/MediaDetail';
 
 const Layout = () => (
 	<>
@@ -32,6 +33,10 @@ const router = createHashRouter([
 			{
 				path: 'movies/all',
 				element: <Movies />,
+			},
+			{
+				path: ':type/detail/:id',
+				element: <MediaDetail />,
 			},
 			{
 				path: '/tv',

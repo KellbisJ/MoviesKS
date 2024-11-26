@@ -68,15 +68,16 @@
 	padding-left: 10px;
 }
 
-.selected {
-	border-left-color: #007bff;
-}
-
 @media (min-width: 740px) {
 	.filterBarContainer {
 		align-items: normal;
 	}
 	.filterBar {
 		width: 31vw;
+	}
+}
+@media (max-width: 768px) {
+	.filterBarBoxContent {
+		display: none;
 	}
 }
