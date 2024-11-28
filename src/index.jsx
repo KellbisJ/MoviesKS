@@ -6,12 +6,12 @@ import { Menu } from './components/Menu';
 import { Footer } from './components/Footer';
 import { Home } from './routes/Home';
 import { Movies } from './routes/Movies';
-import { Categories } from './routes/Categories';
 import { MediaFavorites } from './routes/MediaFavorites';
 import { FavoriteMediaProvider } from './context/FavoriteMediaContext';
 import { MediaTV } from './routes/MediaTV';
 import { MediaAllTV } from './routes/MediaAllTV';
 import { MediaDetail } from './routes/MediaDetail';
+import { MediaByCategory } from './routes/MediaByCategory';
 
 const Layout = () => (
 	<>
@@ -47,8 +47,8 @@ const router = createHashRouter([
 				element: <MediaAllTV />,
 			},
 			{
-				path: '/categories',
-				element: <Categories />,
+				path: ':type/category/:id',
+				element: <MediaByCategory />,
 			},
 			{
 				path: '/favorites',

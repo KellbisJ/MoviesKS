@@ -13,7 +13,7 @@ export const API_GENRE_MOVIE_URL = `/api/genre/movie/list`;
 export const API_GENRE_TV_URL = `/api/genre/tv/list`;
 
 const api = axios.create({
-	baseURL: '',
+	baseURL: '', // Put this when the deployment comes: 'https://api.themoviedb.org/3'
 	headers: {
 		'Content-Type': 'application/json;charset=utf-8',
 	},

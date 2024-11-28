@@ -31,13 +31,24 @@
 	font-size: 12px;
 	padding: 1px;
 	border-radius: 5px;
-	background-color: #010101;
 	transition: background-color 0.3s ease-in-out;
-	margin: 4px;
+	/* margin: 4px; */
 	flex: 1 1 calc(25% - 16px);
 	min-width: 40px;
 	min-height: 38px;
 	max-width: 100%;
 	word-wrap: break-word;
 	text-align: center;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.categoryItem:hover {
+	/* background-color: #010101; */
+	background-color: #290f41;
+}
+
+@media (max-width: 768px) {
+	.categoryItem {
+		margin: 4px;
+		background-color: #290f41;
+	}
 }

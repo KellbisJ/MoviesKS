@@ -35,6 +35,7 @@ function Menu() {
 						toggleMoviesModal={toggleMoviesModal}
 						toggleGenresModal={toggleGenresModal}
 						categories={categories}
+						toggleSideBar={toggleSideBar}
 					/>
 
 					<div className="AllMoviesText">

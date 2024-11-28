@@ -54,23 +54,29 @@ function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMovie
 				{!isMobile && isMoviesModalOpen && (
 					<div className="filterBarBoxContent">
 						<div className="filterBarBoxHeader">
-							<h1>{selectedMediaType === 'movies' ? 'Movies' : 'TV'}</h1>
+							<h2>{selectedMediaType === 'movies' ? 'Movies' : 'TV'}</h2>
 						</div>
-						<div className="filterBarBoxElements">
-							<span
-								className={selectedMediaType === 'movies' ? 'selected' : ''}
-								onClick={() => {
-									handleMediaTypeChange('movies');
-								}}>
-								Movies
-							</span>
-							<span
-								className={selectedMediaType === 'tv' ? 'selected' : ''}
-								onClick={() => {
-									handleMediaTypeChange('tv');
-								}}>
-								TV
-							</span>
+						<div className="filterBarBoxElements filterBarBoxMediaElements">
+							<div className="mediaElementContainer">
+								<span
+									className={selectedMediaType === 'movies' ? 'selected' : 'mediaElement'}
+									onClick={() => {
+										handleMediaTypeChange('movies');
+										toggleMoviesModal();
+									}}>
+									Movies
+								</span>
+							</div>
+							<div className="mediaElementContainer">
+								<span
+									className={selectedMediaType === 'tv' ? 'selected' : 'mediaElement'}
+									onClick={() => {
+										handleMediaTypeChange('tv');
+										toggleMoviesModal();
+									}}>
+									TV
+								</span>
+							</div>
 						</div>
 					</div>
 				)}

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './SideBar.css';
 
 function SideBar({ isMobile, isSideBarOpen, toggleSideBar }) {
 	const navigate = useNavigate();

@@ -7,7 +7,8 @@
 	justify-content: center;
 	justify-items: center;
 	align-items: start;
-	margin: 128px 8px 28px 8px;
+	margin-top: 80px;
+	padding: 16px;
 }
 /* Trending (Media all) */
 .allTrendingMediaContainer {
@@ -18,13 +19,29 @@
 	justify-content: center;
 	justify-items: center;
 	align-items: start;
-	margin: 128px 8px 28px 8px;
+	margin-top: 80px;
+	padding: 16px;
 }
 /* All media favorites container */
 .mediaFavoritesContainer {
 	display: flex;
 	flex-direction: column;
 	margin-top: 20px;
+}
+.mediaByCategoryContainer {
+	display: flex;
+	flex-direction: column;
+	margin-top: 100px;
+	padding: 16px;
+}
+.mediaByCategoryContainerGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	/* grid-template-columns: repeat(auto-fill, 300px); */
+	grid-auto-rows: auto;
+	justify-content: center;
+	justify-items: center;
+	align-items: start;
 }
 .favoritesMovies {
 	display: flex;
@@ -61,6 +78,7 @@
 	overflow: hidden;
 	border-radius: 10px;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+	cursor: pointer;
 }
 
 .mediaInfo {
@@ -70,7 +88,7 @@
 	right: 0;
 	display: flex;
 	justify-content: space-between;
-	padding: 10px;
+	padding: 8px 0 0 12px;
 	color: white;
 	z-index: 1;
 }

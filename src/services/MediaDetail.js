@@ -7,7 +7,7 @@ async function getMediaDetail(id, type) {
 
 		const { data: media } = await api.get(apiUrl);
 
-		console.log({ media });
+		// console.log({ media });
 		return media;
 	} catch (error) {
 		console.error(error);
