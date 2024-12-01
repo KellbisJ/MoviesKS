@@ -4,11 +4,13 @@ import { useMenuContext } from '../context/MenuContext';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 import { getMediaByCategory } from '../services/MediaByCategory';
 import { CreateMedia } from '../components/CreateMedia';
+import { MediaSkeleton } from '../components/LoadingSkeletons';
 
 function MediaByCategory() {
 	const { setShowMenuComponents } = useMenuContext();
 	const { type, id: genreId } = useParams();
 	const [media, setMedia] = useState([]);
+	const [loadingComponents, setLoadingComponents] = useState(true);
 
 	useEffect(() => {
 		setShowMenuComponents(false);
@@ -21,10 +23,12 @@ function MediaByCategory() {
 	const canLoadMore = true;
 
 	useEffect(() => {
+		setLoadingComponents(true);
 		async function fetchMedia() {
 			const mediaData = await getMediaByCategory(type, genreId);
 			// console.log(mediaData);
 
+			setLoadingComponents(false);
 			setMedia(mediaData);
 		}
 		fetchMedia();
@@ -51,12 +55,18 @@ function MediaByCategory() {
 	});
 
 	return (
-		<div className="mediaByCategoryContainer">
-			<h3 style={{ padding: '0 8px' }}>All Media by Category: {type}</h3>
-			<div className="mediaByCategoryContainerGrid">
-				<CreateMedia media={allMedia} type={type} />
-			</div>
-		</div>
+		<>
+			{loadingComponents ? (
+				<MediaSkeleton />
+			) : (
+				<div className="mediaByCategoryContainer">
+					<h3 style={{ padding: '0 8px' }}>All Media by Category: {type}</h3>
+					<div className="mediaByCategoryContainerGrid">
+						<CreateMedia media={allMedia} type={type} />
+					</div>
+				</div>
+			)}
+		</>
 	);
 }
 

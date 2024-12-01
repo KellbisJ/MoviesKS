@@ -6,11 +6,13 @@ import { getNextMoviesTrendingSection } from '../services/NextMoviesTrendingSect
 import { useMenuContext } from '../context/MenuContext';
 import { useFavoriteMedia } from '../context/FavoriteMediaContext';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
+import { MediaSkeleton } from '../components/LoadingSkeletons';
 
-function Movies() {
+function MediaAllMovie() {
 	const { setShowMenuComponents } = useMenuContext();
 	const location = useLocation();
 	const { favorites, saveFavoriteMedia } = useFavoriteMedia();
+	const [loadingComponents, setLoadingComponents] = useState(true);
 	// const favoriteMovies = favorites.movies;
 
 	useEffect(() => {
@@ -26,12 +28,15 @@ function Movies() {
 
 	useEffect(() => {
 		if (location.pathname !== '/movies/all') return;
+		setLoadingComponents(true);
 
 		async function fetchMedia() {
 			const previewMovies = await getPreviewTrendingMovies();
+			setLoadingComponents(false);
 			setMovies(previewMovies);
 			setPage(2);
 		}
+
 		fetchMedia();
 	}, [location]);
 
@@ -60,10 +65,16 @@ function Movies() {
 	};
 
 	return (
-		<section className="allTrendingMediaContainer">
-			<CreateMedia media={allMovies} type="movies" handleFavoriteClick={handleFavoriteClick} />
-		</section>
+		<>
+			{loadingComponents ? (
+				<MediaSkeleton />
+			) : (
+				<section className="allTrendingMediaContainer">
+					<CreateMedia media={allMovies} type="movies" handleFavoriteClick={handleFavoriteClick} />
+				</section>
+			)}
+		</>
 	);
 }
 
-export { Movies };
+export { MediaAllMovie };

@@ -7,12 +7,15 @@ const useCategories = () => {
 	const [categories, setCategories] = useState([]);
 	const [isMoviesModalOpen, setIsMoviesModalOpen] = useState(false);
 	const [isGenresModalOpen, setIsGenresModalOpen] = useState(false);
+	const [componentsLoading, setComponentsLoading] = useState(true);
 
 	useEffect(() => {
 		async function fetchCategories() {
+			setComponentsLoading(true);
 			const filteredCategories = await getPreviewCategories(mediaType);
 			setCategories(filteredCategories);
 			// console.log(filteredCategories);
+			setComponentsLoading(false);
 		}
 		if (isMoviesModalOpen || isGenresModalOpen) {
 			fetchCategories();
@@ -32,7 +35,7 @@ const useCategories = () => {
 		setIsGenresModalOpen(!isGenresModalOpen);
 	};
 
-	return { categories, toggleMoviesModal, toggleGenresModal, isMoviesModalOpen, isGenresModalOpen };
+	return { categories, toggleMoviesModal, toggleGenresModal, isMoviesModalOpen, isGenresModalOpen, componentsLoading };
 };
 
 export { useCategories };

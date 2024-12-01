@@ -5,7 +5,9 @@ import { MenuProvider } from './context/MenuContext';
 import { Menu } from './components/Menu';
 import { Footer } from './components/Footer';
 import { Home } from './routes/Home';
-import { Movies } from './routes/Movies';
+import { MediaMovie } from './routes/MediaMovie';
+import { MediaAllMovie } from './routes/MediaAllMovie';
+import { MediaPreviewByGenre } from './routes/MediaPreviewByGenre';
 import { MediaFavorites } from './routes/MediaFavorites';
 import { FavoriteMediaProvider } from './context/FavoriteMediaContext';
 import { MediaTV } from './routes/MediaTV';
@@ -31,12 +33,12 @@ const router = createHashRouter([
 				element: <Home />,
 			},
 			{
-				path: 'movies/all',
-				element: <Movies />,
+				path: '/movies',
+				element: <MediaMovie />,
 			},
 			{
-				path: ':type/detail/:id',
-				element: <MediaDetail />,
+				path: '/movies/all',
+				element: <MediaAllMovie />,
 			},
 			{
 				path: '/tv',
@@ -45,6 +47,14 @@ const router = createHashRouter([
 			{
 				path: '/tv/all',
 				element: <MediaAllTV />,
+			},
+			{
+				path: ':type/preview/genre/:id',
+				element: <MediaPreviewByGenre />,
+			},
+			{
+				path: ':type/detail/:id',
+				element: <MediaDetail />,
 			},
 			{
 				path: ':type/category/:id',

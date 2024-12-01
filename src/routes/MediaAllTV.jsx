@@ -6,12 +6,14 @@ import { CreateMedia } from '../components/CreateMedia';
 import { useMenuContext } from '../context/MenuContext';
 import { useFavoriteMedia } from '../context/FavoriteMediaContext';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
+import { MediaSkeleton } from '../components/LoadingSkeletons';
 
 function MediaAllTV() {
 	const { setShowMenuComponents } = useMenuContext();
 	const location = useLocation();
 	const { favorites, saveFavoriteMedia } = useFavoriteMedia();
 	// const favoriteTV = favorites.tv;
+	const [loadingComponents, setLoadingComponents] = useState(true);
 
 	useEffect(() => {
 		setShowMenuComponents(false);
@@ -26,13 +28,16 @@ function MediaAllTV() {
 
 	useEffect(() => {
 		if (location.pathname !== '/tv/all') return;
+		setLoadingComponents(true);
 
 		async function fetchMedia() {
 			const previewTV = await getPreviewTrendingTV();
 
+			setLoadingComponents(false);
 			setTv(previewTV);
 			setPage(2);
 		}
+
 		fetchMedia();
 	}, [location]);
 
@@ -62,9 +67,13 @@ function MediaAllTV() {
 
 	return (
 		<>
-			<section className="trendingPreviewMediaContainer">
-				<CreateMedia media={allTv} type="tv" handleFavoriteClick={handleFavoriteClick} />
-			</section>
+			{loadingComponents ? (
+				<MediaSkeleton />
+			) : (
+				<section className="trendingPreviewMediaContainer">
+					<CreateMedia media={allTv} type="tv" handleFavoriteClick={handleFavoriteClick} />
+				</section>
+			)}
 		</>
 	);
 }

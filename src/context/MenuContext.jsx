@@ -4,9 +4,9 @@ const MenuContext = createContext();
 
 const MenuProvider = ({ children }) => {
 	const [showMenuComponents, setShowMenuComponents] = useState(true);
-	const [mediaType, setMediaType] = useState('movies');
+	const [mediaType, setMediaType] = useState(null);
 	const [selectedGenre, setSelectedGenre] = useState(null);
-	const [genreSelected, setGenreSelected] = useState('Genres'); // Añadir esto
+	const [genreSelected, setGenreSelected] = useState('Genres');
 
 	return (
 		<MenuContext.Provider

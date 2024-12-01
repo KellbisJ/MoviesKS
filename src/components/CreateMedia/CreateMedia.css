@@ -34,6 +34,21 @@
 	margin-top: 100px;
 	padding: 16px;
 }
+.mediaPreviewContainer {
+	display: flex;
+	flex-direction: column;
+	margin-top: 100px;
+	padding: 16px;
+}
+.mediaPreviewContainerGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	/* grid-template-columns: repeat(auto-fill, 300px); */
+	grid-auto-rows: auto;
+	justify-content: center;
+	justify-items: center;
+	align-items: start;
+}
 .mediaByCategoryContainerGrid {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
