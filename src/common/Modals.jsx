@@ -36,4 +36,28 @@ const SelectGenres = ({ isOpen, onClose, children }) => {
 	);
 };
 
-export { SelectMovies, SelectGenres };
+const TrailerMedia = ({ isOpen, onClose, videoKey }) => {
+	if (!isOpen) return null;
+	return ReactDOM.createPortal(
+		<div className="modal trailerMediaModal">
+			<div className="modalContentTrailer">
+				<button className="closeModal closeModalTrailer" onClick={onClose}>
+					<FontAwesomeIcon icon={'times'} />
+				</button>
+				{videoKey && (
+					<iframe
+						width="560"
+						height="315"
+						src={`https://www.youtube.com/embed/${videoKey}`}
+						title="Trailer"
+						frameBorder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowFullScreen></iframe>
+				)}
+			</div>
+		</div>,
+		document.body
+	);
+};
+
+export { SelectMovies, SelectGenres, TrailerMedia };

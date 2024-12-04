@@ -9,6 +9,7 @@
 	align-items: start;
 	margin-top: 80px;
 	padding: 16px;
+	gap: 16px;
 }
 /* Trending (Media all) */
 .allTrendingMediaContainer {
@@ -21,6 +22,7 @@
 	align-items: start;
 	margin-top: 80px;
 	padding: 16px;
+	gap: 16px;
 }
 /* All media favorites container */
 .mediaFavoritesContainer {
@@ -48,6 +50,7 @@
 	justify-content: center;
 	justify-items: center;
 	align-items: start;
+	gap: 16px;
 }
 .mediaByCategoryContainerGrid {
 	display: grid;

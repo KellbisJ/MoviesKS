@@ -61,6 +61,9 @@
 	list-style: none;
 }
 .navItemSideBar {
+	cursor: pointer;
+	padding: 0;
+	margin: 12px;
 	text-align: justify;
 }
 .navItemWide {

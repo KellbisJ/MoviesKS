@@ -7,7 +7,7 @@ import { MediaSkeleton } from '../components/LoadingSkeletons';
 
 const MediaPreviewByGenre = () => {
 	const [loadingComponents, setLoadingComponents] = useState(true);
-	const [media, setMedia] = useState([]);
+	const [media, setMedia] = useState(null);
 	const { type, id } = useParams();
 	const { selectedGenre } = useMenuContext();
 	// const genreName = selectedGenre.genreName;
@@ -18,13 +18,17 @@ const MediaPreviewByGenre = () => {
 			if (id) {
 				const filteredMedia = await getMediaByCategory(type, id);
 				setMedia(filteredMedia);
-				console.log(filteredMedia);
+				// console.log(filteredMedia);
 			}
 		}
 
 		setLoadingComponents(false);
 		fetchMedia();
 	}, [type, id]);
+
+	if (!media) {
+		return <div style={{ display: 'flex', margin: '50px auto 300px auto', justifyContent: 'center' }}>Loading...</div>;
+	}
 
 	// genreName tambien debe ser guardado en localStorage para preservar su valor entre recargas de página
 
