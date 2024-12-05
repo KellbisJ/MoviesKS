@@ -14,6 +14,7 @@ import { MediaTV } from './routes/MediaTV';
 import { MediaAllTV } from './routes/MediaAllTV';
 import { MediaDetail } from './routes/MediaDetail';
 import { MediaByCategory } from './routes/MediaByCategory';
+import { PageNotFound } from './components/PageNotFound';
 
 const Layout = () => (
 	<>
@@ -27,6 +28,7 @@ const router = createHashRouter([
 	{
 		path: '/',
 		element: <Layout />,
+		errorElement: <PageNotFound />,
 		children: [
 			{
 				index: true,
