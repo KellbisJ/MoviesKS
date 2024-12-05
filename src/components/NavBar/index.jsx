@@ -54,7 +54,7 @@ function NavBar({ isMobile, toggleSideBar, isSideBarOpen }) {
 					</ul>
 					<ul className="navListWideSearch">
 						<li className="navItemWideSearch">
-							<input className="navItemSearchInput" placeholder="Search..."></input>
+							<input className="navItemSearchInput" placeholder="Search Movies"></input>
 							<button className="navItemSearchButtonWide">
 								<FontAwesomeIcon icon="search" />
 							</button>

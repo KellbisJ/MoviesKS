@@ -30,7 +30,6 @@
 	margin: 0;
 	padding: 1vh;
 	width: 100%;
-	/* border-bottom: 2px solid #8a2be2; */
 }
 .navListWide {
 	display: flex;
@@ -40,7 +39,6 @@
 	margin: 0;
 	padding: 2vh;
 	width: 50%;
-	/* border-bottom: 2px solid #8a2be2; */
 }
 .navListWideSearch {
 	display: flex;
@@ -81,7 +79,6 @@
 	transition: 0.3s background-color;
 	width: 100%;
 	list-style: none;
-	/* padding: 2px 40px 2px 40px; */
 }
 .navBtn {
 	background: none;
@@ -94,14 +91,6 @@
 	height: auto;
 	cursor: pointer;
 }
-/* .navItemSideBarButton {
-	position: absolute;
-	top: 20px;
-	left: 20px;
-	background: none;
-	border: none;
-	padding: 0;
-} */
 
 .navSideBar {
 	display: flex;
@@ -177,17 +166,33 @@
 	list-style: none;
 	justify-content: space-between;
 	margin: 0 10px 0 0;
+	padding: 0;
 }
+
 .navItemSearchInput {
-	border: 2px solid #ffffff;
-	border-radius: 5px;
+	border: none;
+	border-radius: 20px;
 	outline: none;
 	width: 45vw;
 	max-width: 650px;
 	min-width: 150px;
-	padding: 4px;
-	background-color: #050d18;
+	padding: 8px 12px;
+	background-color: #151b23;
+	color: #ffffff;
+	font-size: 16px;
+	transition: border-color 0.3s, box-shadow 0.3s;
 }
+
+.navItemSearchInput:focus {
+	border-color: #ffcc00;
+	box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+}
+
+.navItemSearchInput::placeholder {
+	color: #b0b0b0;
+	opacity: 1;
+}
+
 .toggleSideBar {
 	display: flex;
 	justify-content: space-between;

@@ -60,6 +60,35 @@ const SimilarMediaSkeleton = () => {
 	);
 };
 
+const MediaDetailSkeleton = () => {
+	return (
+		<div className="mediaDetailSkeletonContainer">
+			<div className="mediaDetailSkeletonHeader">
+				<div className="mediaDetailImageContainer">
+					<div className="bigPosterPathSkeleton"></div>
+				</div>
+				<div className="mediaDetailInformationSkeleton">
+					<div className="titleSkeleton"></div>
+					<div className="textSkeleton"></div>
+					<div className="textSkeleton"></div>
+					<div className="textSkeleton"></div>
+					<div className="textSkeleton"></div>
+					<div className="textSkeleton"></div>
+					<div className="textSkeleton"></div>
+				</div>
+			</div>
+			<div className="mediaDetailInformationOverviewSkeleton">
+				<div className="mediaOverviewSkeleton">
+					<div className="overviewSkeleton"></div>
+				</div>
+				<div className="mediaDetailSimilarGenresSkeleton">
+					<div className="similarGenresSkeleton"></div>
+				</div>
+			</div>
+		</div>
+	);
+};
+
 export {
 	MediaSkeleton,
 	MediaNullSkeleton,
@@ -68,4 +97,5 @@ export {
 	BigPosterPathNullSkeleton,
 	SimilarGenresNullSkeleton,
 	SimilarMediaSkeleton,
+	MediaDetailSkeleton,
 };

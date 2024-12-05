@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getPreviewTrendingTV } from '../services/PreviewTrendingTv';
 import { getNextTvTrendingSection } from '../services/NextTvTrendingSection';
@@ -10,36 +10,49 @@ import { MediaSkeleton } from '../components/LoadingSkeletons';
 
 function MediaAllTV() {
 	const { setShowMenuComponents } = useMenuContext();
-	const location = useLocation();
-	const { favorites, saveFavoriteMedia } = useFavoriteMedia();
-	// const favoriteTV = favorites.tv;
-	const [loadingComponents, setLoadingComponents] = useState(true);
 
 	useEffect(() => {
 		setShowMenuComponents(false);
 		return () => setShowMenuComponents(true);
 	}, [setShowMenuComponents]);
 
+	const location = useLocation();
+	const { favorites, saveFavoriteMedia } = useFavoriteMedia();
+	// const favoriteTV = favorites.tv;
+	const [loadingComponents, setLoadingComponents] = useState(true);
 	const [tv, setTv] = useState([]);
 	const [moreMediaTv, setMoreMediaTv] = useState([]);
 	const [page, setPage] = useState(1);
 	const [loading, setLoading] = useState(false);
-	const canLoadMore = true;
+	const [canLoadMore, setCanLoadMore] = useState(true);
+	const [prevPath, setPrevPath] = useState('');
 
 	useEffect(() => {
-		if (location.pathname !== '/tv/all') return;
-		setLoadingComponents(true);
+		if (location.pathname === '/tv/all') {
+			setLoadingComponents(true);
+			setTv([]);
+			setMoreMediaTv([]);
+			setPage(1);
+			setCanLoadMore(true);
+			window.scrollTo(0, 0);
 
-		async function fetchMedia() {
-			const previewTV = await getPreviewTrendingTV();
+			async function fetchMedia() {
+				const previewTV = await getPreviewTrendingTV();
+				setLoadingComponents(false);
+				setTv(previewTV);
+				setPage(2);
+			}
 
-			setLoadingComponents(false);
-			setTv(previewTV);
-			setPage(2);
+			fetchMedia();
 		}
-
-		fetchMedia();
 	}, [location]);
+
+	useEffect(() => {
+		if (location.pathname === '/tv/all' && prevPath !== '/tv/all') {
+			window.scrollTo(0, 0);
+			setPrevPath('/tv/all');
+		}
+	}, [location, prevPath]);
 
 	const fetchMoreTvMedia = async () => {
 		setLoading(true);
@@ -51,6 +64,8 @@ function MediaAllTV() {
 				return [...prevTvMedia, ...uniqueNextTv];
 			});
 			setPage((prevPage) => prevPage + 1);
+		} else {
+			setCanLoadMore(false);
 		}
 		setLoading(false);
 	};
@@ -61,7 +76,6 @@ function MediaAllTV() {
 
 	const handleFavoriteClick = (item) => {
 		const type = item.media_type;
-
 		saveFavoriteMedia(item, type);
 	};
 

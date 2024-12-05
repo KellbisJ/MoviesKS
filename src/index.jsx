@@ -19,7 +19,9 @@ import { PageNotFound } from './components/PageNotFound';
 const Layout = () => (
 	<>
 		<Menu />
-		<Outlet />
+		<div className="mainContent">
+			<Outlet />
+		</div>
 		<Footer />
 	</>
 );

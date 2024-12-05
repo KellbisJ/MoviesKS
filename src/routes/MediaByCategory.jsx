@@ -23,7 +23,9 @@ function MediaByCategory() {
 	const canLoadMore = true;
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		setLoadingComponents(true);
+
 		async function fetchMedia() {
 			const mediaData = await getMediaByCategory(type, genreId);
 			// console.log(mediaData);
