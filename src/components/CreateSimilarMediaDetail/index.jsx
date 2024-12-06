@@ -7,7 +7,7 @@ function CreateSimilarMediaDetail({ media, type }) {
 		return <div>No similar {type} found.</div>;
 	} else {
 		return (
-			<div className="SimilarMovies">
+			<div className="gridMediaContainer gridMediaContainerSimilar">
 				<CreateMedia media={media.results} type={type} />
 			</div>
 		);

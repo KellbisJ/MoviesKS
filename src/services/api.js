@@ -15,6 +15,8 @@ export const API_GENRE_MOVIE_URL = `${BASE_API_URL}/genre/movie/list`;
 export const API_GENRE_TV_URL = `${BASE_API_URL}/genre/tv/list`;
 export const API_MOVIE_VIDEOS = (id) => `${BASE_API_URL}/movie/${id}/videos`;
 export const API_TV_VIDEOS = (series_id) => `${BASE_API_URL}/tv/${series_id}/videos`;
+export const API_SEARCH_MOVIES = (query) => `${BASE_API_URL}/search/movie/${query}`;
+export const API_SEARCH_TV = (query) => `${BASE_API_URL}/search/tv/${query}`;
 
 const api = axios.create({
 	headers: {

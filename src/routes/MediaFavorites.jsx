@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { CreateMedia } from '../components/CreateMedia';
 import { useFavoriteMedia } from '../context/FavoriteMediaContext';
 import { useMenuContext } from '../context/MenuContext';
+import { MediaFavoritesVoid } from '../components/LoadingSkeletons';
 
 function MediaFavorites() {
 	const { setShowMenuComponents } = useMenuContext();
@@ -14,6 +15,8 @@ function MediaFavorites() {
 	const { favorites, saveFavoriteMedia } = useFavoriteMedia();
 	const favoriteMovies = favorites.movies;
 	const favoriteTVShows = favorites.tv;
+	console.log(favoriteMovies);
+	console.log(favoriteTVShows);
 
 	const handleFavoriteClick = (item) => {
 		const type = item.media_type;
@@ -26,15 +29,23 @@ function MediaFavorites() {
 			<h1>My Favorites</h1>
 			<div className="favoritesMovies">
 				<h2>Movies</h2>
-				<div className="favoriteMediaGrid">
-					<CreateMedia media={favoriteMovies} type="movies" handleFavoriteClick={(movie) => handleFavoriteClick(movie)} />
-				</div>
+				{favoriteMovies.length > 0 ? (
+					<div className="gridMediaContainerFavorite">
+						<CreateMedia media={favoriteMovies} type="movies" handleFavoriteClick={(movie) => handleFavoriteClick(movie)} />
+					</div>
+				) : (
+					<MediaFavoritesVoid />
+				)}
 			</div>
 			<div className="favoritesTVShows">
 				<h2>TV Shows</h2>
-				<div className="favoriteMediaGrid">
-					<CreateMedia media={favoriteTVShows} type="tv" handleFavoriteClick={(tvShow) => handleFavoriteClick(tvShow)} />
-				</div>
+				{favoriteTVShows.length > 0 ? (
+					<div className="gridMediaContainerFavorite">
+						<CreateMedia media={favoriteTVShows} type="tv" handleFavoriteClick={(tvShow) => handleFavoriteClick(tvShow)} />
+					</div>
+				) : (
+					<MediaFavoritesVoid />
+				)}
 			</div>
 		</section>
 	);

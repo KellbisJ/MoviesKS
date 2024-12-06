@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useMenuContext } from '../context/MenuContext';
+import { getMediaBySearch } from '../services/MediaBySearch';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
-import { getMediaByCategory } from '../services/MediaByCategory';
 import { CreateMedia } from '../components/CreateMedia';
 import { MediaSkeleton } from '../components/LoadingSkeletons';
+import { useMenuContext } from '../context/MenuContext';
 
-function MediaByCategory() {
+function MediaBySearch() {
 	const { setShowMenuComponents } = useMenuContext();
-	const { type, id: genreId } = useParams();
-	const [media, setMedia] = useState([]);
-	const [loadingComponents, setLoadingComponents] = useState(true);
 
 	useEffect(() => {
 		setShowMenuComponents(false);
 		return () => setShowMenuComponents(true);
 	}, [setShowMenuComponents]);
+	const { type, query } = useParams();
+	const [media, setMedia] = useState([]);
+	const [loadingComponents, setLoadingComponents] = useState(true);
 
 	const [moreMedia, setMoreMedia] = useState([]);
 	const [page, setPage] = useState(1);
@@ -24,25 +24,28 @@ function MediaByCategory() {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
+		setMedia([]);
 		setLoadingComponents(true);
 
 		async function fetchMedia() {
-			const mediaData = await getMediaByCategory(type, genreId);
-			// console.log(mediaData);
-
+			const mediaData = await getMediaBySearch(type, query, 1);
 			setLoadingComponents(false);
-			setMedia(mediaData);
+			if (mediaData && Array.isArray(mediaData.results)) {
+				setMedia(mediaData.results);
+			} else {
+				setMedia([]);
+			}
 		}
 		fetchMedia();
-	}, [type, genreId]);
+	}, [type, query]);
 
 	const fetchMoreMedia = async () => {
 		setLoading(true);
-		const nextMedia = await getMediaByCategory(type, genreId, page);
-		if (nextMedia && nextMedia.length > 0) {
+		const nextMedia = await getMediaBySearch(type, query, page + 1);
+		if (nextMedia && Array.isArray(nextMedia.results) && nextMedia.results.length > 0) {
 			setMoreMedia((prevMedia) => {
 				const mediaIds = new Set([...media, ...prevMedia].map((media) => media.id));
-				const uniqueNextMedia = nextMedia.filter((media) => !mediaIds.has(media.id));
+				const uniqueNextMedia = nextMedia.results.filter((media) => !mediaIds.has(media.id));
 				return [...prevMedia, ...uniqueNextMedia];
 			});
 			setPage((prevPage) => prevPage + 1);
@@ -61,9 +64,11 @@ function MediaByCategory() {
 			{loadingComponents ? (
 				<MediaSkeleton />
 			) : (
-				<div className="mediaByCategoryContainer">
-					<h3 style={{ padding: '0 24px' }}>All Media by Category: {type}</h3>
-					<div className="gridMediaContainer gridMediaContainerByCategory">
+				<div className="mediaBySearchContainer">
+					<h3 style={{ padding: '0 8px' }}>
+						Search Results for "{query}" in {type === 'movies' ? 'Movies' : 'TV Shows'}
+					</h3>
+					<div className="gridMediaContainer">
 						<CreateMedia media={allMedia} type={type} />
 					</div>
 				</div>
@@ -72,4 +77,4 @@ function MediaByCategory() {
 	);
 }
 
-export { MediaByCategory };
+export { MediaBySearch };

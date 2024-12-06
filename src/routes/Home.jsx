@@ -35,7 +35,7 @@ function Home() {
 			{loadingComponents ? (
 				<MediaSkeleton />
 			) : (
-				<section className="trendingPreviewMediaContainer">
+				<section className="gridMediaContainer">
 					<CreateMedia media={media} type="movies" favorites={favorites.movies} handleFavoriteClick={handleFavoriteClick} />
 				</section>
 			)}

@@ -19,7 +19,7 @@
 	background-color: #050d18;
 	z-index: 1000;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-	padding: 10px 20px;
+	padding: 10px 16px;
 }
 
 .navList {
@@ -208,8 +208,68 @@
 	top: 56px;
 	z-index: 1000;
 }
+.navItemSearchBarOverlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #050d18;
+	padding: 0.5em;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	z-index: 2;
+}
+
+.navItemSearchInputOverlay {
+	flex: 1;
+	padding: 0.5em;
+	margin: 0 1em;
+	border: none;
+	border-radius: 20px;
+	font-size: 1em;
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+	background-color: #151b23;
+	transition: border-color 0.3s, box-shadow 03s;
+}
+
+.navItemSearchButtonOverlay {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/* padding: 0.5em; */
+	border: none;
+	background: none;
+	cursor: pointer;
+	font-size: 18px;
+	color: #fff;
+}
+.navItemSeachButtonWide {
+	background: #290f41;
+	border: none;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 30px;
+	max-width: 40px;
+	min-height: 30px;
+	max-height: 40px;
+	border-radius: 50%;
+	font-size: 18px;
+}
+.navItemSearchInputOverlay:focus {
+	border-color: #ffcc00;
+	box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+	outline: none;
+}
+
 @media (max-width: 730px) {
 	.navBarWide {
 		display: none;
+	}
+	.navItemSideBar {
+		font-size: 14px;
 	}
 }

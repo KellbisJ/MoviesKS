@@ -1,21 +1,27 @@
 # MoviesKS
 
-![MoviesKS](./styles/2024-06-03%2008-09-02.gif)
+Este proyecto es un sitio web de base de datos de películas que permite a los usuarios consumir información sobre películas. Los usuarios pueden buscar películas por título, ver detalles sobre películas individuales, y filtrar películas por género, y más.
 
-<h2>Página acerca de peliculas para que te informes un poco</h2>
+## Comandos Disponibles
 
-<p>https://kellbisj.github.io/MoviesKS/</p>
+En la carpeta del proyecto, puedes ejecutar los siguientes comandos:
 
-<h3>Peliculas en tendencias.</h3>
-<h3>Generos de peliculas.</h3>
-<h3>Informacion acerca de la pelicula.</h3>
+### `npm test`
 
-<h2>Si quieres instalar este proyecto, modificar, aportar, etc, aqui te explico como:</h2>
-<h3>1. Clona el repositorio.</h3>
-<h3>2. Y listo ya esta empieza a modificar lo que quieras con tu editor de codigo no necesitas instalar depencias por el momento porque el proyecto no las posee.</h3>
+Este comando actualmente no está configurado para ejecutar pruebas. Si tienes pruebas, puedes ejecutarlas usando este comando. Si no, se mostrará un mensaje de error y saldrá con un código de estado de 1.
 
-<p>Platzi Student</p>
-<p>The MovieDB API</p>
-<p>Profesor JuanDC</p>
+### `npm run start:frontend`
 
-👍👍👍
+Este comando inicia el servidor de desarrollo del frontend usando Vite. Esto es útil para trabajar en el proyecto localmente.
+
+### `npm run start:backend`
+
+Este comando inicia el servidor backend usando Node.js en modo de observación. Esto significa que el servidor se reiniciará automáticamente cada vez que se detecten cambios en los archivos fuente.
+
+### `npm run build`
+
+Este comando construye el proyecto para producción usando Vite. Esto creará una versión lista para producción de tu aplicación en el directorio dist.
+
+### `npm run serve`
+
+Este comando inicia un servidor local para previsualizar la versión de producción de tu aplicación. Esto es útil para probar la versión de producción localmente antes de implementarla en un entorno de producción.

@@ -17,12 +17,12 @@ input {
 	color: #e9eced;
 	font-size: 20px;
 	font-family: 'Roboto Condensed', sans-serif;
-	box-shadow: 0px 1.5px 0px 0px #212a2eb0;
+	/* box-shadow: 0px 1.5px 0px 0px #212a2eb0; */
 	letter-spacing: 0.5px;
 	text-align: start;
 }
 :root {
-	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+	font-family: 'Roboto Condensed', sans-serif;
 	line-height: 1.5;
 	font-weight: 400;
 	color-scheme: light dark;

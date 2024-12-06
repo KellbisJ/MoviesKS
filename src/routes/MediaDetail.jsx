@@ -55,7 +55,9 @@ function MediaDetail() {
 			setMediaDetail(mediaData);
 
 			if (mediaVideosData && mediaVideosData.results.length > 0) {
-				const video = mediaVideosData.results.find((video) => video.type === 'Trailer' || (video.type === 'Teaser' && video.site === 'YouTube'));
+				const video = mediaVideosData.results.find(
+					(video) => video.type === 'Trailer' || video.type === 'Teaser' || (video.type === 'Clip' && video.site === 'YouTube')
+				);
 				if (video) {
 					setVideoKey(video.key);
 				}
@@ -69,11 +71,11 @@ function MediaDetail() {
 		fetchMediaDetail();
 	}, [id, type]);
 
-	// useEffect(() => {
-	// 	if (mediaDetailVideos) {
-	// 		console.log(mediaDetailVideos);
-	// 	}
-	// }, [mediaDetailVideos]);
+	useEffect(() => {
+		if (mediaDetailVideos) {
+			console.log(mediaDetailVideos);
+		}
+	}, [mediaDetailVideos]);
 
 	if (!mediaDetail) {
 		return <MediaDetailSkeleton />;
@@ -114,9 +116,9 @@ function MediaDetail() {
 							)}
 						</p>
 
-						<p className={`${loadingComponents ? 'textSkeleton' : ''}`}>{loadingComponents ? '' : `Conteo de votos: ${mediaDetail.vote_count}`}</p>
+						<p className={`${loadingComponents ? 'textSkeleton' : ''}`}>{loadingComponents ? '' : `Conteo de votos: ${mediaDetail.vote_count}.`}</p>
 						<p className={`${loadingComponents ? 'textSkeleton' : ''}`}>
-							{loadingComponents ? '' : `Fecha de lanzamiento: ${mediaDetail.release_date || mediaDetail.first_air_date}`}
+							{loadingComponents ? '' : `Fecha de lanzamiento: ${mediaDetail.release_date || mediaDetail.first_air_date}.`}
 						</p>
 						<p className={`${loadingComponents ? 'textSkeleton' : ''}`}>
 							{loadingComponents
@@ -124,7 +126,7 @@ function MediaDetail() {
 								: type === 'movies'
 								? `Duración: ${mediaDetail.runtime !== undefined ? `${mediaDetail.runtime} minutos.` : 'minutos'}`
 								: `Duración de episodio aproximadamente: ${
-										mediaDetail.episode_run_time[0] !== undefined ? `${mediaDetail.episode_run_time[0]} minutos.` : 'minutos'
+										mediaDetail.episode_run_time[0] !== undefined ? `${mediaDetail.episode_run_time[0]} minutos` : 'minutos'
 								  }.`}
 						</p>
 

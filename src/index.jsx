@@ -15,6 +15,8 @@ import { MediaAllTV } from './routes/MediaAllTV';
 import { MediaDetail } from './routes/MediaDetail';
 import { MediaByCategory } from './routes/MediaByCategory';
 import { PageNotFound } from './components/PageNotFound';
+import { MediaBySearch } from './routes/MediaBySearch';
+import { SearchProvider } from './context/SearchMediaContext';
 
 const Layout = () => (
 	<>
@@ -65,6 +67,10 @@ const router = createHashRouter([
 				element: <MediaByCategory />,
 			},
 			{
+				path: 'search/:type/:query',
+				element: <MediaBySearch />,
+			},
+			{
 				path: '/favorites',
 				element: <MediaFavorites />,
 			},
@@ -76,7 +82,9 @@ createRoot(document.getElementById('root')).render(
 	<StrictMode>
 		<MenuProvider>
 			<FavoriteMediaProvider>
-				<RouterProvider router={router} />
+				<SearchProvider>
+					<RouterProvider router={router} />
+				</SearchProvider>
 			</FavoriteMediaProvider>
 		</MenuProvider>
 	</StrictMode>

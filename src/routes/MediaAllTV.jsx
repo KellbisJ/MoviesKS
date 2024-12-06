@@ -84,7 +84,7 @@ function MediaAllTV() {
 			{loadingComponents ? (
 				<MediaSkeleton />
 			) : (
-				<section className="trendingPreviewMediaContainer">
+				<section className="gridMediaContainer">
 					<CreateMedia media={allTv} type="tv" handleFavoriteClick={handleFavoriteClick} />
 				</section>
 			)}

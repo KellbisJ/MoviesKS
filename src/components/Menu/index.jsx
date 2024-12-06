@@ -37,10 +37,6 @@ function Menu() {
 						toggleSideBar={toggleSideBar}
 						componentsLoading={componentsLoading}
 					/>
-
-					<div className="AllMoviesText">
-						<p>1000+ movies and tv series to discover. Only pick up information and discover, no downloads or streaming links.</p>
-					</div>
 				</>
 			)}
 		</>

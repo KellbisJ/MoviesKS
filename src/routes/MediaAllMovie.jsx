@@ -83,7 +83,7 @@ function MediaAllMovie() {
 			{loadingComponents ? (
 				<MediaSkeleton />
 			) : (
-				<section className="allTrendingMediaContainer">
+				<section className="gridMediaContainer">
 					<CreateMedia media={allMovies} type="movies" handleFavoriteClick={handleFavoriteClick} />
 				</section>
 			)}

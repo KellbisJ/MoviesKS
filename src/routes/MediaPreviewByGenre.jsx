@@ -38,8 +38,7 @@ const MediaPreviewByGenre = () => {
 				<MediaSkeleton />
 			) : (
 				<div className="mediaPreviewContainer">
-					<h3 style={{ padding: '0 8px' }}>{`Preview for ${type} in genre: ${'genreName'}`}</h3>
-					<div className="mediaPreviewContainerGrid">
+					<div className="gridMediaContainer">
 						<CreateMedia media={media} type={type} />
 					</div>
 				</div>

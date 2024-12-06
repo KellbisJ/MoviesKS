@@ -98,10 +98,6 @@
 	width: 200px;
 	box-sizing: border-box;
 }
-.AllMoviesText {
-	margin-top: 80px;
-	padding: 0 22px;
-}
 
 @media (min-width: 740px) {
 	.filterBarContainer {

@@ -89,6 +89,20 @@ const MediaDetailSkeleton = () => {
 	);
 };
 
+const MediaFavoritesVoid = () => {
+	return (
+		<div className="mediaFavoritesVoid">
+			<div className="voidMedia"></div>
+			<div className="voidMedia"></div>
+			<div className="voidMedia"></div>
+			<div className="voidMedia"></div>
+			<div className="voidMedia"></div>
+			<div className="voidMedia"></div>
+			<div className="voidMedia"></div>
+		</div>
+	);
+};
+
 export {
 	MediaSkeleton,
 	MediaNullSkeleton,
@@ -98,4 +112,5 @@ export {
 	SimilarGenresNullSkeleton,
 	SimilarMediaSkeleton,
 	MediaDetailSkeleton,
+	MediaFavoritesVoid,
 };

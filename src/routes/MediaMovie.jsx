@@ -50,7 +50,7 @@ function MediaMovie() {
 			{loadingComponents ? (
 				<MediaSkeleton />
 			) : (
-				<section className="trendingPreviewMediaContainer">
+				<section className="gridMediaContainer">
 					<CreateMedia media={mediaTv} type={'movies'} favorites={favoriteTV} handleFavoriteClick={handleFavoriteClick} />
 				</section>
 			)}
