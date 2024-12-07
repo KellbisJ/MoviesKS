@@ -1,25 +1,15 @@
 {
-  "name": "moviesks",
+  "name": "moviesks-frontend",
   "version": "1.0.0",
-  "description": "![MoviesKS](./styles/2024-06-03%2008-09-02.gif)",
+  "description": "Frontend del proyecto MoviesKS",
   "main": "./src/index.jsx",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start:frontend": "vite",
-    "start:backend": "node --watch ./index.js",
+    "start": "vite",
     "build": "vite build",
     "serve": "vite preview"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/KellbisJ/MoviesKS.git"
-  },
   "author": "Kellbis Salazar",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/KellbisJ/MoviesKS/issues"
-  },
-  "homepage": "https://github.com/KellbisJ/MoviesKS#readme",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.0",
     "@fortawesome/free-solid-svg-icons": "^6.7.0",
@@ -33,7 +23,7 @@
     "react-router-dom": "^6.27.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.13.0",
+     "@eslint/js": "^9.13.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@typescript-eslint/eslint-plugin": "^8.14.0",
@@ -50,3 +40,4 @@
     "vite-plugin-env-compatible": "^2.0.1"
   }
 }
+
