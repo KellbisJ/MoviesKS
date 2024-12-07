@@ -11,7 +11,7 @@ const getCategoryList = async (req, res, type) => {
 		const { data } = await axios.get(api_url);
 		res.json(data);
 	} catch (error) {
-		res.status(500).json({ message: `An error occurred while fetching ${type} categories` });
+		res.status(500).json({ message: `An error occurred while fetching ${type} categories`, error: error.message });
 	}
 };
 

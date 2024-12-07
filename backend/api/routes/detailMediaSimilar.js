@@ -13,9 +13,9 @@ const getMediaSimilar = async (req, res, type) => {
 		res.json(data);
 	} catch (error) {
 		if (error.response && error.response.status === 404) {
-			res.status(404).json({ message: `Similar ${type} not found` });
+			res.status(404).json({ message: `Similar ${type} not found`, error: error.message });
 		} else {
-			res.status(500).json({ message: `An error occurred while fetching similar ${type} details` });
+			res.status(500).json({ message: `An error occurred while fetching similar ${type} details`, error: error.message });
 		}
 	}
 };

@@ -17,9 +17,9 @@ const getTrendingMedia = async (req, res, type) => {
 		res.json(data);
 	} catch (error) {
 		if (error.response && error.response.status === 404) {
-			res.status(404).json({ message: `No trending ${type} found` });
+			res.status(404).json({ message: `No trending ${type} found`, error: error.message });
 		} else {
-			res.status(500).json({ message: `An error occurred while fetching trending ${type}` });
+			res.status(500).json({ message: `An error occurred while fetching trending ${type}`, error: error.message });
 		}
 	}
 };

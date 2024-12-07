@@ -12,7 +12,7 @@ const getCategoryMedia = async (req, res, type) => {
 		const { data } = await axios.get(api_Url);
 		res.json(data);
 	} catch (error) {
-		res.status(500).json({ message: `An error occurred while fetching ${type} by category` });
+		res.status(500).json({ message: `An error occurred while fetching ${type} by category`, error: error.message });
 	}
 };
 

@@ -16,11 +16,11 @@ const searchMedia = async (req, res, type) => {
 		res.json(data);
 	} catch (error) {
 		if (error.response) {
-			res.status(error.response.status).json({ message: `Error searching ${type}: ${error.response.data.status_message}` });
+			res.status(error.response.status).json({ message: `Error searching ${type}: ${error.response.data.status_message}`, error: error.message });
 		} else if (error.request) {
-			res.status(500).json({ message: 'No response received' });
+			res.status(500).json({ message: 'No response received', error: error.message });
 		} else {
-			res.status(500).json({ message: 'Error 500: Internal Server Error' });
+			res.status(500).json({ message: 'Error 500: Internal Server Error', error: error.message });
 		}
 	}
 };
