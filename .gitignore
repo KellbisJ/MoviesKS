@@ -211,6 +211,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+*.vercel
 
 # Auth
 # src/auth.js
