@@ -9,7 +9,7 @@ const MediaPreviewByGenre = () => {
 	const [loadingComponents, setLoadingComponents] = useState(true);
 	const [media, setMedia] = useState(null);
 	const { type, id } = useParams();
-	const { selectedGenre } = useMenuContext();
+	// const { selectedGenre } = useMenuContext();
 	// const genreName = selectedGenre.genreName;
 
 	useEffect(() => {
@@ -27,10 +27,8 @@ const MediaPreviewByGenre = () => {
 	}, [type, id]);
 
 	if (!media) {
-		return <div style={{ display: 'flex', margin: '50px auto 300px auto', justifyContent: 'center' }}>Loading...</div>;
+		return <MediaSkeleton />;
 	}
-
-	// genreName tambien debe ser guardado en localStorage para preservar su valor entre recargas de página
 
 	return (
 		<>

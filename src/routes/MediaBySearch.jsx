@@ -59,6 +59,10 @@ function MediaBySearch() {
 		return [...media, ...moreMedia].find((media) => media.id === id);
 	});
 
+	if (media.length === 0) {
+		return <h2 style={{ display: 'flex', textAlign: 'center', margin: '180px auto', justifyContent: 'center' }}>No results</h2>;
+	}
+
 	return (
 		<>
 			{loadingComponents ? (

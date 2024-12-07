@@ -12,10 +12,10 @@ router.get('/search/movie/:query', async (req, res) => {
 	)}&api_key=${api_key}&language=es&include_adult=false&page=${page}`;
 
 	try {
-		console.log('api url', api_url);
+		// console.log('api url', api_url);
 		const { data } = await axios.get(api_url);
 
-		console.log('data api response', data);
+		// console.log('data api response', data);
 		res.json(data);
 	} catch (error) {
 		if (error.response) {

@@ -71,11 +71,11 @@ function MediaDetail() {
 		fetchMediaDetail();
 	}, [id, type]);
 
-	useEffect(() => {
-		if (mediaDetailVideos) {
-			console.log(mediaDetailVideos);
-		}
-	}, [mediaDetailVideos]);
+	// useEffect(() => {
+	// 	if (mediaDetailVideos) {
+	// 		console.log(mediaDetailVideos);
+	// 	}
+	// }, [mediaDetailVideos]);
 
 	if (!mediaDetail) {
 		return <MediaDetailSkeleton />;

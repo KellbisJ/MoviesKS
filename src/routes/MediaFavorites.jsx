@@ -15,8 +15,8 @@ function MediaFavorites() {
 	const { favorites, saveFavoriteMedia } = useFavoriteMedia();
 	const favoriteMovies = favorites.movies;
 	const favoriteTVShows = favorites.tv;
-	console.log(favoriteMovies);
-	console.log(favoriteTVShows);
+	// console.log(favoriteMovies);
+	// console.log(favoriteTVShows);
 
 	const handleFavoriteClick = (item) => {
 		const type = item.media_type;
@@ -26,7 +26,7 @@ function MediaFavorites() {
 
 	return (
 		<section className="mediaFavoritesContainer">
-			<h1>My Favorites</h1>
+			<h1 style={{ marginTop: '80px', textAlign: 'center' }}>My Favorites</h1>
 			<div className="favoritesMovies">
 				<h2>Movies</h2>
 				{favoriteMovies.length > 0 ? (
