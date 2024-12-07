@@ -1,0 +1,132 @@
+.filterBarContainer {
+	display: flex;
+	align-items: center;
+	padding: 14px;
+	flex-direction: column;
+	background-color: #151b23;
+	position: relative;
+	top: 56px;
+	width: 100%;
+}
+.filterBar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	padding: 10px 20px;
+	background-color: #290f41;
+	margin: 8px;
+	border-radius: 6px;
+	position: relative;
+}
+.filterBarBoxContent {
+	border: 1px solid #333;
+	position: absolute;
+	top: 0;
+	left: 100%;
+	width: 400px;
+	padding: 10px;
+	background-color: #151b23;
+	z-index: 50;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+}
+.filterBarBoxHeader {
+	margin: 0 0 10px 10px;
+}
+
+.filterBarBoxElements {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	gap: 10px;
+}
+
+.filterBarBoxMediaElements {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.filterBarBoxElements span {
+	color: #fff;
+	font-size: 14px;
+	margin-bottom: 5px;
+	font-weight: 500;
+}
+.filterBarBoxElementsMedia {
+	display: flex;
+	flex-direction: column;
+	padding-left: 16px;
+}
+
+.mediaElementContainer {
+	display: flex;
+	width: auto;
+}
+.mediaElementContainer span {
+	cursor: pointer;
+	height: 40px;
+}
+
+.mediaElement {
+	display: inline-flex;
+	color: #fff;
+	font-size: 14px;
+	margin-bottom: 12px;
+	font-weight: 500;
+	border-left: 5px solid transparent;
+	padding-left: 10px;
+	box-sizing: border-box;
+	align-items: center;
+}
+.mediaElement:hover {
+	border-left: 5px solid #ffffff;
+	width: 200px;
+	box-shadow: 0 4px 8px rgba(1, 1, 3, 0.2);
+	background-color: #290f41;
+	border-radius: 5px;
+	transition: all 0.3s ease-in-out;
+}
+.selected {
+	background-color: #290f41;
+	padding: 10px;
+	padding-left: 10px;
+	border-radius: 5px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease-in-out;
+	border-left: 5px solid #ffffff;
+	width: 200px;
+	box-sizing: border-box;
+}
+
+@media (min-width: 740px) {
+	.filterBarContainer {
+		align-items: normal;
+		margin-top: 40px;
+	}
+	.filterBar {
+		width: 31vw;
+	}
+}
+@media (max-width: 768px) {
+	.filterBarBoxContent {
+		display: none;
+	}
+	.mediaElementContainer {
+		justify-content: center;
+		align-items: center;
+	}
+	.mediaElementContainer span {
+		width: 100%;
+		padding-left: 0;
+		background-color: #290f41;
+		border-radius: 5px;
+		border: none;
+	}
+	.mediaElement {
+		justify-content: center;
+	}
+	.filterBarBoxElementsMedia {
+		padding: 0;
+	}
+}

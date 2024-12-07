@@ -1,0 +1,24 @@
+.PageNotFound {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	text-align: center;
+	background-color: #050d18;
+}
+.PageNotFound h1 {
+	font: 3rem;
+	color: #dc3545;
+}
+.PageNotFound p {
+	font: 1.25rem;
+	color: #6c757d;
+}
+.PageNotFound a {
+	text-decoration: none;
+	color: #007bff;
+}
+.PageNotFound a:hover {
+	text-decoration: underline;
+}

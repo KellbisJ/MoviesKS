@@ -1,0 +1,52 @@
+{
+  "name": "moviesks",
+  "version": "1.0.0",
+  "description": "![MoviesKS](./styles/2024-06-03%2008-09-02.gif)",
+  "main": "./src/index.jsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:frontend": "vite",
+    "start:backend": "node --watch ./index.js",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KellbisJ/MoviesKS.git"
+  },
+  "author": "Kellbis Salazar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KellbisJ/MoviesKS/issues"
+  },
+  "homepage": "https://github.com/KellbisJ/MoviesKS#readme",
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.7.0",
+    "@fortawesome/free-solid-svg-icons": "^6.7.0",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "axios": "^1.7.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.27.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.13.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@typescript-eslint/eslint-plugin": "^8.14.0",
+    "@typescript-eslint/parser": "^8.14.0",
+    "@vitejs/plugin-react": "^4.3.3",
+    "eslint": "^9.14.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.14",
+    "globals": "^15.11.0",
+    "vite": "^5.4.11",
+    "vite-plugin-env-compatible": "^2.0.1"
+  }
+}
