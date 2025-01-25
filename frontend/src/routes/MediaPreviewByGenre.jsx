@@ -36,9 +36,7 @@ const MediaPreviewByGenre = () => {
 				<MediaSkeleton />
 			) : (
 				<div className="mediaPreviewContainer">
-					<div className="gridMediaContainer">
-						<CreateMedia media={media} type={type} />
-					</div>
+					<CreateMedia media={media} type={type} />
 				</div>
 			)}
 		</>

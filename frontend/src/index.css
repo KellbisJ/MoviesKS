@@ -1,8 +1,5 @@
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
+@import 'tailwindcss';
+
 #root {
 	display: flex;
 	flex-direction: column;
@@ -10,16 +7,6 @@
 }
 .mainContent {
 	flex: 1;
-}
-input {
-	margin: 0;
-	padding: 0;
-	color: #e9eced;
-	font-size: 20px;
-	font-family: 'Roboto Condensed', sans-serif;
-	/* box-shadow: 0px 1.5px 0px 0px #212a2eb0; */
-	letter-spacing: 0.5px;
-	text-align: start;
 }
 :root {
 	font-family: 'Roboto Condensed', sans-serif;

@@ -62,10 +62,9 @@ function MediaByCategory() {
 				<MediaSkeleton />
 			) : (
 				<div className="mediaByCategoryContainer">
-					<h3 style={{ padding: '0 24px' }}>All Media by Category: {type}</h3>
-					<div className="gridMediaContainer gridMediaContainerByCategory">
-						<CreateMedia media={allMedia} type={type} />
-					</div>
+					<h3 className="pt-4 pl-8">All Media by Category: {type}</h3>
+
+					<CreateMedia media={allMedia} type={type} />
 				</div>
 			)}
 		</>

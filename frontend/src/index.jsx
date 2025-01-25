@@ -17,6 +17,7 @@ import { MediaByCategory } from './routes/MediaByCategory';
 import { PageNotFound } from './components/PageNotFound';
 import { MediaBySearch } from './routes/MediaBySearch';
 import { SearchProvider } from './context/SearchMediaContext';
+import './index.css';
 
 const Layout = () => (
 	<>

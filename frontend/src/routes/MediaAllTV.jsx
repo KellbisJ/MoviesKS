@@ -79,17 +79,7 @@ function MediaAllTV() {
 		saveFavoriteMedia(item, type);
 	};
 
-	return (
-		<>
-			{loadingComponents ? (
-				<MediaSkeleton />
-			) : (
-				<section className="gridMediaContainer">
-					<CreateMedia media={allTv} type="tv" handleFavoriteClick={handleFavoriteClick} />
-				</section>
-			)}
-		</>
-	);
+	return <>{loadingComponents ? <MediaSkeleton /> : <CreateMedia media={allTv} type="tv" handleFavoriteClick={handleFavoriteClick} />}</>;
 }
 
 export { MediaAllTV };

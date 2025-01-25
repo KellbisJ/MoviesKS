@@ -30,9 +30,7 @@ function MediaFavorites() {
 			<div className="favoritesMovies">
 				<h2>Movies</h2>
 				{favoriteMovies.length > 0 ? (
-					<div className="gridMediaContainerFavorite">
-						<CreateMedia media={favoriteMovies} type="movies" handleFavoriteClick={(movie) => handleFavoriteClick(movie)} />
-					</div>
+					<CreateMedia media={favoriteMovies} type="movies" handleFavoriteClick={(movie) => handleFavoriteClick(movie)} />
 				) : (
 					<MediaFavoritesVoid />
 				)}
@@ -40,9 +38,7 @@ function MediaFavorites() {
 			<div className="favoritesTVShows">
 				<h2>TV Shows</h2>
 				{favoriteTVShows.length > 0 ? (
-					<div className="gridMediaContainerFavorite">
-						<CreateMedia media={favoriteTVShows} type="tv" handleFavoriteClick={(tvShow) => handleFavoriteClick(tvShow)} />
-					</div>
+					<CreateMedia media={favoriteTVShows} type="tv" handleFavoriteClick={(tvShow) => handleFavoriteClick(tvShow)} />
 				) : (
 					<MediaFavoritesVoid />
 				)}

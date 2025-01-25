@@ -69,12 +69,10 @@ function MediaBySearch() {
 				<MediaSkeleton />
 			) : (
 				<div className="mediaBySearchContainer">
-					<h3 style={{ padding: '0 8px' }}>
+					<h3 className="mt-19 pl-8">
 						Search Results for "{query}" in {type === 'movies' ? 'Movies' : 'TV Shows'}
 					</h3>
-					<div className="gridMediaContainer">
-						<CreateMedia media={allMedia} type={type} />
-					</div>
+					<CreateMedia media={allMedia} type={type} />
 				</div>
 			)}
 		</>

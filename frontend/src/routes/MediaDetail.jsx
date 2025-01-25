@@ -168,10 +168,8 @@ function MediaDetail() {
 				</div>
 			</div>
 
-			<div className="SimilarMediaContainer">
-				<h3>Similar to watch {type}</h3>
-				{loadingComponents ? <SimilarMediaSkeleton /> : <CreateSimilarMediaDetail media={{ results: similarMedia }} type={type} />}
-			</div>
+			<h3>Similar to watch {type}</h3>
+			{loadingComponents ? <SimilarMediaSkeleton /> : <CreateSimilarMediaDetail media={{ results: similarMedia }} type={type} />}
 
 			<TrailerMedia isOpen={showTrailer} onClose={() => setShowTrailer(false)} videoKey={videoKey} />
 		</div>

@@ -62,7 +62,7 @@ function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMovie
 				{!isMobile && isMoviesModalOpen && (
 					<div className="filterBarBoxContent">
 						<div className="filterBarBoxHeader">
-							<h2>Type</h2>
+							<h2 className="text-sm">Type</h2>
 						</div>
 						<div className="filterBarBoxElements filterBarBoxMediaElements">
 							<div className="mediaElementContainer">
