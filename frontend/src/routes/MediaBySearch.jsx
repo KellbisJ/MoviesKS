@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMediaBySearch } from '../services/MediaBySearch';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
-import { CreateMedia } from '../components/CreateMedia';
-import { MediaSkeleton } from '../components/LoadingSkeletons';
+import { CreateMedia } from '../components/create-media';
+import { MediaSkeleton } from '../components/loading-skeletons';
 import { useMenuContext } from '../context/MenuContext';
 
 function MediaBySearch() {

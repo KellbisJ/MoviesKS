@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { getPreviewTrendingMovies } from '../services/PreviewTrendingMovies';
-import { CreateMedia } from '../components/CreateMedia';
+import { CreateMedia } from '../components/create-media';
 import { useFavoriteMedia } from '../context/FavoriteMediaContext';
 import { useMenuContext } from '../context/MenuContext';
 import { getMediaByCategory } from '../services/MediaByCategory';
-import { MediaSkeleton } from '../components/LoadingSkeletons';
+import { MediaSkeleton } from '../components/loading-skeletons';
 
 function Home() {
 	const { favorites, saveFavoriteMedia } = useFavoriteMedia();

@@ -3,8 +3,8 @@ import { getMediaDetail } from '../services/MediaDetail';
 import { getSimilarMediaDetail } from '../services/SimilarMediaDetail';
 import { getMediaVideos } from '../services/MediaVideos';
 import { useMenuContext } from '../context/MenuContext';
-import { CreateSimilarGenres } from '../components/CreateSimilarGenres';
-import { CreateSimilarMediaDetail } from '../components/CreateSimilarMediaDetail';
+import { CreateSimilarGenres } from '../components/create-similar-genres';
+import { CreateSimilarMediaDetail } from '../components/create-similar-media-detail';
 import { useParams } from 'react-router-dom';
 import {
 	BigPosterPathSkeleton,
@@ -12,8 +12,8 @@ import {
 	SimilarGenresNullSkeleton,
 	SimilarMediaSkeleton,
 	MediaDetailSkeleton,
-} from '../components/LoadingSkeletons';
-import { TrailerMedia } from '../common/Modals';
+} from '../components/loading-skeletons';
+import { TrailerMedia } from '../components/modals/trailer-media';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 

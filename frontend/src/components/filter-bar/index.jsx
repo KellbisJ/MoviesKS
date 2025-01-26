@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { SelectMovies, SelectGenres } from '../../common/Modals';
-import { CreatePreviewCategories } from '../CreatePreviewCategories';
+import { SelectMovies, SelectGenres } from '../modals/select-movies-and-genres';
+import { CreatePreviewCategories } from '../create-preview-categories';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useMenuContext } from '../../context/MenuContext';
-import { CategoriesSkeleton } from '../LoadingSkeletons';
+import { CategoriesSkeleton } from '../loading-skeletons';
 
 function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMoviesModal, toggleGenresModal, categories, componentsLoading }) {
 	const { mediaType, setMediaType, selectedGenre, setSelectedGenre } = useMenuContext();

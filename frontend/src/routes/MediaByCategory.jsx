@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import { useMenuContext } from '../context/MenuContext';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 import { getMediaByCategory } from '../services/MediaByCategory';
-import { CreateMedia } from '../components/CreateMedia';
-import { MediaSkeleton } from '../components/LoadingSkeletons';
+import { CreateMedia } from '../components/create-media';
+import { MediaSkeleton } from '../components/loading-skeletons';
 
 function MediaByCategory() {
 	const { setShowMenuComponents } = useMenuContext();

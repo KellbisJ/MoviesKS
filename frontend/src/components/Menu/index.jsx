@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../../services/icons.js';
-import { NavBar } from '../NavBar';
-import { FilterBar } from '../FilterBar';
-import { SideBar } from '../SideBar';
+import { NavBar } from '../nav-bar/index.jsx';
+import { FilterBar } from '../filter-bar/index.jsx';
+import { SideBar } from '../side-bar/index.jsx';
 import { useWindowSize } from '../../hooks/useWindowSize.js';
 import { useCategories } from '../../hooks/useCategories.js';
 import { useMenuContext } from '../../context/MenuContext.jsx';

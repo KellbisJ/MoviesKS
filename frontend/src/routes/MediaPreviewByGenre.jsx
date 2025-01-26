@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { CreateMedia } from '../components/CreateMedia';
+import { CreateMedia } from '../components/create-media';
 import { getMediaByCategory } from '../services/MediaByCategory';
 import { useMenuContext } from '../context/MenuContext';
-import { MediaSkeleton } from '../components/LoadingSkeletons';
+import { MediaSkeleton } from '../components/loading-skeletons';
 
 const MediaPreviewByGenre = () => {
 	const [loadingComponents, setLoadingComponents] = useState(true);

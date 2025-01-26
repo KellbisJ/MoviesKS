@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFavoriteMedia } from '../../context/FavoriteMediaContext';
-import { MediaNullSkeleton } from '../LoadingSkeletons';
+import { MediaNullSkeleton } from '../loading-skeletons';
 
 const MediaContainer = ({ media_, type }) => {
 	const { favorites, saveFavoriteMedia } = useFavoriteMedia();

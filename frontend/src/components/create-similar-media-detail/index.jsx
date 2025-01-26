@@ -1,5 +1,5 @@
 import React from 'react';
-import { CreateMedia } from '../CreateMedia';
+import { CreateMedia } from '../create-media';
 // import './CreateSimilarMediaDetail.css';
 
 function CreateSimilarMediaDetail({ media, type }) {
