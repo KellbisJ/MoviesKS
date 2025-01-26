@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 const MediaSkeleton = () => {
 	const count = 20;
 	return (
-		<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-20 p-4">
+		<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 p-6 lg:p-8">
 			{Array.from({ length: count }, (_, index) => (
 				<div
 					key={index}

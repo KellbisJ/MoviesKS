@@ -88,7 +88,7 @@ function MediaDetail() {
 	}
 
 	return (
-		<div className="p-6 mt-20 mr-1 mb-4 ml-1">
+		<div className="px-6 mt-6 mb-4">
 			<div className="flex flex-wrap gap-5 mb-6 flex-col items-center sm:flex-row md:items-normal">
 				<div className="flex-1 sm:max-w-[320px] h-[460px] p-4 rounded-lg bg-[#151b23] flex justify-center items-center">
 					{loadingComponents ? (

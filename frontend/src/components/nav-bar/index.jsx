@@ -44,14 +44,14 @@ function NavBar({ isMobile, toggleSideBar, isSideBarOpen }) {
 	return (
 		<>
 			{isMobile ? (
-				<nav className="top-0 w-full bg-[#050d18] shadow-md z-20 fixed">
-					<ul className="flex list-none justify-between m-0 p-3">
-						<li className="text-lg font-semibold decoration no-underline text-center rounded transition p-3 list-none">
+				<nav className="top-0 w-full bg-[#050d18] shadow-md z-20 fixed px-6">
+					<ul className="flex list-none justify-between items-center py-4 m-0">
+						<li className="text-lg font-semibold decoration no-underline text-center rounded transition list-none">
 							<button className="navItemSideBarButton" onClick={toggleSideBar}>
 								<FontAwesomeIcon icon={isSideBarOpen ? 'times' : 'bars'} />
 							</button>
 						</li>
-						<li className="text-lg font-semibold decoration no-underline text-center rounded transition p-3 list-none">
+						<li className="text-lg font-semibold decoration no-underline text-center rounded transition list-none">
 							<Link className="font-bold text-lg no-underline text-white" to="/">
 								MoviesKS
 							</Link>
@@ -77,7 +77,7 @@ function NavBar({ isMobile, toggleSideBar, isSideBarOpen }) {
 								</button>
 							</li>
 						) : (
-							<li className="text-lg font-semibold decoration no-underline text-center rounded transition p-3 list-none">
+							<li className="text-lg font-semibold decoration no-underline text-center rounded transition list-none">
 								<button
 									className="bg-none border-none p-0 flex items-center justify-center w-auto h-auto cursor-pointer"
 									onClick={handleSearchIconClick}>
@@ -88,17 +88,25 @@ function NavBar({ isMobile, toggleSideBar, isSideBarOpen }) {
 					</ul>
 				</nav>
 			) : (
-				<nav className="hidden md:flex justify-between items-center fixed top-0 w-full bg-[#050d18] z-1000 shadow-md p-4">
-					<ul className="flex items-center list-none justify-between m-0 p-[2vh] w-1/2">
+				<nav className="hidden md:flex justify-between items-center fixed top-0 w-full px-8 bg-[#050d18] z-1000 shadow-md h-16">
+					<ul className="flex items-center list-none justify-between m-0 w-1/2">
 						<li className="text-[16px] font-semibold no-underline text-center transition-colors duration-300 cursor-pointer">
 							<Link className="text-white no-underline text-[20px] font-bold" to="/">
 								MoviesKS
 							</Link>
 						</li>
-						<li onClick={() => handleNavigation('/')}>Home</li>
-						<li onClick={() => handleNavigation('/movies/all')}>Movies</li>
-						<li onClick={() => handleNavigation('/favorites')}>Favorites</li>
-						<li onClick={() => handleNavigation('/tv/all')}>TV</li>
+						<li className="cursor-pointer" onClick={() => handleNavigation('/')}>
+							Home
+						</li>
+						<li className="cursor-pointer" onClick={() => handleNavigation('/movies/all')}>
+							Movies
+						</li>
+						<li className="cursor-pointer" onClick={() => handleNavigation('/favorites')}>
+							Favorites
+						</li>
+						<li className="cursor-pointer" onClick={() => handleNavigation('/tv/all')}>
+							TV
+						</li>
 					</ul>
 					<ul className="flex items-center list-none justify-between m-custom p-0">
 						<li className="font-semibold no-underline text-center transition-colors duration-300 w-full list-none">

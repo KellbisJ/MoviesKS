@@ -5,9 +5,6 @@
 	flex-direction: column;
 	min-height: 100vh;
 }
-.mainContent {
-	flex: 1;
-}
 :root {
 	font-family: 'Roboto Condensed', sans-serif;
 	line-height: 1.5;

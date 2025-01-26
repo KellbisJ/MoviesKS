@@ -52,8 +52,8 @@ function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMovie
 	const categoryElements = CreatePreviewCategories(categories, handleCategoryChange, toggleGenresModal);
 
 	return (
-		<div className="flex flex-col items-center md:items-start p-3.5 bg-[#151b23] relative top-14 w-full">
-			<div className="flex justify-between items-center w-full sm:w-lg p-2.5 px-5 bg-[#290f41] m-2 rounded-lg relative">
+		<div className="flex flex-col items-center md:items-start p-6 lg:p-8 mt-16 bg-[#151b23] top-14 w-full gap-4">
+			<div className="flex justify-between items-center w-full sm:w-lg p-2.5 px-5 bg-[#290f41] rounded-lg relative">
 				{selectedMediaType ? selectedMediaType.charAt(0).toUpperCase() + selectedMediaType.slice(1) : 'Select Media Type'}
 				<button onClick={toggleMoviesModal} className="">
 					<FontAwesomeIcon icon="chevron-down" />
@@ -97,7 +97,7 @@ function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMovie
 				)}
 			</div>
 			{selectedMediaType && (
-				<div className="flex justify-between items-center w-full sm:w-lg p-2.5 px-5 bg-[#290f41] m-2 rounded-lg relative">
+				<div className="flex justify-between items-center w-full sm:w-lg p-2.5 px-5 bg-[#290f41] rounded-lg relative">
 					Genres
 					<button onClick={toggleGenresModal}>
 						<FontAwesomeIcon icon="chevron-down" />
