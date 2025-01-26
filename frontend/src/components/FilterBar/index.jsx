@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './FilterBar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SelectMovies, SelectGenres } from '../../common/Modals';
 import { CreatePreviewCategories } from '../CreatePreviewCategories';
@@ -53,21 +52,25 @@ function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMovie
 	const categoryElements = CreatePreviewCategories(categories, handleCategoryChange, toggleGenresModal);
 
 	return (
-		<div className="filterBarContainer">
-			<div className="filterBar filterBarType">
+		<div className="flex flex-col items-center md:items-start p-3.5 bg-[#151b23] relative top-14 w-full">
+			<div className="flex justify-between items-center w-full sm:w-lg p-2.5 px-5 bg-[#290f41] m-2 rounded-lg relative">
 				{selectedMediaType ? selectedMediaType.charAt(0).toUpperCase() + selectedMediaType.slice(1) : 'Select Media Type'}
-				<button onClick={toggleMoviesModal} className="navBtn">
+				<button onClick={toggleMoviesModal} className="">
 					<FontAwesomeIcon icon="chevron-down" />
 				</button>
 				{!isMobile && isMoviesModalOpen && (
-					<div className="filterBarBoxContent">
-						<div className="filterBarBoxHeader">
-							<h2 className="text-sm">Type</h2>
+					<div className="border border-[#333] absolute top-0 left-full w-[400px] p-2.5 bg-[#151b23] z-50 shadow-md rounded-lg hidden md:block">
+						<div className="mb-3 ml-3">
+							<h2>Type</h2>
 						</div>
-						<div className="filterBarBoxElements filterBarBoxMediaElements">
-							<div className="mediaElementContainer">
+						<div className="grid grid-cols-1 gap-2.5">
+							<div className="flex w-auto">
 								<span
-									className={selectedMediaType === 'movies' ? 'selected' : 'mediaElement'}
+									className={`text-white text-sm mb-1.25 font-medium ${
+										selectedMediaType === 'movies'
+											? 'bg-[#290f41] p-2.5 pl-2.5 rounded-lg shadow-md transition-all duration-300 ease-in-out border-l-5 border-white w-52 box-border'
+											: 'inline-flex text-white text-sm mb-3 font-medium border-l-5 border-transparent pl-2.5 box-border items-center'
+									}`}
 									onClick={() => {
 										handleMediaTypeChange('movies');
 										toggleMoviesModal();
@@ -75,11 +78,15 @@ function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMovie
 									Movies
 								</span>
 							</div>
-							<div className="mediaElementContainer">
+							<div className="flex w-auto">
 								<span
-									className={selectedMediaType === 'tv' ? 'selected' : 'mediaElement'}
+									className={`text-white text-sm mb-1.25 font-medium ${
+										selectedMediaType === 'movies'
+											? 'bg-[#290f41] p-2.5 pl-2.5 rounded-lg shadow-md transition-all duration-300 ease-in-out border-l-5 border-white w-52 box-border'
+											: 'inline-flex text-white text-sm mb-3 font-medium border-l-5 border-transparent pl-2.5 box-border items-center'
+									}`}
 									onClick={() => {
-										handleMediaTypeChange('tv');
+										handleMediaTypeChange('movies');
 										toggleMoviesModal();
 									}}>
 									TV
@@ -90,17 +97,17 @@ function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMovie
 				)}
 			</div>
 			{selectedMediaType && (
-				<div className="filterBar filterBarGenre">
+				<div className="flex justify-between items-center w-full sm:w-lg p-2.5 px-5 bg-[#290f41] m-2 rounded-lg relative">
 					Genres
-					<button onClick={toggleGenresModal} className="navBtn">
+					<button onClick={toggleGenresModal}>
 						<FontAwesomeIcon icon="chevron-down" />
 					</button>
 					{!isMobile && isGenresModalOpen && (
-						<div className="filterBarBoxContent">
-							<div className="filterBarBoxHeader">
+						<div className="border border-gray-800 absolute top-0 left-full w-[400px] p-2.5 bg-[#151b23] z-50 shadow-md rounded-lg">
+							<div className="mb-3 ml-3">
 								<h2>Genres</h2>
 							</div>
-							<div className="filterBarBoxElements">{componentsLoading ? <CategoriesSkeleton /> : categoryElements}</div>
+							<div className="grid grid-cols-1 gap-2.5">{componentsLoading ? <CategoriesSkeleton /> : categoryElements}</div>
 						</div>
 					)}
 				</div>
@@ -108,11 +115,11 @@ function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMovie
 			{isMobile && (
 				<>
 					<SelectMovies isOpen={isMoviesModalOpen} onClose={toggleMoviesModal}>
-						<div className="filterBarBoxElementsMedia">
+						<div className="flex flex-col pl-4">
 							<h2>Trending Media</h2>
-							<div className="mediaElementContainer">
+							<div className="flex w-auto">
 								<span
-									className="mediaElement"
+									className="inline-flex text-white text-sm mb-3 font-medium border-l-5 border-transparent pl-2.5 box-border items-center"
 									onClick={() => {
 										handleMediaTypeChange('movies');
 										toggleMoviesModal();
@@ -120,9 +127,9 @@ function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMovie
 									Movies
 								</span>
 							</div>
-							<div className="mediaElementContainer">
+							<div className="flex w-auto">
 								<span
-									className="mediaElement"
+									className="inline-flex text-white text-sm mb-3 font-medium border-l-5 border-transparent pl-2.5 box-border items-center"
 									onClick={() => {
 										handleMediaTypeChange('tv');
 										toggleMoviesModal();

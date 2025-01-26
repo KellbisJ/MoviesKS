@@ -88,24 +88,28 @@ function MediaDetail() {
 	}
 
 	return (
-		<div className="mediaDetailContainer">
-			<div className="mediaDetailHeader">
-				<div className="mediaDetailImageContainer">
+		<div className="p-6 mt-20 mr-1 mb-4 ml-1">
+			<div className="flex flex-wrap gap-5 mb-6 flex-col items-center sm:flex-row md:items-normal">
+				<div className="flex-1 sm:max-w-[320px] h-[460px] p-4 rounded-lg bg-[#151b23] flex justify-center items-center">
 					{loadingComponents ? (
 						<BigPosterPathSkeleton />
 					) : mediaDetail.poster_path === null ? (
 						<BigPosterPathNullSkeleton />
 					) : (
-						<img className="mediaDetailImage" src={`https://image.tmdb.org/t/p/w300/${mediaDetail.poster_path}`} alt="Media Poster" />
+						<img
+							className="p-4 text-white w-full sm:w-auto max-w-full max-h-full rounded-lg cursor-pointer"
+							src={`https://image.tmdb.org/t/p/w300/${mediaDetail.poster_path}`}
+							alt="Media Poster"
+						/>
 					)}
 				</div>
-				<div className="mediaDetailInformation">
+				<div className="flex-[2] flex flex-col gap-4 bg-[#151b23] p-4 rounded-lg text-white w-full sm:h-[460px]">
 					<h2 className={`${loadingComponents ? 'textSkeleton' : ''}`}>
 						{loadingComponents ? '' : type === 'movies' ? mediaDetail.original_title || mediaDetail.title : mediaDetail.name}
 					</h2>
 
 					<p className={`${loadingComponents ? 'textSkeleton' : ''}`}>{loadingComponents ? '' : mediaDetail.tagline}</p>
-					<div className="mediaDetailInformationRateDate">
+					<div className="flex flex-wrap flex-col gap-2.5">
 						<p className={`${loadingComponents ? 'textSkeleton' : ''}`}>
 							{loadingComponents ? (
 								''
@@ -138,7 +142,9 @@ function MediaDetail() {
 						<div className="mediaDetailInformationVideos">No trailer or teaser available</div>
 					) : (
 						<div className="mediaDetailInformationVideos">
-							<button className="mediaTrailerButton" onClick={() => setShowTrailer(true)}>
+							<button
+								className="bg-red-500 text-white border-none p-2.5 px-5 text-base cursor-pointer rounded-md transition-colors duration-300 ease-in-out hover:bg-red-600"
+								onClick={() => setShowTrailer(true)}>
 								🎥 Watch Trailer or Teaser
 							</button>
 						</div>
@@ -146,8 +152,8 @@ function MediaDetail() {
 				</div>
 			</div>
 
-			<div className={loadingComponents ? 'mediaDetailInformationOverviewSkeleton' : 'mediaDetailInformationOverview'}>
-				<div className={loadingComponents ? 'mediaOverviewSkeleton' : 'mediaOverview'}>
+			<div className={loadingComponents ? 'mediaDetailInformationOverviewSkeleton' : 'flex gap-6 mb-6 flex-col sm:flex-row'}>
+				<div className={loadingComponents ? 'mediaOverviewSkeleton' : 'flex-grow bg-[#151b23] p-4 rounded-lg text-white w-full  sm:w-[80%]'}>
 					{loadingComponents && <div className="overviewSkeleton"></div>}
 					{!loadingComponents && (
 						<>
@@ -157,7 +163,12 @@ function MediaDetail() {
 					)}
 				</div>
 
-				<div className={loadingComponents ? 'mediaDetailSimilarGenresSkeleton' : 'mediaDetailSimilarGenres'}>
+				<div
+					className={
+						loadingComponents
+							? 'mediaDetailSimilarGenresSkeleton'
+							: 'flex-grow bg-[#151b23] p-4 rounded-lg flex gap-2.5 min-w-[200px] flex-wrap justify-center'
+					}>
 					{loadingComponents && <div className="similarGenresSkeleton"></div>}
 					{!loadingComponents && (
 						<>
@@ -168,7 +179,7 @@ function MediaDetail() {
 				</div>
 			</div>
 
-			<h3>Similar to watch {type}</h3>
+			<h3>Similar to watch about {type}</h3>
 			{loadingComponents ? <SimilarMediaSkeleton /> : <CreateSimilarMediaDetail media={{ results: similarMedia }} type={type} />}
 
 			<TrailerMedia isOpen={showTrailer} onClose={() => setShowTrailer(false)} videoKey={videoKey} />

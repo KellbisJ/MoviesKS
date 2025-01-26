@@ -1,6 +1,6 @@
 import React from 'react';
 import { CreateMedia } from '../CreateMedia';
-import './CreateSimilarMediaDetail.css';
+// import './CreateSimilarMediaDetail.css';
 
 function CreateSimilarMediaDetail({ media, type }) {
 	if (!media.results || media.results.length === 0) {
@@ -8,6 +8,6 @@ function CreateSimilarMediaDetail({ media, type }) {
 	} else {
 		return <CreateMedia media={media.results} type={type} />;
 	}
-}
+} // Something pending
 
 export { CreateSimilarMediaDetail };

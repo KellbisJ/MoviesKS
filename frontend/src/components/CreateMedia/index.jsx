@@ -1,5 +1,4 @@
 import React from 'react';
-import './CreateMedia.css';
 import { MediaContainer } from '../media-container';
 
 const CreateMedia = ({ media = [], type }) => {
