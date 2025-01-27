@@ -23,12 +23,12 @@ const MediaContainer = ({ media_, type }) => {
 	};
 
 	return (
-		<div className="w-full flex flex-col relative">
+		<div className="w-full h-full flex flex-col relative">
 			{media_.poster_path === null ? (
 				<MediaNullSkeleton data={media_} type={type} title={media_.title || media_.name} />
 			) : (
 				<img
-					className="w-full h-[360px] lg:h-96 overflow-hidden rounded-lg shadow-lg cursor-pointer"
+					className="min-w-full min-h-60 max-h-60 md:min-h-80 md:max-h-80 lg:min-h-96 lg:max-h-96 overflow-hidden rounded-lg shadow-lg cursor-pointer"
 					alt={media_.title}
 					src={`https://image.tmdb.org/t/p/w300/${media_.poster_path}`}
 					onClick={handleNavigation}

@@ -1,19 +1,15 @@
 @import 'tailwindcss';
 
-#root {
-	display: flex;
-	flex-direction: column;
-	min-height: 100vh;
+body {
+	font-family: 'Lato', sans-serif;
 }
-:root {
-	font-family: 'Roboto Condensed', sans-serif;
-	line-height: 1.5;
-	font-weight: 400;
-	color-scheme: light dark;
-	color: rgba(255, 255, 255, 0.87);
-	background-color: #050d18;
-	font-synthesis: none;
-	text-rendering: optimizeLegibility;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: 'Lato', sans-serif;
+	font-weight: 700;
 }

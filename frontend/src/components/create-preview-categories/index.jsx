@@ -6,12 +6,12 @@ function CreatePreviewCategories(categories, onCategoryClick, onCloseModal) {
 	return categories.map((category) => (
 		<div
 			key={category.id}
-			className="flex justify-center items-center content-center flex-wrap w-full"
+			className="flex justify-center items-center content-center flex-wrap w-full cursor-pointer rounded p-2 hover:bg-fuchsia-700"
 			onClick={() => {
 				onCategoryClick(category);
 				onCloseModal();
 			}}>
-			<Link className="categoryItem">{category.name}</Link>
+			<Link className="">{category.name}</Link>
 		</div>
 	));
 }

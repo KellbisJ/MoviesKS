@@ -88,22 +88,22 @@ function MediaDetail() {
 	}
 
 	return (
-		<div className="px-6 mt-6 mb-4">
+		<div className="text-black">
 			<div className="flex flex-wrap gap-5 mb-6 flex-col items-center sm:flex-row md:items-normal">
-				<div className="flex-1 sm:max-w-[320px] h-[460px] p-4 rounded-lg bg-[#151b23] flex justify-center items-center">
+				<div className="flex-1 sm:max-w-[320px] h-[460px] p-4 rounded-lg bg-slate-200 flex justify-center">
 					{loadingComponents ? (
 						<BigPosterPathSkeleton />
 					) : mediaDetail.poster_path === null ? (
 						<BigPosterPathNullSkeleton />
 					) : (
 						<img
-							className="p-4 text-white w-full sm:w-auto max-w-full max-h-full rounded-lg cursor-pointer"
+							className="w-full sm:w-full max-w-full max-h-full rounded-lg cursor-pointer"
 							src={`https://image.tmdb.org/t/p/w300/${mediaDetail.poster_path}`}
 							alt="Media Poster"
 						/>
 					)}
 				</div>
-				<div className="flex-[2] flex flex-col gap-4 bg-[#151b23] p-4 rounded-lg text-white w-full sm:h-[460px]">
+				<div className="flex-2 flex flex-col gap-4 bg-slate-200 p-4 rounded-lg w-full sm:h-[460px]">
 					<h2 className={`${loadingComponents ? 'textSkeleton' : ''}`}>
 						{loadingComponents ? '' : type === 'movies' ? mediaDetail.original_title || mediaDetail.title : mediaDetail.name}
 					</h2>
@@ -143,7 +143,7 @@ function MediaDetail() {
 					) : (
 						<div className="mediaDetailInformationVideos">
 							<button
-								className="bg-red-500 text-white border-none p-2.5 px-5 text-base cursor-pointer rounded-md transition-colors duration-300 ease-in-out hover:bg-red-600"
+								className="bg-red-500 border-none p-2.5 px-5 text-base cursor-pointer rounded-md transition-colors duration-300 ease-in-out hover:bg-red-600"
 								onClick={() => setShowTrailer(true)}>
 								🎥 Watch Trailer or Teaser
 							</button>
@@ -153,7 +153,7 @@ function MediaDetail() {
 			</div>
 
 			<div className={loadingComponents ? 'mediaDetailInformationOverviewSkeleton' : 'flex gap-6 mb-6 flex-col sm:flex-row'}>
-				<div className={loadingComponents ? 'mediaOverviewSkeleton' : 'flex-grow bg-[#151b23] p-4 rounded-lg text-white w-full  sm:w-[80%]'}>
+				<div className={loadingComponents ? 'mediaOverviewSkeleton' : 'flex-grow bg-slate-200 p-4 rounded-lg w-full  sm:w-[80%]'}>
 					{loadingComponents && <div className="overviewSkeleton"></div>}
 					{!loadingComponents && (
 						<>
@@ -167,7 +167,7 @@ function MediaDetail() {
 					className={
 						loadingComponents
 							? 'mediaDetailSimilarGenresSkeleton'
-							: 'flex-grow bg-[#151b23] p-4 rounded-lg flex gap-2.5 min-w-[200px] flex-wrap justify-center'
+							: 'flex-grow bg-slate-200 p-4 rounded-lg flex gap-2.5 min-w-[200px] flex-wrap justify-center'
 					}>
 					{loadingComponents && <div className="similarGenresSkeleton"></div>}
 					{!loadingComponents && (

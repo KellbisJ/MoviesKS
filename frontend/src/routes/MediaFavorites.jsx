@@ -26,7 +26,7 @@ function MediaFavorites() {
 
 	return (
 		<section className="mediaFavoritesContainer">
-			<h1 style={{ marginTop: '80px', textAlign: 'center' }}>My Favorites</h1>
+			<h1 className="text-center">My Favorites</h1>
 			<div className="favoritesMovies">
 				<h2>Movies</h2>
 				{favoriteMovies.length > 0 ? (

@@ -52,23 +52,23 @@ function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMovie
 	const categoryElements = CreatePreviewCategories(categories, handleCategoryChange, toggleGenresModal);
 
 	return (
-		<div className="flex flex-col items-center md:items-start p-6 lg:p-8 mt-16 bg-[#151b23] top-14 w-full gap-4">
-			<div className="flex justify-between items-center w-full sm:w-lg p-2.5 px-5 bg-[#290f41] rounded-lg relative">
+		<div className="flex flex-col items-center md:items-start p-6 lg:p-8 mt-15 bg-fuchsia-700 w-full gap-4 text-stone-100">
+			<div className="flex justify-between items-center w-full sm:w-lg p-2.5 px-5 bg-fuchsia-900 rounded relative">
 				{selectedMediaType ? selectedMediaType.charAt(0).toUpperCase() + selectedMediaType.slice(1) : 'Select Media Type'}
 				<button onClick={toggleMoviesModal} className="">
 					<FontAwesomeIcon icon="chevron-down" />
 				</button>
 				{!isMobile && isMoviesModalOpen && (
-					<div className="border border-[#333] absolute top-0 left-full w-[400px] p-2.5 bg-[#151b23] z-50 shadow-md rounded-lg hidden md:block">
+					<div className="absolute top-0 left-full w-md p-2.5 bg-fuchsia-900 z-50 shadow-md rounded-lg hidden md:block">
 						<div className="mb-3 ml-3">
-							<h2>Type</h2>
+							<h2 className="text-base lg:text-xl">Type</h2>
 						</div>
 						<div className="grid grid-cols-1 gap-2.5">
 							<div className="flex w-auto">
 								<span
-									className={`text-white text-sm mb-1.25 font-medium ${
+									className={`text-white text-sm mb-1.25 font-medium cursor-pointer ${
 										selectedMediaType === 'movies'
-											? 'bg-[#290f41] p-2.5 pl-2.5 rounded-lg shadow-md transition-all duration-300 ease-in-out border-l-5 border-white w-52 box-border'
+											? 'bg-fuchsia-700 p-2.5 pl-2.5 rounded-lg shadow-md transition-all duration-300 ease-in-out border-l-5 border-white w-52 box-border'
 											: 'inline-flex text-white text-sm mb-3 font-medium border-l-5 border-transparent pl-2.5 box-border items-center'
 									}`}
 									onClick={() => {
@@ -80,13 +80,13 @@ function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMovie
 							</div>
 							<div className="flex w-auto">
 								<span
-									className={`text-white text-sm mb-1.25 font-medium ${
-										selectedMediaType === 'movies'
-											? 'bg-[#290f41] p-2.5 pl-2.5 rounded-lg shadow-md transition-all duration-300 ease-in-out border-l-5 border-white w-52 box-border'
+									className={`text-white text-sm mb-1.25 font-medium cursor-pointer ${
+										selectedMediaType === 'tv'
+											? 'bg-fuchsia-700 p-2.5 pl-2.5 rounded-lg shadow-md transition-all duration-300 ease-in-out border-l-5 border-white w-52 box-border'
 											: 'inline-flex text-white text-sm mb-3 font-medium border-l-5 border-transparent pl-2.5 box-border items-center'
 									}`}
 									onClick={() => {
-										handleMediaTypeChange('movies');
+										handleMediaTypeChange('tv');
 										toggleMoviesModal();
 									}}>
 									TV
@@ -97,17 +97,17 @@ function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMovie
 				)}
 			</div>
 			{selectedMediaType && (
-				<div className="flex justify-between items-center w-full sm:w-lg p-2.5 px-5 bg-[#290f41] rounded-lg relative">
+				<div className="flex justify-between items-center w-full sm:w-lg p-2.5 px-5 bg-fuchsia-900 rounded relative">
 					Genres
 					<button onClick={toggleGenresModal}>
 						<FontAwesomeIcon icon="chevron-down" />
 					</button>
 					{!isMobile && isGenresModalOpen && (
-						<div className="border border-gray-800 absolute top-0 left-full w-[400px] p-2.5 bg-[#151b23] z-50 shadow-md rounded-lg">
+						<div className="absolute top-0 left-full w-md p-2.5 bg-fuchsia-900 z-50 shadow-md rounded-lg">
 							<div className="mb-3 ml-3">
-								<h2>Genres</h2>
+								<h2 className="text-base lg:text-xl">Genres</h2>
 							</div>
-							<div className="grid grid-cols-1 gap-2.5">{componentsLoading ? <CategoriesSkeleton /> : categoryElements}</div>
+							<div className="grid grid-cols-2 gap-2.5">{componentsLoading ? <CategoriesSkeleton /> : categoryElements}</div>
 						</div>
 					)}
 				</div>

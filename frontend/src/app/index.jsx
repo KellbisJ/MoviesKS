@@ -23,6 +23,7 @@ const App = () => (
 					<Routes>
 						<Route path="/" element={<Layout />}>
 							<Route index element={<Home />} />
+							<Route path="home" element={<Home />} />
 							<Route path="movies" element={<MediaMovie />} />
 							<Route path="movies/all" element={<MediaAllMovie />} />
 							<Route path="tv" element={<MediaTV />} />
