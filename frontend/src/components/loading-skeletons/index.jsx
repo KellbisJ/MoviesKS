@@ -76,21 +76,21 @@ const MediaDetailSkeleton = () => {
 				<div className="flex-1 min-w-64 sm:max-w-[320px] h-[460px] p-4 rounded-lg bg-slate-200 flex justify-center">
 					<div className="w-full pt-[150%] bg-slate-400 animate-pulse rounded-lg"></div>
 				</div>
-				<div className="flex-2 flex flex-col gap-4  p-4 rounded-lg text-white w-full sm:h-[460px] bg-slate-200">
-					<div className="w-3/5 h-7 bg-slate-200 animate-pulse rounded-lg"></div>
-					<div className="w-2/5 h-5 bg-slate-200"></div>
-					<div className="w-2/5 h-5 bg-slate-200"></div>
-					<div className="w-2/5 h-5 bg-slate-200"></div>
-					<div className="w-2/5 h-5 bg-slate-200"></div>
-					<div className="w-2/5 h-5 bg-slate-200"></div>
+				<div className="flex-[2] flex flex-col gap-4  p-4 rounded-lg text-white w-full sm:h-[460px] bg-slate-200">
+					<div className="w-2/5 h-7 bg-slate-400 animate-pulse rounded-lg"></div>
+					<div className="w-2/5 h-5 bg-slate-400"></div>
+					<div className="w-2/5 h-5 bg-slate-400"></div>
+					<div className="w-2/5 h-5 bg-slate-400"></div>
+					<div className="w-2/5 h-5 bg-slate-400"></div>
+					<div className="w-2/5 h-5 bg-slate-400"></div>
 				</div>
 			</div>
 			<div className="flex flex-wrap gap-6 mb-6">
-				<div className="bg-slate-200 p-4 rounded-lg text-white w-4/5">
-					<div className="w-full h-full bg-slate-200 animate-pulse rounded-lg mb-4"></div>
+				<div className="bg-slate-200 h-32 p-4 rounded-lg text-white w-4/5">
+					<div className="w-full h-full bg-slate-400 animate-pulse rounded-lg mb-4"></div>
 				</div>
-				<div className="flex-1 bg-slate-200 p-4 rounded-lg flex gap-2.5 min-w-0 flex-wrap justify-center h-50">
-					<div className="w-full h-full bg-slate-200 animate-pulse rounded-lg shadow-md"></div>
+				<div className="flex-1 h-32 bg-slate-200 p-4 rounded-lg flex gap-2.5 min-w-0 flex-wrap justify-center">
+					<div className="w-full h-full bg-slate-400 animate-pulse rounded-lg shadow-md"></div>
 				</div>
 			</div>
 		</div>

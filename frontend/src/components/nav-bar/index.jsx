@@ -3,12 +3,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useSearch } from '../../context/SearchMediaContext';
+import { useDarkMode } from '../../hooks/use-dark-mode';
+import { MdDarkMode } from 'react-icons/md';
 
 function NavBar({ isMobile, toggleSideBar, isSideBarOpen }) {
 	const { searchQuery, updateSearchQuery, updateMediaType, mediaType } = useSearch();
 	const location = useLocation();
 	const navigate = useNavigate();
 	const [showSearchBar, setShowSearchBar] = useState(false);
+	const [isDarkMode, toggleDarkMode] = useDarkMode();
 
 	useEffect(() => {
 		if (location.pathname.includes('/tv')) {
@@ -88,13 +91,16 @@ function NavBar({ isMobile, toggleSideBar, isSideBarOpen }) {
 					</ul>
 				</nav>
 			) : (
-				<nav className="hidden md:flex justify-between items-center fixed top-0 w-full px-8 bg-fuchsia-700 z-1000 shadow-md h-16 text-stone-100">
+				<nav className="hidden md:flex justify-between items-center fixed top-0 w-full px-8 bg-fuchsia-700 z-20 shadow-md h-16 text-stone-100">
 					<ul className="flex items-center list-none justify-between m-0 w-1/2">
 						<li className="text-[16px] font-semibold no-underline text-center transition-colors duration-300 cursor-pointer">
 							<Link className="no-underline text-[20px] font-bold" to="/home">
 								MoviesKS
 							</Link>
 						</li>
+						<button onClick={toggleDarkMode}>
+							<MdDarkMode />
+						</button>
 						<li className="cursor-pointer" onClick={() => handleNavigation('/')}>
 							Home
 						</li>

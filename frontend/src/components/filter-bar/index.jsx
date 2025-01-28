@@ -52,7 +52,7 @@ function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMovie
 	const categoryElements = CreatePreviewCategories(categories, handleCategoryChange, toggleGenresModal);
 
 	return (
-		<div className="flex flex-col items-center md:items-start p-6 lg:p-8 mt-15 bg-fuchsia-700 w-full gap-4 text-stone-100">
+		<div className="flex flex-col items-center md:items-start p-6 lg:p-8 mt-[60px] lg:mt-16  bg-fuchsia-700 w-full gap-4 text-stone-100">
 			<div className="flex justify-between items-center w-full sm:w-lg p-2.5 px-5 bg-fuchsia-900 rounded relative">
 				{selectedMediaType ? selectedMediaType.charAt(0).toUpperCase() + selectedMediaType.slice(1) : 'Select Media Type'}
 				<button onClick={toggleMoviesModal} className="">

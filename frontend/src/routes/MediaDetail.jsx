@@ -103,7 +103,7 @@ function MediaDetail() {
 						/>
 					)}
 				</div>
-				<div className="flex-2 flex flex-col gap-4 bg-slate-200 p-4 rounded-lg w-full sm:h-[460px]">
+				<div className="flex-[2] flex flex-col gap-4 bg-slate-200 p-4 rounded-lg w-full sm:h-[460px]">
 					<h2 className={`${loadingComponents ? 'textSkeleton' : ''}`}>
 						{loadingComponents ? '' : type === 'movies' ? mediaDetail.original_title || mediaDetail.title : mediaDetail.name}
 					</h2>
