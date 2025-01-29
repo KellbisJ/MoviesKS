@@ -73,10 +73,10 @@ const MediaDetailSkeleton = () => {
 	return (
 		<div className="rounded-lg">
 			<div className="flex flex-wrap gap-5 mb-6 flex-col items-center sm:flex-row md:items-normal">
-				<div className="flex-1 min-w-64 sm:max-w-[320px] h-[460px] p-4 rounded-lg bg-slate-200 flex justify-center">
+				<div className="flex-1 min-w-64 sm:max-w-[320px] h-[460px] p-4 rounded-lg bg-slate-200 dark:bg-indigo-950 flex justify-center">
 					<div className="w-full pt-[150%] bg-slate-400 animate-pulse rounded-lg"></div>
 				</div>
-				<div className="flex-[2] flex flex-col gap-4  p-4 rounded-lg text-white w-full sm:h-[460px] bg-slate-200">
+				<div className="flex-[2] flex flex-col gap-4  p-4 rounded-lg text-white w-full sm:h-[460px] bg-slate-200 dark:bg-indigo-950">
 					<div className="w-2/5 h-7 bg-slate-400 animate-pulse rounded-lg"></div>
 					<div className="w-2/5 h-5 bg-slate-400"></div>
 					<div className="w-2/5 h-5 bg-slate-400"></div>
@@ -86,10 +86,10 @@ const MediaDetailSkeleton = () => {
 				</div>
 			</div>
 			<div className="flex flex-wrap gap-6 mb-6">
-				<div className="bg-slate-200 h-32 p-4 rounded-lg text-white w-4/5">
+				<div className="bg-slate-200 dark:bg-indigo-950 h-32 p-4 rounded-lg text-white w-4/5">
 					<div className="w-full h-full bg-slate-400 animate-pulse rounded-lg mb-4"></div>
 				</div>
-				<div className="flex-1 h-32 bg-slate-200 p-4 rounded-lg flex gap-2.5 min-w-0 flex-wrap justify-center">
+				<div className="flex-1 h-32 bg-slate-200 dark:bg-indigo-950 p-4 rounded-lg flex gap-2.5 min-w-0 flex-wrap justify-center">
 					<div className="w-full h-full bg-slate-400 animate-pulse rounded-lg shadow-md"></div>
 				</div>
 			</div>
@@ -100,7 +100,7 @@ const MediaDetailSkeleton = () => {
 const MediaFavoritesVoid = () => {
 	return (
 		<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
-			{Array.from({ length: 6 }, (_, index) => (
+			{Array.from({ length: 3 }, (_, index) => (
 				<div
 					key={index}
 					className="w-full bg-slate-400 border-2 border-dashed border-gray-400 rounded-lg h-80 flex items-center justify-center text-gray-400 text-lg italic text-center relative transition-colors duration-300 hover:bg-gray-200 hover:border-gray-500">

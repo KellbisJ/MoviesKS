@@ -88,9 +88,9 @@ function MediaDetail() {
 	}
 
 	return (
-		<div className="text-black">
+		<div className="text-black dark:text-gray-100">
 			<div className="flex flex-wrap gap-5 mb-6 flex-col items-center sm:flex-row md:items-normal">
-				<div className="flex-1 sm:max-w-[320px] h-[460px] p-4 rounded-lg bg-slate-200 flex justify-center">
+				<div className="flex-1 sm:max-w-[320px] h-[460px] p-4 rounded-lg bg-slate-200 dark:bg-indigo-950 flex justify-center">
 					{loadingComponents ? (
 						<BigPosterPathSkeleton />
 					) : mediaDetail.poster_path === null ? (
@@ -103,7 +103,7 @@ function MediaDetail() {
 						/>
 					)}
 				</div>
-				<div className="flex-[2] flex flex-col gap-4 bg-slate-200 p-4 rounded-lg w-full sm:h-[460px]">
+				<div className="flex-[2] flex flex-col gap-4 bg-slate-200 dark:bg-indigo-950 p-4 rounded-lg w-full sm:h-[460px]">
 					<h2 className={`${loadingComponents ? 'textSkeleton' : ''}`}>
 						{loadingComponents ? '' : type === 'movies' ? mediaDetail.original_title || mediaDetail.title : mediaDetail.name}
 					</h2>
@@ -153,7 +153,7 @@ function MediaDetail() {
 			</div>
 
 			<div className={loadingComponents ? 'mediaDetailInformationOverviewSkeleton' : 'flex gap-6 mb-6 flex-col sm:flex-row'}>
-				<div className={loadingComponents ? 'mediaOverviewSkeleton' : 'flex-grow bg-slate-200 p-4 rounded-lg w-full  sm:w-[80%]'}>
+				<div className={loadingComponents ? 'mediaOverviewSkeleton' : 'flex-grow bg-slate-200 dark:bg-indigo-950 p-4 rounded-lg w-full  sm:w-[80%]'}>
 					{loadingComponents && <div className="overviewSkeleton"></div>}
 					{!loadingComponents && (
 						<>
@@ -167,7 +167,7 @@ function MediaDetail() {
 					className={
 						loadingComponents
 							? 'mediaDetailSimilarGenresSkeleton'
-							: 'flex-grow bg-slate-200 p-4 rounded-lg flex gap-2.5 min-w-[200px] flex-wrap justify-center'
+							: 'flex-grow bg-slate-200 dark:bg-indigo-950 p-4 rounded-lg flex gap-2.5 min-w-[200px] flex-wrap justify-center'
 					}>
 					{loadingComponents && <div className="similarGenresSkeleton"></div>}
 					{!loadingComponents && (
