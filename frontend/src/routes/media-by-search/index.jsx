@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getMediaBySearch } from '../services/MediaBySearch';
-import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
-import { CreateMedia } from '../components/create-media';
-import { MediaSkeleton } from '../components/loading-skeletons';
-import { useMenuContext } from '../context/MenuContext';
+import { getMediaBySearch } from '../../services/MediaBySearch';
+import { useInfiniteScroll } from '../../hooks/use-infinite-scroll';
+import { CreateMedia } from '../../components/create-media';
+import { MediaSkeleton } from '../../components/loading-skeletons';
+import { useMenuContext } from '../../context/menu-context';
 
 function MediaBySearch() {
 	const { setShowMenuComponents } = useMenuContext();

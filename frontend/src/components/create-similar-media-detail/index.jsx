@@ -1,6 +1,5 @@
 import React from 'react';
 import { CreateMedia } from '../create-media';
-// import './CreateSimilarMediaDetail.css';
 
 function CreateSimilarMediaDetail({ media, type }) {
 	if (!media.results || media.results.length === 0) {

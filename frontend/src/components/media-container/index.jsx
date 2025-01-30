@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useFavoriteMedia } from '../../context/FavoriteMediaContext';
+import { useFavoriteMedia } from '../../context/favorite-media-context';
 import { MediaNullSkeleton } from '../loading-skeletons';
+import { BiBookmarkHeart } from 'react-icons/bi';
 
 const MediaContainer = ({ media_, type }) => {
 	const { favorites, saveFavoriteMedia } = useFavoriteMedia();
@@ -35,13 +35,11 @@ const MediaContainer = ({ media_, type }) => {
 				/>
 			)}
 
-			<div className="absolute top-0 left-0 right-0 flex justify-between p-2 pl-3 text-white z-10">
+			<div className="absolute top-0 left-0 right-0 flex justify-between p-2 pl-3 text-2xl  z-10">
 				<span
-					className={`absolute cursor-pointer z-20 text-[18px] transition-colors duration-300 ease-in-out hover:text-yellow-400 ${
-						isFavorite ? 'text-yellow-400' : 'text-gray-600'
-					}`}
+					className={`absolute cursor-pointer z-20 transition-colors duration-300 ease-in-out ${isFavorite ? 'text-fuchsia-500' : 'text-slate-300'}`}
 					onClick={handleFavoriteClick}>
-					<FontAwesomeIcon icon="heart" />
+					<BiBookmarkHeart />
 				</span>
 			</div>
 		</div>

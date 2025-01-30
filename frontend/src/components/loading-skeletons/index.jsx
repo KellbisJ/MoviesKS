@@ -22,7 +22,7 @@ const MediaNullSkeleton = ({ data, type, title }) => {
 	};
 	return (
 		<div
-			className="w-full h-80 bg-slate-400 rounded-lg shadow-lg cursor-pointer flex justify-center items-center p-4 text-center text-gray-400 text-sm"
+			className="w-full min-h-60 max-h-60 md:min-h-80 md:max-h-80 lg:min-h-96 lg:max-h-96 bg-slate-400 rounded-lg shadow-lg cursor-pointer flex justify-center items-center p-4 text-center text-black dark:text-gray-100 text-sm"
 			onClick={() => handleNavigation(data)}>
 			No image available for: {title}
 		</div>
@@ -78,11 +78,11 @@ const MediaDetailSkeleton = () => {
 				</div>
 				<div className="flex-[2] flex flex-col gap-4  p-4 rounded-lg text-white w-full sm:h-[460px] bg-slate-200 dark:bg-indigo-950">
 					<div className="w-2/5 h-7 bg-slate-400 animate-pulse rounded-lg"></div>
-					<div className="w-2/5 h-5 bg-slate-400"></div>
-					<div className="w-2/5 h-5 bg-slate-400"></div>
-					<div className="w-2/5 h-5 bg-slate-400"></div>
-					<div className="w-2/5 h-5 bg-slate-400"></div>
-					<div className="w-2/5 h-5 bg-slate-400"></div>
+					<div className="w-2/5 h-5 bg-slate-400 animate-pulse rounded-lg"></div>
+					<div className="w-2/5 h-5 bg-slate-400 animate-pulse rounded-lg"></div>
+					<div className="w-2/5 h-5 bg-slate-400 animate-pulse rounded-lg"></div>
+					<div className="w-2/5 h-5 bg-slate-400 animate-pulse rounded-lg"></div>
+					<div className="w-2/5 h-5 bg-slate-400 animate-pulse rounded-lg"></div>
 				</div>
 			</div>
 			<div className="flex flex-wrap gap-6 mb-6">

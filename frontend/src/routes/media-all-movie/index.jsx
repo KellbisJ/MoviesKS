@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getPreviewTrendingMovies } from '../services/PreviewTrendingMovies';
-import { CreateMedia } from '../components/create-media';
-import { getNextMoviesTrendingSection } from '../services/NextMoviesTrendingSection';
-import { useMenuContext } from '../context/MenuContext';
-import { useFavoriteMedia } from '../context/FavoriteMediaContext';
-import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
-import { MediaSkeleton } from '../components/loading-skeletons';
+import { getPreviewTrendingMovies } from '../../services/PreviewTrendingMovies';
+import { CreateMedia } from '../../components/create-media';
+import { getNextMoviesTrendingSection } from '../../services/NextMoviesTrendingSection';
+import { useMenuContext } from '../../context/menu-context';
+import { useFavoriteMedia } from '../../context/favorite-media-context';
+import { useInfiniteScroll } from '../../hooks/use-infinite-scroll';
+import { MediaSkeleton } from '../../components/loading-skeletons';
 
 function MediaAllMovie() {
 	const { setShowMenuComponents } = useMenuContext();

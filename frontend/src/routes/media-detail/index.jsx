@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { getMediaDetail } from '../services/MediaDetail';
-import { getSimilarMediaDetail } from '../services/SimilarMediaDetail';
-import { getMediaVideos } from '../services/MediaVideos';
-import { useMenuContext } from '../context/MenuContext';
-import { CreateSimilarGenres } from '../components/create-similar-genres';
-import { CreateSimilarMediaDetail } from '../components/create-similar-media-detail';
+import { getMediaDetail } from '../../services/MediaDetail';
+import { getSimilarMediaDetail } from '../../services/SimilarMediaDetail';
+import { getMediaVideos } from '../../services/MediaVideos';
+import { useMenuContext } from '../../context/menu-context';
+import { CreateSimilarGenres } from '../../components/create-similar-genres';
+import { CreateSimilarMediaDetail } from '../../components/create-similar-media-detail';
 import { useParams } from 'react-router-dom';
 import {
 	BigPosterPathSkeleton,
@@ -12,10 +12,11 @@ import {
 	SimilarGenresNullSkeleton,
 	SimilarMediaSkeleton,
 	MediaDetailSkeleton,
-} from '../components/loading-skeletons';
-import { TrailerMedia } from '../components/modals/trailer-media';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+} from '../../components/loading-skeletons';
+import { TrailerMedia } from '../../components/modals/trailer-media';
+import { useFavoriteMedia } from '../../context/favorite-media-context';
+import { LiaStarSolid } from 'react-icons/lia';
+import { BiBookmarkHeart } from 'react-icons/bi';
 
 function MediaDetail() {
 	const { setShowMenuComponents } = useMenuContext();
@@ -33,6 +34,10 @@ function MediaDetail() {
 	const [similarMedia, setSimilarMedia] = useState([]);
 	const [showTrailer, setShowTrailer] = useState(false);
 	const [videoKey, setVideoKey] = useState(null);
+
+	const { favorites, saveFavoriteMedia } = useFavoriteMedia();
+	const favoriteMedia = favorites[type] || [];
+	const isFavorite = favoriteMedia.some((favMedia) => favMedia.id === mediaDetail?.id);
 
 	useEffect(() => {
 		setLoadingComponents(true);
@@ -71,11 +76,13 @@ function MediaDetail() {
 		fetchMediaDetail();
 	}, [id, type]);
 
-	// useEffect(() => {
-	// 	if (mediaDetailVideos) {
-	// 		console.log(mediaDetailVideos);
-	// 	}
-	// }, [mediaDetailVideos]);
+	const handleFavoriteClick = () => {
+		if (!['movies', 'tv'].includes(type)) {
+			console.error(`Invalid media type: ${type}`);
+			return;
+		}
+		saveFavoriteMedia(mediaDetail, type);
+	};
 
 	if (!mediaDetail) {
 		return <MediaDetailSkeleton />;
@@ -90,7 +97,7 @@ function MediaDetail() {
 	return (
 		<div className="text-black dark:text-gray-100">
 			<div className="flex flex-wrap gap-5 mb-6 flex-col items-center sm:flex-row md:items-normal">
-				<div className="flex-1 sm:max-w-[320px] h-[460px] p-4 rounded-lg bg-slate-200 dark:bg-indigo-950 flex justify-center">
+				<div className="flex-1 sm:max-w-[320px] h-[460px] p-4 rounded-lg bg-slate-200 dark:bg-indigo-950 flex justify-center relative">
 					{loadingComponents ? (
 						<BigPosterPathSkeleton />
 					) : mediaDetail.poster_path === null ? (
@@ -102,29 +109,37 @@ function MediaDetail() {
 							alt="Media Poster"
 						/>
 					)}
+					<div className="absolute top-4 left-2 right-0 flex justify-between p-2 pl-3 text-2xl z-10">
+						<span
+							className={`absolute cursor-pointer z-20 transition-colors duration-300 ease-in-out ${
+								isFavorite ? 'text-fuchsia-500' : 'text-slate-300'
+							}`}
+							onClick={handleFavoriteClick}>
+							<BiBookmarkHeart />
+						</span>
+					</div>
 				</div>
 				<div className="flex-[2] flex flex-col gap-4 bg-slate-200 dark:bg-indigo-950 p-4 rounded-lg w-full sm:h-[460px]">
-					<h2 className={`${loadingComponents ? 'textSkeleton' : ''}`}>
-						{loadingComponents ? '' : type === 'movies' ? mediaDetail.original_title || mediaDetail.title : mediaDetail.name}
-					</h2>
-
-					<p className={`${loadingComponents ? 'textSkeleton' : ''}`}>{loadingComponents ? '' : mediaDetail.tagline}</p>
-					<div className="flex flex-wrap flex-col gap-2.5">
-						<p className={`${loadingComponents ? 'textSkeleton' : ''}`}>
+					<div>
+						<h2 className="text-xl">
+							{loadingComponents ? '' : type === 'movies' ? mediaDetail.original_title || mediaDetail.title : mediaDetail.name}{' '}
+						</h2>
+						<div className="flex items-center">
 							{loadingComponents ? (
 								''
 							) : (
 								<>
-									Rating: {mediaDetail.vote_average} <FontAwesomeIcon icon={faStar} style={{ color: 'yellow' }} />
+									{mediaDetail.vote_average} <LiaStarSolid className="ml-1 text-fuchsia-500" />
 								</>
 							)}
-						</p>
+						</div>
+					</div>
 
-						<p className={`${loadingComponents ? 'textSkeleton' : ''}`}>{loadingComponents ? '' : `Conteo de votos: ${mediaDetail.vote_count}.`}</p>
-						<p className={`${loadingComponents ? 'textSkeleton' : ''}`}>
-							{loadingComponents ? '' : `Fecha de lanzamiento: ${mediaDetail.release_date || mediaDetail.first_air_date}.`}
-						</p>
-						<p className={`${loadingComponents ? 'textSkeleton' : ''}`}>
+					<h3 className="text-lg">{loadingComponents ? '' : mediaDetail.tagline}</h3>
+					<div className="flex flex-wrap flex-col gap-2.5">
+						<p>{loadingComponents ? '' : `Conteo de votos: ${mediaDetail.vote_count}.`}</p>
+						<p>{loadingComponents ? '' : `Fecha de lanzamiento: ${mediaDetail.release_date || mediaDetail.first_air_date}.`}</p>
+						<p>
 							{loadingComponents
 								? ''
 								: type === 'movies'
@@ -134,14 +149,14 @@ function MediaDetail() {
 								  }.`}
 						</p>
 
-						<p className={`${loadingComponents ? 'textSkeleton' : ''}`}>{loadingComponents ? '' : `Estado: ${mediaDetail.status}.`} </p>
+						<p>{loadingComponents ? '' : `Estado: ${mediaDetail.status}.`} </p>
 					</div>
 					{loadingComponents ? (
 						''
 					) : !mediaDetailVideos ? (
-						<div className="mediaDetailInformationVideos">No trailer or teaser available</div>
+						<div>No trailer or teaser available</div>
 					) : (
-						<div className="mediaDetailInformationVideos">
+						<div>
 							<button
 								className="bg-red-500 border-none p-2.5 px-5 text-base cursor-pointer rounded-md transition-colors duration-300 ease-in-out hover:bg-red-600"
 								onClick={() => setShowTrailer(true)}>

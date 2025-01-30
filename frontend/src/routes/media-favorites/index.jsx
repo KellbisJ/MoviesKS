@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { CreateMedia } from '../components/create-media';
-import { useFavoriteMedia } from '../context/FavoriteMediaContext';
-import { useMenuContext } from '../context/MenuContext';
-import { MediaFavoritesVoid } from '../components/loading-skeletons';
+import { CreateMedia } from '../../components/create-media';
+import { useFavoriteMedia } from '../../context/favorite-media-context';
+import { useMenuContext } from '../../context/menu-context';
+import { MediaFavoritesVoid } from '../../components/loading-skeletons';
 
 function MediaFavorites() {
 	const { setShowMenuComponents } = useMenuContext();

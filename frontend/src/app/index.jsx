@@ -1,19 +1,19 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { MenuProvider } from '../context/MenuContext';
+import { MenuProvider } from '../context/menu-context';
 import { Layout } from '../components/layout';
-import { Home } from '../routes/Home';
-import { MediaMovie } from '../routes/MediaMovie';
-import { MediaAllMovie } from '../routes/MediaAllMovie';
-import { MediaPreviewByGenre } from '../routes/MediaPreviewByGenre';
-import { MediaFavorites } from '../routes/MediaFavorites';
-import { FavoriteMediaProvider } from '../context/FavoriteMediaContext';
-import { MediaTV } from '../routes/MediaTV';
-import { MediaAllTV } from '../routes/MediaAllTV';
-import { MediaDetail } from '../routes/MediaDetail';
-import { MediaByCategory } from '../routes/MediaByCategory';
+import { Home } from '../routes/home';
+import { MediaMovie } from '../routes/media-movie';
+import { MediaAllMovie } from '../routes/media-all-movie';
+import { MediaPreviewByGenre } from '../routes/media-preview-by-genre';
+import { MediaFavorites } from '../routes/media-favorites';
+import { FavoriteMediaProvider } from '../context/favorite-media-context';
+import { MediaTV } from '../routes/media-tv';
+import { MediaAllTV } from '../routes/media-all-tv';
+import { MediaDetail } from '../routes/media-detail';
+import { MediaByCategory } from '../routes/media-by-category';
 import { PageNotFound } from '../components/page-not-found';
-import { MediaBySearch } from '../routes/MediaBySearch';
-import { SearchProvider } from '../context/SearchMediaContext';
+import { MediaBySearch } from '../routes/media-by-search';
+import { SearchProvider } from '../context/search-media-context';
 
 const App = () => (
 	<MenuProvider>

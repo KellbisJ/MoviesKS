@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { saveMedia } from '../services/saveMedia';
+import { saveMedia } from '../../services/saveMedia';
 
 const FavoriteMediaContext = createContext();
 

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getPreviewTrendingTV } from '../services/PreviewTrendingTv';
-import { getNextTvTrendingSection } from '../services/NextTvTrendingSection';
-import { CreateMedia } from '../components/create-media';
-import { useMenuContext } from '../context/MenuContext';
-import { useFavoriteMedia } from '../context/FavoriteMediaContext';
-import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
-import { MediaSkeleton } from '../components/loading-skeletons';
+import { getPreviewTrendingTV } from '../../services/PreviewTrendingTv';
+import { getNextTvTrendingSection } from '../../services/NextTvTrendingSection';
+import { CreateMedia } from '../../components/create-media';
+import { useMenuContext } from '../../context/menu-context';
+import { useFavoriteMedia } from '../../context/favorite-media-context';
+import { useInfiniteScroll } from '../../hooks/use-infinite-scroll';
+import { MediaSkeleton } from '../../components/loading-skeletons';
 
 function MediaAllTV() {
 	const { setShowMenuComponents } = useMenuContext();

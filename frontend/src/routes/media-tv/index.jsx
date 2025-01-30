@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { getPreviewTrendingTV } from '../services/PreviewTrendingTv';
-import { getMediaByCategory } from '../services/MediaByCategory';
-import { CreateMedia } from '../components/create-media';
-import { useFavoriteMedia } from '../context/FavoriteMediaContext';
-import { useMenuContext } from '../context/MenuContext';
+import { getPreviewTrendingTV } from '../../services/PreviewTrendingTv';
+import { getMediaByCategory } from '../../services/MediaByCategory';
+import { CreateMedia } from '../../components/create-media';
+import { useFavoriteMedia } from '../../context/favorite-media-context';
+import { useMenuContext } from '../../context/menu-context';
 import { useLocation } from 'react-router-dom';
-import { MediaSkeleton } from '../components/loading-skeletons';
+import { MediaSkeleton } from '../../components/loading-skeletons';
 
 function MediaTV() {
 	const { favorites, saveFavoriteMedia } = useFavoriteMedia();

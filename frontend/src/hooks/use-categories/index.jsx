@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { getPreviewCategories } from '../services/PreviewCategories';
-import { useMenuContext } from '../context/MenuContext';
+import { getPreviewCategories } from '../../services/PreviewCategories';
+import { useMenuContext } from '../../context/menu-context';
 
 const useCategories = () => {
 	const { mediaType } = useMenuContext();

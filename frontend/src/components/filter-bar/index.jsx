@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { SelectMovies, SelectGenres } from '../modals/select-movies-and-genres';
+import { FaAngleRight } from 'react-icons/fa';
+import { SelectMediaParameters } from '../modals/select-media-parameters';
 import { CreatePreviewCategories } from '../create-preview-categories';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useMenuContext } from '../../context/MenuContext';
+import { useMenuContext } from '../../context/menu-context';
 import { CategoriesSkeleton } from '../loading-skeletons';
 
 function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMoviesModal, toggleGenresModal, categories, componentsLoading }) {
@@ -56,7 +56,7 @@ function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMovie
 			<div className="flex justify-between items-center w-full md:w-2/5 sm:w-lg p-2.5 px-5 bg-fuchsia-900 dark:bg-gray-700 rounded relative transition">
 				{selectedMediaType ? selectedMediaType.charAt(0).toUpperCase() + selectedMediaType.slice(1) : 'Select Media Type'}
 				<button onClick={toggleMoviesModal} className="">
-					<FontAwesomeIcon icon="chevron-down" />
+					<FaAngleRight />
 				</button>
 				{!isMobile && isMoviesModalOpen && (
 					<div className="absolute top-0 left-full w-80 p-2.5 bg-fuchsia-900 dark:bg-gray-700 z-50 ml-2 shadow-md rounded-lg hidden md:block transition">
@@ -100,10 +100,10 @@ function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMovie
 				<div className="flex justify-between items-center w-full md:w-2/5 p-2.5 px-5 bg-fuchsia-900 dark:bg-gray-700 rounded relative transition">
 					Genres
 					<button onClick={toggleGenresModal}>
-						<FontAwesomeIcon icon="chevron-down" />
+						<FaAngleRight />
 					</button>
 					{!isMobile && isGenresModalOpen && (
-						<div className="absolute top-0 left-full ml-2 w-80 p-2.5 bg-fuchsia-900 dark:bg-gray-700 z-20 shadow-md rounded-lg transition">
+						<div className="absolute top-0 left-full ml-2 w-80 p-2.5 bg-fuchsia-900 dark:bg-gray-700 z-20 shadow-md rounded-lg transition text-sm">
 							<div className="mb-3 ml-3">
 								<h2 className="text-base lg:text-xl">Genres</h2>
 							</div>
@@ -114,12 +114,12 @@ function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMovie
 			)}
 			{isMobile && (
 				<>
-					<SelectMovies isOpen={isMoviesModalOpen} onClose={toggleMoviesModal}>
-						<div className="flex flex-col pl-4">
-							<h2>Trending Media</h2>
+					<SelectMediaParameters isOpen={isMoviesModalOpen} onClose={toggleMoviesModal}>
+						<div className="flex flex-col pl-4 text-gray-100">
+							<h2 className="mb-2">Trending Media</h2>
 							<div className="flex w-auto">
 								<span
-									className="inline-flex text-white text-sm mb-3 font-medium border-l-5 border-transparent pl-2.5 box-border items-center"
+									className="inline-flex text-sm mb-3 font-medium border-l-5 border-transparent pl-2.5 box-border items-center"
 									onClick={() => {
 										handleMediaTypeChange('movies');
 										toggleMoviesModal();
@@ -129,7 +129,7 @@ function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMovie
 							</div>
 							<div className="flex w-auto">
 								<span
-									className="inline-flex text-white text-sm mb-3 font-medium border-l-5 border-transparent pl-2.5 box-border items-center"
+									className="inline-flex text-sm mb-3 font-medium border-l-5 border-transparent pl-2.5 box-border items-center"
 									onClick={() => {
 										handleMediaTypeChange('tv');
 										toggleMoviesModal();
@@ -138,11 +138,13 @@ function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMovie
 								</span>
 							</div>
 						</div>
-					</SelectMovies>
-					<SelectGenres isOpen={isGenresModalOpen} onClose={toggleGenresModal}>
-						<h2>Genres</h2>
-						{categoryElements}
-					</SelectGenres>
+					</SelectMediaParameters>
+					<SelectMediaParameters isOpen={isGenresModalOpen} onClose={toggleGenresModal}>
+						<div className="flex flex-col text-gray-100">
+							<h2>Genres</h2>
+							{categoryElements}
+						</div>
+					</SelectMediaParameters>
 				</>
 			)}
 		</div>
