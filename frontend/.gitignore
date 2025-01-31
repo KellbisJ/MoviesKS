@@ -215,3 +215,4 @@ $RECYCLE.BIN/
 
 # Auth
 # src/auth.js
+.vercel
