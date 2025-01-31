@@ -115,34 +115,32 @@ function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMovie
 			{isMobile && (
 				<>
 					<SelectMediaParameters isOpen={isMoviesModalOpen} onClose={toggleMoviesModal}>
-						<div className="flex flex-col pl-4 text-gray-100">
+						<div className="flex flex-col text-gray-100">
 							<h2 className="mb-2">Trending Media</h2>
-							<div className="flex w-auto">
-								<span
-									className="inline-flex text-sm mb-3 font-medium border-l-5 border-transparent pl-2.5 box-border items-center"
-									onClick={() => {
-										handleMediaTypeChange('movies');
-										toggleMoviesModal();
-									}}>
-									Movies
-								</span>
-							</div>
-							<div className="flex w-auto">
-								<span
-									className="inline-flex text-sm mb-3 font-medium border-l-5 border-transparent pl-2.5 box-border items-center"
-									onClick={() => {
-										handleMediaTypeChange('tv');
-										toggleMoviesModal();
-									}}>
-									TV
-								</span>
-							</div>
+
+							<span
+								className="mb-3 p-1 bg-fuchsia-700 dark:bg-indigo-700 rounded"
+								onClick={() => {
+									handleMediaTypeChange('movies');
+									toggleMoviesModal();
+								}}>
+								Movies
+							</span>
+
+							<span
+								className="mb-3 p-1 bg-fuchsia-700 dark:bg-indigo-700 rounded"
+								onClick={() => {
+									handleMediaTypeChange('tv');
+									toggleMoviesModal();
+								}}>
+								TV
+							</span>
 						</div>
 					</SelectMediaParameters>
 					<SelectMediaParameters isOpen={isGenresModalOpen} onClose={toggleGenresModal}>
 						<div className="flex flex-col text-gray-100">
-							<h2>Genres</h2>
-							{categoryElements}
+							<h2 className="mb-2">Genres</h2>
+							<div className="flex flex-col gap-2">{categoryElements}</div>
 						</div>
 					</SelectMediaParameters>
 				</>

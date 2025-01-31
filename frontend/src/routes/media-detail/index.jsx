@@ -16,7 +16,7 @@ import {
 import { TrailerMedia } from '../../components/modals/trailer-media';
 import { useFavoriteMedia } from '../../context/favorite-media-context';
 import { LiaStarSolid } from 'react-icons/lia';
-import { BiBookmarkHeart } from 'react-icons/bi';
+import { BiBookmarkHeart, BiSolidMoviePlay } from 'react-icons/bi';
 
 function MediaDetail() {
 	const { setShowMenuComponents } = useMenuContext();
@@ -154,15 +154,14 @@ function MediaDetail() {
 					{loadingComponents ? (
 						''
 					) : !mediaDetailVideos ? (
-						<div>No trailer or teaser available</div>
+						<h3>No trailer or teaser available</h3>
 					) : (
-						<div>
-							<button
-								className="bg-red-500 border-none p-2.5 px-5 text-base cursor-pointer rounded-md transition-colors duration-300 ease-in-out hover:bg-red-600"
-								onClick={() => setShowTrailer(true)}>
-								🎥 Watch Trailer or Teaser
-							</button>
-						</div>
+						<button
+							className="w-60 bg-fuchsia-700 dark:bg-indigo-700 border-none p-2.5 px-5 text-base cursor-pointer rounded-md transition-all duration-300 ease-in-out hover:shadow-lg hover:scale-105 flex items-center justify-center text-white dark:text-gray-100"
+							onClick={() => setShowTrailer(true)}>
+							<BiSolidMoviePlay className="mr-2" />
+							Ver Trailer
+						</button>
 					)}
 				</div>
 			</div>

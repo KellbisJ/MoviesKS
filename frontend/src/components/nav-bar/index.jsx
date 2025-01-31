@@ -66,7 +66,7 @@ function NavBar({ isMobile, toggleSideBar, isSideBarOpen }) {
 						{showSearchBar ? (
 							<li className="absolute top-0 left-0 w-full flex items-center justify-center bg-fuchsia-800 dark:bg-slate-950 p-3 pl-6 pr-6 shadow-md z-20">
 								<button
-									className="bg-fuchsia-950 dark:bg-gray-700 border-none p-0 min-w-[30px] max-w-[40px] min-h-[30px] max-h-[40px] rounded-full text-[18px]"
+									className="flex items-center justify-center bg-fuchsia-950 dark:bg-gray-700 border-none p-0 min-w-[30px] max-w-[40px] min-h-[30px] max-h-[40px] rounded-full"
 									onClick={handleCloseSearchBar}>
 									<FaTimes />
 								</button>
@@ -77,7 +77,7 @@ function NavBar({ isMobile, toggleSideBar, isSideBarOpen }) {
 									onChange={(e) => updateSearchQuery(e.target.value)}
 								/>
 								<button
-									className="flex items-center justify-center border-none bg-none cursor-pointer text-[18px] text-white"
+									className="flex items-center justify-center border-none bg-none cursor-pointer text-xl text-white"
 									onClick={handleSearchIconClick}>
 									<CgSearch />
 								</button>
@@ -125,9 +125,7 @@ function NavBar({ isMobile, toggleSideBar, isSideBarOpen }) {
 								value={searchQuery}
 								onChange={(e) => updateSearchQuery(e.target.value)}
 							/>
-							<button
-								className="bg-none border-none p-2 flex items-center justify-center cursor-pointer focus:outline-none focus:ring-2"
-								onClick={handleSearch}>
+							<button className="bg-none border-none p-2 flex items-center justify-center cursor-pointer" onClick={handleSearch}>
 								<CgSearch />
 							</button>
 						</li>

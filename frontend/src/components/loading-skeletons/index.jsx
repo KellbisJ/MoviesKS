@@ -74,7 +74,7 @@ const MediaDetailSkeleton = () => {
 		<div className="rounded-lg">
 			<div className="flex flex-wrap gap-5 mb-6 flex-col items-center sm:flex-row md:items-normal">
 				<div className="flex-1 min-w-64 sm:max-w-[320px] h-[460px] p-4 rounded-lg bg-slate-200 dark:bg-indigo-950 flex justify-center">
-					<div className="w-full pt-[150%] bg-slate-400 animate-pulse rounded-lg"></div>
+					<div className="w-full h-full bg-slate-400 animate-pulse rounded-lg"></div>
 				</div>
 				<div className="flex-[2] flex flex-col gap-4  p-4 rounded-lg text-white w-full sm:h-[460px] bg-slate-200 dark:bg-indigo-950">
 					<div className="w-2/5 h-7 bg-slate-400 animate-pulse rounded-lg"></div>

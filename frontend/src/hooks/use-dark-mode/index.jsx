@@ -12,8 +12,8 @@ const useDarkMode = () => {
 	useLayoutEffect(() => {
 		const root = window.document.documentElement;
 		root.classList.toggle('dark', isDarkMode);
-		console.log('isDarkMode:', isDarkMode);
-		console.log('root.classList.contains("dark"):', root.classList.contains('dark'));
+		// console.log('isDarkMode:', isDarkMode);
+		// console.log('root.classList.contains("dark"):', root.classList.contains('dark'));
 	}, [isDarkMode]);
 
 	useEffect(() => {

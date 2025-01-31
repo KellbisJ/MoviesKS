@@ -68,12 +68,12 @@ function MediaBySearch() {
 			{loadingComponents ? (
 				<MediaSkeleton />
 			) : (
-				<div className="mediaBySearchContainer">
-					<h3 className="mt-19 pl-8">
+				<>
+					<h3 className="my-8 dark:text-gray-100">
 						Search Results for "{query}" in {type === 'movies' ? 'Movies' : 'TV Shows'}
 					</h3>
 					<CreateMedia media={allMedia} type={type} />
-				</div>
+				</>
 			)}
 		</>
 	);

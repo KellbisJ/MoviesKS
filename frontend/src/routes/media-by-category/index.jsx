@@ -61,11 +61,11 @@ function MediaByCategory() {
 			{loadingComponents ? (
 				<MediaSkeleton />
 			) : (
-				<div className="mediaByCategoryContainer">
-					<h3 className="pt-4 pl-8">All Media by Category: {type}</h3>
+				<>
+					<h2 className="my-8 dark:text-gray-100">All Media by Category: {type}</h2>
 
 					<CreateMedia media={allMedia} type={type} />
-				</div>
+				</>
 			)}
 		</>
 	);

@@ -25,25 +25,23 @@ function MediaFavorites() {
 	};
 
 	return (
-		<section className="mediaFavoritesContainer">
-			<h1 className="text-center">My Favorites</h1>
-			<div className="favoritesMovies">
-				<h2>Movies</h2>
-				{favoriteMovies.length > 0 ? (
-					<CreateMedia media={favoriteMovies} type="movies" handleFavoriteClick={(movie) => handleFavoriteClick(movie)} />
-				) : (
-					<MediaFavoritesVoid />
-				)}
-			</div>
-			<div className="favoritesTVShows">
-				<h2>TV Shows</h2>
-				{favoriteTVShows.length > 0 ? (
-					<CreateMedia media={favoriteTVShows} type="tv" handleFavoriteClick={(tvShow) => handleFavoriteClick(tvShow)} />
-				) : (
-					<MediaFavoritesVoid />
-				)}
-			</div>
-		</section>
+		<>
+			<h1 className="text-center dark:text-gray-100">My Favorites</h1>
+
+			<h2 className="dark:text-gray-100 my-8">Movies</h2>
+			{favoriteMovies.length > 0 ? (
+				<CreateMedia media={favoriteMovies} type="movies" handleFavoriteClick={(movie) => handleFavoriteClick(movie)} />
+			) : (
+				<MediaFavoritesVoid />
+			)}
+
+			<h2 className="dark:text-gray-100 my-8">TV Shows</h2>
+			{favoriteTVShows.length > 0 ? (
+				<CreateMedia media={favoriteTVShows} type="tv" handleFavoriteClick={(tvShow) => handleFavoriteClick(tvShow)} />
+			) : (
+				<MediaFavoritesVoid />
+			)}
+		</>
 	);
 }
 
