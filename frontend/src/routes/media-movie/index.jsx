@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { getPreviewTrendingMovies } from '../../services/PreviewTrendingMovies';
-import { getMediaByCategory } from '../../services/MediaByCategory';
+import { getPreviewTrendingMovies } from '../../services/preview-trending-movies';
+import { getMediaByCategory } from '../../services/media-by-category';
 import { CreateMedia } from '../../components/create-media';
 import { useFavoriteMedia } from '../../context/favorite-media-context';
 import { useMenuContext } from '../../context/menu-context';

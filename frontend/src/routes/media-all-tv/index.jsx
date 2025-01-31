@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getPreviewTrendingTV } from '../../services/PreviewTrendingTv';
-import { getNextTvTrendingSection } from '../../services/NextTvTrendingSection';
+import { getPreviewTrendingTV } from '../../services/preview-trending-tv';
+import { getNextTvTrendingSection } from '../../services/next-tv-trending-section';
 import { CreateMedia } from '../../components/create-media';
 import { useMenuContext } from '../../context/menu-context';
 import { useFavoriteMedia } from '../../context/favorite-media-context';

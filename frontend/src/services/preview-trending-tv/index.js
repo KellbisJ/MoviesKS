@@ -1,5 +1,5 @@
 import React from 'react';
-import { api, API_TRENDING_TV_URL } from './api';
+import { api, API_TRENDING_TV_URL } from '../index';
 
 async function getPreviewTrendingTV() {
 	try {

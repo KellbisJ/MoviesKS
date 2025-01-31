@@ -1,4 +1,4 @@
-import { api, API_SEARCH_MOVIES, API_SEARCH_TV } from './api';
+import { api, API_SEARCH_MOVIES, API_SEARCH_TV } from '../index';
 
 async function getMediaBySearch(type, query, page = 1) {
 	try {

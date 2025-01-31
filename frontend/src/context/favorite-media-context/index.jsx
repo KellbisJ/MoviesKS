@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { saveMedia } from '../../services/saveMedia';
+import { useSaveMedia } from '../../hooks/use-save-media';
 
 const FavoriteMediaContext = createContext();
 
@@ -21,7 +21,7 @@ const FavoriteMediaProvider = ({ children }) => {
 			return;
 		}
 
-		const isFavorite = saveMedia(media, type);
+		const isFavorite = useSaveMedia(media, type);
 		let updatedFavorites;
 		if (!isFavorite) {
 			updatedFavorites = {

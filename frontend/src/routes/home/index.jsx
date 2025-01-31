@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { getPreviewTrendingMovies } from '../../services/PreviewTrendingMovies';
+import { getPreviewTrendingMovies } from '../../services/preview-trending-movies';
 import { CreateMedia } from '../../components/create-media';
 import { useFavoriteMedia } from '../../context/favorite-media-context';
 import { useMenuContext } from '../../context/menu-context';
-import { getMediaByCategory } from '../../services/MediaByCategory';
+import { getMediaByCategory } from '../../services/media-by-category';
 import { MediaSkeleton } from '../../components/loading-skeletons';
 
 function Home() {

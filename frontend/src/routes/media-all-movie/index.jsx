@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getPreviewTrendingMovies } from '../../services/PreviewTrendingMovies';
+import { getPreviewTrendingMovies } from '../../services/preview-trending-movies';
 import { CreateMedia } from '../../components/create-media';
-import { getNextMoviesTrendingSection } from '../../services/NextMoviesTrendingSection';
+import { getNextMoviesTrendingSection } from '../../services/next-movies-trending-section';
 import { useMenuContext } from '../../context/menu-context';
 import { useFavoriteMedia } from '../../context/favorite-media-context';
 import { useInfiniteScroll } from '../../hooks/use-infinite-scroll';

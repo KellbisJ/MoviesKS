@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { CreateMedia } from '../../components/create-media';
-import { getMediaByCategory } from '../../services/MediaByCategory';
+import { getMediaByCategory } from '../../services/media-by-category';
 import { useMenuContext } from '../../context/menu-context';
 import { MediaSkeleton } from '../../components/loading-skeletons';
 

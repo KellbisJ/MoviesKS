@@ -1,5 +1,5 @@
 import React from 'react';
-import { api, API_MOVIE_DETAIL_SIMILAR, API_TV_DETAIL_SIMILAR } from './api';
+import { api, API_MOVIE_DETAIL_SIMILAR, API_TV_DETAIL_SIMILAR } from '../index';
 
 async function getSimilarMediaDetail(id, type) {
 	try {

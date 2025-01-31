@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getMediaBySearch } from '../../services/MediaBySearch';
+import { getMediaBySearch } from '../../services/media-by-search';
 import { useInfiniteScroll } from '../../hooks/use-infinite-scroll';
 import { CreateMedia } from '../../components/create-media';
 import { MediaSkeleton } from '../../components/loading-skeletons';
@@ -60,7 +60,7 @@ function MediaBySearch() {
 	});
 
 	if (media.length === 0) {
-		return <h2 style={{ display: 'flex', textAlign: 'center', margin: '180px auto', justifyContent: 'center' }}>No results</h2>;
+		return <h2 className="text-center dark:text-gray-100">No results</h2>;
 	}
 
 	return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { api, API_MOVIE_CATEGORY, API_TV_CATEGORY } from './api';
+import { api, API_MOVIE_CATEGORY, API_TV_CATEGORY } from '../index';
 
 async function getMediaByCategory(type, genreId, page = 1) {
 	const API_CATEGORY = type === 'movies' ? API_MOVIE_CATEGORY : API_TV_CATEGORY;

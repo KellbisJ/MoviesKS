@@ -61,7 +61,7 @@ const SimilarGenresNullSkeleton = () => {
 const SimilarMediaSkeleton = () => {
 	const count = 20;
 	return (
-		<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 p-2.5">
+		<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
 			{Array.from({ length: count }, (_, index) => (
 				<div key={index} className="w-full h-80 bg-slate-400 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
 			))}
@@ -73,10 +73,10 @@ const MediaDetailSkeleton = () => {
 	return (
 		<div className="rounded-lg">
 			<div className="flex flex-wrap gap-5 mb-6 flex-col items-center sm:flex-row md:items-normal">
-				<div className="flex-1 min-w-64 sm:max-w-[320px] h-[460px] p-4 rounded-lg bg-slate-200 dark:bg-indigo-950 flex justify-center">
-					<div className="w-full h-full bg-slate-400 animate-pulse rounded-lg"></div>
+				<div className="flex-1 w-full h-[460px] p-4 rounded-lg bg-slate-200 dark:bg-indigo-950 flex justify-center">
+					<div className="min-w-64 sm:max-w-[320px] h-[420px] bg-slate-400 animate-pulse rounded-lg"></div>
 				</div>
-				<div className="flex-[2] flex flex-col gap-4  p-4 rounded-lg text-white w-full sm:h-[460px] bg-slate-200 dark:bg-indigo-950">
+				<div className="flex-[2] flex flex-col gap-4 bg-slate-200 dark:bg-indigo-950 p-4 rounded-lg w-full sm:h-[460px]">
 					<div className="w-2/5 h-7 bg-slate-400 animate-pulse rounded-lg"></div>
 					<div className="w-2/5 h-5 bg-slate-400 animate-pulse rounded-lg"></div>
 					<div className="w-2/5 h-5 bg-slate-400 animate-pulse rounded-lg"></div>
@@ -85,11 +85,11 @@ const MediaDetailSkeleton = () => {
 					<div className="w-2/5 h-5 bg-slate-400 animate-pulse rounded-lg"></div>
 				</div>
 			</div>
-			<div className="flex flex-wrap gap-6 mb-6">
-				<div className="bg-slate-200 dark:bg-indigo-950 h-32 p-4 rounded-lg text-white w-4/5">
+			<div className="flex flex-col sm:flex-row flex-wrap gap-6 mb-6">
+				<div className="bg-slate-200 dark:bg-indigo-950 h-32 p-4 rounded-lg text-white w-full sm:w-4/5">
 					<div className="w-full h-full bg-slate-400 animate-pulse rounded-lg mb-4"></div>
 				</div>
-				<div className="flex-1 h-32 bg-slate-200 dark:bg-indigo-950 p-4 rounded-lg flex gap-2.5 min-w-0 flex-wrap justify-center">
+				<div className="flex-[2] h-32 bg-slate-200 dark:bg-indigo-950 p-4 rounded-lg gap-2.5 min-w-0 flex-wrap justify-center w-1/5 hidden sm:flex">
 					<div className="w-full h-full bg-slate-400 animate-pulse rounded-lg shadow-md"></div>
 				</div>
 			</div>

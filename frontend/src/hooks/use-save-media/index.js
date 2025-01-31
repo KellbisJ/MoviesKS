@@ -1,6 +1,6 @@
 import React from 'react';
 
-const saveMedia = (media, type) => {
+const useSaveMedia = (media, type) => {
 	const storedFavorites = localStorage.getItem('favoriteMedia');
 	const favorites = storedFavorites
 		? JSON.parse(storedFavorites)
@@ -19,4 +19,4 @@ const saveMedia = (media, type) => {
 	return true;
 };
 
-export { saveMedia };
+export { useSaveMedia };

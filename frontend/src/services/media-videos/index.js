@@ -1,5 +1,5 @@
 import React from 'react';
-import { api, API_MOVIE_VIDEOS, API_TV_VIDEOS } from './api';
+import { api, API_MOVIE_VIDEOS, API_TV_VIDEOS } from '../index';
 
 async function getMediaVideos(id, type) {
 	try {
