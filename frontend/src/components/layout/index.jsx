@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
-import { Menu } from '../menu';
-import { Footer } from '../footer';
+import { Menu } from '../Menu';
+import { Footer } from '../Footer';
 
 const Layout = () => (
 	<main className="bg-stone-100 flex flex-col min-h-screen dark:bg-slate-900 transition">
