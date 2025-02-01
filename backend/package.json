@@ -4,19 +4,26 @@
   "description": "Backend del proyecto MoviesKS",
   "main": "index.js",
   "scripts": {
-    "start": "node --watch index.js",
+    "start": "ts-node index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kellbis Salazar",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.7.7",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.21.1",
-    "axios": "^1.7.7"
+    "express": "^4.21.1"
   },
   "devDependencies": {
+    "@eslint/js": "^9.13.0",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^20.17.16",
+    "@types/react": "^18.2.0",
+    "dotenv": "^16.4.5",
     "eslint": "^9.14.0",
-    "@eslint/js": "^9.13.0"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "8.18.2"
   }
 }
