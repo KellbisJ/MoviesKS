@@ -12,7 +12,11 @@ const corsOptions: cors.CorsOptions = {
 	origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
 		if (process.env.NODE_ENV === 'development') {
 			callback(null, true);
-		} else if (origin === 'https://movies-ks-frontend.vercel.app') {
+		} else if (
+			origin === 'https://movies-ks-frontend.vercel.app' ||
+			'https://movies-ks-backend-git-master-kellbis-projects.vercel.app' ||
+			'https://movies-ks-backend-git-types-kellbis-projects.vercel.app'
+		) {
 			callback(null, true);
 		} else {
 			callback(new Error('Not allowed by CORS'));
