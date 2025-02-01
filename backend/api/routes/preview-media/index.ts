@@ -1,10 +1,8 @@
-import { PreviewMoviesInterface } from '../../interfaces/trending-preview-movies';
-import { PreviewTvInterface } from '../../interfaces/trending-preview-tv';
-
 import express, { Request, Response } from 'express';
 import axios, { AxiosError } from 'axios';
-
 import dotenv from 'dotenv';
+import { PreviewMoviesInterface } from '../../interfaces/trending-preview-movies';
+import { PreviewTvInterface } from '../../interfaces/trending-preview-tv';
 
 dotenv.config();
 

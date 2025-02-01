@@ -7,7 +7,7 @@ interface MovieInterface {
 	poster_path: string;
 	media_type: MediaType;
 	adult: boolean;
-	original_language: string;
+	original_language: string | OriginalLanguage;
 	genre_ids: number[];
 	popularity: number;
 	release_date: Date;
@@ -18,6 +18,13 @@ interface MovieInterface {
 
 enum MediaType {
 	Movie = 'movie',
+}
+
+enum OriginalLanguage {
+	En = 'en',
+	Fr = 'fr',
+	No = 'no',
+	Te = 'te',
 }
 
 export { MovieInterface };

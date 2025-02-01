@@ -8,16 +8,27 @@ dotenv.config();
 const PORT = process.env.PORT || 8000;
 
 const app = express();
-app.use(cors());
+const corsOptions: cors.CorsOptions = {
+	origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+		if (process.env.NODE_ENV === 'development') {
+			callback(null, true);
+		} else if (origin === 'https://movies-ks-frontend.vercel.app') {
+			callback(null, true);
+		} else {
+			callback(new Error('Not allowed by CORS'));
+		}
+	},
+};
+
+app.use(cors(corsOptions));
 
 import previewMedia from './api/routes/preview-media';
 import previewCategoriesMedia from './api/routes/preview-categories-media';
-// import categoryMediaPreview from './api/routes/categoryMediaPreview';
-
-// import detailMedia from './api/routes/detailMedia';
-// import detailMediaSimilar from './api/routes/detailMediaSimilar';
-// import videosMedia from './api/routes/videosMedia';
-// import searchMedia from './api/routes/searchMedia';
+import categoryMediaPreviewDiscover from './api/routes/category-media-preview-discover';
+import detailMedia from './api/routes/detail-media';
+import detailMediaSimilar from './api/routes/detail-media-similar';
+import videosMedia from './api/routes/videos-media';
+import searchMedia from './api/routes/search-media';
 
 app.get('/', (req: Request, res: Response) => {
 	res.json({
@@ -40,10 +51,10 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use('/api', previewMedia);
 app.use('/api', previewCategoriesMedia);
-// app.use('/api', categoryMediaPreview);
-// app.use('/api', detailMedia);
-// app.use('/api', detailMediaSimilar);
-// app.use('/api', videosMedia);
-// app.use('/api', searchMedia);
+app.use('/api', categoryMediaPreviewDiscover);
+app.use('/api', detailMedia);
+app.use('/api', detailMediaSimilar);
+app.use('/api', videosMedia);
+app.use('/api', searchMedia);
 
 app.listen(PORT, () => console.log(`server running on ${PORT}`));

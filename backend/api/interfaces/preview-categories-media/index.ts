@@ -1,7 +1,7 @@
-import { Genre } from '../genre';
+import { GenreInterface } from '../genre';
 
-interface PreviewCategoriesMedia {
-	genres: Genre[];
+interface PreviewCategoriesMediaInterface {
+	genres: GenreInterface[];
 }
 
-export { PreviewCategoriesMedia };
+export { PreviewCategoriesMediaInterface };

@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import axios, { AxiosError } from 'axios';
 import dotenv from 'dotenv';
-import { PreviewCategoriesMedia } from '../../interfaces/preview-categories-media';
+import { PreviewCategoriesMediaInterface } from '../../interfaces/preview-categories-media';
 
 dotenv.config();
 
@@ -12,7 +12,7 @@ const getCategoryList = async (req: Request, res: Response, type: string) => {
 	const api_url: string = `https://api.themoviedb.org/3/genre/${type}/list?api_key=${api_key}&language=es`;
 
 	try {
-		const { data }: { data: PreviewCategoriesMedia } = await axios.get(api_url);
+		const { data }: { data: PreviewCategoriesMediaInterface } = await axios.get(api_url);
 		res.json(data);
 	} catch (error) {
 		const axiosError = error as AxiosError;

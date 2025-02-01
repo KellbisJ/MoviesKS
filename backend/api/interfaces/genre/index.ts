@@ -1,5 +1,5 @@
-interface Genre {
+interface GenreInterface {
 	id: number;
 	name: string;
 }
-export { Genre };
+export { GenreInterface };
