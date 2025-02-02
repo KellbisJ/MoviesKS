@@ -1,7 +1,9 @@
 import React from 'react';
 import { MediaContainer } from '../media-container';
+import { CreateMediaPropsInterface } from '../../types/create-media-interface';
 
-const CreateMedia = ({ media = [], type }) => {
+
+const CreateMedia: React.FC<CreateMediaPropsInterface> = ({media, type}) => {
 	if (!Array.isArray(media)) {
 		console.error('Invalid media data:', media);
 		return null;

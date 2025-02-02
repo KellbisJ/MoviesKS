@@ -15,7 +15,7 @@ import { PageNotFound } from '../components/page-not-found';
 import { MediaBySearch } from '../routes/media-by-search';
 import { SearchProvider } from '../context/search-media-context';
 
-const App = () => (
+const App = (): React.JSX.Element => (
 	<MenuProvider>
 		<FavoriteMediaProvider>
 			<SearchProvider>

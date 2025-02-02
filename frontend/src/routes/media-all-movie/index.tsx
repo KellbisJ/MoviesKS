@@ -7,8 +7,10 @@ import { useMenuContext } from '../../context/menu-context';
 import { useFavoriteMedia } from '../../context/favorite-media-context';
 import { useInfiniteScroll } from '../../hooks/use-infinite-scroll';
 import { MediaSkeleton } from '../../components/loading-skeletons';
+import { MovieInterface } from '../../../../backend/api/interfaces/movie';
 
-function MediaAllMovie() {
+
+const MediaAllMovie = (): React.JSX.Element => {
 	const { setShowMenuComponents } = useMenuContext();
 
 	useEffect(() => {
@@ -17,14 +19,17 @@ function MediaAllMovie() {
 	}, [setShowMenuComponents]);
 
 	const location = useLocation();
-	const { favorites, saveFavoriteMedia } = useFavoriteMedia();
-	const [loadingComponents, setLoadingComponents] = useState(true);
-	const [movies, setMovies] = useState([]);
-	const [moreMovies, setMoreMovies] = useState([]);
-	const [page, setPage] = useState(1);
-	const [loading, setLoading] = useState(false);
-	const [canLoadMore, setCanLoadMore] = useState(true);
-	const [prevPath, setPrevPath] = useState('');
+  const [loadingComponents, setLoadingComponents] = useState<boolean>(true);
+  
+	const [movies, setMovies] = useState<MovieInterface[]>([]);
+  const [moreMovies, setMoreMovies] = useState<MovieInterface[]>([]);
+  
+  const [page, setPage] = useState<number>(1);
+  
+	const [loading, setLoading] = useState<boolean>(false);
+	const [canLoadMore, setCanLoadMore] = useState<boolean>(true);
+  
+	const [prevPath, setPrevPath] = useState<string>('');
 
 	useEffect(() => {
 		if (location.pathname === '/movies/all') {
@@ -53,19 +58,19 @@ function MediaAllMovie() {
 		}
 	}, [location, prevPath]);
 
-	const fetchMoreMovies = async () => {
+  const fetchMoreMovies = async () => {
 		setLoading(true);
 		const nextMovies = await getNextMoviesTrendingSection(page);
 		if (nextMovies && nextMovies.length > 0) {
 			setMoreMovies((prevMovies) => {
 				const movieIds = new Set([...movies, ...prevMovies].map((movie) => movie.id));
-				const uniqueNextMovies = nextMovies.filter((movie) => !movieIds.has(movie.id));
+				const uniqueNextMovies = nextMovies.filter((movie: MovieInterface) => !movieIds.has(movie.id));
 				return [...prevMovies, ...uniqueNextMovies];
 			});
 			setPage((prevPage) => prevPage + 1);
 		} else {
 			setCanLoadMore(false);
-		}
+    }
 		setLoading(false);
 	};
 
@@ -73,12 +78,9 @@ function MediaAllMovie() {
 
 	const allMovies = [...movies, ...moreMovies];
 
-	const handleFavoriteClick = (item) => {
-		const type = item.media_type;
-		saveFavoriteMedia(item, type);
-	};
+	
 
-	return <>{loadingComponents ? <MediaSkeleton /> : <CreateMedia media={allMovies} type="movies" handleFavoriteClick={handleFavoriteClick} />}</>;
+	return <>{loadingComponents ? <MediaSkeleton /> : <CreateMedia media={allMovies} type="movies" />}</>;
 }
 
 export { MediaAllMovie };

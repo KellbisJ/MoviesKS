@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { getPreviewCategories } from '../../services/preview-categories';
 import { useMenuContext } from '../../context/menu-context';
+import { GenreInterface } from '../../types/genre';
 
 const useCategories = () => {
 	const { mediaType } = useMenuContext();
-	const [categories, setCategories] = useState([]);
-	const [isMoviesModalOpen, setIsMoviesModalOpen] = useState(false);
+	const [categories, setCategories] = useState<GenreInterface[]>([]);
+	const [isMoviesModalOpen, setIsMoviesModalOpen] = useState<boolean>(false);
 	const [isGenresModalOpen, setIsGenresModalOpen] = useState(false);
 	const [componentsLoading, setComponentsLoading] = useState(true);
 

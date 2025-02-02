@@ -6,17 +6,21 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useMenuContext } from '../../context/menu-context';
 import { CategoriesSkeleton } from '../loading-skeletons';
 
-function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMoviesModal, toggleGenresModal, categories, componentsLoading }) {
+import { FilterBarPropsInterface } from '../../types/filterbar-interface';
+import { GenreInterface } from '../../types/genre';
+
+const FilterBar: React.FC<FilterBarPropsInterface> = ({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMoviesModal, toggleGenresModal, categories, componentsLoading }) => {
 	const { mediaType, setMediaType, selectedGenre, setSelectedGenre } = useMenuContext();
 	const navigate = useNavigate();
-	const location = useLocation();
-	const [selectedMediaType, setSelectedMediaType] = useState(localStorage.getItem('selectedMediaType') || null);
+  const location = useLocation();
+  
+	const [selectedMediaType, setSelectedMediaType] = useState<string | null>(localStorage.getItem('selectedMediaType') || null);
 
-	const handleNavigation = (route) => {
+	const handleNavigation = (route: string) => {
 		navigate(route);
 	};
 
-	const handleMediaTypeChange = (type) => {
+	const handleMediaTypeChange = (type: string) => {
 		setSelectedGenre(null);
 		setSelectedMediaType(type);
 		setMediaType(type);
@@ -24,13 +28,16 @@ function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMovie
 		handleNavigation(type === 'movies' ? '/movies' : '/tv');
 	};
 
-	const handleCategoryChange = (category) => {
-		if (selectedMediaType) {
-			setSelectedGenre({ id: category.id, genreName: category.name });
-			const route = `${selectedMediaType === 'movies' ? '/movies' : '/tv'}/preview/genre/${category.id}`;
-			handleNavigation(route);
-		}
-	};
+	const handleCategoryChange = (genreId: string) => {
+    if (selectedMediaType) {
+    const category = categories.find(genre => genre.id.toString() === genreId)
+      if (category) {
+      setSelectedGenre({ id: category.id, genreName: category.name });
+      const route = `${selectedMediaType === 'movies' ? '/movies' : '/tv'}/preview/genre/${category.id}`;
+      handleNavigation(route);
+    }
+  }
+};
 
 	useEffect(() => {
 		const pathsToExclude = ['/movies', '/tv'];
@@ -49,7 +56,11 @@ function FilterBar({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMovie
 		}
 	}, [location]);
 
-	const categoryElements = CreatePreviewCategories(categories, handleCategoryChange, toggleGenresModal);
+  const categoryElements = CreatePreviewCategories({
+  categories: categories,
+  onCategoryClick: handleCategoryChange,
+
+});
 
 	return (
 		<div className="flex flex-col items-center md:items-start p-6 lg:p-8 mt-[60px] lg:mt-16 bg-fuchsia-700 dark:bg-slate-950 w-full gap-4 text-stone-100 transition">
