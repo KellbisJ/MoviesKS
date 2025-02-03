@@ -7,7 +7,7 @@ import { useMenuContext } from '../../context/menu-context';
 import { CategoriesSkeleton } from '../loading-skeletons';
 
 import { FilterBarPropsInterface } from '../../types/filterbar-interface';
-import { GenreInterface } from '../../types/genre';
+// import { GenreInterface } from '../../types/genre';
 
 const FilterBar: React.FC<FilterBarPropsInterface> = ({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMoviesModal, toggleGenresModal, categories, componentsLoading }) => {
 	const { mediaType, setMediaType, selectedGenre, setSelectedGenre } = useMenuContext();

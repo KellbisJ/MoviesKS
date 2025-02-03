@@ -1,4 +1,4 @@
-import { GenreInterface } from '../genre';
+import { GenreInterface } from '../genre-interface';
 
 interface FilterBarPropsInterface {
 	isMobile: boolean;

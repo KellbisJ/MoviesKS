@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { CreateSimilarGenresInterface } from '../../types/create-similar-genres-interface';
 
-const CreateSimilarGenres = ({ genres, type }) => {
+const CreateSimilarGenres: React.FC<CreateSimilarGenresInterface> = ({ genres, type }) => {
 	return genres.map((genre) => (
 		<div key={genre.id} className="flex justify-center items-center content-center flex-wrap w-full">
 			<Link

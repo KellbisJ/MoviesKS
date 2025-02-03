@@ -11,8 +11,9 @@ import { TrailerMedia } from '../../components/modals/trailer-media';
 import { useFavoriteMedia } from '../../context/favorite-media-context';
 import { LiaStarSolid } from 'react-icons/lia';
 import { BiBookmarkHeart, BiSolidMoviePlay } from 'react-icons/bi';
+import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
 
-function MediaDetail() {
+const MediaDetail = (): React.JSX.Element => {
 	const { setShowMenuComponents } = useMenuContext();
 
 	useEffect(() => {
@@ -20,21 +21,32 @@ function MediaDetail() {
 		return () => setShowMenuComponents(true);
 	}, [setShowMenuComponents]);
 
-	const { id, type } = useParams();
+  const { id, type } = useParams();
+
+  const { favorites, saveFavoriteMedia } = useFavoriteMedia();
+
+  
+  const [mediaType, setMediaType] = useState<string>('')
+
 	const [loadingComponents, setLoadingComponents] = useState(true);
-	const [mediaDetail, setMediaDetail] = useState(null);
+  const [mediaDetail, setMediaDetail] = useState<MovieInterface | TVInterface>();
+  
 	const [mediaDetailVideos, setMediaDetailVideos] = useState(null);
 	const [similarGenres, setSimilarGenres] = useState([]);
 	const [similarMedia, setSimilarMedia] = useState([]);
 	const [showTrailer, setShowTrailer] = useState(false);
 	const [videoKey, setVideoKey] = useState(null);
 
-	const { favorites, saveFavoriteMedia } = useFavoriteMedia();
-	const favoriteMedia = favorites[type] || [];
+	
+	const favoriteMedia = favorites.movies || favorites.tv || [];
 	const isFavorite = favoriteMedia.some((favMedia) => favMedia.id === mediaDetail?.id);
 
 	useEffect(() => {
-		setLoadingComponents(true);
+    setLoadingComponents(true);
+    
+    if (id && type) {
+      setMediaType(type)
+    }
 		window.scrollTo(0, 0);
 		async function fetchMediaDetail() {
 			const mediaData = await getMediaDetail(id, type);
@@ -55,7 +67,7 @@ function MediaDetail() {
 
 			if (mediaVideosData && mediaVideosData.results.length > 0) {
 				const video = mediaVideosData.results.find(
-					(video) => video.type === 'Trailer' || video.type === 'Teaser' || (video.type === 'Clip' && video.site === 'YouTube')
+					(video: any) => video.type === 'Trailer' || video.type === 'Teaser' || (video.type === 'Clip' && video.site === 'YouTube')
 				);
 				if (video) {
 					setVideoKey(video.key);
@@ -75,12 +87,26 @@ function MediaDetail() {
 	}, [id, type]);
 
 	const handleFavoriteClick = () => {
-		if (!['movies', 'tv'].includes(type)) {
+		if (!['movies', 'tv'].includes(mediaType)) {
 			console.error(`Invalid media type: ${type}`);
 			return;
-		}
-		saveFavoriteMedia(mediaDetail, type);
-	};
+    }
+    
+    const MEDIA_TYPE = type as 'movies' | 'tv'
+
+    if (mediaDetail) {
+      saveFavoriteMedia(MEDIA_TYPE, mediaDetail);
+    }
+		
+  };
+  
+  const isMovie = (media: MovieInterface | TVInterface): media is MovieInterface => {
+  return (media as MovieInterface).title !== undefined || (media as MovieInterface).original_title !== undefined;
+};
+
+  const isTV = (media: MovieInterface | TVInterface): media is TVInterface => {
+  return (media as TVInterface).name !== undefined || (media as TVInterface).original_name !== undefined;
+};
 
 	return (
 		<>
@@ -152,7 +178,7 @@ function MediaDetail() {
 
 						<div className={'flex-grow bg-blue-100 dark:bg-indigo-950 p-4 rounded-lg flex gap-2.5 min-w-[200px] flex-wrap justify-center'}>
 							<h3>Similar Genres:</h3>
-							{similarGenres.length === 0 ? <SimilarGenresNullSkeleton /> : <CreateSimilarGenres genres={similarGenres} type={type} />}
+							{similarGenres.length === 0 ? <SimilarGenresNullSkeleton /> : <CreateSimilarGenres genres={similarGenres} type={mediaType} />}
 						</div>
 					</div>
 

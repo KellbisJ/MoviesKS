@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getPreviewCategories } from '../../services/preview-categories';
 import { useMenuContext } from '../../context/menu-context';
-import { GenreInterface } from '../../types/genre';
+import { GenreInterface } from '../../types/genre-interface';
 
 const useCategories = () => {
 	const { mediaType } = useMenuContext();
