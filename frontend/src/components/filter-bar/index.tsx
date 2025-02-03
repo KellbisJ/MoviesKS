@@ -35,7 +35,8 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({ isMobile, isMoviesModalO
       setSelectedGenre({ id: category.id, genreName: category.name });
       const route = `${selectedMediaType === 'movies' ? '/movies' : '/tv'}/preview/genre/${category.id}`;
       handleNavigation(route);
-    }
+      }
+      toggleGenresModal()
   }
 };
 
