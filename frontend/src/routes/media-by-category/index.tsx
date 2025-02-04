@@ -5,11 +5,17 @@ import { useInfiniteScroll } from '../../hooks/use-infinite-scroll';
 import { getMediaByCategory } from '../../services/media-by-category';
 import { CreateMedia } from '../../components/create-media';
 import { MediaSkeleton } from '../../components/loading-skeletons';
+import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
 
-function MediaByCategory() {
+const MediaByCategory = (): React.JSX.Element => {
 	const { setShowMenuComponents } = useMenuContext();
-	const { type, id: genreId } = useParams();
-	const [media, setMedia] = useState([]);
+  const { type, id: genreId } = useParams();
+  
+  const [media, setMedia] = useState<(MovieInterface | TVInterface)[]>([]);
+
+  const [mediaType, setMediaType] = useState<string>('')
+  const [mediaGenreId, setMediaGenreId] = useState<string>('')
+
 	const [loadingComponents, setLoadingComponents] = useState(true);
 
 	useEffect(() => {
@@ -17,18 +23,26 @@ function MediaByCategory() {
 		return () => setShowMenuComponents(true);
 	}, [setShowMenuComponents]);
 
-	const [moreMedia, setMoreMedia] = useState([]);
+  const [moreMedia, setMoreMedia] = useState<(MovieInterface | TVInterface)[]>([]);
+  
 	const [page, setPage] = useState(1);
 	const [loading, setLoading] = useState(false);
 	const canLoadMore = true;
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-		setLoadingComponents(true);
+    setLoadingComponents(true);
+    
+    if (type) {
+      setMediaType(type)
+    }
+    if (genreId) {
+      setMediaGenreId(genreId)
+    }
 
 		async function fetchMedia() {
-			const mediaData = await getMediaByCategory(type, genreId);
-			// console.log(mediaData);
+			const mediaData = await getMediaByCategory(mediaType, mediaGenreId);
+			console.log(mediaData);
 
 			setLoadingComponents(false);
 			setMedia(mediaData);
@@ -38,7 +52,7 @@ function MediaByCategory() {
 
 	const fetchMoreMedia = async () => {
 		setLoading(true);
-		const nextMedia = await getMediaByCategory(type, genreId, page);
+		const nextMedia = await getMediaByCategory(mediaType, mediaGenreId, page);
 		if (nextMedia && nextMedia.length > 0) {
 			setMoreMedia((prevMedia) => {
 				const mediaIds = new Set([...media, ...prevMedia].map((media) => media.id));
@@ -54,7 +68,7 @@ function MediaByCategory() {
 
 	const allMedia = Array.from(new Set([...media, ...moreMedia].map((media) => media.id))).map((id) => {
 		return [...media, ...moreMedia].find((media) => media.id === id);
-	});
+	}).filter((media): media is MovieInterface | TVInterface => media !== undefined);
 
 	return (
 		<>
@@ -64,7 +78,7 @@ function MediaByCategory() {
 				<>
 					<h2 className="my-8 dark:text-gray-100">All Media by Category: {type}</h2>
 
-					<CreateMedia media={allMedia} type={type} />
+					<CreateMedia media={allMedia} type={mediaType} />
 				</>
 			)}
 		</>

@@ -11,7 +11,9 @@ import { TrailerMedia } from '../../components/modals/trailer-media';
 import { useFavoriteMedia } from '../../context/favorite-media-context';
 import { LiaStarSolid } from 'react-icons/lia';
 import { BiBookmarkHeart, BiSolidMoviePlay } from 'react-icons/bi';
-import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
+// import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
+import { MovieDetailInterface, TVDetailInterface } from '../../types/media-detail-interface';
+import { GenreInterface } from '../../types/genre-interface';
 
 const MediaDetail = (): React.JSX.Element => {
 	const { setShowMenuComponents } = useMenuContext();
@@ -21,18 +23,19 @@ const MediaDetail = (): React.JSX.Element => {
 		return () => setShowMenuComponents(true);
 	}, [setShowMenuComponents]);
 
-  const { id, type } = useParams();
+  const { type, id  } = useParams();
 
   const { favorites, saveFavoriteMedia } = useFavoriteMedia();
 
   
   const [mediaType, setMediaType] = useState<string>('')
+  const [mediaId, setMediaId] = useState<string>('')
 
 	const [loadingComponents, setLoadingComponents] = useState(true);
-  const [mediaDetail, setMediaDetail] = useState<MovieInterface | TVInterface>();
+  const [mediaDetail, setMediaDetail] = useState<MovieDetailInterface | TVDetailInterface>();
   
 	const [mediaDetailVideos, setMediaDetailVideos] = useState(null);
-	const [similarGenres, setSimilarGenres] = useState([]);
+	const [similarGenres, setSimilarGenres] = useState<GenreInterface[]>([]);
 	const [similarMedia, setSimilarMedia] = useState([]);
 	const [showTrailer, setShowTrailer] = useState(false);
 	const [videoKey, setVideoKey] = useState(null);
@@ -44,13 +47,17 @@ const MediaDetail = (): React.JSX.Element => {
 	useEffect(() => {
     setLoadingComponents(true);
     
-    if (id && type) {
-      setMediaType(type)
+    if (id) {
+      
+      setMediaId(id)
+    }
+    if (type) {
+setMediaType(type)
     }
 		window.scrollTo(0, 0);
 		async function fetchMediaDetail() {
-			const mediaData = await getMediaDetail(id, type);
-			const similarMediaData = await getSimilarMediaDetail(id, type);
+			const mediaData = await getMediaDetail(mediaId, mediaType);
+			const similarMediaData = await getSimilarMediaDetail(mediaId, mediaType);
 			const mediaVideosData = await getMediaVideos(id, type);
 
 			// console.log(mediaData);
@@ -60,7 +67,7 @@ const MediaDetail = (): React.JSX.Element => {
 				setSimilarGenres(mediaData.genres);
 			}
 			if (similarMediaData) {
-				setSimilarMedia(similarMediaData.results);
+				setSimilarMedia(similarMediaData);
 			}
 
 			setMediaDetail(mediaData);
@@ -100,13 +107,13 @@ const MediaDetail = (): React.JSX.Element => {
 		
   };
   
-  const isMovie = (media: MovieInterface | TVInterface): media is MovieInterface => {
-  return (media as MovieInterface).title !== undefined || (media as MovieInterface).original_title !== undefined;
-};
+//   const isMovie = (media: MovieInterface | TVInterface): media is MovieInterface => {
+//   return (media as MovieInterface).title !== undefined || (media as MovieInterface).original_title !== undefined;
+// };
 
-  const isTV = (media: MovieInterface | TVInterface): media is TVInterface => {
-  return (media as TVInterface).name !== undefined || (media as TVInterface).original_name !== undefined;
-};
+//   const isTV = (media: MovieInterface | TVInterface): media is TVInterface => {
+//   return (media as TVInterface).name !== undefined || (media as TVInterface).original_name !== undefined;
+// };
 
 	return (
 		<>
@@ -116,12 +123,12 @@ const MediaDetail = (): React.JSX.Element => {
 				<div className="text-black dark:text-gray-100">
 					<div className="flex flex-wrap gap-5 mb-6 flex-col items-center sm:flex-row md:items-normal">
 						<div className="flex-1 w-full sm:max-w-[320px] h-[460px] p-4 rounded-lg bg-blue-100 dark:bg-indigo-950 flex justify-center relative">
-							{mediaDetail.poster_path === null ? (
+							{mediaDetail?.poster_path === null ? (
 								<BigPosterPathNullSkeleton />
 							) : (
 								<img
 									className="w-full sm:w-full max-w-full max-h-full rounded-lg cursor-pointer"
-									src={`https://image.tmdb.org/t/p/w300/${mediaDetail.poster_path}`}
+									src={`https://image.tmdb.org/t/p/w300/${mediaDetail?.poster_path}`}
 									alt="Media Poster"
 								/>
 							)}
@@ -137,25 +144,25 @@ const MediaDetail = (): React.JSX.Element => {
 						</div>
 						<div className="flex-[2] flex flex-col gap-4 bg-blue-100 dark:bg-indigo-950 p-4 rounded-lg w-full sm:h-[460px]">
 							<div>
-								<h2 className="text-xl">{type === 'movies' ? mediaDetail.original_title || mediaDetail.title : mediaDetail.name}</h2>
+								<h2 className="text-xl">{type === 'movies' ? mediaDetail?.original_title || mediaDetail?.title : mediaDetail?.name}</h2>
 								<div className="flex items-center">
 									{mediaDetail.vote_average} <LiaStarSolid className="ml-1 text-fuchsia-500" />
 								</div>
 							</div>
 
-							<h3 className="text-lg">{mediaDetail.tagline}</h3>
+							<h3 className="text-lg">{mediaDetail?.tagline}</h3>
 							<div className="flex flex-wrap flex-col gap-2.5">
-								<p>{`Conteo de votos: ${mediaDetail.vote_count}.`}</p>
+								<p>{`Conteo de votos: ${mediaDetail?.vote_count}.`}</p>
 								<p>{`Fecha de lanzamiento: ${mediaDetail.release_date || mediaDetail.first_air_date}.`}</p>
 								<p>
 									{type === 'movies'
-										? `Duración: ${mediaDetail.runtime !== undefined ? `${mediaDetail.runtime} minutos.` : 'minutos'}`
+										? `Duración: ${mediaDetail?.runtime !== undefined ? `${mediaDetail?.runtime} minutos.` : 'minutos'}`
 										: `Duración de episodio aproximadamente: ${
-												mediaDetail.episode_run_time[0] !== undefined ? `${mediaDetail.episode_run_time[0]} minutos` : 'minutos'
+												mediaDetail?.episode_run_time[0] !== undefined ? `${mediaDetail?.episode_run_time[0]} minutos` : 'minutos'
 										  }.`}
 								</p>
 
-								<p>{`Estado: ${mediaDetail.status}.`} </p>
+								<p>{`Estado: ${mediaDetail?.status}.`} </p>
 							</div>
 							{!mediaDetailVideos ? (
 								<h3>No trailer or teaser available</h3>
@@ -173,7 +180,7 @@ const MediaDetail = (): React.JSX.Element => {
 					<div className={'flex gap-6 mb-6 flex-col sm:flex-row'}>
 						<div className={'flex-grow bg-blue-100 dark:bg-indigo-950 p-4 rounded-lg w-full  sm:w-[80%]'}>
 							<h3>Sinopsis</h3>
-							<p>{mediaDetail.overview === '' ? 'No description available' : mediaDetail.overview}</p>
+							<p>{mediaDetail?.overview === '' ? 'No description available' : mediaDetail?.overview}</p>
 						</div>
 
 						<div className={'flex-grow bg-blue-100 dark:bg-indigo-950 p-4 rounded-lg flex gap-2.5 min-w-[200px] flex-wrap justify-center'}>

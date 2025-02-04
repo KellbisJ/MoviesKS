@@ -5,6 +5,8 @@ import { useInfiniteScroll } from '../../hooks/use-infinite-scroll';
 import { CreateMedia } from '../../components/create-media';
 import { MediaSkeleton } from '../../components/loading-skeletons';
 import { useMenuContext } from '../../context/menu-context';
+import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
+import { MediaBySearchInterface } from '../../types/media-by-search-interface';
 
 function MediaBySearch() {
 	const { setShowMenuComponents } = useMenuContext();
@@ -12,54 +14,61 @@ function MediaBySearch() {
 	useEffect(() => {
 		setShowMenuComponents(false);
 		return () => setShowMenuComponents(true);
-	}, [setShowMenuComponents]);
-	const { type, query } = useParams();
-	const [media, setMedia] = useState([]);
+  }, [setShowMenuComponents]);
+  
+  const { type, query } = useParams();
+  
+  const [media, setMedia] = useState<MediaBySearchInterface>({ page: 1, results: [], total_pages: 0, total_results: 0 });
+  
+  const [mediaType, setMediaType] = useState<string>('')
+  const [querySearch, setQuerySearch] = useState<string>('')
+
 	const [loadingComponents, setLoadingComponents] = useState(true);
 
-	const [moreMedia, setMoreMedia] = useState([]);
+	const [moreMedia, setMoreMedia] = useState<(MovieInterface | TVInterface)[]>([]);
 	const [page, setPage] = useState(1);
 	const [loading, setLoading] = useState(false);
-	const canLoadMore = true;
+	const canLoadMore = media.page < media.total_pages;
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-		setMedia([]);
-		setLoadingComponents(true);
+		setMedia({ page: 1, results: [], total_pages: 0, total_results: 0 });
+    setLoadingComponents(true);
+    
+    if (type) {
+      setMediaType(type)
+    }
+    
+    if (query) {
+      setQuerySearch(query)
+    }
 
 		async function fetchMedia() {
-			const mediaData = await getMediaBySearch(type, query, 1);
+			const mediaData = await getMediaBySearch(mediaType, querySearch, 1);
 			setLoadingComponents(false);
-			if (mediaData && Array.isArray(mediaData.results)) {
-				setMedia(mediaData.results);
-			} else {
-				setMedia([]);
-			}
+			setMedia(mediaData);
 		}
 		fetchMedia();
 	}, [type, query]);
 
 	const fetchMoreMedia = async () => {
 		setLoading(true);
-		const nextMedia = await getMediaBySearch(type, query, page + 1);
-		if (nextMedia && Array.isArray(nextMedia.results) && nextMedia.results.length > 0) {
-			setMoreMedia((prevMedia) => {
-				const mediaIds = new Set([...media, ...prevMedia].map((media) => media.id));
-				const uniqueNextMedia = nextMedia.results.filter((media) => !mediaIds.has(media.id));
-				return [...prevMedia, ...uniqueNextMedia];
-			});
-			setPage((prevPage) => prevPage + 1);
-		}
+		const nextMedia = await getMediaBySearch(mediaType, querySearch, media.page + 1);
+		setMedia((prevMedia) => ({
+			...prevMedia,
+			page: nextMedia.page,
+			results: [...prevMedia.results, ...nextMedia.results],
+			total_pages: nextMedia.total_pages,
+			total_results: nextMedia.total_results,
+		}));
 		setLoading(false);
 	};
 
 	useInfiniteScroll(fetchMoreMedia, loading, canLoadMore);
 
-	const allMedia = Array.from(new Set([...media, ...moreMedia].map((media) => media.id))).map((id) => {
-		return [...media, ...moreMedia].find((media) => media.id === id);
-	});
 
-	if (media.length === 0) {
+
+	if (media.results.length === 0) {
 		return <h2 className="text-center dark:text-gray-100">No results</h2>;
 	}
 
@@ -72,7 +81,7 @@ function MediaBySearch() {
 					<h3 className="my-8 dark:text-gray-100">
 						Search Results for "{query}" in {type === 'movies' ? 'Movies' : 'TV Shows'}
 					</h3>
-					<CreateMedia media={allMedia} type={type} />
+					<CreateMedia media={media.results} type={mediaType} />
 				</>
 			)}
 		</>

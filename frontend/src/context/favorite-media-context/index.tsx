@@ -23,7 +23,7 @@ const FavoriteMediaProvider = ({ children }: {children: React.ReactNode}) => {
 		setFavorites(favorites);
 	}, []);
 
-	const saveFavoriteMedia = (mediaType: 'movies' | 'tv', media: MovieInterface | TVInterface) => {
+	const saveFavoriteMedia = (mediaType: 'movies' | 'tv', media: (MovieInterface | TVInterface)) => {
 		if (!mediaType) {
 			console.error(`invalid media type: ${mediaType}`);
 			return;
