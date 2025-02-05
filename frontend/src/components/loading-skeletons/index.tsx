@@ -1,5 +1,6 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
+import { MediaNullSkeletonPropsInterface } from '../../types/media-null-skeleton-props-interface';
 
 const MediaSkeleton = () => {
 	const count = 20;
@@ -14,9 +15,9 @@ const MediaSkeleton = () => {
 	);
 };
 
-const MediaNullSkeleton = ({ data, type, title }) => {
+const MediaNullSkeleton:React.FC<MediaNullSkeletonPropsInterface> = ( {data, type, title} ) => {
 	const navigate = useNavigate();
-	const handleNavigation = (data) => {
+	const handleNavigation = (data: MovieInterface | TVInterface) => {
 		const idParam = data.id;
 		navigate(`/${type}/detail/${idParam}`);
 	};

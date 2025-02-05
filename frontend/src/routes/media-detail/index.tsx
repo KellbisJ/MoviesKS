@@ -38,7 +38,7 @@ const MediaDetail = (): React.JSX.Element => {
   
 	const [mediaDetailVideos, setMediaDetailVideos] = useState<MediaVideosResultInterface[]>();
 	const [similarGenres, setSimilarGenres] = useState<GenreInterface[]>([]);
-  const [similarMedia, setSimilarMedia] = useState<(MovieInterface | TVInterface)[]>([]);
+  const [similarMedia, setSimilarMedia] = useState<MovieInterface[] | TVInterface[]>([]);
   
 	const [showTrailer, setShowTrailer] = useState<boolean>(false);
 	const [videoKey, setVideoKey] = useState<string>();
@@ -182,7 +182,7 @@ const MediaDetail = (): React.JSX.Element => {
 					</div>
 
 					<h3 className="mb-8">Similar to watch about {mediaType}</h3>
-					{<CreateSimilarMediaDetail media={{ results: similarMedia }} type={mediaType} />}
+					{<CreateSimilarMediaDetail media={similarMedia} type={mediaType} />}
 
 					<TrailerMedia isOpen={showTrailer} onClose={() => setShowTrailer(false)} videoKey={videoKey} />
 				</div>
