@@ -6,7 +6,7 @@ interface FavoriteMediaContextType {
 		tv: TVInterface[] | [];
 	};
 	// mediaType: MovieInterface['media_type'] | TVInterface['media_type'] | undefined;
-	saveFavoriteMedia: (mediaType: 'movies' | 'tv', media: MovieInterface | TVInterface) => void;
+	saveFavoriteMedia?: (mediaType: 'movies' | 'tv', media: MovieInterface | TVInterface) => void;
 }
 
 export { FavoriteMediaContextType };

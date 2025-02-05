@@ -19,7 +19,7 @@ const MediaContainer = ({ media_, type }) => {
 			console.error(`Invalid media type: ${type}`);
 			return;
 		}
-		saveFavoriteMedia(media_, type);
+		saveFavoriteMedia(type, media_);
 	};
 
 	return (

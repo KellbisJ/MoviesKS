@@ -1,6 +1,6 @@
-import React from 'react';
+import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
 
-const useSaveMedia = (media, type) => {
+const useSaveMedia = (media: MovieInterface | TVInterface, type: string) => {
 	const storedFavorites = localStorage.getItem('favoriteMedia');
 	const favorites = storedFavorites
 		? JSON.parse(storedFavorites)
@@ -9,7 +9,7 @@ const useSaveMedia = (media, type) => {
 				tv: [],
 		  };
 
-	const isFavorite = favorites[type].some((item) => item.id === media.id);
+	const isFavorite = favorites[type].some((item: MovieInterface | TVInterface) => item.id === media.id);
 
 	if (isFavorite) {
 		return false;

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getPreviewTrendingMovies } from '../../services/preview-trending-movies';
+import { getPreviewTrendingMedia } from '../../services/preview-trending-media';
 import { CreateMedia } from '../../components/create-media';
-import { getNextMoviesTrendingSection } from '../../services/next-movies-trending-section';
+import { getNextMediaTrendingSection } from '../../services/next-media-trending-section';
 import { useMenuContext } from '../../context/menu-context';
 import { useFavoriteMedia } from '../../context/favorite-media-context';
 import { useInfiniteScroll } from '../../hooks/use-infinite-scroll';
@@ -29,7 +29,9 @@ const MediaAllMovie = (): React.JSX.Element => {
 	const [loading, setLoading] = useState<boolean>(false);
 	const [canLoadMore, setCanLoadMore] = useState<boolean>(true);
   
-	const [prevPath, setPrevPath] = useState<string>('');
+  const [prevPath, setPrevPath] = useState<string>('');
+  
+  const mediaType: string = 'movies'
 
 	useEffect(() => {
 		if (location.pathname === '/movies/all') {
@@ -41,9 +43,9 @@ const MediaAllMovie = (): React.JSX.Element => {
 			window.scrollTo(0, 0);
 
 			async function fetchMedia() {
-				const previewMovies = await getPreviewTrendingMovies();
+				const previewMovies = await getPreviewTrendingMedia('movies');
 				setLoadingComponents(false);
-				setMovies(previewMovies);
+				setMovies(previewMovies as MovieInterface[]);
 				setPage(2);
 			}
 
@@ -60,7 +62,7 @@ const MediaAllMovie = (): React.JSX.Element => {
 
   const fetchMoreMovies = async () => {
 		setLoading(true);
-		const nextMovies = await getNextMoviesTrendingSection(page);
+		const nextMovies = await getNextMediaTrendingSection(mediaType, page);
 		if (nextMovies && nextMovies.length > 0) {
 			setMoreMovies((prevMovies) => {
 				const movieIds = new Set([...movies, ...prevMovies].map((movie) => movie.id));
@@ -80,7 +82,7 @@ const MediaAllMovie = (): React.JSX.Element => {
 
 	
 
-	return <>{loadingComponents ? <MediaSkeleton /> : <CreateMedia media={allMovies} type="movies" />}</>;
+	return <>{loadingComponents ? <MediaSkeleton /> : <CreateMedia media={allMovies} type={mediaType} />}</>;
 }
 
 export { MediaAllMovie };

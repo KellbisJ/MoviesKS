@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getPreviewTrendingTV } from '../../services/preview-trending-tv';
-import { getNextTvTrendingSection } from '../../services/next-tv-trending-section';
+import { getPreviewTrendingMedia } from '../../services/preview-trending-media';
+import { getNextMediaTrendingSection } from '../../services/next-media-trending-section';
 import { CreateMedia } from '../../components/create-media';
 import { useMenuContext } from '../../context/menu-context';
 import { useFavoriteMedia } from '../../context/favorite-media-context';
 import { useInfiniteScroll } from '../../hooks/use-infinite-scroll';
 import { MediaSkeleton } from '../../components/loading-skeletons';
+import { TVInterface } from '../../types/movie-and-tv-interface';
 
-function MediaAllTV() {
+const MediaAllTV = (): React.JSX.Element => {
 	const { setShowMenuComponents } = useMenuContext();
 
 	useEffect(() => {
@@ -17,15 +18,21 @@ function MediaAllTV() {
 	}, [setShowMenuComponents]);
 
 	const location = useLocation();
-	const { favorites, saveFavoriteMedia } = useFavoriteMedia();
-	// const favoriteTV = favorites.tv;
-	const [loadingComponents, setLoadingComponents] = useState(true);
-	const [tv, setTv] = useState([]);
-	const [moreMediaTv, setMoreMediaTv] = useState([]);
-	const [page, setPage] = useState(1);
-	const [loading, setLoading] = useState(false);
-	const [canLoadMore, setCanLoadMore] = useState(true);
-	const [prevPath, setPrevPath] = useState('');
+  const { favorites, saveFavoriteMedia } = useFavoriteMedia();
+  
+  // const favoriteTV = favorites.tv;
+  
+	const [loadingComponents, setLoadingComponents] = useState<boolean>(true);
+	const [tv, setTv] = useState<TVInterface[]>([]);
+  const [moreMediaTv, setMoreMediaTv] = useState<TVInterface[]>([]);
+  
+  const [page, setPage] = useState<number>(1);
+  
+	const [loading, setLoading] = useState<boolean>(false);
+	const [canLoadMore, setCanLoadMore] = useState<boolean>(true);
+  const [prevPath, setPrevPath] = useState<string>('');
+  
+  const mediaType:string = 'tv'
 
 	useEffect(() => {
 		if (location.pathname === '/tv/all') {
@@ -37,9 +44,9 @@ function MediaAllTV() {
 			window.scrollTo(0, 0);
 
 			async function fetchMedia() {
-				const previewTV = await getPreviewTrendingTV();
+				const previewTV = await getPreviewTrendingMedia(mediaType);
 				setLoadingComponents(false);
-				setTv(previewTV);
+				setTv(previewTV as TVInterface[]);
 				setPage(2);
 			}
 
@@ -56,11 +63,11 @@ function MediaAllTV() {
 
 	const fetchMoreTvMedia = async () => {
 		setLoading(true);
-		const nextTvMedia = await getNextTvTrendingSection(page);
+		const nextTvMedia = await getNextMediaTrendingSection(mediaType, page);
 		if (nextTvMedia && nextTvMedia.length > 0) {
 			setMoreMediaTv((prevTvMedia) => {
 				const tvMediaIds = new Set([...tv, ...prevTvMedia].map((tv) => tv.id));
-				const uniqueNextTv = nextTvMedia.filter((tv) => !tvMediaIds.has(tv.id));
+				const uniqueNextTv = nextTvMedia.filter((tv: TVInterface) => !tvMediaIds.has(tv.id));
 				return [...prevTvMedia, ...uniqueNextTv];
 			});
 			setPage((prevPage) => prevPage + 1);
@@ -74,12 +81,7 @@ function MediaAllTV() {
 
 	const allTv = [...tv, ...moreMediaTv];
 
-	const handleFavoriteClick = (item) => {
-		const type = item.media_type;
-		saveFavoriteMedia(item, type);
-	};
-
-	return <>{loadingComponents ? <MediaSkeleton /> : <CreateMedia media={allTv} type="tv" handleFavoriteClick={handleFavoriteClick} />}</>;
+	return <>{loadingComponents ? <MediaSkeleton /> : <CreateMedia media={allTv} type="tv" />}</>;
 }
 
 export { MediaAllTV };

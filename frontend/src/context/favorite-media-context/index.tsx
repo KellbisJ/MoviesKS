@@ -29,7 +29,7 @@ const FavoriteMediaProvider = ({ children }: {children: React.ReactNode}) => {
 			return;
 		}
 
-		const isFavorite = useSaveMedia(mediaType, media);
+		const isFavorite = useSaveMedia(media,mediaType );
 		let updatedFavorites;
 		if (!isFavorite) {
 			updatedFavorites = {

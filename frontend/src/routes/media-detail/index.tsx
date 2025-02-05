@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { getMediaDetail } from '../../services/media-detail';
 import { getSimilarMediaDetail } from '../../services/similar-media-detail';
 import { getMediaVideos } from '../../services/media-videos';
 import { useMenuContext } from '../../context/menu-context';
 import { CreateSimilarGenres } from '../../components/create-similar-genres';
 import { CreateSimilarMediaDetail } from '../../components/create-similar-media-detail';
-import { useParams } from 'react-router-dom';
 import { BigPosterPathNullSkeleton, SimilarGenresNullSkeleton, MediaDetailSkeleton } from '../../components/loading-skeletons';
 import { TrailerMedia } from '../../components/modals/trailer-media';
 import { useFavoriteMedia } from '../../context/favorite-media-context';
@@ -14,6 +14,8 @@ import { BiBookmarkHeart, BiSolidMoviePlay } from 'react-icons/bi';
 // import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
 import { MovieDetailInterface, TVDetailInterface } from '../../types/media-detail-interface';
 import { GenreInterface } from '../../types/genre-interface';
+import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
+import { MediaVideosInterface, MediaVideosResultInterface } from '../../types/media-videos-interface';
 
 const MediaDetail = (): React.JSX.Element => {
 	const { setShowMenuComponents } = useMenuContext();
@@ -23,74 +25,64 @@ const MediaDetail = (): React.JSX.Element => {
 		return () => setShowMenuComponents(true);
 	}, [setShowMenuComponents]);
 
-  const { type, id  } = useParams();
+  const { type, id } = useParams();
+  
+  const mediaType = type as string;
+  const mediaId = id as string;
 
   const { favorites, saveFavoriteMedia } = useFavoriteMedia();
 
+  const [loadingComponents, setLoadingComponents] = useState(true);
   
-  const [mediaType, setMediaType] = useState<string>('')
-  const [mediaId, setMediaId] = useState<string>('')
-
-	const [loadingComponents, setLoadingComponents] = useState(true);
   const [mediaDetail, setMediaDetail] = useState<MovieDetailInterface | TVDetailInterface>();
   
-	const [mediaDetailVideos, setMediaDetailVideos] = useState(null);
+	const [mediaDetailVideos, setMediaDetailVideos] = useState<MediaVideosResultInterface[]>();
 	const [similarGenres, setSimilarGenres] = useState<GenreInterface[]>([]);
-	const [similarMedia, setSimilarMedia] = useState([]);
-	const [showTrailer, setShowTrailer] = useState(false);
-	const [videoKey, setVideoKey] = useState(null);
+  const [similarMedia, setSimilarMedia] = useState<(MovieInterface | TVInterface)[]>([]);
+  
+	const [showTrailer, setShowTrailer] = useState<boolean>(false);
+	const [videoKey, setVideoKey] = useState<string>();
 
 	
-	const favoriteMedia = favorites.movies || favorites.tv || [];
+	const favoriteMedia: MovieInterface[] | TVInterface[] = favorites.movies || favorites.tv || [];
 	const isFavorite = favoriteMedia.some((favMedia) => favMedia.id === mediaDetail?.id);
 
 	useEffect(() => {
-    setLoadingComponents(true);
-    
-    if (id) {
-      
-      setMediaId(id)
-    }
-    if (type) {
-setMediaType(type)
-    }
-		window.scrollTo(0, 0);
-		async function fetchMediaDetail() {
-			const mediaData = await getMediaDetail(mediaId, mediaType);
-			const similarMediaData = await getSimilarMediaDetail(mediaId, mediaType);
-			const mediaVideosData = await getMediaVideos(id, type);
+		if (mediaType && mediaId) {
+	
+			setLoadingComponents(true);
+			window.scrollTo(0, 0);
 
-			// console.log(mediaData);
-			// console.log(mediaVideosData.results.length);
+			async function fetchMediaDetail() {
+				const mediaData = await getMediaDetail(mediaType, mediaId);
+				const similarMediaData = await getSimilarMediaDetail(mediaType, mediaId);
+				const mediaVideosData = await getMediaVideos(mediaType, mediaId) as MediaVideosInterface;
 
-			if (mediaData && mediaData.genres) {
-				setSimilarGenres(mediaData.genres);
-			}
-			if (similarMediaData) {
-				setSimilarMedia(similarMediaData);
-			}
-
-			setMediaDetail(mediaData);
-
-			if (mediaVideosData && mediaVideosData.results.length > 0) {
-				const video = mediaVideosData.results.find(
-					(video: any) => video.type === 'Trailer' || video.type === 'Teaser' || (video.type === 'Clip' && video.site === 'YouTube')
-				);
-				if (video) {
-					setVideoKey(video.key);
+				if (mediaData && mediaData.genres) {
+					setSimilarGenres(mediaData.genres);
 				}
-				setMediaDetailVideos(mediaVideosData.results);
-			} else {
-				setMediaDetailVideos(null);
+				if (similarMediaData) {
+					setSimilarMedia(similarMediaData);
+				}
+
+				setMediaDetail(mediaData);
+
+				if (mediaVideosData && mediaVideosData.results.length > 0) {
+					const video = mediaVideosData.results.find(
+						(video: any) => video.type === 'Trailer' || video.type === 'Teaser' || (video.type === 'Clip' && video.site === 'YouTube')
+					);
+					if (video) {
+						setVideoKey(video.key);
+					}
+					setMediaDetailVideos(mediaVideosData.results);
+				} else {
+					setMediaDetailVideos([]);
+				}
+				setLoadingComponents(false);
 			}
-			setLoadingComponents(false);
+
+			fetchMediaDetail();
 		}
-
-		fetchMediaDetail();
-
-		// setTimeout(() => {
-		// 	fetchMediaDetail();
-		// }, 2000000);
 	}, [id, type]);
 
 	const handleFavoriteClick = () => {
@@ -164,7 +156,7 @@ setMediaType(type)
 
 								<p>{`Estado: ${mediaDetail?.status}.`} </p>
 							</div>
-							{!mediaDetailVideos ? (
+							{mediaDetailVideos?.length === 0 ? (
 								<h3>No trailer or teaser available</h3>
 							) : (
 								<button
@@ -189,8 +181,8 @@ setMediaType(type)
 						</div>
 					</div>
 
-					<h3 className="mb-8">Similar to watch about {type}</h3>
-					{<CreateSimilarMediaDetail media={{ results: similarMedia }} type={type} />}
+					<h3 className="mb-8">Similar to watch about {mediaType}</h3>
+					{<CreateSimilarMediaDetail media={{ results: similarMedia }} type={mediaType} />}
 
 					<TrailerMedia isOpen={showTrailer} onClose={() => setShowTrailer(false)} videoKey={videoKey} />
 				</div>

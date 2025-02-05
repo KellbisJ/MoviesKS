@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { getPreviewTrendingMovies } from '../../services/preview-trending-movies';
+import { getPreviewTrendingMedia } from '../../services/preview-trending-media';
 import { CreateMedia } from '../../components/create-media';
 import { MediaSkeleton } from '../../components/loading-skeletons';
+import { MovieInterface } from '../../types/movie-and-tv-interface';
 
 const Home = (): React.JSX.Element => {
 	const [loadingComponents, setLoadingComponents] = useState<boolean>(true);
-	const [media, setMedia] = useState([]);
+	const [media, setMedia] = useState<MovieInterface[]>([]);
 
 	useEffect(() => {
 		async function fetchMedia() {
-			const previewMovies = await getPreviewTrendingMovies();
-			setMedia(previewMovies);
+			const previewMovies = await getPreviewTrendingMedia('movies');
+			setMedia(previewMovies as MovieInterface[]);
 
 			setLoadingComponents(false);
 		}

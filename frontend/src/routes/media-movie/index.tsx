@@ -1,25 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { getPreviewTrendingTV } from '../../services/preview-trending-tv';
+import { getPreviewTrendingMedia } from '../../services/preview-trending-media';
 import { getMediaByCategory } from '../../services/media-by-category';
 import { CreateMedia } from '../../components/create-media';
 import { useFavoriteMedia } from '../../context/favorite-media-context';
 import { useMenuContext } from '../../context/menu-context';
 import { useLocation } from 'react-router-dom';
 import { MediaSkeleton } from '../../components/loading-skeletons';
+import { MovieInterface } from '../../types/movie-and-tv-interface';
 
-function MediaTV() {
-	const { favorites, saveFavoriteMedia } = useFavoriteMedia();
-	const { setMediaType, setSelectedGenre, mediaType, selectedGenre } = useMenuContext();
-	const [loadingComponents, setLoadingComponents] = useState(true);
-	const [mediaTv, setMediaTv] = useState([]);
-	const favoriteTV = favorites.tv;
+const MediaMovie = ():React.JSX.Element => {
+	const { favorites } = useFavoriteMedia();
+  const { setMediaType, setSelectedGenre, mediaType, selectedGenre } = useMenuContext();
+  
+  const [loadingComponents, setLoadingComponents] = useState(true);
+  
+	const [mediaMovie, setMediaMovie] = useState<MovieInterface[]>([]);
+
 	const location = useLocation();
 
 	// console.log(mediaType);
 
 	useEffect(() => {
 		const storedMediaType = localStorage.getItem('selectedMediaType');
-		setMediaType(storedMediaType || 'tv');
+		setMediaType(storedMediaType || 'movies');
 
 		if (location.search.includes('genre=')) {
 			const genreId = new URLSearchParams(location.search).get('genre');
@@ -27,32 +30,28 @@ function MediaTV() {
 		}
 
 		async function fetchMedia() {
+			setLoadingComponents(true);
 			if (selectedGenre) {
 				const filteredMedia = await getMediaByCategory(mediaType, selectedGenre.id);
-				setMediaTv(filteredMedia);
+				setMediaMovie(filteredMedia as MovieInterface[]);
 			} else {
-				const previewTV = await getPreviewTrendingTV();
-				setMediaTv(previewTV);
+				const previewMovie = await getPreviewTrendingMedia('movies');
+				setMediaMovie(previewMovie as MovieInterface[]);
 			}
 			setLoadingComponents(false);
 		}
 		fetchMedia();
 	}, [selectedGenre, setMediaType, setSelectedGenre, location]);
 
-	const handleFavoriteClick = (item) => {
-		const type = item.media_type;
-		saveFavoriteMedia(item, type);
-	};
-
 	return (
 		<>
 			{loadingComponents ? (
 				<MediaSkeleton />
 			) : (
-				<CreateMedia media={mediaTv} type={'tv'} favorites={favoriteTV} handleFavoriteClick={handleFavoriteClick} />
+				<CreateMedia media={mediaMovie} type={'movies'} />
 			)}
 		</>
 	);
 }
 
-export { MediaTV };
+export { MediaMovie };

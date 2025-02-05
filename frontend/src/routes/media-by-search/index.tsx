@@ -8,7 +8,7 @@ import { useMenuContext } from '../../context/menu-context';
 import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
 import { MediaBySearchInterface } from '../../types/media-by-search-interface';
 
-function MediaBySearch() {
+const MediaBySearch = (): React.JSX.Element => {
 	const { setShowMenuComponents } = useMenuContext();
 
 	useEffect(() => {
@@ -17,11 +17,13 @@ function MediaBySearch() {
   }, [setShowMenuComponents]);
   
   const { type, query } = useParams();
+
+  const mediaType = type as string;
+  const querySearch = query as string;
   
   const [media, setMedia] = useState<MediaBySearchInterface>({ page: 1, results: [], total_pages: 0, total_results: 0 });
   
-  const [mediaType, setMediaType] = useState<string>('')
-  const [querySearch, setQuerySearch] = useState<string>('')
+
 
 	const [loadingComponents, setLoadingComponents] = useState(true);
 
@@ -30,18 +32,13 @@ function MediaBySearch() {
 	const [loading, setLoading] = useState(false);
 	const canLoadMore = media.page < media.total_pages;
 
-	useEffect(() => {
-		window.scrollTo(0, 0);
+  useEffect(() => {
+    if (mediaType && querySearch) {
+    window.scrollTo(0, 0);
 		setMedia({ page: 1, results: [], total_pages: 0, total_results: 0 });
     setLoadingComponents(true);
     
-    if (type) {
-      setMediaType(type)
-    }
-    
-    if (query) {
-      setQuerySearch(query)
-    }
+   
 
 		async function fetchMedia() {
 			const mediaData = await getMediaBySearch(mediaType, querySearch, 1);
@@ -49,6 +46,8 @@ function MediaBySearch() {
 			setMedia(mediaData);
 		}
 		fetchMedia();
+    }
+		
 	}, [type, query]);
 
 	const fetchMoreMedia = async () => {
@@ -79,7 +78,7 @@ function MediaBySearch() {
 			) : (
 				<>
 					<h3 className="my-8 dark:text-gray-100">
-						Search Results for "{query}" in {type === 'movies' ? 'Movies' : 'TV Shows'}
+						Search Results for "{querySearch}" in {mediaType === 'movies' ? 'Movies' : 'TV Shows'}
 					</h3>
 					<CreateMedia media={media.results} type={mediaType} />
 				</>

@@ -11,7 +11,7 @@ const MediaByCategory = (): React.JSX.Element => {
 	const { setShowMenuComponents } = useMenuContext();
   const { type, id: genreId } = useParams();
   
-  const [media, setMedia] = useState<(MovieInterface | TVInterface)[]>([]);
+  const [media, setMedia] = useState<MovieInterface[] | TVInterface[]>([])
 
   const [mediaType, setMediaType] = useState<string>('')
   const [mediaGenreId, setMediaGenreId] = useState<string>('')
@@ -23,7 +23,7 @@ const MediaByCategory = (): React.JSX.Element => {
 		return () => setShowMenuComponents(true);
 	}, [setShowMenuComponents]);
 
-  const [moreMedia, setMoreMedia] = useState<(MovieInterface | TVInterface)[]>([]);
+  const [moreMedia, setMoreMedia] = useState<MovieInterface[] | TVInterface[]>([]);
   
 	const [page, setPage] = useState(1);
 	const [loading, setLoading] = useState(false);
@@ -52,12 +52,13 @@ const MediaByCategory = (): React.JSX.Element => {
 
 	const fetchMoreMedia = async () => {
 		setLoading(true);
-		const nextMedia = await getMediaByCategory(mediaType, mediaGenreId, page);
+    const nextMedia = await getMediaByCategory(mediaType, mediaGenreId, page);
+    
 		if (nextMedia && nextMedia.length > 0) {
-			setMoreMedia((prevMedia) => {
+      setMoreMedia((prevMedia: MovieInterface[] | TVInterface[]) => {
 				const mediaIds = new Set([...media, ...prevMedia].map((media) => media.id));
 				const uniqueNextMedia = nextMedia.filter((media) => !mediaIds.has(media.id));
-				return [...prevMedia, ...uniqueNextMedia];
+				return [...prevMedia, ...uniqueNextMedia] as MovieInterface[] | TVInterface[];
 			});
 			setPage((prevPage) => prevPage + 1);
 		}

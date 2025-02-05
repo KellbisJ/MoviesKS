@@ -4,7 +4,7 @@ import { useFavoriteMedia } from '../../context/favorite-media-context';
 import { useMenuContext } from '../../context/menu-context';
 import { MediaFavoritesVoid } from '../../components/loading-skeletons';
 
-function MediaFavorites() {
+const MediaFavorites = (): React.JSX.Element => {
 	const { setShowMenuComponents } = useMenuContext();
 
 	useEffect(() => {
@@ -12,17 +12,13 @@ function MediaFavorites() {
 		return () => setShowMenuComponents(true);
 	}, [setShowMenuComponents]);
 
-	const { favorites, saveFavoriteMedia } = useFavoriteMedia();
+	const { favorites } = useFavoriteMedia();
 	const favoriteMovies = favorites.movies;
 	const favoriteTVShows = favorites.tv;
 	// console.log(favoriteMovies);
 	// console.log(favoriteTVShows);
 
-	const handleFavoriteClick = (item) => {
-		const type = item.media_type;
-
-		saveFavoriteMedia(item, type);
-	};
+	
 
 	return (
 		<>
@@ -30,14 +26,14 @@ function MediaFavorites() {
 
 			<h2 className="dark:text-gray-100 my-8">Movies</h2>
 			{favoriteMovies.length > 0 ? (
-				<CreateMedia media={favoriteMovies} type="movies" handleFavoriteClick={(movie) => handleFavoriteClick(movie)} />
+				<CreateMedia media={favoriteMovies} type="movies" />
 			) : (
 				<MediaFavoritesVoid />
 			)}
 
 			<h2 className="dark:text-gray-100 my-8">TV Shows</h2>
 			{favoriteTVShows.length > 0 ? (
-				<CreateMedia media={favoriteTVShows} type="tv" handleFavoriteClick={(tvShow) => handleFavoriteClick(tvShow)} />
+				<CreateMedia media={favoriteTVShows} type="tv" />
 			) : (
 				<MediaFavoritesVoid />
 			)}

@@ -4,19 +4,25 @@ import { CreateMedia } from '../../components/create-media';
 import { getMediaByCategory } from '../../services/media-by-category';
 import { useMenuContext } from '../../context/menu-context';
 import { MediaSkeleton } from '../../components/loading-skeletons';
+import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
 
-const MediaPreviewByGenre = () => {
+const MediaPreviewByGenre = (): React.JSX.Element => {
 	const [loadingComponents, setLoadingComponents] = useState(true);
-	const [media, setMedia] = useState(null);
-	const { type, id } = useParams();
+  const { type, id } = useParams();
+
+  const [media, setMedia] = useState<MovieInterface[] | TVInterface[]>([]);
+  const mediaType: string = type as string
+  const mediaId:string = id as string
+  
 	// const { selectedGenre } = useMenuContext();
 	// const genreName = selectedGenre.genreName;
 
 	useEffect(() => {
-		setLoadingComponents(true);
-		async function fetchMedia() {
+    setLoadingComponents(true);
+    if (mediaType && mediaId) {
+    async function fetchMedia() {
 			if (id) {
-				const filteredMedia = await getMediaByCategory(type, id);
+				const filteredMedia = await getMediaByCategory(mediaType, mediaId);
 				setMedia(filteredMedia);
 				// console.log(filteredMedia);
 			}
@@ -24,9 +30,11 @@ const MediaPreviewByGenre = () => {
 
 		setLoadingComponents(false);
 		fetchMedia();
+    }
+		
 	}, [type, id]);
 
-	if (!media) {
+	if (media.length === 0) {
 		return <MediaSkeleton />;
 	}
 
@@ -36,7 +44,7 @@ const MediaPreviewByGenre = () => {
 				<MediaSkeleton />
 			) : (
 				<div className="mediaPreviewContainer">
-					<CreateMedia media={media} type={type} />
+					<CreateMedia media={media} type={mediaType} />
 				</div>
 			)}
 		</>
