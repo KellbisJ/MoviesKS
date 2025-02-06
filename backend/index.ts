@@ -33,6 +33,7 @@ import detailMedia from './api/routes/detail-media';
 import detailMediaSimilar from './api/routes/detail-media-similar';
 import videosMedia from './api/routes/videos-media';
 import searchMedia from './api/routes/search-media';
+import mediaImages from './api/routes/media-images';
 
 app.get('/', (req: Request, res: Response) => {
 	res.json({
@@ -50,6 +51,8 @@ app.get('/', (req: Request, res: Response) => {
 		VideosTv: 'http://localhost:8000/api/tv/1399/videos?language=en-US',
 		SearchMovies: 'http://localhost:8000/api/search/movie/hola',
 		SearchTvSeries: 'http://localhost:8000/api/search/tv/game',
+		MovieImages: 'http://localhost:8000/api/movie/550/images',
+		TVImages: 'http://localhost:8000/api/tv/1399/images',
 	});
 });
 
@@ -60,5 +63,6 @@ app.use('/api', detailMedia);
 app.use('/api', detailMediaSimilar);
 app.use('/api', videosMedia);
 app.use('/api', searchMedia);
+app.use('/api', mediaImages);
 
 app.listen(PORT, () => console.log(`server running on ${PORT}`));

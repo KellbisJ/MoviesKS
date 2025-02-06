@@ -7,27 +7,25 @@ import { CircleLoader } from '../../components/circle-loader';
 
 const MediaFavorites = (): React.JSX.Element => {
   const { setShowMenuComponents } = useMenuContext();
-  
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(true)
 
-	useEffect(() => {
+  useEffect(() => {
 		setShowMenuComponents(false);
 		return () => setShowMenuComponents(true);
 	}, [setShowMenuComponents]);
+  
+  useEffect(() => {
+		const timeoutId = setTimeout(() => {
+				setLoading(false);
+		}, 300);
+		return () => clearTimeout(timeoutId);
+	}, []);
 
 	const { favorites } = useFavoriteMedia();
 	const favoriteMovies = favorites.movies;
 	const favoriteTVShows = favorites.tv;
 	// console.log(favoriteMovies);
 	// console.log(favoriteTVShows);
-
-	useEffect(() => {
-		setLoading(true);
-		const timeoutId = setTimeout(() => {
-				setLoading(false);
-		}, 300);
-		return () => clearTimeout(timeoutId);
-	}, []);
 
 	return (
     <>

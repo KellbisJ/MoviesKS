@@ -16,6 +16,9 @@ import { MovieDetailInterface, TVDetailInterface } from '../../types/media-detai
 import { GenreInterface } from '../../types/genre-interface';
 import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
 import { MediaVideosInterface, MediaVideosResultInterface } from '../../types/media-videos-interface';
+import { getMediaImages } from '../../services/media-images';
+import { MediaImagesInterface } from '../../types/media-images-interface';
+import { CreateMediaImages } from '../../components/create-media-images';
 
 const MediaDetail = (): React.JSX.Element => {
 	const { setShowMenuComponents } = useMenuContext();
@@ -34,14 +37,15 @@ const MediaDetail = (): React.JSX.Element => {
 
   const [loadingComponents, setLoadingComponents] = useState(true);
   
-  const [mediaDetail, setMediaDetail] = useState<MovieDetailInterface | TVDetailInterface>();
+  const [mediaDetail, setMediaDetail] = useState<MovieDetailInterface | TVDetailInterface>({} as MovieDetailInterface);
   
 	const [mediaDetailVideos, setMediaDetailVideos] = useState<MediaVideosResultInterface[]>();
 	const [similarGenres, setSimilarGenres] = useState<GenreInterface[]>([]);
   const [similarMedia, setSimilarMedia] = useState<MovieInterface[] | TVInterface[]>([]);
   
 	const [showTrailer, setShowTrailer] = useState<boolean>(false);
-	const [videoKey, setVideoKey] = useState<string>();
+  const [videoKey, setVideoKey] = useState<string>();
+  const [mediaImages, setMediaImages] = useState<MediaImagesInterface>({} as MediaImagesInterface);
 
 	
 	const favoriteMedia: MovieInterface[] | TVInterface[] = favorites.movies || favorites.tv || [];
@@ -56,9 +60,12 @@ const MediaDetail = (): React.JSX.Element => {
 			async function fetchMediaDetail() {
 				const mediaData = await getMediaDetail(mediaType, mediaId);
 				const similarMediaData = await getSimilarMediaDetail(mediaType, mediaId);
-				const mediaVideosData = await getMediaVideos(mediaType, mediaId) as MediaVideosInterface;
+        const mediaVideosData = await getMediaVideos(mediaType, mediaId) as MediaVideosInterface;
+        const mediaImagesData = await getMediaImages(mediaType, mediaId)
 
-				if (mediaData && mediaData.genres) {
+        // console.log('mediaImagesData:', mediaImagesData);
+
+				if (mediaData && mediaData.genres) { // media detail data
 					setSimilarGenres(mediaData.genres);
 				}
 				if (similarMediaData) {
@@ -67,7 +74,7 @@ const MediaDetail = (): React.JSX.Element => {
 
 				setMediaDetail(mediaData);
 
-				if (mediaVideosData && mediaVideosData.results.length > 0) {
+				if (mediaVideosData && mediaVideosData.results.length > 0) { // media videos data
 					const video = mediaVideosData.results.find(
 						(video: any) => video.type === 'Trailer' || video.type === 'Teaser' || (video.type === 'Clip' && video.site === 'YouTube')
 					);
@@ -77,13 +84,25 @@ const MediaDetail = (): React.JSX.Element => {
 					setMediaDetailVideos(mediaVideosData.results);
 				} else {
 					setMediaDetailVideos([]);
-				}
+        }
+        
+        if (mediaImagesData) { // media images data
+          setMediaImages(mediaImagesData)
+        }
+
 				setLoadingComponents(false);
 			}
 
-			fetchMediaDetail();
+      fetchMediaDetail();
+      
 		}
-	}, [id, type]);
+  }, [id, type]);
+  
+  useEffect(() => {
+		if (mediaImages) {
+			console.log('mediaImages:', mediaImages);
+		}
+	}, [mediaImages]);
 
 	const handleFavoriteClick = () => {
 		if (!['movies', 'tv'].includes(mediaType)) {
@@ -99,9 +118,9 @@ const MediaDetail = (): React.JSX.Element => {
 		
   };
   
-//   const isMovie = (media: MovieInterface | TVInterface): media is MovieInterface => {
-//   return (media as MovieInterface).title !== undefined || (media as MovieInterface).original_title !== undefined;
-// };
+  const isMovie = (media: MovieDetailInterface | TVDetailInterface): media is MovieDetailInterface => {
+  return (media as MovieDetailInterface).title !== undefined || (media as MovieDetailInterface).original_title !== undefined;
+};
 
 //   const isTV = (media: MovieInterface | TVInterface): media is TVInterface => {
 //   return (media as TVInterface).name !== undefined || (media as TVInterface).original_name !== undefined;
@@ -134,9 +153,10 @@ const MediaDetail = (): React.JSX.Element => {
 								</span>
 							</div>
 						</div>
-						<div className="flex-[2] flex flex-col gap-4 bg-blue-100 dark:bg-indigo-950 p-4 rounded-lg w-full sm:h-[460px]">
-							<div>
-								<h2 className="text-xl">{type === 'movies' ? mediaDetail?.original_title || mediaDetail?.title : mediaDetail?.name}</h2>
+              <div className="flex-[2] flex gap-4 bg-blue-100 dark:bg-indigo-950 p-4 rounded-lg w-full sm:h-[460px]">
+                <div className="flex flex-col gap-4 w-2/4">
+                  <div>
+								<h2 className="text-xl">{isMovie(mediaDetail) ? mediaDetail.title ||  mediaDetail.original_title  : mediaDetail?.name}</h2>
 								<div className="flex items-center">
 									{mediaDetail.vote_average} <LiaStarSolid className="ml-1 text-fuchsia-500" />
 								</div>
@@ -145,14 +165,12 @@ const MediaDetail = (): React.JSX.Element => {
 							<h3 className="text-lg">{mediaDetail?.tagline}</h3>
 							<div className="flex flex-wrap flex-col gap-2.5">
 								<p>{`Conteo de votos: ${mediaDetail?.vote_count}.`}</p>
-								<p>{`Fecha de lanzamiento: ${mediaDetail.release_date || mediaDetail.first_air_date}.`}</p>
+								<p>{`Fecha de lanzamiento: ${isMovie(mediaDetail) ?mediaDetail.release_date : mediaDetail.first_air_date}.`}</p>
 								<p>
-									{type === 'movies'
-										? `Duración: ${mediaDetail?.runtime !== undefined ? `${mediaDetail?.runtime} minutos.` : 'minutos'}`
-										: `Duración de episodio aproximadamente: ${
-												mediaDetail?.episode_run_time[0] !== undefined ? `${mediaDetail?.episode_run_time[0]} minutos` : 'minutos'
-										  }.`}
-								</p>
+                  {isMovie(mediaDetail)
+                  ? `Duración: ${mediaDetail?.runtime !== undefined ? `${mediaDetail?.runtime} minutos.` : 'minutos'}`
+                  : `Duración de episodio aproximadamente: ${mediaDetail?.episode_run_time[0] !== undefined ? `${mediaDetail?.episode_run_time[0]} minutos` : 'minutos'}.`}
+              </p>
 
 								<p>{`Estado: ${mediaDetail?.status}.`} </p>
 							</div>
@@ -165,7 +183,13 @@ const MediaDetail = (): React.JSX.Element => {
 									<BiSolidMoviePlay className="mr-2" />
 									Ver Trailer
 								</button>
-							)}
+                )}
+                </div>
+							
+               <div className="flex w-2/4 rounded-lg items-center mx-auto p-2">
+                <CreateMediaImages media={mediaImages} type={mediaType} />
+              </div>
+               
 						</div>
 					</div>
 

@@ -17,6 +17,8 @@ export const API_MOVIE_VIDEOS = (id: string) => `${BASE_API_URL}/movie/${id}/vid
 export const API_TV_VIDEOS = (series_id: string) => `${BASE_API_URL}/tv/${series_id}/videos`;
 export const API_SEARCH_MOVIES = (query: string) => `${BASE_API_URL}/search/movie/${query}`;
 export const API_SEARCH_TV = (query: string) => `${BASE_API_URL}/search/tv/${query}`;
+export const API_MOVIE_IMAGES = (id: string) => `${BASE_API_URL}/movie/${id}/images`;
+export const API_TV_IMAGES = (id: string) => `${BASE_API_URL}/tv/${id}/images`;
 
 const api = axios.create({
 	headers: {

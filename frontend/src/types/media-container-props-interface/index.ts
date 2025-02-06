@@ -1,4 +1,4 @@
-import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
+import { MovieInterface, TVInterface } from '../movie-and-tv-interface';
 
 interface MediaContainerPropsInterface {
 	media_: MovieInterface | TVInterface;

@@ -3,7 +3,7 @@ import { useFavoriteMedia } from '../../context/favorite-media-context';
 import { MediaNullSkeleton } from '../loading-skeletons';
 import { BiBookmarkHeart } from 'react-icons/bi';
 import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
-import { MediaContainerPropsInterface } from '../../services/media-container-props-interface';
+import { MediaContainerPropsInterface } from '../../types/media-container-props-interface';
 
 const isMovie = (media: MovieInterface | TVInterface): media is MovieInterface => {
   return (media as MovieInterface).title !== undefined;
@@ -28,9 +28,10 @@ const MediaContainer: React.FC<MediaContainerPropsInterface> = ({ media_, type }
 
     if (saveFavoriteMedia) {
       saveFavoriteMedia(type as 'movies' | 'tv', media_);
-    } else {
-      console.error('saveFavoriteMedia is not defined');
     }
+    // else {
+    //   console.error('saveFavoriteMedia is not defined');
+    // }
   };
 
   return (
