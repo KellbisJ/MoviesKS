@@ -23,13 +23,13 @@ const CreateMediaImages: React.FC<CreateMediaImagePropsInterface> = ({ media, ty
   }, [images.length]);
 
   return (
-    <div className="flex items-center justify-center relative w-full h-full">
+    <div className="flex items-center justify-center relative w-full h-80 md:h-full ">
       {images.length > 0 ? (
         images.map((mediaImg, index) => (
           <MediaImagesContainer
             image={mediaImg}
             key={index}
-            className={`absolute w-4/5 h-full transition-opacity duration-[2500ms] ${
+            className={`absolute w-full md:w-4/5 h-full transition-opacity duration-[2500ms] ${
               index === currentIndex ? 'opacity-100' : 'opacity-0'
             }`}
           />
