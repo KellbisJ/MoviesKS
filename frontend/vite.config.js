@@ -13,5 +13,5 @@ export default defineConfig({
 		assetsDir: 'assets',
 	},
 	root: './',
-	publicDir: false,
+	publicDir: true,
 });

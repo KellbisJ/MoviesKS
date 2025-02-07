@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { FaWindowClose } from 'react-icons/fa';
+import { TrailerMediaModalPropsInterface } from '../../../types/modals/trailer-media-modal-interface';
 
-const TrailerMedia = ({ isOpen, onClose, videoKey }) => {
+const TrailerMedia: React.FC<TrailerMediaModalPropsInterface> = ({ isOpen, onClose, videoKey }) => {
 	if (!isOpen) return null;
 	return ReactDOM.createPortal(
 		<div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-1000">

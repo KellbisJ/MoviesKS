@@ -74,10 +74,10 @@ const MediaDetailSkeleton = () => {
 	return (
 		<div className="rounded-lg">
 			<div className="flex flex-wrap gap-5 mb-6 flex-col items-center sm:flex-row md:items-normal">
-				<div className="flex-1 w-full h-[460px] p-4 rounded-lg bg-slate-200 dark:bg-indigo-950 flex justify-center">
+				<div className="flex-1 w-full h-[460px] p-4 rounded-lg bg-blue-100 dark:bg-indigo-950 flex justify-center">
 					<div className="min-w-64 sm:max-w-[320px] h-[420px] bg-slate-400 animate-pulse rounded-lg"></div>
 				</div>
-				<div className="flex-[2] flex flex-col gap-4 bg-slate-200 dark:bg-indigo-950 p-4 rounded-lg w-full sm:h-[460px]">
+				<div className="flex-[2] flex flex-col gap-4 bg-blue-100 dark:bg-indigo-950 p-4 rounded-lg w-full sm:h-[460px]">
 					<div className="w-2/5 h-7 bg-slate-400 animate-pulse rounded-lg"></div>
 					<div className="w-2/5 h-5 bg-slate-400 animate-pulse rounded-lg"></div>
 					<div className="w-2/5 h-5 bg-slate-400 animate-pulse rounded-lg"></div>
@@ -87,10 +87,10 @@ const MediaDetailSkeleton = () => {
 				</div>
 			</div>
 			<div className="flex flex-col sm:flex-row flex-wrap gap-6 mb-6">
-				<div className="bg-slate-200 dark:bg-indigo-950 h-32 p-4 rounded-lg text-white w-full sm:w-4/5">
+				<div className="bg-blue-100 dark:bg-indigo-950 h-32 p-4 rounded-lg text-white w-full sm:w-4/5">
 					<div className="w-full h-full bg-slate-400 animate-pulse rounded-lg mb-4"></div>
 				</div>
-				<div className="flex-[2] h-32 bg-slate-200 dark:bg-indigo-950 p-4 rounded-lg gap-2.5 min-w-0 flex-wrap justify-center w-1/5 hidden sm:flex">
+				<div className="flex-[2] h-32 bg-blue-100 dark:bg-indigo-950 p-4 rounded-lg gap-2.5 min-w-0 flex-wrap justify-center w-1/5 hidden sm:flex">
 					<div className="w-full h-full bg-slate-400 animate-pulse rounded-lg shadow-md"></div>
 				</div>
 			</div>

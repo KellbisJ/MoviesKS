@@ -21,9 +21,9 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({ isMobile, isMoviesModalO
 	};
 
 	const handleMediaTypeChange = (type: string) => {
-		setSelectedGenre(null);
 		setSelectedMediaType(type);
-		setMediaType(type);
+    setMediaType(type);
+    setSelectedGenre('')
 		localStorage.setItem('selectedMediaType', type);
 		handleNavigation(type === 'movies' ? '/movies' : '/tv');
 	};
@@ -32,7 +32,7 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({ isMobile, isMoviesModalO
     if (selectedMediaType) {
     const category = categories.find(genre => genre.id.toString() === genreId)
       if (category) {
-      setSelectedGenre({ id: category.id, genreName: category.name });
+      setSelectedGenre(category.id.toString());
       const route = `${selectedMediaType === 'movies' ? '/movies' : '/tv'}/preview/genre/${category.id}`;
       handleNavigation(route);
       }
@@ -48,7 +48,7 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({ isMobile, isMoviesModalO
 
 		if (!isExcludedPath && !isIncludedPath) {
 			setSelectedMediaType(null);
-			setSelectedGenre(null);
+			setSelectedGenre('');
 			localStorage.removeItem('selectedMediaType');
 		} else if (isIncludedPath) {
 			const mediaType = location.pathname.includes('/movies') ? 'movies' : 'tv';

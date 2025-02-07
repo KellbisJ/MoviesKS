@@ -17,10 +17,10 @@
 		"jsx": "react-jsx",
 		"noImplicitAny": true,
 		"noImplicitReturns": true,
-		"types": ["vite/client"]
-	},
-	"paths": {
-		"@/*": ["./src/*"]
+		"types": ["vite/client", "node"],
+		"paths": {
+			"@/*": ["./src/*"]
+		}
 	},
 	"include": ["src"],
 	"exclude": ["node_modules"]

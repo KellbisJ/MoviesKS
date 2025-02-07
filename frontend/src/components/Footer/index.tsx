@@ -1,6 +1,4 @@
-import React from 'react';
-
-function Footer() {
+const Footer = (): React.JSX.Element => {
 	return (
 		<footer className="bg-fuchsia-700 dark:bg-slate-950 text-white text-center py-5 w-full shadow-[0_-2px_10px_rgba(0,0,0,0.2)] text-[0.875rem] relative p-2 transition">
 			<p className="m-0 text-[1rem]">

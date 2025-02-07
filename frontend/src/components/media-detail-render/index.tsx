@@ -41,7 +41,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = ({ mediaDetail, m
               <div className="flex-[2] flex flex-col md:flex-row gap-4 bg-blue-100 dark:bg-indigo-950 p-4 rounded-lg w-full max-w-96 sm:h-[460px] md:max-w-full ">
                 <div className="flex flex-col gap-4 w-full md:w-2/4">
                   <div>
-								<h2 className="text-xl">{isMovie(mediaDetail) ? mediaDetail.title ||  mediaDetail.original_title  : mediaDetail?.name}</h2>
+								<h2 className="text-xl">{isMovie(mediaDetail) ? mediaDetail.title ||  mediaDetail.original_title  : mediaDetail.name || mediaDetail.original_name}</h2>
 								<div className="flex items-center">
 									{mediaDetail.vote_average} <LiaStarSolid className="ml-1 text-fuchsia-500" />
 								</div>
@@ -93,7 +93,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = ({ mediaDetail, m
 					<h3 className="mb-8">Similar to watch about {mediaType}</h3>
 					{<CreateSimilarMediaDetail media={similarMedia} type={mediaType} />}
 
-					<TrailerMedia isOpen={showTrailer} onClose={() => setShowTrailer(false)} videoKey={videoKey} />
+					<TrailerMedia isOpen={showTrailer} onClose={() => setShowTrailer(false)} videoKey={videoKey as string} />
 				</div>
   )
 }

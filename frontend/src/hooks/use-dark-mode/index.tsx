@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useState } from 'react';
 
-const useDarkMode = () => {
-	const [isDarkMode, setIsDarkMode] = useState(() => {
+const useDarkMode = (): [boolean, () => void] => {
+	const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
 		if (typeof window !== 'undefined') {
 			const savedMode = localStorage.getItem('MOVIESKS_DARK_MODE');
 			return savedMode ? JSON.parse(savedMode) : window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -21,7 +21,7 @@ const useDarkMode = () => {
 	}, [isDarkMode]);
 
 	const toggleDarkMode = () => {
-		setIsDarkMode((prevMode) => !prevMode);
+		setIsDarkMode((prevMode: boolean) => !prevMode);
 	};
 
 	return [isDarkMode, toggleDarkMode];

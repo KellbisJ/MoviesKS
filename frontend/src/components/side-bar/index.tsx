@@ -2,11 +2,12 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDarkMode } from '../../hooks/use-dark-mode';
 import { MdDarkMode, MdLightMode } from 'react-icons/md';
+import { SideBarPropsInterface } from '../../types/sidebar-props-interface';
 
-function SideBar({ isMobile, isSideBarOpen, toggleSideBar }) {
+const SideBar:React.FC<SideBarPropsInterface> = ({ isMobile, isSideBarOpen, toggleSideBar }) => {
 	const [isDarkMode, toggleDarkMode] = useDarkMode();
 	const navigate = useNavigate();
-	const handleNavigation = (route) => {
+	const handleNavigation = (route: string) => {
 		navigate(route);
 		toggleSideBar();
 	};
@@ -15,8 +16,8 @@ function SideBar({ isMobile, isSideBarOpen, toggleSideBar }) {
 		<>
 			{isMobile && isSideBarOpen && (
 				<div className="relative">
-					<div className="fixed inset-0 bg-slate-900 bg-opacity-50 backdrop-blur-md z-40" onClick={toggleSideBar}></div>
-					<div className="flex fixed bg-slate-200 dark:bg-indigo-950 top-0 left-0 w-3/6 sm:w-2/5 min-h-screen overflow-x-hidden transition duration-500 z-50 text-black dark:text-gray-100">
+					<div className="fixed inset-0 bg-slate-900 bg-opacity-50 backdrop-blur-md z-[100]" onClick={toggleSideBar}></div>
+					<div className="flex fixed bg-slate-200 dark:bg-indigo-950 top-0 left-0 w-3/6 sm:w-2/5 min-h-screen overflow-x-hidden transition duration-500 z-[101] text-black dark:text-gray-100">
 						<ul className="flex flex-col gap-4 mt-20 px-6 text-sm no-underline list-none transition text-center">
 							<div className="w-fit" onClick={toggleDarkMode}>
 								{isDarkMode ? <MdLightMode className="text-xl" /> : <MdDarkMode className="text-xl" />}

@@ -1,6 +1,4 @@
-import React from 'react';
-
-function PageNotFound() {
+const PageNotFound = ():React.JSX.Element => {
 	return (
 		<div className="flex flex-col justify-center items-center h-screen text-center bg-gray-900">
 			<h1 className="text-3xl text-red-600">404 - Page Not Found</h1>

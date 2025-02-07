@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { FaWindowClose } from 'react-icons/fa';
+import { SelectMediaParametersModalInterface } from '../../../types/modals/select-media-props-interface';
 
-const SelectMediaParameters = ({ isOpen, onClose, children }) => {
+const SelectMediaParameters: React.FC<SelectMediaParametersModalInterface> = ({ isOpen, onClose, children }) => {
 	if (!isOpen) return null;
 
 	return ReactDOM.createPortal(

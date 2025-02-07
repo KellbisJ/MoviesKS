@@ -24,7 +24,7 @@ const CreateMediaImages: React.FC<CreateMediaImagePropsInterface> = ({ media, ty
 
   return (
     <div className="flex items-center justify-center relative w-full h-80 md:h-full ">
-      {images.length > 0 ? (
+      {images.length > 1 ? (
         images.map((mediaImg, index) => (
           <MediaImagesContainer
             image={mediaImg}

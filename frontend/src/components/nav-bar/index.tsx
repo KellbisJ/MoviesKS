@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import { Link, useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useSearch } from '../../context/search-media-context';
@@ -8,8 +7,9 @@ import { MdDarkMode, MdLightMode } from 'react-icons/md';
 import { VscThreeBars } from 'react-icons/vsc';
 import { FaTimes } from 'react-icons/fa';
 import { CgSearch } from 'react-icons/cg';
+import { NavBarPropsInterface } from '../../types/navbar-props-interface';
 
-function NavBar({ isMobile, toggleSideBar, isSideBarOpen }) {
+const NavBar: React.FC<NavBarPropsInterface> = ({ isMobile, toggleSideBar, isSideBarOpen }) => {
 	const { searchQuery, updateSearchQuery, updateMediaType, mediaType } = useSearch();
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -24,7 +24,7 @@ function NavBar({ isMobile, toggleSideBar, isSideBarOpen }) {
 		}
 	}, [location, updateMediaType]);
 
-	const handleNavigation = (route) => {
+	const handleNavigation = (route: string) => {
 		navigate(route);
 	};
 

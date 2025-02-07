@@ -4,7 +4,8 @@ import { useMenuContext } from '../../context/menu-context';
 import { GenreInterface } from '../../types/genre-interface';
 
 const useCategories = () => {
-	const { mediaType } = useMenuContext();
+  const { mediaType } = useMenuContext();
+  const mediaTyped = mediaType as string
 	const [categories, setCategories] = useState<GenreInterface[]>([]);
 	const [isMoviesModalOpen, setIsMoviesModalOpen] = useState<boolean>(false);
 	const [isGenresModalOpen, setIsGenresModalOpen] = useState(false);
@@ -13,7 +14,7 @@ const useCategories = () => {
 	useEffect(() => {
 		async function fetchCategories() {
 			setComponentsLoading(true);
-			const filteredCategories = await getPreviewCategories(mediaType);
+			const filteredCategories = await getPreviewCategories(mediaTyped);
 			setCategories(filteredCategories);
 			// console.log(filteredCategories);
 			setComponentsLoading(false);
