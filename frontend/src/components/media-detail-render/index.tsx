@@ -71,7 +71,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = ({ mediaDetail, m
                 )}
                 </div>
 							
-               <div className="flex w-full md:w-2/4 h-80 lg:h-full rounded-lg items-center mx-auto">
+               <div className="flex w-full md:w-2/4 h-80 lg:h-full rounded-lg justify-center items-center mx-auto">
                 <CreateMediaImages media={mediaImages} type={mediaType} />
               </div>
                

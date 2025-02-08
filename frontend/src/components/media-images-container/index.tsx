@@ -11,7 +11,7 @@ const MediaImagesContainer: React.FC<MediaImagesContainerProps> = ({ image, clas
     <div className={className}>
       <img
         className="w-full h-full object-center rounded-md transition"
-        src={`https://image.tmdb.org/t/p/w400/${image.file_path}`}
+        src={`https://image.tmdb.org/t/p/w500/${image.file_path}`}
         alt="Media Image"
       />
     </div>

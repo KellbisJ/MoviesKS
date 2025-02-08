@@ -2,7 +2,7 @@ import { api, API_MOVIE_CATEGORY, API_TV_CATEGORY } from '../index';
 import { MediaByCategoryInterface } from '../../types/media-by-category-interface';
 import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
 
-async function getMediaByCategory(mediaType: string, genreId: string, page = 1): Promise<MovieInterface[] | TVInterface[]> {
+async function getMediaByCategory(mediaType: string, genreId: string, page = 1): Promise<MediaByCategoryInterface> {
 	const API_CATEGORY = mediaType === 'movies' ? API_MOVIE_CATEGORY : API_TV_CATEGORY;
 	try {
 		const { data: media }: { data: MediaByCategoryInterface } = await api.get(API_CATEGORY, {
@@ -12,10 +12,15 @@ async function getMediaByCategory(mediaType: string, genreId: string, page = 1):
 			},
 		});
 
-		return media.results;
+		return media;
 	} catch (error) {
 		console.error(error);
-		return [];
+		return {
+			page: 0,
+			results: [],
+			total_pages: 0,
+			total_results: 0,
+		};
 	}
 }
 

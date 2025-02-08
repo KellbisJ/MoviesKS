@@ -14,8 +14,9 @@ const corsOptions: cors.CorsOptions = {
 			callback(null, true);
 		} else if (
 			origin === 'https://movies-ks-frontend.vercel.app' ||
-			'https://movies-ks-backend-git-master-kellbis-projects.vercel.app' ||
-			'https://movies-ks-backend-git-types-kellbis-projects.vercel.app'
+			origin === 'https://movies-ks-backend-git-master-kellbis-projects.vercel.app' ||
+			origin === 'https://movies-ks-backend-git-types-kellbis-projects.vercel.app' ||
+			origin === 'https://movies-ks-frontend-git-types-kellbis-projects.vercel.app'
 		) {
 			callback(null, true);
 		} else {

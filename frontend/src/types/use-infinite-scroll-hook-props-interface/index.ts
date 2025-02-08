@@ -1,5 +1,5 @@
 interface UseInfiniteScrollHookPropsInterface {
-	callback: () => void;
+	callback: () => Promise<void>;
 	isLoading: boolean;
 	canLoadMore: boolean;
 }

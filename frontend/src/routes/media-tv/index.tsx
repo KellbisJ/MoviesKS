@@ -28,11 +28,12 @@ const MediaTV = (): React.JSX.Element => {
 
 		async function fetchMedia() {
 			if (selectedGenre) {
-				const filteredMedia = await getMediaByCategory(mediaType, selectedGenre.id);
+        const filteredMedia = await getMediaByCategory(mediaType, selectedGenre);
 				setMediaTv(filteredMedia as TVInterface[]);
 			} else {
-				const previewTV = await getPreviewTrendingMedia(mediaType);
-				setMediaTv(previewTV as TVInterface[]);
+        const previewTV = await getPreviewTrendingMedia(mediaType);
+        const tvData = previewTV.results
+				setMediaTv(tvData as TVInterface[]);
 			}
 			setLoadingComponents(false);
 		}

@@ -1,87 +1,83 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getPreviewTrendingMedia } from '../../services/preview-trending-media';
-import { getNextMediaTrendingSection } from '../../services/next-media-trending-section';
 import { CreateMedia } from '../../components/create-media';
 import { useMenuContext } from '../../context/menu-context';
-import { useFavoriteMedia } from '../../context/favorite-media-context';
 import { useInfiniteScroll } from '../../hooks/use-infinite-scroll';
 import { MediaSkeleton } from '../../components/loading-skeletons';
-import { TVInterface } from '../../types/movie-and-tv-interface';
+import { TVInterface } from '@/types/movie-and-tv-interface';
 
 const MediaAllTV = (): React.JSX.Element => {
-	const { setShowMenuComponents } = useMenuContext();
+  const { setShowMenuComponents } = useMenuContext();
 
-	useEffect(() => {
-		setShowMenuComponents(false);
-		return () => setShowMenuComponents(true);
-	}, [setShowMenuComponents]);
+  useEffect(() => {
+    setShowMenuComponents(false);
+    return () => setShowMenuComponents(true);
+  }, [setShowMenuComponents]);
 
-	const location = useLocation();
-  const { favorites, saveFavoriteMedia } = useFavoriteMedia();
-  
-  // const favoriteTV = favorites.tv;
-  
-	const [loadingComponents, setLoadingComponents] = useState<boolean>(true);
-	const [tv, setTv] = useState<TVInterface[]>([]);
+  const location = useLocation();
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const [loadingComponents, setLoadingComponents] = useState<boolean>(true);
+  const [tv, setTv] = useState<TVInterface[]>([]);
   const [moreMediaTv, setMoreMediaTv] = useState<TVInterface[]>([]);
-  
-  const [page, setPage] = useState<number>(1);
-  
-	const [loading, setLoading] = useState<boolean>(false);
-	const [canLoadMore, setCanLoadMore] = useState<boolean>(true);
+
+  const [page, setPage] = useState<number>(2);
+
+  const [canLoadMore, setCanLoadMore] = useState<boolean>(true);
   const [prevPath, setPrevPath] = useState<string>('');
-  
-  const mediaType:string = 'tv'
 
-	useEffect(() => {
-		if (location.pathname === '/tv/all') {
-			setLoadingComponents(true);
-			setTv([]);
-			setMoreMediaTv([]);
-			setPage(1);
-			setCanLoadMore(true);
-			window.scrollTo(0, 0);
+  const mediaType: string = 'tv';
 
-			async function fetchMedia() {
-				const previewTV = await getPreviewTrendingMedia(mediaType);
-				setLoadingComponents(false);
-				setTv(previewTV as TVInterface[]);
-				setPage(2);
-			}
+  useEffect(() => {
+    if (location.pathname === '/tv/all') {
+      setLoadingComponents(true);
+      setTv([]);
+      setMoreMediaTv([]);
+      setCanLoadMore(true);
+      window.scrollTo(0, 0);
 
-			fetchMedia();
-		}
-	}, [location]);
+      async function fetchMedia() {
+        const previewTV = await getPreviewTrendingMedia(mediaType);
+        const tvData = previewTV.results;
+        setLoadingComponents(false);
+        setTv(tvData as TVInterface[]);
+      }
 
-	useEffect(() => {
-		if (location.pathname === '/tv/all' && prevPath !== '/tv/all') {
-			window.scrollTo(0, 0);
-			setPrevPath('/tv/all');
-		}
-	}, [location, prevPath]);
+      fetchMedia();
+    }
+  }, [location]);
 
-	const fetchMoreTvMedia = async () => {
-		setLoading(true);
-		const nextTvMedia = await getNextMediaTrendingSection(mediaType, page);
-		if (nextTvMedia && nextTvMedia.length > 0) {
-			setMoreMediaTv((prevTvMedia) => {
-				const tvMediaIds = new Set([...tv, ...prevTvMedia].map((tv) => tv.id));
-				const uniqueNextTv = nextTvMedia.filter((tv: TVInterface) => !tvMediaIds.has(tv.id));
-				return [...prevTvMedia, ...uniqueNextTv];
-			});
-			setPage((prevPage) => prevPage + 1);
-		} else {
-			setCanLoadMore(false);
-		}
-		setLoading(false);
-	};
+  useEffect(() => {
+    if (location.pathname === '/tv/all' && prevPath !== '/tv/all') {
+      window.scrollTo(0, 0);
+      setPrevPath('/tv/all');
+    }
+  }, [location, prevPath]);
 
-	useInfiniteScroll(fetchMoreTvMedia, loading, canLoadMore);
+  const fetchMoreTvMedia = async () => {
+    setLoading(true);
+    const nextTvMedia = await getPreviewTrendingMedia(mediaType, page);
+    const nextTvMediaData = nextTvMedia.results;
 
-	const allTv = [...tv, ...moreMediaTv];
+    if (nextTvMediaData && nextTvMediaData.length > 0) {
+      setMoreMediaTv((prevTvMedia) => {
+        const tvMediaIds = new Set([...tv, ...prevTvMedia].map((tv) => tv.id));
+        const uniqueNextTv = nextTvMediaData.filter((tv): tv is TVInterface => !tvMediaIds.has(tv.id));
+        return [...prevTvMedia, ...uniqueNextTv];
+      });
+      setPage((prevPage) => prevPage + 1);
+    } else {
+      setCanLoadMore(false);
+    }
+    setLoading(false);
+  };
 
-	return <>{loadingComponents ? <MediaSkeleton /> : <CreateMedia media={allTv} type="tv" />}</>;
-}
+  useInfiniteScroll({ callback: fetchMoreTvMedia, isLoading: loading, canLoadMore: canLoadMore });
+
+  const allTv = [...tv, ...moreMediaTv];
+
+  return <>{loadingComponents ? <MediaSkeleton /> : <CreateMedia media={allTv} type="tv" />}</>;
+};
 
 export { MediaAllTV };

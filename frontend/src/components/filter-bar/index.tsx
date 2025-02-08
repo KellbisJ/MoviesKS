@@ -64,7 +64,7 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({ isMobile, isMoviesModalO
 });
 
 	return (
-		<div className="flex flex-col items-center md:items-start p-6 lg:p-8 mt-[60px] lg:mt-16 bg-fuchsia-700 dark:bg-slate-950 w-full gap-4 text-stone-100 transition">
+		<div className="flex flex-col items-center md:items-start p-6 lg:p-8 mt-[60px] lg:mt-16 bg-fuchsia-700 dark:bg-slate-950 w-full gap-4 text-stone-100 transition min-h-44">
 			<div className="flex justify-between items-center w-full md:w-2/5 sm:w-lg p-2.5 px-5 bg-fuchsia-900 dark:bg-gray-700 rounded relative transition">
 				{selectedMediaType ? selectedMediaType.charAt(0).toUpperCase() + selectedMediaType.slice(1) : 'Select Media Type'}
 				<button onClick={toggleMoviesModal} className="">

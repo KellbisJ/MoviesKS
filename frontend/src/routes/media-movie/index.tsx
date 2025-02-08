@@ -32,11 +32,12 @@ const MediaMovie = ():React.JSX.Element => {
 		async function fetchMedia() {
 			setLoadingComponents(true);
 			if (selectedGenre) {
-				const filteredMedia = await getMediaByCategory(mediaType, selectedGenre.id);
+				const filteredMedia = await getMediaByCategory(mediaType, selectedGenre);
 				setMediaMovie(filteredMedia as MovieInterface[]);
 			} else {
-				const previewMovie = await getPreviewTrendingMedia('movies');
-				setMediaMovie(previewMovie as MovieInterface[]);
+        const previewMovie = await getPreviewTrendingMedia('movies');
+        const movieData = previewMovie.results
+				setMediaMovie(movieData as MovieInterface[]);
 			}
 			setLoadingComponents(false);
 		}

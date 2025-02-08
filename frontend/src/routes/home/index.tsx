@@ -10,8 +10,9 @@ const Home = (): React.JSX.Element => {
 
 	useEffect(() => {
 		async function fetchMedia() {
-			const previewMovies = await getPreviewTrendingMedia('movies');
-			setMedia(previewMovies as MovieInterface[]);
+      const previewMovies = await getPreviewTrendingMedia('movies');
+      const moviesData = previewMovies.results
+			setMedia(moviesData as MovieInterface[]);
 
 			setLoadingComponents(false);
 		}

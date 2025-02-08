@@ -27,8 +27,8 @@ const MediaBySearch = (): React.JSX.Element => {
 
 	const [loadingComponents, setLoadingComponents] = useState(true);
 
-	const [moreMedia, setMoreMedia] = useState<(MovieInterface | TVInterface)[]>([]);
-	const [page, setPage] = useState(1);
+	const [moreMedia, setMoreMedia] = useState<MovieInterface | TVInterface[]>([]);
+	// const [page, setPage] = useState(1);
 	const [loading, setLoading] = useState(false);
 	const canLoadMore = media.page < media.total_pages;
 

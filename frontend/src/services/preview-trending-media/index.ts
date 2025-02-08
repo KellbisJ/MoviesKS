@@ -1,17 +1,26 @@
 import { api, API_TRENDING_MOVIES_URL, API_TRENDING_TV_URL } from '../index';
 import { TrendingMediaPreviewInterface } from '../../types/trending-movies-preview-interface';
-import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
 
-async function getPreviewTrendingMedia(type: string): Promise<MovieInterface[] | TVInterface[]> {
+async function getPreviewTrendingMedia(type: string, currentPage = 1): Promise<TrendingMediaPreviewInterface> {
 	try {
 		const { data: trendingMedia }: { data: TrendingMediaPreviewInterface } = await api.get(
-			type === 'movies' ? API_TRENDING_MOVIES_URL : API_TRENDING_TV_URL
+			type === 'movies' ? API_TRENDING_MOVIES_URL : API_TRENDING_TV_URL,
+			{
+				params: {
+					page: currentPage,
+				},
+			}
 		);
 
-		return trendingMedia.results;
+		return trendingMedia;
 	} catch (error) {
 		console.error('Error fetching movies: ', error);
-		return [];
+		return {
+			page: 0,
+			results: [],
+			total_pages: 0,
+			total_results: 0,
+		};
 	}
 }
 export { getPreviewTrendingMedia };

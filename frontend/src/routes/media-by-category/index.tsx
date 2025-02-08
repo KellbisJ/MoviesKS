@@ -8,82 +8,82 @@ import { MediaSkeleton } from '../../components/loading-skeletons';
 import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
 
 const MediaByCategory = (): React.JSX.Element => {
-	const { setShowMenuComponents } = useMenuContext();
-  const { type, id: genreId } = useParams();
-  
-  const [media, setMedia] = useState<MovieInterface[] | TVInterface[]>([])
+  const { setShowMenuComponents } = useMenuContext();
+  const { type, id: genreId } = useParams<{ type: string; id: string }>();
 
-  const [mediaType, setMediaType] = useState<string>('')
-  const [mediaGenreId, setMediaGenreId] = useState<string>('')
+  const mediaType = type as string;
+  const mediaGenreId = genreId as string;
 
-	const [loadingComponents, setLoadingComponents] = useState(true);
+  useEffect(() => {
+    setShowMenuComponents(false);
+    return () => setShowMenuComponents(true);
+  }, [setShowMenuComponents]);
 
-	useEffect(() => {
-		setShowMenuComponents(false);
-		return () => setShowMenuComponents(true);
-	}, [setShowMenuComponents]);
-
+  const [loading, setLoading] = useState<boolean>(false);
+  const [loadingComponents, setLoadingComponents] = useState<boolean>(true);
+  const [media, setMedia] = useState<MovieInterface[] | TVInterface[]>([]);
   const [moreMedia, setMoreMedia] = useState<MovieInterface[] | TVInterface[]>([]);
-  
-	const [page, setPage] = useState(1);
-	const [loading, setLoading] = useState(false);
-	const canLoadMore = true;
 
-	useEffect(() => {
-		window.scrollTo(0, 0);
+  const [page, setPage] = useState<number>(1);
+  const [canLoadMore, setCanLoadMore] = useState<boolean>(true);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
     setLoadingComponents(true);
-    
-    if (type) {
-      setMediaType(type)
+    setMedia([]);
+    setMoreMedia([]);
+    setCanLoadMore(true);
+
+    if (mediaType && mediaGenreId) {
+      async function fetchMedia() {
+        const mediaData = await getMediaByCategory(mediaType, mediaGenreId);
+        const mediaDataResults = mediaData.results;
+        setLoadingComponents(false);
+        setMedia(mediaDataResults);
+        setCanLoadMore(true);
+      }
+
+      fetchMedia();
     }
-    if (genreId) {
-      setMediaGenreId(genreId)
-    }
+  }, [mediaType, mediaGenreId]);
 
-		async function fetchMedia() {
-			const mediaData = await getMediaByCategory(mediaType, mediaGenreId);
-			console.log(mediaData);
-
-			setLoadingComponents(false);
-			setMedia(mediaData);
-		}
-		fetchMedia();
-	}, [type, genreId]);
-
-	const fetchMoreMedia = async () => {
-		setLoading(true);
+  const fetchMoreMedia = async () => {
+    setLoading(true);
     const nextMedia = await getMediaByCategory(mediaType, mediaGenreId, page);
-    
-		if (nextMedia && nextMedia.length > 0) {
-      setMoreMedia((prevMedia: MovieInterface[] | TVInterface[]) => {
-				const mediaIds = new Set([...media, ...prevMedia].map((media) => media.id));
-				const uniqueNextMedia = nextMedia.filter((media) => !mediaIds.has(media.id));
-				return [...prevMedia, ...uniqueNextMedia] as MovieInterface[] | TVInterface[];
-			});
-			setPage((prevPage) => prevPage + 1);
-		}
-		setLoading(false);
-	};
+    const nextMediaData = nextMedia.results;
 
-	useInfiniteScroll(fetchMoreMedia, loading, canLoadMore);
+    if (nextMediaData && nextMediaData.length > 0) {
+      setMoreMedia((prevMedia) => {
+        const mediaIds = new Set([...media, ...prevMedia].map((media) => media.id));
+        const uniqueNextMedia = nextMediaData.filter((media): media is MovieInterface | TVInterface => !mediaIds.has(media.id));
+        return [...prevMedia, ...uniqueNextMedia] as MovieInterface[] | TVInterface[];
+      });
+      setPage((prevPage) => prevPage + 1);
+    } else {
+      setCanLoadMore(false);
+    }
+    setLoading(false);
+  };
 
-	const allMedia = Array.from(new Set([...media, ...moreMedia].map((media) => media.id))).map((id) => {
-		return [...media, ...moreMedia].find((media) => media.id === id);
-	}).filter((media): media is MovieInterface | TVInterface => media !== undefined);
+  useInfiniteScroll({ callback: fetchMoreMedia, isLoading: loading, canLoadMore: canLoadMore });
 
-	return (
-		<>
-			{loadingComponents ? (
-				<MediaSkeleton />
-			) : (
-				<>
-					<h2 className="my-8 dark:text-gray-100">All Media by Category: {type}</h2>
+  const allMedia = [...media, ...moreMedia] as MovieInterface[] | TVInterface[];
 
-					<CreateMedia media={allMedia} type={mediaType} />
-				</>
-			)}
-		</>
-	);
-}
+  return (
+    <>
+      {loadingComponents ? (
+        <>
+          <h2 className="my-8 dark:text-gray-100">Loading...</h2>
+          <MediaSkeleton />
+        </>
+      ) : (
+        <>
+          <h2 className="my-8 dark:text-gray-100">All Media by Category: {mediaType}</h2>
+          <CreateMedia media={allMedia} type={mediaType} />
+        </>
+      )}
+    </>
+  );
+};
 
 export { MediaByCategory };
