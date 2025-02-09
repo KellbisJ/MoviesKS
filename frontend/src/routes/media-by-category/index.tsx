@@ -27,14 +27,14 @@ const MediaByCategory = (): React.JSX.Element => {
   const [page, setPage] = useState<number>(1);
   const [canLoadMore, setCanLoadMore] = useState<boolean>(true);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    setLoadingComponents(true);
-    setMedia([]);
-    setMoreMedia([]);
-    setCanLoadMore(true);
-
+  useEffect(() => { 
     if (mediaType && mediaGenreId) {
+      window.scrollTo(0, 0);
+      setLoadingComponents(true);
+      setMedia([]);
+      setMoreMedia([]);
+      setCanLoadMore(true);
+
       async function fetchMedia() {
         const mediaData = await getMediaByCategory(mediaType, mediaGenreId);
         const mediaDataResults = mediaData.results;
@@ -42,7 +42,6 @@ const MediaByCategory = (): React.JSX.Element => {
         setMedia(mediaDataResults);
         setCanLoadMore(true);
       }
-
       fetchMedia();
     }
   }, [mediaType, mediaGenreId]);
