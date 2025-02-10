@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { CreateMedia } from '../../components/create-media';
 import { useFavoriteMedia } from '../../context/favorite-media-context';
-import { useMenuContext } from '../../context/menu-context';
 import { MediaFavoritesVoid } from '../../components/loading-skeletons';
 import { CircleLoader } from '../../components/circle-loader';
 
 const MediaFavorites = (): React.JSX.Element => {
-  const { setShowMenuComponents } = useMenuContext();
   const [loading, setLoading] = useState<boolean>(true)
-
-  useEffect(() => {
-		setShowMenuComponents(false);
-		return () => setShowMenuComponents(true);
-	}, [setShowMenuComponents]);
   
   useEffect(() => {
 		const timeoutId = setTimeout(() => {

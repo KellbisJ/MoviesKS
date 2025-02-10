@@ -3,18 +3,16 @@ import { FaAngleRight } from 'react-icons/fa';
 import { SelectMediaParameters } from '../modals/select-media-parameters';
 import { CreatePreviewCategories } from '../create-preview-categories';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useMenuContext } from '../../context/menu-context';
 import { CategoriesSkeleton } from '../loading-skeletons';
-
 import { FilterBarPropsInterface } from '../../types/filterbar-interface';
-// import { GenreInterface } from '../../types/genre';
 
 const FilterBar: React.FC<FilterBarPropsInterface> = ({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMoviesModal, toggleGenresModal, categories, componentsLoading }) => {
-	const { mediaType, setMediaType, selectedGenre, setSelectedGenre } = useMenuContext();
+
 	const navigate = useNavigate();
   const location = useLocation();
   
-	const [selectedMediaType, setSelectedMediaType] = useState<string | null>(localStorage.getItem('selectedMediaType') || null);
+  const [selectedMediaType, setSelectedMediaType] = useState<string | null>(localStorage.getItem('SELECTED_MEDIA_TYPE_MOVIES_KS') || '');
+  const [selectedGenre, setSelectedGenre] = useState<string>(localStorage.getItem('SELECTED_GENRE_TYPE_MOVIES_KS') || '');
 
 	const handleNavigation = (route: string) => {
 		navigate(route);
@@ -22,9 +20,9 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({ isMobile, isMoviesModalO
 
 	const handleMediaTypeChange = (type: string) => {
 		setSelectedMediaType(type);
-    setMediaType(type);
     setSelectedGenre('')
-		localStorage.setItem('selectedMediaType', type);
+    localStorage.setItem('SELECTED_MEDIA_TYPE_MOVIES_KS', type);
+    localStorage.setItem('SELECTED_GENRE_TYPE_MOVIES_KS', '');
 		handleNavigation(type === 'movies' ? '/movies' : '/tv');
 	};
 
@@ -32,30 +30,30 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({ isMobile, isMoviesModalO
     if (selectedMediaType) {
     const category = categories.find(genre => genre.id.toString() === genreId)
       if (category) {
-      setSelectedGenre(category.id.toString());
-      const route = `${selectedMediaType === 'movies' ? '/movies' : '/tv'}/preview/genre/${category.id}`;
-      handleNavigation(route);
+        setSelectedGenre(category.id.toString());
+        localStorage.setItem('SELECTED_GENRE_TYPE_MOVIES_KS', category.id.toString());
+        const route = `${selectedMediaType === 'movies' ? '/movies' : '/tv'}/preview/genre/${category.id}`;
+        handleNavigation(route);
       }
       toggleGenresModal()
   }
 };
 
 	useEffect(() => {
-		const pathsToExclude = ['/movies', '/tv'];
-		const pathsToInclude = ['/movies/preview/genre/', '/tv/preview/genre/'];
-		const isExcludedPath = pathsToExclude.some((path) => location.pathname.startsWith(path));
-		const isIncludedPath = pathsToInclude.some((path) => location.pathname.startsWith(path));
+    const pathsToInclude = ['/movies', '/tv', '/movies/preview/genre/', '/tv/preview/genre/'];
+    const isIncludedPath = pathsToInclude.some((path) => location.pathname.startsWith(path));
 
-		if (!isExcludedPath && !isIncludedPath) {
-			setSelectedMediaType(null);
-			setSelectedGenre('');
-			localStorage.removeItem('selectedMediaType');
-		} else if (isIncludedPath) {
-			const mediaType = location.pathname.includes('/movies') ? 'movies' : 'tv';
-			setSelectedMediaType(mediaType);
-			setMediaType(mediaType);
-		}
-	}, [location]);
+    if (!isIncludedPath) {
+      setSelectedMediaType('');
+      setSelectedGenre('');
+      localStorage.removeItem('SELECTED_MEDIA_TYPE_MOVIES_KS');
+      localStorage.removeItem('SELECTED_GENRE_TYPE_MOVIES_KS');
+    } else {
+      const mediaType = location.pathname.includes('/movies') ? 'movies' : 'tv';
+      setSelectedMediaType(mediaType);
+      localStorage.setItem('SELECTED_MEDIA_TYPE_MOVIES_KS', mediaType);
+    }
+  }, [location]);
 
   const categoryElements = CreatePreviewCategories({
   categories: categories,

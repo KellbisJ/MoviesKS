@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useMenuContext } from '../../context/menu-context';
 import { useInfiniteScroll } from '../../hooks/use-infinite-scroll';
 import { getMediaByCategory } from '../../services/media-by-category';
 import { CreateMedia } from '../../components/create-media';
@@ -8,16 +7,11 @@ import { MediaSkeleton } from '../../components/loading-skeletons';
 import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
 
 const MediaByCategory = (): React.JSX.Element => {
-  const { setShowMenuComponents } = useMenuContext();
   const { type, id: genreId } = useParams<{ type: string; id: string }>();
 
   const mediaType = type as string;
   const mediaGenreId = genreId as string;
 
-  useEffect(() => {
-    setShowMenuComponents(false);
-    return () => setShowMenuComponents(true);
-  }, [setShowMenuComponents]);
 
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingComponents, setLoadingComponents] = useState<boolean>(true);

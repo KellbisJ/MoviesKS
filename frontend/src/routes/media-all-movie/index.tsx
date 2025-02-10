@@ -2,20 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getPreviewTrendingMedia } from '../../services/preview-trending-media';
 import { CreateMedia } from '../../components/create-media';
-import { useMenuContext } from '../../context/menu-context';
 import { useInfiniteScroll } from '../../hooks/use-infinite-scroll';
 import { MediaSkeleton } from '../../components/loading-skeletons';
 import { MovieInterface } from '@/types/movie-and-tv-interface';
 
 
 const MediaAllMovie = (): React.JSX.Element => {
-	const { setShowMenuComponents } = useMenuContext();
-
-	useEffect(() => {
-		setShowMenuComponents(false);
-		return () => setShowMenuComponents(true);
-	}, [setShowMenuComponents]);
-
   const location = useLocation();
 
   const [loading, setLoading] = useState<boolean>(false);

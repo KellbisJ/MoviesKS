@@ -97,24 +97,24 @@ const NavBar: React.FC<NavBarPropsInterface> = ({ isMobile, toggleSideBar, isSid
 				<nav className="hidden md:flex justify-between items-center fixed top-0 w-full px-8 bg-fuchsia-700 dark:bg-slate-950 z-[1000] shadow-md h-16 text-stone-100 transition">
 					<ul className="flex items-center list-none justify-between m-0 w-1/2">
 						<li className="text-[16px] font-semibold no-underline text-center transition-colors duration-300 cursor-pointer">
-							<Link className="no-underline text-[20px] font-bold" to="/home">
+							<Link className="no-underline text-[20px] font-bold" to="/">
 								MoviesKS
 							</Link>
 						</li>
 						<div className="w-fit" onClick={toggleDarkMode}>
 							{isDarkMode ? <MdLightMode className="text-xl cursor-pointer" /> : <MdDarkMode className="text-xl cursor-pointer" />}
 						</div>
-						<li className="cursor-pointer" onClick={() => handleNavigation('/')}>
+						<li className="cursor-pointer" onClick={() => handleNavigation('/home')}>
 							Home
 						</li>
 						<li className="cursor-pointer" onClick={() => handleNavigation('/movies/all')}>
 							Movies
-						</li>
-						<li className="cursor-pointer" onClick={() => handleNavigation('/favorites')}>
-							Favorites
-						</li>
+						</li>	
 						<li className="cursor-pointer" onClick={() => handleNavigation('/tv/all')}>
 							TV
+              </li>
+              <li className="cursor-pointer" onClick={() => handleNavigation('/favorites')}>
+							Favorites
 						</li>
 					</ul>
 					<ul className="flex items-center list-none justify-between p-0">

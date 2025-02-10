@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { getMediaDetail } from '../../services/media-detail';
 import { getSimilarMediaDetail } from '../../services/similar-media-detail';
 import { getMediaVideos } from '../../services/media-videos';
-import { useMenuContext } from '../../context/menu-context';
 import { MediaDetailSkeleton } from '../../components/loading-skeletons';
 import { useFavoriteMedia } from '../../context/favorite-media-context';
 import { MovieDetailInterface, TVDetailInterface } from '../../types/media-detail-interface';
@@ -15,13 +14,6 @@ import { MediaImagesInterface } from '../../types/media-images-interface';
 import { MediaDetailRender } from '../../components/media-detail-render';
 
 const MediaDetail = (): React.JSX.Element => {
-	const { setShowMenuComponents } = useMenuContext();
-
-	useEffect(() => {
-		setShowMenuComponents(false);
-		return () => setShowMenuComponents(true);
-	}, [setShowMenuComponents]);
-
   const { type, id } = useParams();
   
   const mediaType = type as string;

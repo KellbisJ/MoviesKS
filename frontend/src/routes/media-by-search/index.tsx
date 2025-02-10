@@ -4,21 +4,13 @@ import { getMediaBySearch } from '../../services/media-by-search';
 import { useInfiniteScroll } from '../../hooks/use-infinite-scroll';
 import { CreateMedia } from '../../components/create-media';
 import { MediaSkeleton } from '../../components/loading-skeletons';
-import { useMenuContext } from '../../context/menu-context';
 import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
 
 const MediaBySearch = (): React.JSX.Element => {
-	const { setShowMenuComponents } = useMenuContext();
   const { type, query } = useParams(); // To use type about media and query parameter from current URL
 
   const mediaType = type as string;
   const querySearch = query as string;
-
-
-  useEffect(() => {
-		setShowMenuComponents(false);
-		return () => setShowMenuComponents(true);
-  }, [setShowMenuComponents]);
 
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingComponents, setLoadingComponents] = useState<boolean>(true);

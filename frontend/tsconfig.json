@@ -17,6 +17,7 @@
 		"jsx": "react-jsx",
 		"noImplicitAny": true,
 		"noImplicitReturns": true,
+		"allowImportingTsExtensions": true,
 		"types": ["vite/client", "node"],
 		"paths": {
 			"@/*": ["./src/*"]
