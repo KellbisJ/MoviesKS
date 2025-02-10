@@ -91,12 +91,6 @@ const MediaDetail = (): React.JSX.Element => {
       
 		}
   }, [id, type]);
-  
-  useEffect(() => {
-		if (mediaImages) {
-			console.log('mediaImages:', mediaImages);
-		}
-	}, [mediaImages]);
 
 	const handleFavoriteClick = () => {
 		if (!['movies', 'tv'].includes(mediaType)) {
@@ -107,7 +101,7 @@ const MediaDetail = (): React.JSX.Element => {
     const MEDIA_TYPE = type as 'movies' | 'tv'
 
     if (mediaDetail) {
-      saveFavoriteMedia(MEDIA_TYPE, mediaDetail);
+      saveFavoriteMedia!(MEDIA_TYPE, mediaDetail);
     }
 		
   };

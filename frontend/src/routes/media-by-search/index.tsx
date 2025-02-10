@@ -6,11 +6,10 @@ import { CreateMedia } from '../../components/create-media';
 import { MediaSkeleton } from '../../components/loading-skeletons';
 import { useMenuContext } from '../../context/menu-context';
 import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
-import { log } from 'console';
 
 const MediaBySearch = (): React.JSX.Element => {
 	const { setShowMenuComponents } = useMenuContext();
-  const { type, query } = useParams();
+  const { type, query } = useParams(); // To use type about media and query parameter from current URL
 
   const mediaType = type as string;
   const querySearch = query as string;

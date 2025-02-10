@@ -2,20 +2,20 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useSaveMedia } from '../../hooks/use-save-media';
 import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
 import { FavoriteMediaContextType } from '../../types/favorite-media-context-interface';
+import { MovieDetailInterface, TVDetailInterface } from '@/types/media-detail-interface';
 
 const initialContextValue: FavoriteMediaContextType = {
   favorites: {
     movies: [],
     tv: [],
   },
-  // mediaType: undefined,
   saveFavoriteMedia: () => {}
 }
 
 const FavoriteMediaContext = createContext<FavoriteMediaContextType>(initialContextValue);
 
 const FavoriteMediaProvider = ({ children }: {children: React.ReactNode}) => {
-  const [favorites, setFavorites] = useState < FavoriteMediaContextType['favorites']>(initialContextValue.favorites);
+  const [favorites, setFavorites] = useState <FavoriteMediaContextType['favorites']>(initialContextValue.favorites);
 
 	useEffect(() => {
 		const storedFavorites = localStorage.getItem('favoriteMedia');
@@ -23,13 +23,13 @@ const FavoriteMediaProvider = ({ children }: {children: React.ReactNode}) => {
 		setFavorites(favorites);
 	}, []);
 
-	const saveFavoriteMedia = (mediaType: 'movies' | 'tv', media: (MovieInterface | TVInterface)) => {
+	const saveFavoriteMedia = (mediaType: 'movies' | 'tv', media: MovieInterface | TVInterface | TVDetailInterface | MovieDetailInterface) => {
 		if (!mediaType) {
 			console.error(`invalid media type: ${mediaType}`);
 			return;
 		}
 
-		const isFavorite = useSaveMedia(media,mediaType );
+		const isFavorite = useSaveMedia(media, mediaType);
 		let updatedFavorites;
 		if (!isFavorite) {
 			updatedFavorites = {

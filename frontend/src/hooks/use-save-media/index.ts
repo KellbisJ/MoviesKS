@@ -1,6 +1,7 @@
+import { MovieDetailInterface, TVDetailInterface } from '@/types/media-detail-interface';
 import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
 
-const useSaveMedia = (media: MovieInterface | TVInterface, type: string) => {
+const useSaveMedia = (media: MovieInterface | TVInterface | MovieDetailInterface | TVDetailInterface, type: 'movies' | 'tv') => {
 	const storedFavorites = localStorage.getItem('favoriteMedia');
 	const favorites = storedFavorites
 		? JSON.parse(storedFavorites)
@@ -9,7 +10,7 @@ const useSaveMedia = (media: MovieInterface | TVInterface, type: string) => {
 				tv: [],
 		  };
 
-	const isFavorite = favorites[type].some((item: MovieInterface | TVInterface) => item.id === media.id);
+	const isFavorite = favorites[type].some((item: MovieInterface | TVInterface | MovieDetailInterface | TVDetailInterface) => item.id === media.id);
 
 	if (isFavorite) {
 		return false;

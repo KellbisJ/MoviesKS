@@ -4,7 +4,6 @@ import { SimilarGenresNullSkeleton } from "../loading-skeletons"
 import { LiaStarSolid } from 'react-icons/lia';
 import { BiBookmarkHeart, BiSolidMoviePlay } from 'react-icons/bi';
 import { useFavoriteMedia } from "../../context/favorite-media-context";
-import { MovieInterface, TVInterface } from "../../types/movie-and-tv-interface";
 import { CreateMediaImages } from "../create-media-images";
 import { CreateSimilarGenres } from "../create-similar-genres";
 import { CreateSimilarMediaDetail } from "../create-similar-media-detail";
@@ -12,8 +11,9 @@ import { TrailerMedia } from "../modals/trailer-media";
 
 const MediaDetailRender: React.FC<MediaDetailPropsInterface> = ({ mediaDetail, mediaDetailVideos, mediaImages, similarGenres, similarMedia, isMovie, handleFavoriteClick, showTrailer, setShowTrailer, videoKey, mediaType}) => {
   const { favorites } = useFavoriteMedia();
-  const favoriteMedia: MovieInterface[] | TVInterface[] = favorites.movies || favorites.tv || [];
-  const isFavorite = favoriteMedia.some((favMedia) => favMedia.id === mediaDetail?.id);
+  const favoriteMedia = [ ...favorites.movies, ...favorites.tv] // Because we want to know all favorite media available
+  const isFavorite = favoriteMedia.some((favMedia) => favMedia.id === mediaDetail.id); // Whether is movie or tv this will work effectively because it's comparing both cases, when is movie or tv
+
   
   return (
     <div className="text-black dark:text-gray-100">
