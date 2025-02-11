@@ -19,12 +19,12 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = ({ mediaDetail, m
     <div className="text-black dark:text-gray-100">
 					<div className="flex flex-wrap gap-5 mb-6 flex-col items-center md:flex-row md:items-normal">
 						<div className="flex-1 w-full max-w-96 sm:max-w-96 h-[460px] p-4 rounded-lg bg-blue-100 dark:bg-indigo-950 flex justify-center relative">
-							{mediaDetail?.poster_path === null ? (
+							{mediaDetail.poster_path === null ? (
 								<BigPosterPathNullSkeleton />
 							) : (
 								<img
 									className="w-full md:w-full max-w-full max-h-full rounded-lg cursor-pointer"
-									src={`https://image.tmdb.org/t/p/w500/${mediaDetail?.poster_path}`}
+									src={`https://image.tmdb.org/t/p/w500/${mediaDetail.poster_path}`}
 									alt="Media Poster"
 								/>
 							)}
@@ -84,7 +84,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = ({ mediaDetail, m
 							<p>{mediaDetail?.overview === '' ? 'No description available' : mediaDetail?.overview}</p>
 						</div>
 
-						<div className={'flex-grow bg-blue-100 dark:bg-indigo-950 p-4 rounded-lg flex gap-2.5 min-w-[200px] flex-wrap justify-center'}>
+						<div className={'flex-grow bg-blue-100 dark:bg-indigo-950 p-4 rounded-lg flex gap-2.5 md: w-[20%] flex-wrap justify-center'}>
 							<h3>Similar Genres:</h3>
 							{similarGenres.length === 0 ? <SimilarGenresNullSkeleton /> : <CreateSimilarGenres genres={similarGenres} type={mediaType} />}
 						</div>

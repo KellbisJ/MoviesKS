@@ -3,7 +3,6 @@ import { Layout } from '../components/layout';
 import { Home } from '../routes/home';
 import { FilteredMedia } from '@/routes/filtered-media';
 import { MediaAllMovie } from '../routes/media-all-movie';
-import { MediaPreviewByGenre } from '../routes/media-preview-by-genre';
 import { MediaFavorites } from '../routes/media-favorites';
 import { FavoriteMediaProvider } from '../context/favorite-media-context';
 import { MediaAllTV } from '../routes/media-all-tv';
@@ -14,27 +13,27 @@ import { MediaBySearch } from '../routes/media-by-search';
 import { SearchProvider } from '../context/search-media-context';
 
 const App = (): React.JSX.Element => (
-		<FavoriteMediaProvider>
-			<SearchProvider>
-				<BrowserRouter>
-					<Routes>
-						<Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
-							<Route path="home" element={<Home />} />
-							<Route path=":type" element={<FilteredMedia />} />
-							<Route path="movies/all" element={<MediaAllMovie />} />
-							<Route path="tv/all" element={<MediaAllTV />} />
-							<Route path=":type/preview/genre/:id" element={<MediaPreviewByGenre />} />
-							<Route path=":type/detail/:id" element={<MediaDetail />} />
-							<Route path=":type/category/:id" element={<MediaByCategory />} />
-							<Route path="search/:type/:query" element={<MediaBySearch />} />
-							<Route path="favorites" element={<MediaFavorites />} />
-							<Route path="*" element={<PageNotFound />} />
-						</Route>
-					</Routes>
-				</BrowserRouter>
-			</SearchProvider>
-		</FavoriteMediaProvider>
+	<FavoriteMediaProvider>
+		<SearchProvider>
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+					<Route path="home" element={<Home />} />
+          <Route path=":type" element={<FilteredMedia />} />
+          <Route path=":type/preview/genre/:id" element={<FilteredMedia />} />
+					<Route path="movies/all" element={<MediaAllMovie />} />
+					<Route path="tv/all" element={<MediaAllTV />} />	
+					<Route path=":type/detail/:id" element={<MediaDetail />} />
+					<Route path=":type/category/:id" element={<MediaByCategory />} />
+					<Route path="search/:type/:query" element={<MediaBySearch />} />
+					<Route path="favorites" element={<MediaFavorites />} />
+					<Route path="*" element={<PageNotFound />} />
+					</Route>
+				</Routes>
+			</BrowserRouter>
+		</SearchProvider>
+	</FavoriteMediaProvider>
 );
 
 export { App };

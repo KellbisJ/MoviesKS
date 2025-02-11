@@ -19,27 +19,27 @@ const FilteredMedia = () => {
   const [media, setMedia] = useState<MovieInterface[] | TVInterface[]>([])
   
 
-  useEffect(() => {
-    if (location.pathname.includes(mediaType)) {
-      const fetchMediaFiltered = async () => {
-        const mediaFiltered = await getPreviewTrendingMedia(mediaType)
-        const mediaFilteredData = mediaFiltered.results
-        setMedia(mediaFilteredData)
+ useEffect(() => {
+  const fetchMedia = async () => {
+    setLoadingComponents(true);
+    try {
+      let mediaFilteredData: MovieInterface[] | TVInterface[];
+      if (location.pathname.includes("/preview/genre/")) {
+        const mediaFiltered = await getMediaByCategory(mediaType, mediaIdGenre);
+        mediaFilteredData = mediaFiltered.results;
+      } else {
+        const mediaFiltered = await getPreviewTrendingMedia(mediaType);
+        mediaFilteredData = mediaFiltered.results;
       }
-      setLoadingComponents(false)
-      fetchMediaFiltered()
-    } else if (location.pathname.includes(`${mediaType}/${mediaIdGenre}`)) {
-      const fetchMediaFiltered = async () => {
-        const mediaFiltered = await getMediaByCategory(mediaType, mediaIdGenre)
-        const mediaFilteredData = mediaFiltered.results
-        setMedia(mediaFilteredData)
-      }
-      setLoadingComponents(false)
-      fetchMediaFiltered()
-    } else {
-      console.error('no valid filter')
+      setMedia(mediaFilteredData);
+    } catch (error) {
+      console.error("Error fetching media:", error);
+    } finally {
+      setLoadingComponents(false);
     }
-  }, [location, type, id])
+  };
+  fetchMedia();
+}, [location, mediaType, mediaIdGenre]); // This works. I was so close damn
   
   return (
 		<>
