@@ -8,6 +8,7 @@ const MediaFavorites = (): React.JSX.Element => {
   const [loading, setLoading] = useState<boolean>(true)
   
   useEffect(() => {
+    window.scrollTo(0, 0)
 		const timeoutId = setTimeout(() => {
 				setLoading(false);
 		}, 300);

@@ -84,7 +84,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = ({ mediaDetail, m
 							<p>{mediaDetail?.overview === '' ? 'No description available' : mediaDetail?.overview}</p>
 						</div>
 
-						<div className={'flex-grow bg-blue-100 dark:bg-indigo-950 p-4 rounded-lg flex gap-2.5 md: w-[20%] flex-wrap justify-center'}>
+						<div className={'flex-grow bg-blue-100 dark:bg-indigo-950 p-4 rounded-lg flex gap-2.5 md:w-[20%] flex-wrap justify-center'}>
 							<h3>Similar Genres:</h3>
 							{similarGenres.length === 0 ? <SimilarGenresNullSkeleton /> : <CreateSimilarGenres genres={similarGenres} type={mediaType} />}
 						</div>

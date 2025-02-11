@@ -47,8 +47,12 @@ const MediaAllByCategory = (): React.JSX.Element => {
 
     if (nextMediaData && nextMediaData.length > 0) {
       setMoreMedia((prevMedia) => {
-        const mediaIds = new Set([...media, ...prevMedia].map((media) => media.id));
+        const mediaIds = new Set([...media, ...prevMedia].map((media) => media.id)); // Create a Set of all media IDs from the current and previous media
+
+        // Filter out media items that are already in the Set
         const uniqueNextMedia = nextMediaData.filter((media): media is MovieInterface | TVInterface => !mediaIds.has(media.id));
+
+        // Return the combined list of previous media and unique new media
         return [...prevMedia, ...uniqueNextMedia] as MovieInterface[] | TVInterface[];
       });
       setPage((prevPage) => prevPage + 1);

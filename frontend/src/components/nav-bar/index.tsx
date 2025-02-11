@@ -22,16 +22,16 @@ const NavBar: React.FC<NavBarPropsInterface> = ({ isMobile, toggleSideBar, isSid
 		} else {
 			updateMediaType('movies');
 		}
-	}, [location, updateMediaType]);
+	}, [location, updateMediaType]); // updating mediatype to search
 
 	const handleNavigation = (route: string) => {
 		navigate(route);
 	};
 
 	const handleSearch = () => {
-		const sanitizedQuery = searchQuery.replace(/[^a-zA-Z0-9\s]/g, '').trim();
+		const sanitizedQuery = searchQuery.replace(/[^a-zA-Z0-9\s]/g, '').trim(); // rg expression to search media query only by safe characters
 		if (sanitizedQuery !== '') {
-			navigate(`/search/${mediaType}/${sanitizedQuery}`);
+			navigate(`/search/${mediaType}/${sanitizedQuery}`); // isn't allowed an empty search query 
 		}
 	};
 
@@ -39,12 +39,12 @@ const NavBar: React.FC<NavBarPropsInterface> = ({ isMobile, toggleSideBar, isSid
 		if (showSearchBar) {
 			handleSearch();
 		} else {
-			setShowSearchBar(true);
+			setShowSearchBar(true); // this when is mobile
 		}
 	};
 
 	const handleCloseSearchBar = () => {
-		setShowSearchBar(false);
+		setShowSearchBar(false); // this when is mobile also
 	};
 
 	return (

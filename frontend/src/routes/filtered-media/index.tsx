@@ -26,7 +26,7 @@ const FilteredMedia = () => {
       let mediaFilteredData: MovieInterface[] | TVInterface[];
       if (location.pathname.includes("/preview/genre/")) {
         const mediaFiltered = await getMediaByCategory(mediaType, mediaIdGenre);
-        mediaFilteredData = mediaFiltered.results;
+        mediaFilteredData = mediaFiltered.results; // top rated and popular media in a future will be filter
       } else {
         const mediaFiltered = await getPreviewTrendingMedia(mediaType);
         mediaFilteredData = mediaFiltered.results;

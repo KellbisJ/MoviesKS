@@ -10,7 +10,7 @@ const Home = (): React.JSX.Element => {
 
 	useEffect(() => {
 		async function fetchMedia() {
-      const previewMovies = await getPreviewTrendingMedia('movies');
+      const previewMovies = await getPreviewTrendingMedia('movies'); // I stablished trendring preview from movies as default in home path but I think that maybe trending all or popular or top rated could be better.
       const moviesData = previewMovies.results
 			setMedia(moviesData as MovieInterface[]);
 
