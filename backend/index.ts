@@ -10,20 +10,25 @@ const PORT = process.env.PORT || 8000;
 const app = express();
 const corsOptions: cors.CorsOptions = {
 	origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
-		if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'preview') {
+		console.log('Origin:', origin);
+		if (process.env.NODE_ENV === 'development') {
 			callback(null, true);
-		} else if (
-			origin === 'https://movies-ks-frontend.vercel.app' ||
-			origin === 'https://movies-ks-backend.vercel.app' ||
-			origin === 'https://movies-ks-backend-git-master-kellbis-projects.vercel.app' ||
-			origin === 'https://movies-ks-backend-git-types-kellbis-projects.vercel.app' ||
-			origin === 'https://movies-ks-frontend-git-types-kellbis-projects.vercel.app'
-		) {
-			callback(null, true);
-		} else {
-			callback(new Error('Not allowed by CORS'));
+		} else if (process.env.NODE_ENV === 'preview' || process.env.NODE_ENV === 'production') {
+			const allowedOrigins = [
+				'https://movies-ks-frontend.vercel.app',
+				'https://movies-ks-backend.vercel.app',
+				'https://movies-ks-backend-git-master-kellbis-projects.vercel.app',
+				'https://movies-ks-backend-git-types-kellbis-projects.vercel.app',
+				'https://movies-ks-frontend-git-types-kellbis-projects.vercel.app',
+			];
+			if (allowedOrigins.includes(origin || '')) {
+				callback(null, true);
+			} else {
+				callback(new Error(`Not allowed by CORS: ${origin}`));
+			}
 		}
 	},
+	credentials: true,
 };
 
 app.use(cors(corsOptions));
