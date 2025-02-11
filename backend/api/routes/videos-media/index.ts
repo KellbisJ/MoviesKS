@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import axios, { AxiosError } from 'axios';
 import dotenv from 'dotenv';
-import { MediaVideosInterface } from '../../interfaces/videos-media/indext';
+import { MediaVideosInterface } from '../../interfaces/videos-media';
 
 dotenv.config();
 

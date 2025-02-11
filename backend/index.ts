@@ -10,12 +10,14 @@ const PORT = process.env.PORT || 8000;
 const app = express();
 const corsOptions: cors.CorsOptions = {
 	origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
-		if (process.env.NODE_ENV === 'development') {
+		if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'preview') {
 			callback(null, true);
 		} else if (
 			origin === 'https://movies-ks-frontend.vercel.app' ||
-			'https://movies-ks-backend-git-master-kellbis-projects.vercel.app' ||
-			'https://movies-ks-backend-git-types-kellbis-projects.vercel.app'
+			origin === 'https://movies-ks-backend.vercel.app' ||
+			origin === 'https://movies-ks-backend-git-master-kellbis-projects.vercel.app' ||
+			origin === 'https://movies-ks-backend-git-types-kellbis-projects.vercel.app' ||
+			origin === 'https://movies-ks-frontend-git-types-kellbis-projects.vercel.app'
 		) {
 			callback(null, true);
 		} else {
@@ -33,6 +35,7 @@ import detailMedia from './api/routes/detail-media';
 import detailMediaSimilar from './api/routes/detail-media-similar';
 import videosMedia from './api/routes/videos-media';
 import searchMedia from './api/routes/search-media';
+import mediaImages from './api/routes/media-images';
 
 app.get('/', (req: Request, res: Response) => {
 	res.json({
@@ -50,6 +53,8 @@ app.get('/', (req: Request, res: Response) => {
 		VideosTv: 'http://localhost:8000/api/tv/1399/videos?language=en-US',
 		SearchMovies: 'http://localhost:8000/api/search/movie/hola',
 		SearchTvSeries: 'http://localhost:8000/api/search/tv/game',
+		MovieImages: 'http://localhost:8000/api/movie/550/images',
+		TVImages: 'http://localhost:8000/api/tv/1399/images',
 	});
 });
 
@@ -60,5 +65,6 @@ app.use('/api', detailMedia);
 app.use('/api', detailMediaSimilar);
 app.use('/api', videosMedia);
 app.use('/api', searchMedia);
+app.use('/api', mediaImages);
 
 app.listen(PORT, () => console.log(`server running on ${PORT}`));
