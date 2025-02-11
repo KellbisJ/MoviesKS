@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 8000;
 const app = express();
 const corsOptions: cors.CorsOptions = {
 	origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
-		if (process.env.NODE_ENV === 'development') {
+		if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'preview') {
 			callback(null, true);
 		} else if (
 			origin === 'https://movies-ks-frontend.vercel.app' ||
