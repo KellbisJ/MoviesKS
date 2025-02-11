@@ -6,7 +6,7 @@ import { CreateMedia } from '../../components/create-media';
 import { MediaSkeleton } from '../../components/loading-skeletons';
 import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
 
-const MediaByCategory = (): React.JSX.Element => {
+const MediaAllByCategory = (): React.JSX.Element => {
   const { type, id: genreId } = useParams<{ type: string; id: string }>();
 
   const mediaType = type as string;
@@ -79,4 +79,4 @@ const MediaByCategory = (): React.JSX.Element => {
   );
 };
 
-export { MediaByCategory };
+export { MediaAllByCategory };

@@ -7,7 +7,7 @@ import { MediaFavorites } from '../routes/media-favorites';
 import { FavoriteMediaProvider } from '../context/favorite-media-context';
 import { MediaAllTV } from '../routes/media-all-tv';
 import { MediaDetail } from '../routes/media-detail';
-import { MediaByCategory } from '../routes/media-by-category';
+import { MediaAllByCategory } from '../routes/media-all-by-category';
 import { PageNotFound } from '../components/page-not-found';
 import { MediaBySearch } from '../routes/media-by-search';
 import { SearchProvider } from '../context/search-media-context';
@@ -25,7 +25,7 @@ const App = (): React.JSX.Element => (
 					<Route path="movies/all" element={<MediaAllMovie />} />
 					<Route path="tv/all" element={<MediaAllTV />} />	
 					<Route path=":type/detail/:id" element={<MediaDetail />} />
-					<Route path=":type/category/:id" element={<MediaByCategory />} />
+					<Route path=":type/all/category/:id" element={<MediaAllByCategory />} />
 					<Route path="search/:type/:query" element={<MediaBySearch />} />
 					<Route path="favorites" element={<MediaFavorites />} />
 					<Route path="*" element={<PageNotFound />} />

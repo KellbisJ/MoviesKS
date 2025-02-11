@@ -4,15 +4,16 @@ import { MediaNullSkeleton } from '../loading-skeletons';
 import { BiBookmarkHeart } from 'react-icons/bi';
 import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
 import { MediaContainerPropsInterface } from '../../types/media-container-props-interface';
+import { MovieDetailInterface, TVDetailInterface } from '@/types/media-detail-interface';
 
-const isMovie = (media: MovieInterface | TVInterface): media is MovieInterface => {
+const isMovie = (media: MovieInterface | TVInterface | MovieDetailInterface | TVDetailInterface): media is MovieInterface | MovieDetailInterface => {
   return (media as MovieInterface).title !== undefined;
 };
 
 const MediaContainer: React.FC<MediaContainerPropsInterface> = ({ media_, type }) => {
   const { favorites, saveFavoriteMedia } = useFavoriteMedia();
   const favoriteMedia = favorites[type as 'movies' | 'tv'] || [];
-  const isFavorite = favoriteMedia.some((favMedia: MovieInterface | TVInterface) => favMedia.id === media_.id);
+  const isFavorite = favoriteMedia.some((favMedia) => favMedia.id === media_.id);
   const navigate = useNavigate();
 
   const handleNavigation = () => {
