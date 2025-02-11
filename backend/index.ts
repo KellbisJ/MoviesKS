@@ -21,7 +21,7 @@ const corsOptions: cors.CorsOptions = {
 				'https://movies-ks-backend-git-types-kellbis-projects.vercel.app',
 				'https://movies-ks-frontend-git-types-kellbis-projects.vercel.app',
 			];
-			if (allowedOrigins.includes(origin || '')) {
+			if (origin === undefined || allowedOrigins.includes(origin)) {
 				callback(null, true);
 			} else {
 				callback(new Error(`Not allowed by CORS: ${origin}`));
