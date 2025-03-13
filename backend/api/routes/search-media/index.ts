@@ -5,7 +5,7 @@ import { SearchMediaInterface } from '../../interfaces/search-media';
 
 dotenv.config();
 
-const router = express.Router();
+const searchMediaRouter = express.Router();
 
 const searchMedia = async (req: Request, res: Response, type: string) => {
 	const { query } = req.params;
@@ -39,12 +39,12 @@ const searchMedia = async (req: Request, res: Response, type: string) => {
 	}
 };
 
-router.get('/search/movie/:query', (req: Request, res: Response) => {
+searchMediaRouter.get('/search/movie/:query', (req: Request, res: Response) => {
 	searchMedia(req, res, 'movie');
 });
 
-router.get('/search/tv/:query', (req: Request, res: Response) => {
+searchMediaRouter.get('/search/tv/:query', (req: Request, res: Response) => {
 	searchMedia(req, res, 'tv');
 });
 
-export default router;
+export { searchMediaRouter };

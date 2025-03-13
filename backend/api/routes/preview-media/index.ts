@@ -6,7 +6,7 @@ import { PreviewTvInterface } from '../../interfaces/trending-preview-tv';
 
 dotenv.config();
 
-const router = express.Router();
+const previewMediaRouter = express.Router();
 
 const getTrendingMedia = async (req: Request, res: Response, type: string) => {
 	const { page } = req.query;
@@ -30,12 +30,12 @@ const getTrendingMedia = async (req: Request, res: Response, type: string) => {
 	}
 };
 
-router.get('/trending/movie/day', (req: Request, res: Response) => {
+previewMediaRouter.get('/trending/movie/day', (req: Request, res: Response) => {
 	getTrendingMedia(req, res, 'movie');
 });
 
-router.get('/trending/tv/day', (req: Request, res: Response) => {
+previewMediaRouter.get('/trending/tv/day', (req: Request, res: Response) => {
 	getTrendingMedia(req, res, 'tv');
 });
 
-export default router;
+export { previewMediaRouter };

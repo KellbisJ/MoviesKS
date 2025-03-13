@@ -5,7 +5,7 @@ import { CategoryMediaPreviewDiscoverInterface } from '../../interfaces/category
 
 dotenv.config();
 
-const router = express.Router();
+const categoryMediaPreviewDiscoverRouter = express.Router();
 
 const getCategoryMedia = async (req: Request, res: Response, type: string) => {
 	const { with_genres, page } = req.query;
@@ -21,12 +21,12 @@ const getCategoryMedia = async (req: Request, res: Response, type: string) => {
 	}
 };
 
-router.get('/discover/movie', (req: Request, res: Response) => {
+categoryMediaPreviewDiscoverRouter.get('/discover/movie', (req: Request, res: Response) => {
 	getCategoryMedia(req, res, 'movie');
 });
 
-router.get('/discover/tv', (req: Request, res: Response) => {
+categoryMediaPreviewDiscoverRouter.get('/discover/tv', (req: Request, res: Response) => {
 	getCategoryMedia(req, res, 'tv');
 });
 
-export default router;
+export { categoryMediaPreviewDiscoverRouter };

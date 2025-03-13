@@ -5,7 +5,7 @@ import { MovieDetailInterface, TVDetailInterface } from '../../interfaces/detail
 
 dotenv.config();
 
-const router = express.Router();
+const detailMediaRouter = express.Router();
 
 const getMediaDetail = async (req: Request, res: Response, type: string) => {
 	const { id } = req.params;
@@ -25,12 +25,12 @@ const getMediaDetail = async (req: Request, res: Response, type: string) => {
 	}
 };
 
-router.get('/movie/:id', (req: Request, res: Response) => {
+detailMediaRouter.get('/movie/:id', (req: Request, res: Response) => {
 	getMediaDetail(req, res, 'movie');
 });
 
-router.get('/tv/:id', (req: Request, res: Response) => {
+detailMediaRouter.get('/tv/:id', (req: Request, res: Response) => {
 	getMediaDetail(req, res, 'tv');
 });
 
-export default router;
+export { detailMediaRouter };

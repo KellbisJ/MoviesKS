@@ -4,8 +4,8 @@ import { useDarkMode } from '../../hooks/use-dark-mode';
 import { MdDarkMode, MdLightMode } from 'react-icons/md';
 import { SideBarPropsInterface } from '../../types/sidebar-props-interface';
 
-const SideBar:React.FC<SideBarPropsInterface> = ({ isMobile, isSideBarOpen, toggleSideBar }) => {
-	const [isDarkMode, toggleDarkMode] = useDarkMode();
+const SideBar: React.FC<SideBarPropsInterface> = ({ isMobile, isSideBarOpen, toggleSideBar }) => {
+	const [isDarkMode, setIsDarkMode] = useDarkMode();
 	const navigate = useNavigate();
 	const handleNavigation = (route: string) => {
 		navigate(route);
@@ -19,7 +19,7 @@ const SideBar:React.FC<SideBarPropsInterface> = ({ isMobile, isSideBarOpen, togg
 					<div className="fixed inset-0 bg-slate-800 bg-opacity-50 backdrop-blur-md z-[100] min-h-screen" onClick={toggleSideBar}></div>
 					<div className="flex fixed bg-slate-200 dark:bg-indigo-950 top-0 left-0 w-3/6 sm:w-2/5 min-h-screen overflow-hidden transition duration-500 z-[101] text-black dark:text-gray-100">
 						<ul className="flex flex-col gap-4 mt-20 px-6 text-sm no-underline list-none transition text-center">
-							<div className="w-fit" onClick={toggleDarkMode}>
+							<div className="w-fit" onClick={() => setIsDarkMode(!isDarkMode)}>
 								{isDarkMode ? <MdLightMode className="text-xl" /> : <MdDarkMode className="text-xl" />}
 							</div>
 
@@ -41,6 +41,6 @@ const SideBar:React.FC<SideBarPropsInterface> = ({ isMobile, isSideBarOpen, togg
 			)}
 		</>
 	);
-}
+};
 
 export { SideBar };

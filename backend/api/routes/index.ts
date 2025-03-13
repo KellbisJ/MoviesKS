@@ -1,13 +1,13 @@
 import { Router } from 'express';
-import previewMedia from './preview-media';
-import previewCategoriesMedia from './preview-categories-media';
-import categoryMediaPreviewDiscover from './category-media-preview-discover';
-import detailMedia from './detail-media';
-import detailMediaSimilar from './detail-media-similar';
-import videosMedia from './videos-media';
-import searchMedia from './search-media';
-import mediaImages from './media-images';
-import mediaPopularLists from './media-lists';
+import { previewMediaRouter } from './preview-media';
+import { previewCategoriesMediaRouter } from './preview-categories-media';
+import { categoryMediaPreviewDiscoverRouter } from './category-media-preview-discover';
+import { detailMediaRouter } from './detail-media';
+import { detailMediaSimilarRouter } from './detail-media-similar';
+import { videosMediaRouter } from './videos-media';
+import { searchMediaRouter } from './search-media';
+import { mediaImagesRouter } from './media-images';
+import { mediaListRouter } from './media-lists';
 
 const router = Router();
 
@@ -29,19 +29,22 @@ router.get('/', (req, res) => {
 		SearchTvSeries: 'http://localhost:8000/api/search/tv/game',
 		MovieImages: 'http://localhost:8000/api/movie/550/images',
 		TVImages: 'http://localhost:8000/api/tv/1399/images',
-		PopularMoviesList: 'http://localhost:8000/api/movie/popular',
 		PopularTvList: 'http://localhost:8000/api/tv/popular',
+		NowPlayingMoviesList: 'http://localhost:8000/api/movie/now_playing',
+		PopularMoviesList: 'http://localhost:8000/api/movie/popular',
+		TopRatedMoviesList: 'http://localhost:8000/api/movie/top_rated',
+		UpcomingMoviesList: 'http://localhost:8000/api/movie/upcoming',
 	}); // Spaghetti
 });
 
-router.use(previewMedia);
-router.use(previewCategoriesMedia);
-router.use(categoryMediaPreviewDiscover);
-router.use(detailMedia);
-router.use(detailMediaSimilar);
-router.use(videosMedia);
-router.use(searchMedia);
-router.use(mediaImages);
-router.use(mediaPopularLists);
+router.use(previewMediaRouter);
+router.use(previewCategoriesMediaRouter);
+router.use(categoryMediaPreviewDiscoverRouter);
+router.use(detailMediaRouter);
+router.use(detailMediaSimilarRouter);
+router.use(videosMediaRouter);
+router.use(searchMediaRouter);
+router.use(mediaImagesRouter);
+router.use(mediaListRouter);
 
 export default router;

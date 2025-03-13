@@ -5,7 +5,7 @@ import { PreviewCategoriesMediaInterface } from '../../interfaces/preview-catego
 
 dotenv.config();
 
-const router = express.Router();
+const previewCategoriesMediaRouter = express.Router();
 
 const getCategoryList = async (req: Request, res: Response, type: string) => {
 	const api_key: string | undefined = process.env.API_KEY;
@@ -22,12 +22,12 @@ const getCategoryList = async (req: Request, res: Response, type: string) => {
 	}
 };
 
-router.get('/genre/movie/list', (req: Request, res: Response) => {
+previewCategoriesMediaRouter.get('/genre/movie/list', (req: Request, res: Response) => {
 	getCategoryList(req, res, 'movie');
 });
 
-router.get('/genre/tv/list', (req: Request, res: Response) => {
+previewCategoriesMediaRouter.get('/genre/tv/list', (req: Request, res: Response) => {
 	getCategoryList(req, res, 'tv');
 });
 
-export default router;
+export { previewCategoriesMediaRouter };

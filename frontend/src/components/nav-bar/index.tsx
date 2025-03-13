@@ -14,7 +14,7 @@ const NavBar: React.FC<NavBarPropsInterface> = ({ isMobile, toggleSideBar, isSid
 	const location = useLocation();
 	const navigate = useNavigate();
 	const [showSearchBar, setShowSearchBar] = useState(false);
-	const [isDarkMode, toggleDarkMode] = useDarkMode();
+	const [isDarkMode, setIsDarkMode] = useDarkMode();
 
 	useEffect(() => {
 		if (location.pathname.includes('/tv')) {
@@ -31,7 +31,7 @@ const NavBar: React.FC<NavBarPropsInterface> = ({ isMobile, toggleSideBar, isSid
 	const handleSearch = () => {
 		const sanitizedQuery = searchQuery.replace(/[^a-zA-Z0-9\s]/g, '').trim(); // rg expression to search media query only by safe characters
 		if (sanitizedQuery !== '') {
-			navigate(`/search/${mediaType}/${sanitizedQuery}`); // isn't allowed an empty search query 
+			navigate(`/search/${mediaType}/${sanitizedQuery}`); // isn't allowed an empty search query
 		}
 	};
 
@@ -50,7 +50,7 @@ const NavBar: React.FC<NavBarPropsInterface> = ({ isMobile, toggleSideBar, isSid
 	return (
 		<>
 			{isMobile ? (
-				<nav className="top-0 w-full bg-fuchsia-700 dark:bg-slate-950 shadow-md z-[1000] fixed px-6 text-stone-100 transition">
+				<nav className="top-0 w-full bg-fuchsia-700 dark:bg-slate-900/80 backdrop-blur-sm shadow-md z-[1000] fixed px-6 text-stone-100 transition">
 					<ul className="flex list-none justify-between items-center py-4 m-0">
 						<li className="text-lg font-semibold decoration no-underline text-center rounded transition list-none">
 							<button className="navItemSideBarButton" onClick={toggleSideBar}>
@@ -94,14 +94,14 @@ const NavBar: React.FC<NavBarPropsInterface> = ({ isMobile, toggleSideBar, isSid
 					</ul>
 				</nav>
 			) : (
-				<nav className="hidden md:flex justify-between items-center fixed top-0 w-full px-8 bg-fuchsia-700 dark:bg-slate-950 z-[1000] shadow-md h-16 text-stone-100 transition">
+				<nav className="hidden md:flex justify-between items-center fixed top-0 w-full px-8 bg-fuchsia-700 dark:bg-slate-900/80 backdrop-blur-sm z-[1000] shadow-md h-16 text-stone-100 transition">
 					<ul className="flex items-center list-none justify-between m-0 w-1/2">
 						<li className="text-[16px] font-semibold no-underline text-center transition-colors duration-300 cursor-pointer">
 							<Link className="no-underline text-[20px] font-bold" to="/">
 								MoviesKS
 							</Link>
 						</li>
-						<div className="w-fit" onClick={toggleDarkMode}>
+						<div className="w-fit" onClick={() => setIsDarkMode(!isDarkMode)}>
 							{isDarkMode ? <MdLightMode className="text-xl cursor-pointer" /> : <MdDarkMode className="text-xl cursor-pointer" />}
 						</div>
 						<li className="cursor-pointer" onClick={() => handleNavigation('/home')}>
@@ -109,11 +109,11 @@ const NavBar: React.FC<NavBarPropsInterface> = ({ isMobile, toggleSideBar, isSid
 						</li>
 						<li className="cursor-pointer" onClick={() => handleNavigation('/movies/all')}>
 							Movies
-						</li>	
+						</li>
 						<li className="cursor-pointer" onClick={() => handleNavigation('/tv/all')}>
 							TV
-              </li>
-              <li className="cursor-pointer" onClick={() => handleNavigation('/favorites')}>
+						</li>
+						<li className="cursor-pointer" onClick={() => handleNavigation('/favorites')}>
 							Favorites
 						</li>
 					</ul>
@@ -134,6 +134,6 @@ const NavBar: React.FC<NavBarPropsInterface> = ({ isMobile, toggleSideBar, isSid
 			)}
 		</>
 	);
-}
+};
 
 export { NavBar };

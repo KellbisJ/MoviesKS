@@ -5,7 +5,7 @@ import { MediaVideosInterface } from '../../interfaces/videos-media';
 
 dotenv.config();
 
-const router = express.Router();
+const videosMediaRouter = express.Router();
 
 const getMediaVideos = async (req: Request, res: Response, type: string) => {
 	const { id } = req.params;
@@ -25,12 +25,12 @@ const getMediaVideos = async (req: Request, res: Response, type: string) => {
 	}
 };
 
-router.get('/movie/:id/videos', (req: Request, res: Response) => {
+videosMediaRouter.get('/movie/:id/videos', (req: Request, res: Response) => {
 	getMediaVideos(req, res, 'movie');
 });
 
-router.get('/tv/:id/videos', (req: Request, res: Response) => {
+videosMediaRouter.get('/tv/:id/videos', (req: Request, res: Response) => {
 	getMediaVideos(req, res, 'tv');
 });
 
-export default router;
+export { videosMediaRouter };

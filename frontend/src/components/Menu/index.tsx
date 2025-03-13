@@ -7,18 +7,18 @@ import { useCategories } from '@/hooks/use-categories/index.tsx';
 import { useLocation, useParams } from 'react-router-dom';
 
 const Menu = (): React.JSX.Element => {
-  const { isMobile } = useWindowSize();
-  const { type, id } = useParams()
+	const { isMobile } = useWindowSize();
+	const { type, id } = useParams();
 	const { categories, isMoviesModalOpen, isGenresModalOpen, toggleMoviesModal, toggleGenresModal, componentsLoading } = useCategories();
-  const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(false);
-  const [showFilterBar, setShowFilterBar] = useState<boolean>(false)
+	const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(false);
+	const [showFilterBar, setShowFilterBar] = useState<boolean>(false);
 
-  const location = useLocation()
-  
-  useEffect(() => {
-    const showFilterbarPaths: string[] = ['/', '/home', '/movies', '/tv', `/${type}/preview/genre/${id}`];
-    showFilterbarPaths.includes(location.pathname) ? setShowFilterBar(true) : setShowFilterBar(false);
-  }, [type, id, location]); // That's all, is not needed a context to show a simple component
+	const location = useLocation();
+
+	useEffect(() => {
+		const showFilterbarPaths: string[] = ['/movies', '/tv', `/${type}/preview/genre/${id}`];
+		showFilterbarPaths.includes(location.pathname) ? setShowFilterBar(true) : setShowFilterBar(false);
+	}, [type, id, location]); // That's all, is not needed a context to show a simple component
 
 	useEffect(() => {
 		if (!isMobile) {
@@ -47,5 +47,5 @@ const Menu = (): React.JSX.Element => {
 			)}
 		</>
 	);
-}
+};
 export { Menu };

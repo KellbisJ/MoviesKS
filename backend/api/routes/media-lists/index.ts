@@ -1,19 +1,59 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import axios, { AxiosError } from 'axios';
 import dotenv from 'dotenv';
-import { PopularMoviesInterface, MoviePopularInterface } from '../../interfaces/movie-lists/PopularMovies';
-import { PopularTvSeriesInterface, TvSeriePopularInterface } from '../../interfaces/tv-lists/PopularTvSeries';
+import {
+	NowPlayingMoviesListInterface,
+	PopularMoviesInterface,
+	TopRatedMoviesListInterface,
+	UpcomingMoviesListInterface,
+} from '../../interfaces/movie-lists';
+import {
+	AiringTodayTvSeriesListInterface,
+	OnTheAirTvSeriesListInterface,
+	PopularTvSeriesInterface,
+	TopRatedTvSeriesListInterface,
+} from '../../interfaces/tv-series-lists';
 
 dotenv.config();
 
-const router = express.Router();
+const mediaListRouter = express.Router();
 
-const getMediaListPopular = async (res: Response, type: string) => {
+enum ListTypeMovies {
+	nowPlaying = 'now_playing',
+	popular = 'popular',
+	topRated = 'top_rated',
+	upcoming = 'upcoming',
+}
+
+enum ListTypeTvSeries {
+	airingToday = 'airing_today',
+	onTheAir = 'on_the_air',
+	popular = 'popular',
+	top_rated = 'top_rated',
+}
+
+const getMediaLists = async (req: Request, res: Response, type: string, listType: ListTypeMovies | ListTypeTvSeries) => {
+	const { page } = req.query;
+
 	const api_key: string | undefined = process.env.API_KEY;
-	const api_url: string = `https://api.themoviedb.org/3/${type}/popular?api_key=${api_key}&language=es`;
+
+	let api_url: string = `https://api.themoviedb.org/3/${type}/${listType}?api_key=${api_key}&language=es`;
+
+	if (page) {
+		api_url += `&page=${page}`;
+	}
 
 	try {
-		const { data }: { data: PopularMoviesInterface | PopularTvSeriesInterface } = await axios.get(api_url);
+		const { data } = await axios.get<
+			| NowPlayingMoviesListInterface
+			| PopularMoviesInterface
+			| TopRatedMoviesListInterface
+			| UpcomingMoviesListInterface
+			| AiringTodayTvSeriesListInterface
+			| OnTheAirTvSeriesListInterface
+			| PopularTvSeriesInterface
+			| TopRatedTvSeriesListInterface
+		>(api_url);
 		res.json(data);
 	} catch (error) {
 		const axiosError = error as AxiosError;
@@ -25,12 +65,14 @@ const getMediaListPopular = async (res: Response, type: string) => {
 	}
 };
 
-router.get('/movie/popular', (res: Response) => {
-	getMediaListPopular(res, 'movie');
-});
+mediaListRouter.get(`/movie/${ListTypeMovies.nowPlaying}`, (req, res) => getMediaLists(req, res, 'movie', ListTypeMovies.nowPlaying));
+mediaListRouter.get(`/movie/${ListTypeMovies.popular}`, (req, res) => getMediaLists(req, res, 'movie', ListTypeMovies.popular));
+mediaListRouter.get(`/movie/${ListTypeMovies.topRated}`, (req, res) => getMediaLists(req, res, 'movie', ListTypeMovies.topRated));
+mediaListRouter.get(`/movie/${ListTypeMovies.upcoming}`, (req, res) => getMediaLists(req, res, 'movie', ListTypeMovies.upcoming));
 
-router.get('/tv/popular', (res: Response) => {
-	getMediaListPopular(res, 'tv');
-});
+mediaListRouter.get(`/tv/${ListTypeTvSeries.airingToday}`, (req, res) => getMediaLists(req, res, 'tv', ListTypeMovies.nowPlaying));
+mediaListRouter.get(`/tv/${ListTypeTvSeries.onTheAir}`, (req, res) => getMediaLists(req, res, 'tv', ListTypeMovies.popular));
+mediaListRouter.get(`/tv/${ListTypeTvSeries.popular}`, (req, res) => getMediaLists(req, res, 'tv', ListTypeMovies.topRated));
+mediaListRouter.get(`/tv/${ListTypeTvSeries.top_rated}`, (req, res) => getMediaLists(req, res, 'tv', ListTypeMovies.upcoming));
 
-export default router;
+export { mediaListRouter };

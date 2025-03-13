@@ -5,7 +5,7 @@ import { MovieSimilarInterface, TVSimilarInterface } from '../../interfaces/simi
 
 dotenv.config();
 
-const router = express.Router();
+const detailMediaSimilarRouter = express.Router();
 
 const getMediaSimilar = async (req: Request, res: Response, type: string) => {
 	const { id } = req.params;
@@ -25,12 +25,12 @@ const getMediaSimilar = async (req: Request, res: Response, type: string) => {
 	}
 };
 
-router.get('/movie/:id/similar', (req: Request, res: Response) => {
+detailMediaSimilarRouter.get('/movie/:id/similar', (req: Request, res: Response) => {
 	getMediaSimilar(req, res, 'movie');
 });
 
-router.get('/tv/:id/similar', (req: Request, res: Response) => {
+detailMediaSimilarRouter.get('/tv/:id/similar', (req: Request, res: Response) => {
 	getMediaSimilar(req, res, 'tv');
 });
 
-export default router;
+export { detailMediaSimilarRouter };
