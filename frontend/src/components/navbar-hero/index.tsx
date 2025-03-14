@@ -9,11 +9,11 @@ const NavbarHero = (): React.JSX.Element => {
 			<div className="container mx-auto px-6 py-4">
 				<div className="flex items-center justify-center sm:justify-between">
 					<div className="hidden sm:flex space-x-4 items-center">
-						<h1 className="text-2xl font-bold text-white">MoviesKS</h1>
+						<h1 className="text-2xl font-bold text-gray-700 dark:text-white">MoviesKS</h1>
 					</div>
 
 					<div className="flex justify-between sm:space-x-8 items-center  text-center w-full sm:w-auto">
-						<Link to={'/'} className="text-white hover:text-cyan-400 transition" aria-label="Home">
+						<Link to={'/'} className="text-gray-700 dark:text-white hover:text-cyan-400 transition" aria-label="Home">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5">
 								<path
 									fillRule="evenodd"
@@ -22,7 +22,7 @@ const NavbarHero = (): React.JSX.Element => {
 								/>
 							</svg>
 						</Link>
-						<Link to={'/movies'} className="text-white hover:text-cyan-400 transition" aria-label="Movies">
+						<Link to={'/movies'} className="text-gray-700 dark:text-white hover:text-cyan-400 transition" aria-label="Movies">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5">
 								<path
 									fillRule="evenodd"
@@ -31,7 +31,7 @@ const NavbarHero = (): React.JSX.Element => {
 								/>
 							</svg>
 						</Link>
-						<Link to={'/tv'} className="text-white hover:text-cyan-400 transition" aria-label="TvSeries">
+						<Link to={'/tv'} className="text-gray-700 dark:text-white hover:text-cyan-400 transition" aria-label="TvSeries">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5">
 								<path d="M4 5h12v7H4V5Z" />
 								<path
@@ -41,7 +41,7 @@ const NavbarHero = (): React.JSX.Element => {
 								/>
 							</svg>
 						</Link>
-						<Link to={'/favorites'} className="text-white hover:text-cyan-400 transition flex gap-1" aria-label="MyFavorites">
+						<Link to={'/favorites'} className="text-gray-700 dark:text-white hover:text-cyan-400 transition flex gap-1" aria-label="MyFavorites">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5 m-auto">
 								<path
 									fillRule="evenodd"
@@ -52,13 +52,13 @@ const NavbarHero = (): React.JSX.Element => {
 						</Link>
 						<button
 							type="button"
-							className="text-white"
+							className="text-gray-700 dark:text-white hover:text-cyan-400 dark:hover:text-cyan-400"
 							aria-label="ThemeButton"
 							onClick={() => {
 								setIsDarkMode(!isDarkMode);
 							}}>
 							{isDarkMode ? (
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5 hover:text-cyan-400">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5">
 									<path d="M10 2a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 10 2ZM10 15a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 10 15ZM10 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM15.657 5.404a.75.75 0 1 0-1.06-1.06l-1.061 1.06a.75.75 0 0 0 1.06 1.06l1.06-1.06ZM6.464 14.596a.75.75 0 1 0-1.06-1.06l-1.06 1.06a.75.75 0 0 0 1.06 1.06l1.06-1.06ZM18 10a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 18 10ZM5 10a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 5 10ZM14.596 15.657a.75.75 0 0 0 1.06-1.06l-1.06-1.061a.75.75 0 1 0-1.06 1.06l1.06 1.06ZM5.404 6.464a.75.75 0 0 0 1.06-1.06l-1.06-1.06a.75.75 0 1 0-1.061 1.06l1.06 1.06Z" />
 								</svg>
 							) : (

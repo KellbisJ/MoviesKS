@@ -94,28 +94,28 @@ const NavBar: React.FC<NavBarPropsInterface> = ({ isMobile, toggleSideBar, isSid
 					</ul>
 				</nav>
 			) : (
-				<nav className="hidden md:flex justify-between items-center fixed top-0 w-full px-8 bg-fuchsia-700 dark:bg-slate-900/80 backdrop-blur-sm z-[1000] shadow-md h-16 text-stone-100 transition">
-					<ul className="flex items-center list-none justify-between m-0 w-1/2">
+				<nav className="hidden md:flex justify-between items-center fixed top-0 w-full px-8 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm z-[1000] shadow-md h-16 text-gray-700 dark:text-stone-100 transition">
+					<ul className="flex items-center list-none justify-between m-0 w-1/2 font-bold">
 						<li className="text-[16px] font-semibold no-underline text-center transition-colors duration-300 cursor-pointer">
-							<Link className="no-underline text-[20px] font-bold" to="/">
+							<Link className="no-underline text-[20px]" to="/">
 								MoviesKS
 							</Link>
 						</li>
 						<div className="w-fit" onClick={() => setIsDarkMode(!isDarkMode)}>
 							{isDarkMode ? <MdLightMode className="text-xl cursor-pointer" /> : <MdDarkMode className="text-xl cursor-pointer" />}
 						</div>
-						<li className="cursor-pointer" onClick={() => handleNavigation('/home')}>
+						<Link to={'/home'} className="cursor-pointer">
 							Home
-						</li>
-						<li className="cursor-pointer" onClick={() => handleNavigation('/movies/all')}>
+						</Link>
+						<Link to={'/movies'} className="cursor-pointer">
 							Movies
-						</li>
-						<li className="cursor-pointer" onClick={() => handleNavigation('/tv/all')}>
+						</Link>
+						<Link to={'/tv'} className="cursor-pointer">
 							TV
-						</li>
-						<li className="cursor-pointer" onClick={() => handleNavigation('/favorites')}>
+						</Link>
+						<Link to={'/favorites'} className="cursor-pointer">
 							Favorites
-						</li>
+						</Link>
 					</ul>
 					<ul className="flex items-center list-none justify-between p-0">
 						<li className="flex items-center font-semibold no-underline text-center duration-300 list-none bg-fuchsia-900 dark:bg-gray-700 border-none rounded-2xl outline-none w-[45vw] min-w-[150px] max-w-[650px] focus-within:outline-none focus-within:ring-2 focus-within:ring-fuchsia-500 dark:focus-within:ring-indigo-950 transition">

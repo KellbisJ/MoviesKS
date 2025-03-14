@@ -48,22 +48,22 @@ const Home = (): React.JSX.Element => {
 		<div className="min-h-screen flex justify-center items-start">
 			<div className="container">
 				<div className="text-center mt-4 mb-4">
-					<h2 className="text-4xl md:text-5xl font-playfair font-bold text-white mb-6">MoviesKS</h2>
+					<h2 className="text-4xl md:text-5xl font-playfair font-bold text-gray-800 dark:text-white mb-6">MoviesKS</h2>
 					{/* <p className="text-lg text-gray-300 max-w-2xl mx-auto">
 						Explore and discover detailed information about your favorite movies and TV shows. Only explore and pick up information.
 					</p> */}
-					<p className="text-lg text-gray-300 max-w-2xl mx-auto">
+					<p className="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
 						Explora y descubre información detallada sobre tus películas y series favoritas. Solo explora y recopila información.
 					</p>
 				</div>
 
 				{/* Search Bar */}
 				<div className="max-w-3xl mx-auto relative">
-					<div className="flex items-center bg-white/10 rounded-full px-6 py-4 border border-white/20">
+					<div className="flex items-center bg-gray-700 dark:bg-gradient-to-b dark:from-gray-100 dark:to-gray-50 rounded-full px-6 py-4 border border-white/20">
 						<input
 							type="text"
 							placeholder="Search movies, series..."
-							className="w-full bg-transparent border-none focus:ring-0 text-white placeholder-gray-400 outline-none no-underline pr-2"
+							className="w-full bg-transparent border-none focus:ring-0 text-gray-300 dark:text-gray-700 placeholder-gray-400 outline-none no-underline pr-2"
 						/>
 						<button type="button" className="w-6 h-6 text-gray-400">
 							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
