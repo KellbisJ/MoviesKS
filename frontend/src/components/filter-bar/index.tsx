@@ -6,13 +6,20 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { CategoriesSkeleton } from '../loading-skeletons';
 import { FilterBarPropsInterface } from '../../types/filterbar-interface';
 
-const FilterBar: React.FC<FilterBarPropsInterface> = ({ isMobile, isMoviesModalOpen, isGenresModalOpen, toggleMoviesModal, toggleGenresModal, categories, componentsLoading }) => {
-
+const FilterBar: React.FC<FilterBarPropsInterface> = ({
+	isMobile,
+	isMoviesModalOpen,
+	isGenresModalOpen,
+	toggleMoviesModal,
+	toggleGenresModal,
+	categories,
+	componentsLoading,
+}) => {
 	const navigate = useNavigate();
-  const location = useLocation();
-  
-  const [selectedMediaType, setSelectedMediaType] = useState<string | null>(localStorage.getItem('SELECTED_MEDIA_TYPE_MOVIES_KS') || '');
-  const [selectedGenre, setSelectedGenre] = useState<string>(localStorage.getItem('SELECTED_GENRE_TYPE_MOVIES_KS') || '');
+	const location = useLocation();
+
+	const [selectedMediaType, setSelectedMediaType] = useState<string | null>(localStorage.getItem('SELECTED_MEDIA_TYPE_MOVIES_KS') || '');
+	const [selectedGenre, setSelectedGenre] = useState<string>(localStorage.getItem('SELECTED_GENRE_TYPE_MOVIES_KS') || '');
 
 	const handleNavigation = (route: string) => {
 		navigate(route);
@@ -20,56 +27,57 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({ isMobile, isMoviesModalO
 
 	const handleMediaTypeChange = (type: string) => {
 		setSelectedMediaType(type);
-    setSelectedGenre('')
-    localStorage.setItem('SELECTED_MEDIA_TYPE_MOVIES_KS', type);
-    localStorage.setItem('SELECTED_GENRE_TYPE_MOVIES_KS', '');
+		setSelectedGenre('');
+		localStorage.setItem('SELECTED_MEDIA_TYPE_MOVIES_KS', type);
+		localStorage.setItem('SELECTED_GENRE_TYPE_MOVIES_KS', '');
 		handleNavigation(type === 'movies' ? '/movies' : '/tv');
 	};
 
 	const handleCategoryChange = (genreId: string) => {
-    if (selectedMediaType) {
-    const category = categories.find(genre => genre.id.toString() === genreId)
-      if (category) {
-        setSelectedGenre(category.id.toString());
-        localStorage.setItem('SELECTED_GENRE_TYPE_MOVIES_KS', category.id.toString());
-        const route = `${selectedMediaType === 'movies' ? '/movies' : '/tv'}/preview/genre/${category.id}`;
-        handleNavigation(route);
-      }
-      toggleGenresModal()
-  }
-};
+		if (selectedMediaType) {
+			const category = categories.find((genre) => genre.id.toString() === genreId);
+			if (category) {
+				setSelectedGenre(category.id.toString());
+				localStorage.setItem('SELECTED_GENRE_TYPE_MOVIES_KS', category.id.toString());
+				const route = `${selectedMediaType === 'movies' ? '/movies' : '/tv'}/preview/genre/${category.id}`;
+				handleNavigation(route);
+			}
+			toggleGenresModal();
+		}
+	};
 
 	useEffect(() => {
-    const pathsToInclude = ['/movies', '/tv', '/movies/preview/genre/', '/tv/preview/genre/'];
-    const isIncludedPath = pathsToInclude.some((path) => location.pathname.startsWith(path));
+		const pathsToInclude = ['/movies', '/tv', '/movies/preview/genre/', '/tv/preview/genre/'];
+		const isIncludedPath = pathsToInclude.some((path) => location.pathname.startsWith(path));
 
-    if (!isIncludedPath) {
-      setSelectedMediaType('');
-      setSelectedGenre('');
-      localStorage.removeItem('SELECTED_MEDIA_TYPE_MOVIES_KS');
-      localStorage.removeItem('SELECTED_GENRE_TYPE_MOVIES_KS');
-    } else {
-      const mediaType = location.pathname.includes('/movies') ? 'movies' : 'tv';
-      setSelectedMediaType(mediaType);
-      localStorage.setItem('SELECTED_MEDIA_TYPE_MOVIES_KS', mediaType);
-    }
-  }, [location]);
+		if (!isIncludedPath) {
+			setSelectedMediaType('');
+			setSelectedGenre('');
+			localStorage.removeItem('SELECTED_MEDIA_TYPE_MOVIES_KS');
+			localStorage.removeItem('SELECTED_GENRE_TYPE_MOVIES_KS');
+		} else {
+			const mediaType = location.pathname.includes('/movies') ? 'movies' : 'tv';
+			setSelectedMediaType(mediaType);
+			localStorage.setItem('SELECTED_MEDIA_TYPE_MOVIES_KS', mediaType);
+		}
+	}, [location]);
 
-  const categoryElements = CreatePreviewCategories({
-  categories: categories,
-  onCategoryClick: handleCategoryChange,
+	useEffect(() => {}, [categories]);
 
-});
+	const categoryElements = CreatePreviewCategories({
+		categories: categories,
+		onCategoryClick: handleCategoryChange,
+	});
 
 	return (
-		<div className="flex flex-col items-center md:items-start p-6 lg:p-8 mt-[60px] lg:mt-16 bg-fuchsia-700 dark:bg-slate-950 w-full gap-4 text-stone-100 transition min-h-44">
-			<div className="flex justify-between items-center w-full md:w-2/5 sm:w-lg p-2.5 px-5 bg-fuchsia-900 dark:bg-gray-700 rounded relative transition">
+		<div className="flex flex-col items-center md:items-start p-6 lg:p-8 mt-[60px] lg:mt-16 bg-gray-700 w-full gap-4 text-stone-100 transition min-h-44">
+			<div className="flex justify-between items-center w-full md:w-2/5 sm:w-lg p-2.5 px-5 bg-gray-600 rounded relative transition">
 				{selectedMediaType ? selectedMediaType.charAt(0).toUpperCase() + selectedMediaType.slice(1) : 'Select Media Type'}
 				<button onClick={toggleMoviesModal} className="">
 					<FaAngleRight />
 				</button>
 				{!isMobile && isMoviesModalOpen && (
-					<div className="absolute top-0 left-full w-80 p-2.5 bg-fuchsia-900 dark:bg-gray-700 z-50 ml-2 shadow-md rounded-lg hidden md:block transition">
+					<div className="absolute top-0 left-full w-80 p-2.5 bg-gray-600 z-50 ml-2 shadow-md rounded-lg hidden md:block transition">
 						<div className="mb-3 ml-3">
 							<h2 className="text-base lg:text-xl">Type</h2>
 						</div>
@@ -107,13 +115,13 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({ isMobile, isMoviesModalO
 				)}
 			</div>
 			{selectedMediaType && (
-				<div className="flex justify-between items-center w-full md:w-2/5 p-2.5 px-5 bg-fuchsia-900 dark:bg-gray-700 rounded relative transition">
+				<div className="flex justify-between items-center w-full md:w-2/5 p-2.5 px-5 bg-gray-600 rounded relative transition">
 					Genres
 					<button onClick={toggleGenresModal}>
 						<FaAngleRight />
 					</button>
 					{!isMobile && isGenresModalOpen && (
-						<div className="absolute top-0 left-full ml-2 w-80 p-2.5 bg-fuchsia-900 dark:bg-gray-700 z-20 shadow-md rounded-lg transition text-sm">
+						<div className="absolute top-0 left-full ml-2 w-80 p-2.5 bg-gray-600 z-20 shadow-md rounded-lg transition text-sm">
 							<div className="mb-3 ml-3">
 								<h2 className="text-base lg:text-xl">Genres</h2>
 							</div>
@@ -129,7 +137,7 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({ isMobile, isMoviesModalO
 							<h2 className="mb-2">Trending Media</h2>
 
 							<span
-								className="mb-3 p-1 bg-fuchsia-700 dark:bg-indigo-700 rounded"
+								className="mb-3 p-1 bg-white dark:bg-[#22092ceb] text-gray-700 dark:text-gray-300 rounded"
 								onClick={() => {
 									handleMediaTypeChange('movies');
 									toggleMoviesModal();
@@ -138,7 +146,7 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({ isMobile, isMoviesModalO
 							</span>
 
 							<span
-								className="mb-3 p-1 bg-fuchsia-700 dark:bg-indigo-700 rounded"
+								className="mb-3 p-1 bg-white dark:bg-[#22092ceb] text-gray-700 dark:text-gray-300 rounded"
 								onClick={() => {
 									handleMediaTypeChange('tv');
 									toggleMoviesModal();
@@ -157,6 +165,6 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({ isMobile, isMoviesModalO
 			)}
 		</div>
 	);
-}
+};
 
 export { FilterBar };

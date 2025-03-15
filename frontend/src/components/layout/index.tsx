@@ -15,7 +15,7 @@ const Layout = (): React.JSX.Element => {
 	useEffect(() => {}, [location]);
 
 	return (
-		<main className="bg-gradient-to-b from-gray-100 to-gray-50 flex flex-col min-h-screen dark:bg-gradient-to-b dark:from-slate-900 dark:to-slate-800 transition">
+		<main className="bg-gray-100 dark:bg-[#22092C]  flex flex-col min-h-screen dark:bg-gradient-to-b transition">
 			{showNavbarHero ? <NavbarHero /> : <Menu />}
 
 			<div className="flex-1 min-h-screen mt-16 p-6 lg:p-8">

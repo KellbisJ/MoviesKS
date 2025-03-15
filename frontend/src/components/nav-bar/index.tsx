@@ -50,7 +50,7 @@ const NavBar: React.FC<NavBarPropsInterface> = ({ isMobile, toggleSideBar, isSid
 	return (
 		<>
 			{isMobile ? (
-				<nav className="top-0 w-full bg-fuchsia-700 dark:bg-slate-900/80 backdrop-blur-sm shadow-md z-[1000] fixed px-6 text-stone-100 transition">
+				<nav className="top-0 w-full bg-white/80 dark:bg-[#22092ceb] backdrop-blur-sm shadow-md z-[1000] fixed px-6 text-gray-700 dark:text-gray-300 transition">
 					<ul className="flex list-none justify-between items-center py-4 m-0">
 						<li className="text-lg font-semibold decoration no-underline text-center rounded transition list-none">
 							<button className="navItemSideBarButton" onClick={toggleSideBar}>
@@ -94,7 +94,7 @@ const NavBar: React.FC<NavBarPropsInterface> = ({ isMobile, toggleSideBar, isSid
 					</ul>
 				</nav>
 			) : (
-				<nav className="hidden md:flex justify-between items-center fixed top-0 w-full px-8 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm z-[1000] shadow-md h-16 text-gray-700 dark:text-stone-100 transition">
+				<nav className="hidden md:flex justify-between items-center fixed top-0 w-full px-8 bg-white/80 dark:bg-[#22092ceb] backdrop-blur-sm z-[1000] shadow-md h-16 text-gray-700 dark:text-stone-100 transition">
 					<ul className="flex items-center list-none justify-between m-0 w-1/2 font-bold">
 						<li className="text-[16px] font-semibold no-underline text-center transition-colors duration-300 cursor-pointer">
 							<Link className="no-underline text-[20px]" to="/">
@@ -118,9 +118,9 @@ const NavBar: React.FC<NavBarPropsInterface> = ({ isMobile, toggleSideBar, isSid
 						</Link>
 					</ul>
 					<ul className="flex items-center list-none justify-between p-0">
-						<li className="flex items-center font-semibold no-underline text-center duration-300 list-none bg-fuchsia-900 dark:bg-gray-700 border-none rounded-2xl outline-none w-[45vw] min-w-[150px] max-w-[650px] focus-within:outline-none focus-within:ring-2 focus-within:ring-fuchsia-500 dark:focus-within:ring-indigo-950 transition">
+						<li className="flex items-center font-semibold no-underline text-center duration-300 list-none bg-gray-700 border-none rounded-2xl outline-none w-[45vw] min-w-[150px] max-w-[650px] focus-within:outline-none focus-within:ring-2 focus-within:ring-fuchsia-500 dark:focus-within:ring-indigo-950 transition">
 							<input
-								className="flex-grow rounded-2xl outline-none p-2 pl-4 text-stone-100 text-[16px] transition duration-300 ease-in-out bg-fuchsia-900 dark:bg-gray-700"
+								className="flex-grow rounded-2xl outline-none p-2 pl-4 text-stone-100 text-[16px] transition duration-300 ease-in-out bg-gray-700"
 								placeholder={`Search ${mediaType === 'movies' ? 'Movies' : 'TV Series'}`}
 								value={searchQuery}
 								onChange={(e) => updateSearchQuery(e.target.value)}

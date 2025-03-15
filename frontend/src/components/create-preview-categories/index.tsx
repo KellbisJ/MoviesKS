@@ -5,14 +5,13 @@ const CreatePreviewCategories: React.FC<CreatePreviewCategoriesPropsInterface> =
 	return categories.map((genre) => (
 		<div
 			key={genre.id}
-			className="flex justify-center items-center content-center flex-wrap w-full cursor-pointer rounded p-2 bg-fuchsia-700 hover:bg-fuchsia-700 dark:hover:bg-indigo-700 transition dark:bg-indigo-700 sm:bg-none"
+			className="flex justify-center items-center content-center flex-wrap w-full cursor-pointer rounded p-2 bg-white dark:bg-[#22092ceb] text-gray-700 dark:text-gray-300"
 			onClick={() => {
-        if (onCloseModal) {
-          onCloseModal();
-        }
-        onCategoryClick(genre.id.toString())
-			}}
-		>
+				if (onCloseModal) {
+					onCloseModal();
+				}
+				onCategoryClick(genre.id.toString());
+			}}>
 			<p>{genre.name}</p>
 		</div>
 	));

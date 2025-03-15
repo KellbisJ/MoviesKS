@@ -59,11 +59,11 @@ const Home = (): React.JSX.Element => {
 
 				{/* Search Bar */}
 				<div className="max-w-3xl mx-auto relative">
-					<div className="flex items-center bg-gray-700 dark:bg-gradient-to-b dark:from-gray-100 dark:to-gray-50 rounded-full px-6 py-4 border border-white/20">
+					<div className="flex items-center bg-gray-700  rounded-full px-6 py-4 border border-white/20 dark:border-gray-700">
 						<input
 							type="text"
 							placeholder="Search movies, series..."
-							className="w-full bg-transparent border-none focus:ring-0 text-gray-300 dark:text-gray-700 placeholder-gray-400 outline-none no-underline pr-2"
+							className="w-full bg-transparent border-none focus:ring-0 text-gray-300 placeholder-gray-400 outline-none no-underline pr-2"
 						/>
 						<button type="button" className="w-6 h-6 text-gray-400">
 							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -79,25 +79,25 @@ const Home = (): React.JSX.Element => {
 
 				<div className="space-y-2 mt-16">
 					{/* <h3 className="text-white">Recent Popular Movies</h3> */}
-					<h3 className="text-white">Películas populares recientes</h3>
+					<h3 className="text-gray-700 dark:text-gray-300 ">Películas populares recientes</h3>
 					<CreateMediaHome type="movies" media={POPULAR_MOVIES_RENDER} />
 				</div>
 
 				<div className="space-y-2 mt-16">
 					{/* <h3 className="text-white">Recent Popular Tv Series</h3> */}
-					<h3 className="text-white">Series de televisión populares recientes</h3>
+					<h3 className="text-gray-700 dark:text-gray-300 ">Series de televisión populares recientes</h3>
 					<CreateMediaHome type="tv" media={POPULAR_TV_SERIES_RENDER} />
 				</div>
 
 				<div className="space-y-2 mt-16">
 					{/* <h3 className="text-white">Top Rated Movies</h3> */}
-					<h3 className="text-white">Películas mejor valoradas</h3>
+					<h3 className="text-gray-700 dark:text-gray-300 ">Películas mejor valoradas</h3>
 					<CreateMediaHome type="movies" media={TOP_RATED_MOVIES_RENDER} />
 				</div>
 
 				<div className="space-y-2 mt-16">
 					{/* <h3 className="text-white">Top Rated Tv Series</h3> */}
-					<h3 className="text-white">Series de televisión mejor valoradas</h3>
+					<h3 className="text-gray-700 dark:text-gray-300 ">Series de televisión mejor valoradas</h3>
 					<CreateMediaHome type="tv" media={TOP_RATED_TV_SERIES_RENDER} />
 				</div>
 			</div>
