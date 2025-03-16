@@ -10,12 +10,12 @@ const NavbarHero = (): React.JSX.Element => {
 			<div className="container mx-auto px-4 sm:px-6 py-3">
 				<div className="flex items-start sm:items-center justify-between">
 					{/* Mobile Navigation (left side) */}
-					<div className="flex sm:hidden gap-4">
+					<div className="flex sm:hidden gap-3">
 						{[
-							{ to: '/', label: 'Home', icon: House },
-							{ to: '/movies', label: 'Movies', icon: Film },
-							{ to: '/tv', label: 'TV', icon: Tv },
-							{ to: '/favorites', label: 'Saved', icon: Save },
+							{ to: '/', label: 'Inicio', icon: House },
+							{ to: '/movies', label: 'Películas', icon: Film },
+							{ to: '/tv', label: 'Series de TV', icon: Tv },
+							{ to: '/favorites', label: 'Guardado', icon: Save },
 						].map((item) => (
 							<Link
 								key={item.to}
@@ -24,31 +24,29 @@ const NavbarHero = (): React.JSX.Element => {
                                    dark:text-gray-300 dark:hover:text-cyan-400 
                                    transition-colors duration-200 text-xs"
 								aria-label={item.label}>
-								<item.icon size={20} className="flex-shrink-0" />
+								<item.icon size={14} className="flex-shrink-0" />
 								<span>{item.label}</span>
 							</Link>
 						))}
 					</div>
 
 					{/* Desktop*/}
-					<h1 className="hidden sm:block text-xl font-bold text-gray-800 dark:text-gray-100 hover:text-cyan-500 transition-colors">
+					<h2 className="hidden sm:block text-xl font-bold text-gray-800 dark:text-gray-100 dark:hover:text-cyan-500 hover:text-cyan-500 transition-colors duration-300">
 						<Link to="/">MoviesKS</Link>
-					</h1>
+					</h2>
 
 					{/* Desktop Navigation (center) */}
 					<div className="hidden sm:flex items-center gap-6">
 						{[
-							{ to: '/', label: 'Home', icon: House },
-							{ to: '/movies', label: 'Movies', icon: Film },
-							{ to: '/tv', label: 'TV Shows', icon: Tv },
-							{ to: '/favorites', label: 'Saved', icon: Save },
+							{ to: '/', label: 'Inicio', icon: House },
+							{ to: '/movies', label: 'Películas', icon: Film },
+							{ to: '/tv', label: 'Series de TV', icon: Tv },
+							{ to: '/favorites', label: 'Guardado', icon: Save },
 						].map((item) => (
 							<Link
 								key={item.to}
 								to={item.to}
-								className="flex items-center gap-2 text-gray-600 hover:text-cyan-500 
-                                   dark:text-gray-300 dark:hover:text-cyan-400 
-                                   transition-colors duration-200 text-sm"
+								className="flex items-center gap-2 text-gray-600 hover:text-cyan-500 dark:text-gray-300 dark:hover:text-cyan-500 transition-colors duration-300 text-sm"
 								aria-label={item.label}>
 								<item.icon size={20} className="flex-shrink-0" />
 								<span className="font-medium">{item.label}</span>
@@ -60,13 +58,10 @@ const NavbarHero = (): React.JSX.Element => {
 					<div className="flex items-start sm:items-center">
 						<button
 							type="button"
-							className="p-1.5 text-gray-600 hover:text-cyan-500 
-                               dark:text-gray-300 dark:hover:text-cyan-400 
-                               rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 
-                               transition-colors duration-200"
+							className="p-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg text-gray-600 hover:text-cyan-500 dark:text-gray-300 hover:bg-cyan-500  dark:hover:bg-cyan-500 transition-colors duration-300"
 							onClick={() => setIsDarkMode(!isDarkMode)}
 							aria-label={isDarkMode ? 'Light mode' : 'Dark mode'}>
-							{isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+							{isDarkMode ? <Sun className="text-yellow-500" size={20} /> : <Moon className="text-black" size={20} />}
 						</button>
 					</div>
 				</div>

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { FaAngleRight } from 'react-icons/fa';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { ChevronRight, ChevronLeft } from 'lucide-react';
 import { SelectMediaParameters } from '../modals/select-media-parameters';
 import { CreatePreviewCategories } from '../create-preview-categories';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { CategoriesSkeleton } from '../loading-skeletons';
 import { FilterBarPropsInterface } from '../../types/filterbar-interface';
 
@@ -74,7 +74,7 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 			<div className="flex justify-between items-center w-full md:w-2/5 sm:w-lg p-2.5 px-5 bg-gray-600 rounded relative transition">
 				{selectedMediaType ? selectedMediaType.charAt(0).toUpperCase() + selectedMediaType.slice(1) : 'Select Media Type'}
 				<button onClick={toggleMoviesModal} className="">
-					<FaAngleRight />
+					{isMoviesModalOpen ? <ChevronLeft /> : <ChevronRight />}
 				</button>
 				{!isMobile && isMoviesModalOpen && (
 					<div className="absolute top-0 left-full w-80 p-2.5 bg-gray-600 z-50 ml-2 shadow-md rounded-lg hidden md:block transition">
@@ -84,9 +84,9 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 						<div className="grid grid-cols-1 gap-2.5">
 							<div className="flex w-auto">
 								<span
-									className={`text-white text-sm mb-1.25 font-medium cursor-pointer ${
+									className={`text-gray-100 text-sm mb-1.25 font-medium cursor-pointer ${
 										selectedMediaType === 'movies'
-											? 'bg-fuchsia-700 dark:bg-indigo-700 p-2.5 pl-2.5 rounded-lg shadow-md transition-all duration-300 ease-in-out border-l-5 border-white w-52 box-border'
+											? 'text-gray-700 dark:text-stone-100 bg-stone-100 dark:bg-gray-700 hover:bg-cyan-500 dark:hover:bg-cyan-500 p-2.5 pl-2.5 rounded-lg shadow-md transition-all duration-300 ease-in-out border-l-5 border-white w-52 box-border'
 											: 'inline-flex text-white text-sm mb-3 font-medium border-l-5 border-transparent pl-2.5 box-border items-center'
 									}`}
 									onClick={() => {
@@ -98,10 +98,10 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 							</div>
 							<div className="flex w-auto">
 								<span
-									className={`text-white text-sm mb-1.25 font-medium cursor-pointer ${
+									className={`text-gray-100 text-sm mb-1.25 font-medium cursor-pointer ${
 										selectedMediaType === 'tv'
-											? 'bg-fuchsia-700 dark:bg-indigo-700 p-2.5 pl-2.5 rounded-lg shadow-md transition-all duration-300 ease-in-out border-l-5 border-white w-52 box-border'
-											: 'inline-flex text-white text-sm mb-3 font-medium border-l-5 border-transparent pl-2.5 box-border items-center'
+											? 'text-gray-700 dark:text-stone-100 bg-stone-100 dark:bg-gray-700 hover:bg-cyan-500 dark:hover:bg-cyan-500 p-2.5 pl-2.5 rounded-lg shadow-md transition-all duration-300 ease-in-out border-l-5 border-white w-52 box-border'
+											: 'inline-flex text-sm mb-3 font-medium border-l-5 border-transparent pl-2.5 box-border items-center'
 									}`}
 									onClick={() => {
 										handleMediaTypeChange('tv');
@@ -117,9 +117,7 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 			{selectedMediaType && (
 				<div className="flex justify-between items-center w-full md:w-2/5 p-2.5 px-5 bg-gray-600 rounded relative transition">
 					Genres
-					<button onClick={toggleGenresModal}>
-						<FaAngleRight />
-					</button>
+					<button onClick={toggleGenresModal}>{isGenresModalOpen ? <ChevronLeft /> : <ChevronRight />}</button>
 					{!isMobile && isGenresModalOpen && (
 						<div className="absolute top-0 left-full ml-2 w-80 p-2.5 bg-gray-600 z-20 shadow-md rounded-lg transition text-sm">
 							<div className="mb-3 ml-3">

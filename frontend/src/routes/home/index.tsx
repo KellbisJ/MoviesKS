@@ -3,8 +3,12 @@ import { MovieInterface, TVInterface } from '@/types/movie-and-tv-interface';
 import { getMediaLists } from '@/services/media-lists';
 import { MoviesListInterface, TvSeriesListInterface, ListTypeMovies, ListTypeTvSeries } from '@/services/media-lists/types';
 import { CreateMediaHome } from '@/components/create-media';
+import { MediaHomeSkeleton, MediaHomeErrorSkeleton } from '@/components/loading-skeletons';
 
 const Home = (): React.JSX.Element => {
+	const [loadingComponents, setLoadingComponents] = useState<boolean>(true);
+	const [errorCatched, setErrorCatched] = useState<boolean>(false);
+
 	const [movieMediaPopularList, setMovieMediaPopularList] = useState<MoviesListInterface[]>([]);
 	const [movieMediaTopRatedList, setMovieMediaTopRatedList] = useState<MoviesListInterface[]>([]);
 
@@ -14,6 +18,8 @@ const Home = (): React.JSX.Element => {
 	useEffect(() => {
 		const fetchPopularMediaList: () => Promise<void> = async () => {
 			try {
+				setErrorCatched(false);
+
 				const popularMoviesList = await getMediaLists(1, 'movie', ListTypeMovies.popular);
 				const topRatedMoviesList = await getMediaLists(1, 'movie', ListTypeMovies.topRated);
 
@@ -31,7 +37,11 @@ const Home = (): React.JSX.Element => {
 
 				setTvSeriesMediaPopularList(popularTvSeriesData);
 				setTvSeriesMediaTopRatedList(topRatedTvSeriesData);
+
+				setLoadingComponents(false);
 			} catch (err) {
+				setLoadingComponents(false);
+				setErrorCatched(true);
 				console.error(err);
 			}
 		};
@@ -44,11 +54,34 @@ const Home = (): React.JSX.Element => {
 	const POPULAR_TV_SERIES_RENDER = tvSeriesMediaPopularList as TVInterface[];
 	const TOP_RATED_TV_SERIES_RENDER = tvSeriesMediaTopRatedList as TVInterface[];
 
+	const mediaSectionData = [
+		{
+			title: 'Películas populares recientes',
+			type: 'movies' as const,
+			media: POPULAR_MOVIES_RENDER,
+		},
+		{
+			title: 'Series de televisión populares recientes',
+			type: 'tv' as const,
+			media: POPULAR_TV_SERIES_RENDER,
+		},
+		{
+			title: 'Películas mejor valoradas',
+			type: 'movies' as const,
+			media: TOP_RATED_MOVIES_RENDER,
+		},
+		{
+			title: 'Series de televisión mejor valoradas',
+			type: 'tv' as const,
+			media: TOP_RATED_TV_SERIES_RENDER,
+		},
+	];
+
 	return (
 		<div className="min-h-screen flex justify-center items-start">
 			<div className="container">
 				<div className="text-center mt-4 mb-4">
-					<h2 className="text-4xl md:text-5xl font-playfair font-bold text-gray-800 dark:text-white mb-6">MoviesKS</h2>
+					<h1 className="text-4xl md:text-5xl font-playfair font-bold text-gray-800 dark:text-white mb-6">MoviesKS</h1>
 					{/* <p className="text-lg text-gray-300 max-w-2xl mx-auto">
 						Explore and discover detailed information about your favorite movies and TV shows. Only explore and pick up information.
 					</p> */}
@@ -58,7 +91,7 @@ const Home = (): React.JSX.Element => {
 				</div>
 
 				{/* Search Bar */}
-				<div className="max-w-3xl mx-auto relative">
+				<form className="max-w-3xl mx-auto relative">
 					<div className="flex items-center bg-gray-700  rounded-full px-6 py-4 border border-white/20 dark:border-gray-700">
 						<input
 							type="text"
@@ -75,31 +108,20 @@ const Home = (): React.JSX.Element => {
 							</svg>
 						</button>
 					</div>
-				</div>
+				</form>
 
-				<div className="space-y-2 mt-16">
-					{/* <h3 className="text-white">Recent Popular Movies</h3> */}
-					<h3 className="text-gray-700 dark:text-gray-300 ">Películas populares recientes</h3>
-					<CreateMediaHome type="movies" media={POPULAR_MOVIES_RENDER} />
-				</div>
-
-				<div className="space-y-2 mt-16">
-					{/* <h3 className="text-white">Recent Popular Tv Series</h3> */}
-					<h3 className="text-gray-700 dark:text-gray-300 ">Series de televisión populares recientes</h3>
-					<CreateMediaHome type="tv" media={POPULAR_TV_SERIES_RENDER} />
-				</div>
-
-				<div className="space-y-2 mt-16">
-					{/* <h3 className="text-white">Top Rated Movies</h3> */}
-					<h3 className="text-gray-700 dark:text-gray-300 ">Películas mejor valoradas</h3>
-					<CreateMediaHome type="movies" media={TOP_RATED_MOVIES_RENDER} />
-				</div>
-
-				<div className="space-y-2 mt-16">
-					{/* <h3 className="text-white">Top Rated Tv Series</h3> */}
-					<h3 className="text-gray-700 dark:text-gray-300 ">Series de televisión mejor valoradas</h3>
-					<CreateMediaHome type="tv" media={TOP_RATED_TV_SERIES_RENDER} />
-				</div>
+				{mediaSectionData.map((section, index) => (
+					<section key={`${section.type}-${index}`} className="space-y-2 mt-16" role="region" lang="es">
+						<h3 className="text-gray-700 dark:text-gray-300">{section.title}</h3>
+						{loadingComponents ? (
+							<MediaHomeSkeleton />
+						) : !errorCatched ? (
+							<CreateMediaHome type={section.type} media={section.media} />
+						) : (
+							<MediaHomeErrorSkeleton />
+						)}
+					</section>
+				))}
 			</div>
 		</div>
 	);

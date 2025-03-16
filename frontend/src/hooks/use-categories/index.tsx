@@ -4,11 +4,11 @@ import { GenreInterface } from '../../types/genre-interface';
 import { useParams } from 'react-router-dom';
 
 const useCategories = () => {
-  const { type } = useParams()
-  const mediaType = type as string
+	const { type } = useParams();
+	const mediaType = type as string;
 	const [categories, setCategories] = useState<GenreInterface[]>([]);
 	const [isMoviesModalOpen, setIsMoviesModalOpen] = useState<boolean>(false);
-	const [isGenresModalOpen, setIsGenresModalOpen] = useState(false);
+	const [isGenresModalOpen, setIsGenresModalOpen] = useState<boolean>(false);
 	const [componentsLoading, setComponentsLoading] = useState(true);
 
 	useEffect(() => {
@@ -37,7 +37,16 @@ const useCategories = () => {
 		setIsGenresModalOpen(!isGenresModalOpen);
 	};
 
-	return { categories, toggleMoviesModal, toggleGenresModal, isMoviesModalOpen, isGenresModalOpen, componentsLoading };
+	return {
+		categories,
+		toggleMoviesModal,
+		toggleGenresModal,
+		isMoviesModalOpen,
+		setIsMoviesModalOpen,
+		isGenresModalOpen,
+		setIsGenresModalOpen,
+		componentsLoading,
+	};
 };
 
 export { useCategories };

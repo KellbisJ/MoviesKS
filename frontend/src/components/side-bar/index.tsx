@@ -19,22 +19,22 @@ const SideBar: React.FC<SideBarPropsInterface> = ({ isMobile, isSideBarOpen, tog
 								<button
 									type="button"
 									className="flex items-center w-full gap-3 px-4 py-3 rounded-lg transition-all 
-                       duration-200 hover:bg-gray-100 dark:hover:bg-gray-800
+                       duration-200 hover:bg-gray-100 dark:hover:bg-gray-700
                        text-gray-700 hover:text-cyan-500 
                        dark:text-gray-300 dark:hover:text-cyan-400
                        focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500"
 									aria-label="Toggle theme"
 									onClick={() => setIsDarkMode(!isDarkMode)}>
 									{isDarkMode ? <Sun size={22} className="flex-shrink-0" /> : <Moon size={22} className="flex-shrink-0" />}
-									<span className="text-sm font-medium">{isDarkMode ? 'Light' : 'Dark'} Mode</span>
+									<span className="text-sm font-medium text-start">Modo {isDarkMode ? 'Claro' : 'Oscuro'}</span>
 								</button>
 							</li>
 
 							{[
-								{ to: '/', label: 'Home', icon: House, aria: 'Home', toggle: toggleSideBar },
-								{ to: '/movies', label: 'Movies', icon: Film, aria: 'Movies', toggle: toggleSideBar },
-								{ to: '/tv', label: 'Tv Series', icon: Tv, aria: 'TV series', toggle: toggleSideBar },
-								{ to: '/favorites', label: 'Saved Movies', icon: Save, aria: 'Saved movies', toggle: toggleSideBar },
+								{ to: '/', label: 'Inicio', icon: House, aria: 'Inicio', toggle: toggleSideBar },
+								{ to: '/movies', label: 'Películas', icon: Film, aria: 'Películas', toggle: toggleSideBar },
+								{ to: '/tv', label: 'Series de TV', icon: Tv, aria: 'Series de TV', toggle: toggleSideBar },
+								{ to: '/favorites', label: 'Guardado', icon: Save, aria: 'Guardado', toggle: toggleSideBar },
 							].map(({ to, label, icon: Icon, aria, toggle }) => (
 								<li key={to} className="w-full">
 									<Link

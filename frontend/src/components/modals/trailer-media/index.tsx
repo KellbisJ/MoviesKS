@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { FaWindowClose } from 'react-icons/fa';
+import { CircleX } from 'lucide-react';
 import { TrailerMediaModalPropsInterface } from '../../../types/modals/trailer-media-modal-interface';
 
 const TrailerMedia: React.FC<TrailerMediaModalPropsInterface> = ({ isOpen, onClose, videoKey }) => {
 	if (!isOpen) return null;
 	return ReactDOM.createPortal(
-		<div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-1000">
-			<div className="relative w-[80%] max-w-[800px] bg-slate-200 dark:bg-indigo-950 p-5 rounded-lg shadow-lg flex flex-col items-center">
-				<FaWindowClose
-					className="absolute -bottom-10 sm:-bottom-14 left-1/2 -translate-x-1/2 text-center border-none transition duration-300 ease-in-out transform hover:scale-110 shadow-md cursor-pointer text-red-500 text-2xl"
+		<div className="fixed inset-0 bg-black backdrop-blur-sm bg-opacity-50 flex justify-center items-center z-[999]">
+			<div className="relative w-[80%] max-w-[800px] bg-blue-100 dark:bg-[#363062] p-5 rounded-lg shadow-lg flex flex-col items-center">
+				<CircleX
+					size={32}
+					className="absolute -bottom-10 sm:-bottom-14 left-1/2 -translate-x-1/2 text-center border-none transition duration-300 ease-in-out transform hover:scale-110 shadow-md cursor-pointer text-red-500"
 					onClick={onClose}
 				/>
 

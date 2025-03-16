@@ -36,11 +36,11 @@ const MediaContainerMinimalist: React.FC<MediaContainerPropsInterface> = ({ medi
 	};
 
 	return (
-		<div className="group relative w-full h-[90%] rounded-lg transition-transform duration-300 hover:scale-105 p-2">
+		<div className="group relative w-full h-full rounded-lg transition-transform duration-300 hover:scale-105 p-2">
 			{media_.poster_path === null ? (
 				<MediaNullSkeleton data={media_} type={type} title={isMovie(media_) ? media_.title : media_.name} />
 			) : (
-				<div className="relative h-full overflow-hidden rounded-lg shadow-lg cursor-pointer">
+				<div className="relative w-full h-full overflow-hidden rounded-lg shadow-lg cursor-pointer">
 					<img
 						className="h-full w-full object-cover aspect-[2/3]"
 						alt={isMovie(media_) ? media_.title : media_.name}
@@ -48,7 +48,6 @@ const MediaContainerMinimalist: React.FC<MediaContainerPropsInterface> = ({ medi
 						onClick={handleNavigation}
 					/>
 
-					{/* Favorite button */}
 					<div
 						className={`absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity size-6 cursor-pointer drop-shadow-lg ${
 							isFavorite ? 'text-cyan-400' : 'text-gray-200 hover:text-cyan-400'

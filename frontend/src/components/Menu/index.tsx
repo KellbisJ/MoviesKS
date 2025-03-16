@@ -9,7 +9,16 @@ import { useLocation, useParams } from 'react-router-dom';
 const Menu = (): React.JSX.Element => {
 	const { isMobile } = useWindowSize();
 	const { type, id } = useParams();
-	const { categories, isMoviesModalOpen, isGenresModalOpen, toggleMoviesModal, toggleGenresModal, componentsLoading } = useCategories();
+	const {
+		categories,
+		isMoviesModalOpen,
+		setIsMoviesModalOpen,
+		isGenresModalOpen,
+		setIsGenresModalOpen,
+		toggleMoviesModal,
+		toggleGenresModal,
+		componentsLoading,
+	} = useCategories();
 	const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(false);
 	const [showFilterBar, setShowFilterBar] = useState<boolean>(false);
 
@@ -30,7 +39,14 @@ const Menu = (): React.JSX.Element => {
 
 	return (
 		<>
-			<NavBar isMobile={isMobile} toggleSideBar={toggleSideBar} isSideBarOpen={isSideBarOpen} />
+			<NavBar
+				isMobile={isMobile}
+				toggleSideBar={toggleSideBar}
+				isSideBarOpen={isSideBarOpen}
+				setIsSideBarOpen={setIsSideBarOpen}
+				setIsMoviesModalOpen={setIsMoviesModalOpen}
+				setIsGenresModalOpen={setIsGenresModalOpen}
+			/>
 			<SideBar isMobile={isMobile} isSideBarOpen={isSideBarOpen} toggleSideBar={toggleSideBar} />
 			{showFilterBar && (
 				<>

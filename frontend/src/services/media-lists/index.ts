@@ -22,13 +22,7 @@ async function getMediaLists(
 		});
 		return data;
 	} catch (error) {
-		console.error('Error fetching media videos:', error);
-		return {
-			page: 0,
-			results: [],
-			total_pages: 0,
-			total_results: 0,
-		};
+		throw new Error(`error: ${error}`);
 	}
 }
 

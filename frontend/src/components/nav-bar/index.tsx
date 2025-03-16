@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSearch } from '../../context/search-media-context';
 import { useDarkMode } from '../../hooks/use-dark-mode';
-import { MdDarkMode, MdLightMode } from 'react-icons/md';
-import { VscThreeBars } from 'react-icons/vsc';
-import { FaTimes } from 'react-icons/fa';
-import { CgSearch } from 'react-icons/cg';
 import { NavBarPropsInterface } from '../../types/navbar-props-interface';
+import { House, Film, Tv, Save, Sun, Moon, PanelLeftOpen, PanelLeftClose, Search, TextSearch, CircleX } from 'lucide-react';
 
-const NavBar: React.FC<NavBarPropsInterface> = ({ isMobile, toggleSideBar, isSideBarOpen }) => {
+const NavBar: React.FC<NavBarPropsInterface> = ({
+	isMobile,
+	toggleSideBar,
+	isSideBarOpen,
+	setIsSideBarOpen,
+	setIsMoviesModalOpen,
+	setIsGenresModalOpen,
+}) => {
 	const { searchQuery, updateSearchQuery, updateMediaType, mediaType } = useSearch();
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -24,11 +27,9 @@ const NavBar: React.FC<NavBarPropsInterface> = ({ isMobile, toggleSideBar, isSid
 		}
 	}, [location, updateMediaType]); // updating mediatype to search
 
-	const handleNavigation = (route: string) => {
-		navigate(route);
-	};
-
-	const handleSearch = () => {
+	const handleSearch = (e: React.FormEvent) => {
+		e.preventDefault();
+		setShowSearchBar(false);
 		const sanitizedQuery = searchQuery.replace(/[^a-zA-Z0-9\s]/g, '').trim(); // rg expression to search media query only by safe characters
 		if (sanitizedQuery !== '') {
 			navigate(`/search/${mediaType}/${sanitizedQuery}`); // isn't allowed an empty search query
@@ -36,15 +37,13 @@ const NavBar: React.FC<NavBarPropsInterface> = ({ isMobile, toggleSideBar, isSid
 	};
 
 	const handleSearchIconClick = () => {
-		if (showSearchBar) {
-			handleSearch();
-		} else {
-			setShowSearchBar(true); // this when is mobile
-		}
-	};
-
-	const handleCloseSearchBar = () => {
-		setShowSearchBar(false); // this when is mobile also
+		setIsMoviesModalOpen(false);
+		setIsGenresModalOpen(false);
+		setIsSideBarOpen(false);
+		setShowSearchBar(!showSearchBar); // this when is mobile
+		// if (showSearchBar) {
+		// 	handleSearch();
+		// }
 	};
 
 	return (
@@ -53,8 +52,15 @@ const NavBar: React.FC<NavBarPropsInterface> = ({ isMobile, toggleSideBar, isSid
 				<nav className="top-0 w-full bg-white/80 dark:bg-[#22092ceb] backdrop-blur-sm shadow-md z-[1000] fixed px-6 text-gray-700 dark:text-gray-300 transition">
 					<ul className="flex list-none justify-between items-center py-4 m-0">
 						<li className="text-lg font-semibold decoration no-underline text-center rounded transition list-none">
-							<button className="navItemSideBarButton" onClick={toggleSideBar}>
-								{isSideBarOpen ? <FaTimes /> : <VscThreeBars />}
+							<button
+								className="navItemSideBarButton"
+								onClick={() => {
+									toggleSideBar();
+									setShowSearchBar(false);
+									setIsMoviesModalOpen(false);
+									setIsGenresModalOpen(false);
+								}}>
+								{isSideBarOpen ? <PanelLeftClose /> : <PanelLeftOpen />}
 							</button>
 						</li>
 						<li className="text-lg font-semibold decoration no-underline text-center rounded transition list-none">
@@ -62,74 +68,96 @@ const NavBar: React.FC<NavBarPropsInterface> = ({ isMobile, toggleSideBar, isSid
 								MoviesKS
 							</Link>
 						</li>
+						<li className="text-lg font-semibold decoration no-underline text-center rounded transition list-none">
+							<button
+								className="bg-none border-none p-0 flex items-center justify-center w-auto h-auto cursor-pointer"
+								onClick={handleSearchIconClick}>
+								<TextSearch />
+							</button>
+						</li>
 
-						{showSearchBar ? (
-							<li className="absolute top-0 left-0 w-full flex items-center justify-center bg-fuchsia-800 dark:bg-slate-950 p-3 pl-6 pr-6 shadow-md z-20">
+						{showSearchBar && !isSideBarOpen && (
+							<li className="absolute top-16 left-0 w-full flex items-center justify-center bg-white/80 dark:bg-[#22092ceb] p-3 px-6 shadow-md z-20">
 								<button
-									className="flex items-center justify-center bg-fuchsia-950 dark:bg-gray-700 border-none p-0 min-w-[30px] max-w-[40px] min-h-[30px] max-h-[40px] rounded-full"
-									onClick={handleCloseSearchBar}>
-									<FaTimes />
-								</button>
-								<input
-									className="flex-1 p-2 pl-4 pr-4 m-0 mx-4 border-none rounded-2xl text-base shadow-inner bg-fuchsia-950 dark:bg-gray-700 transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-fuchsia-500 dark:focus:ring-indigo-950"
-									placeholder={`Search ${mediaType === 'movies' ? 'Movies' : 'TV Series'}`}
-									value={searchQuery}
-									onChange={(e) => updateSearchQuery(e.target.value)}
-								/>
-								<button
-									className="flex items-center justify-center border-none bg-none cursor-pointer text-xl text-white"
+									className="flex items-center justify-center rounded-full mr-2 text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100 transition-colors"
 									onClick={handleSearchIconClick}>
-									<CgSearch />
+									<CircleX size={20} />
 								</button>
-							</li>
-						) : (
-							<li className="text-lg font-semibold decoration no-underline text-center rounded transition list-none">
-								<button
-									className="bg-none border-none p-0 flex items-center justify-center w-auto h-auto cursor-pointer"
-									onClick={handleSearchIconClick}>
-									<CgSearch />
-								</button>
+
+								<form onSubmit={handleSearch} className="relative flex-1 max-w-2xl">
+									<input
+										className="w-full p-2 pl-4 pr-10 border-none rounded-2xl text-gray-100 text-base shadow-inner bg-gray-700 transition-all duration-300 ease-in-out focus:outline-none"
+										placeholder={`Search ${mediaType === 'movies' ? 'Movies' : 'TV Series'}`}
+										value={searchQuery}
+										onChange={(e) => updateSearchQuery(e.target.value)}
+										onKeyDown={(e) => {
+											if (e.key === 'Enter') {
+												handleSearch(e);
+												setShowSearchBar(false);
+											}
+										}}
+									/>
+
+									<button
+										type="submit"
+										className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center size-8 border-none bg-none cursor-pointer text-white hover:text-cyan-300 transition-colors">
+										<Search size={18} className="stroke-current" />
+									</button>
+								</form>
 							</li>
 						)}
 					</ul>
 				</nav>
 			) : (
 				<nav className="hidden md:flex justify-between items-center fixed top-0 w-full px-8 bg-white/80 dark:bg-[#22092ceb] backdrop-blur-sm z-[1000] shadow-md h-16 text-gray-700 dark:text-stone-100 transition">
-					<ul className="flex items-center list-none justify-between m-0 w-1/2 font-bold">
-						<li className="text-[16px] font-semibold no-underline text-center transition-colors duration-300 cursor-pointer">
-							<Link className="no-underline text-[20px]" to="/">
+					<div className="flex items-center gap-6 xl:gap-8 flex-1">
+						<Link to="/" className="text-2xl font-bold hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">
+							<span className="flex items-center gap-2">
+								<Film size={24} />
 								MoviesKS
-							</Link>
-						</li>
-						<div className="w-fit" onClick={() => setIsDarkMode(!isDarkMode)}>
-							{isDarkMode ? <MdLightMode className="text-xl cursor-pointer" /> : <MdDarkMode className="text-xl cursor-pointer" />}
+							</span>
+						</Link>
+
+						<div className="flex items-center gap-4 xl:gap-6">
+							{[
+								{ to: '/home', label: 'Home', icon: House },
+								{ to: '/movies/all', label: 'All Movies', icon: Film },
+								{ to: '/tv/all', label: 'All Tv Series', icon: Tv },
+								{ to: '/favorites', label: 'Guardado', icon: Save },
+							].map((item) => (
+								<Link
+									key={item.to}
+									to={item.to}
+									className="flex items-center gap-2 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors text-sm">
+									<item.icon size={18} className="flex-shrink-0" />
+									{item.label}
+								</Link>
+							))}
 						</div>
-						<Link to={'/home'} className="cursor-pointer">
-							Home
-						</Link>
-						<Link to={'/movies'} className="cursor-pointer">
-							Movies
-						</Link>
-						<Link to={'/tv'} className="cursor-pointer">
-							TV
-						</Link>
-						<Link to={'/favorites'} className="cursor-pointer">
-							Favorites
-						</Link>
-					</ul>
-					<ul className="flex items-center list-none justify-between p-0">
-						<li className="flex items-center font-semibold no-underline text-center duration-300 list-none bg-gray-700 border-none rounded-2xl outline-none w-[45vw] min-w-[150px] max-w-[650px] focus-within:outline-none focus-within:ring-2 focus-within:ring-fuchsia-500 dark:focus-within:ring-indigo-950 transition">
+					</div>
+
+					<div className="flex items-center gap-4 xl:gap-6 flex-1 justify-end">
+						<form
+							onSubmit={handleSearch}
+							className="relative flex items-center w-4/5 max-w-xl bg-gray-100 dark:bg-gray-700 rounded-full transition-all focus-within:ring-2 focus-within:ring-cyan-500">
 							<input
-								className="flex-grow rounded-2xl outline-none p-2 pl-4 text-stone-100 text-[16px] transition duration-300 ease-in-out bg-gray-700"
+								type="text"
 								placeholder={`Search ${mediaType === 'movies' ? 'Movies' : 'TV Series'}`}
+								className="w-full px-6 py-2 bg-transparent outline-none rounded-full placeholder-gray-500 dark:placeholder-gray-400 text-sm transition-all"
 								value={searchQuery}
 								onChange={(e) => updateSearchQuery(e.target.value)}
 							/>
-							<button className="bg-none border-none p-2 flex items-center justify-center cursor-pointer" onClick={handleSearch}>
-								<CgSearch />
+							<button type="submit" className="p-2 mr-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+								<Search size={20} className="text-gray-600 dark:text-gray-300" />
 							</button>
-						</li>
-					</ul>
+						</form>
+
+						<button
+							onClick={() => setIsDarkMode(!isDarkMode)}
+							className="p-1.5 rounded-lg transition-colors bg-stone-100 dark:bg-gray-700 hover:bg-cyan-500 dark:hover:bg-cyan-500">
+							{isDarkMode ? <Sun size={20} className="text-yellow-400" /> : <Moon size={20} className="text-black dark:text-gray-300" />}
+						</button>
+					</div>
 				</nav>
 			)}
 		</>
