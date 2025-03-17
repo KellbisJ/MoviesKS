@@ -5,6 +5,7 @@ import { useInfiniteScroll } from '../../hooks/use-infinite-scroll';
 import { CreateMedia } from '../../components/create-media';
 import { MediaSkeleton } from '../../components/loading-skeletons';
 import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
+import { NoResults } from '@/components/no-results';
 
 const MediaBySearch = (): React.JSX.Element => {
 	const { type, query } = useParams(); // To use type about media and query parameter from current URL
@@ -67,7 +68,11 @@ const MediaBySearch = (): React.JSX.Element => {
 	const allMedia = [...media, ...moreMedia] as MovieInterface[] | TVInterface[];
 
 	if (media.length === 0) {
-		return <h2 className="text-center dark:text-gray-100">No results</h2>;
+		return (
+			<>
+				<NoResults />
+			</>
+		);
 	}
 
 	return (

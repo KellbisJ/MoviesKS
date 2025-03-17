@@ -5,6 +5,7 @@ import { MediaBySearchInterface } from '@/types/media-by-search-interface';
 import { CircleLoaderStart } from '@/components/circle-loader';
 import { Film, Tv } from 'lucide-react';
 import { CreateMedia } from '@/components/create-media';
+import { NoResults } from '@/components/no-results';
 
 const SearchAboutPage = () => {
 	const { query } = useParams();
@@ -30,6 +31,7 @@ const SearchAboutPage = () => {
 
 	const limitResultsMediaToShow = 6;
 	const limitedMovies = movies.results.slice(0, limitResultsMediaToShow);
+	const limitedTv = tv.results.slice(0, limitResultsMediaToShow);
 
 	return (
 		<>
@@ -40,7 +42,7 @@ const SearchAboutPage = () => {
 			) : (
 				<div className="flex flex-col justify-center items-center">
 					<h1 className="text-gray-600 dark:text-gray-300 mb-4">Results for "{query}"</h1>
-					<div className="flex gap-8 w-auto">
+					<div className="flex flex-col sm:flex-row gap-4 sm:gap-8 w-auto">
 						{[
 							{ to: `/search/discover/movies?query=${query}`, label: `Peliculas  (${movies.results.length})`, icon: Film },
 							{ to: `/search/discover/tv?query=${query}`, label: `Series de Tv  (${tv.results.length})`, icon: Tv },
@@ -56,9 +58,33 @@ const SearchAboutPage = () => {
 							</Link>
 						))}
 					</div>
-					<div className="mt-8">
-						<CreateMedia type="movies" media={limitedMovies} />
-					</div>
+
+					{movies.results.length > 0 && (
+						<div className="mt-8">
+							<h3 className="text-gray-600 dark:text-gray-300 mb-4">About Movies</h3>
+							<CreateMedia type="movies" media={limitedMovies} />
+						</div>
+					)}
+
+					{tv.results.length > 0 && (
+						<div className="mt-8">
+							<h3 className="text-gray-600 dark:text-gray-300 mb-4">About Tv</h3>
+							<CreateMedia type="tv" media={limitedTv} />
+						</div>
+					)}
+
+					{movies.results.length === 0 && tv.results.length === 0 && (
+						<div className="mt-4 sm:mt-20">
+							<NoResults />
+							<p className="text-lg text-center text-gray-500">
+								Vuelve al{' '}
+								<a href="/home" className="text-cyan-500 hover:underline">
+									homepage
+								</a>
+								.
+							</p>
+						</div>
+					)}
 				</div>
 			)}
 		</>

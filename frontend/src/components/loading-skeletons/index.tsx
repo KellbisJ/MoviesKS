@@ -147,6 +147,10 @@ const MediaHomeErrorSkeleton = () => {
 	);
 };
 
+const SingleMediaSkeleton = () => (
+	<div className="w-full min-h-60 max-h-60 md:min-h-80 md:max-h-80 lg:min-h-96 lg:max-h-96 bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
+);
+
 export {
 	MediaSkeleton,
 	MediaNullSkeleton,
@@ -159,4 +163,5 @@ export {
 	MediaFavoritesVoid,
 	MediaHomeSkeleton,
 	MediaHomeErrorSkeleton,
+	SingleMediaSkeleton,
 };
