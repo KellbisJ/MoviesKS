@@ -49,7 +49,7 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
 	return (
 		<>
 			{isMobile ? (
-				<nav className="top-0 w-full bg-white/80 dark:bg-[#22092ceb] backdrop-blur-sm shadow-md z-[1000] fixed px-6 text-gray-700 dark:text-gray-300 transition">
+				<nav className="top-0 w-full bg-white/80 dark:bg-[#1e1a2fe7] backdrop-blur-sm shadow-md z-[1000] fixed px-6 text-gray-700 dark:text-gray-300 transition">
 					<ul className="flex list-none justify-between items-center py-4 m-0">
 						<li className="text-lg font-semibold decoration no-underline text-center rounded transition list-none">
 							<button
@@ -77,7 +77,7 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
 						</li>
 
 						{showSearchBar && !isSideBarOpen && (
-							<li className="absolute top-16 left-0 w-full flex items-center justify-center bg-white/80 dark:bg-[#22092ceb] p-3 px-6 shadow-md z-20">
+							<li className="absolute top-16 left-0 w-full flex items-center justify-center bg-white/80 dark:bg-[#1e1a2fe7] p-3 px-6 shadow-md z-20">
 								<button
 									className="flex items-center justify-center rounded-full mr-2 text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100 transition-colors"
 									onClick={handleSearchIconClick}>
@@ -109,7 +109,7 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
 					</ul>
 				</nav>
 			) : (
-				<nav className="hidden md:flex justify-between items-center fixed top-0 w-full px-8 bg-white/80 dark:bg-[#22092ceb] backdrop-blur-sm z-[1000] shadow-md h-16 text-gray-700 dark:text-stone-100 transition">
+				<nav className="hidden md:flex justify-between items-center fixed top-0 w-full px-8 bg-white/80 dark:bg-[#1e1a2fe7] backdrop-blur-sm z-[1000] shadow-md h-16 text-gray-700 dark:text-stone-100 transition">
 					<div className="flex items-center gap-6 xl:gap-8 flex-1">
 						<Link to="/" className="text-2xl font-bold hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">
 							<span className="flex items-center gap-2">
@@ -120,10 +120,10 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
 
 						<div className="flex items-center gap-4 xl:gap-6">
 							{[
-								{ to: '/home', label: 'Home', icon: House },
-								{ to: '/movies/all', label: 'All Movies', icon: Film },
-								{ to: '/tv/all', label: 'All Tv Series', icon: Tv },
-								{ to: '/favorites', label: 'Guardado', icon: Save },
+								{ to: '/home', label: 'Inicio', icon: House },
+								{ to: '/movies/all', label: 'Películas', icon: Film },
+								{ to: '/tv/all', label: 'Series de TV', icon: Tv },
+								{ to: '/saved-media', label: 'Guardado', icon: Save },
 							].map((item) => (
 								<Link
 									key={item.to}

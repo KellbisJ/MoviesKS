@@ -28,7 +28,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = ({
 	return (
 		<div className="text-black dark:text-gray-100">
 			<div className="flex flex-wrap gap-5 mb-6 flex-col items-center md:flex-row md:items-normal">
-				<div className="flex-1 w-full max-w-96 sm:max-w-96 h-[460px] p-4 rounded-lg bg-blue-100 dark:bg-[#363062] flex justify-center relative">
+				<div className="flex-1 w-full max-w-96 sm:max-w-96 h-[460px] p-4 rounded-lg bg-blue-100 dark:bg-[#14273c] flex justify-center relative">
 					{mediaDetail.poster_path === null ? (
 						<BigPosterPathNullSkeleton />
 					) : (
@@ -48,7 +48,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = ({
 						</span>
 					</div>
 				</div>
-				<div className="flex-[2] flex flex-col md:flex-row gap-4 bg-blue-100 dark:bg-[#363062] p-4 rounded-lg w-full max-w-96 sm:h-[460px] md:max-w-full ">
+				<div className="flex-[2] flex flex-col md:flex-row gap-4 bg-blue-100 dark:bg-[#14273c] p-4 rounded-lg w-full max-w-96 sm:h-[460px] md:max-w-full ">
 					<div className="flex flex-col gap-4 w-full md:w-2/4">
 						<div>
 							<h2 className="text-xl">
@@ -92,12 +92,12 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = ({
 			</div>
 
 			<div className={'flex gap-6 mb-6 flex-col w-full max-w-96 md:max-w-full md:flex-row mx-auto'}>
-				<div className={'flex-grow bg-blue-100 dark:bg-[#363062] p-4 rounded-lg w-full md:w-[80%]'}>
+				<div className={'flex-grow bg-blue-100 dark:bg-[#14273c] p-4 rounded-lg w-full md:w-[80%]'}>
 					<h3>Sinopsis</h3>
 					<p>{mediaDetail?.overview === '' ? 'No description available' : mediaDetail?.overview}</p>
 				</div>
 
-				<div className={'flex-grow bg-blue-100 dark:bg-[#363062] p-4 rounded-lg flex gap-2.5 md:w-[20%] flex-wrap justify-center'}>
+				<div className={'flex-grow bg-blue-100 dark:bg-[#14273c] p-4 rounded-lg flex gap-2.5 md:w-[20%] flex-wrap justify-center'}>
 					{/* <h3>Similar Genres:</h3> */}
 					<h3>Géneros similares:</h3>
 					{similarGenres.length === 0 ? <SimilarGenresNullSkeleton /> : <CreateSimilarGenres genres={similarGenres} type={mediaType} />}

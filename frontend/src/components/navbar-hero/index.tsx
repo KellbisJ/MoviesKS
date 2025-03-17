@@ -15,7 +15,7 @@ const NavbarHero = (): React.JSX.Element => {
 							{ to: '/', label: 'Inicio', icon: House },
 							{ to: '/movies', label: 'Películas', icon: Film },
 							{ to: '/tv', label: 'Series de TV', icon: Tv },
-							{ to: '/favorites', label: 'Guardado', icon: Save },
+							{ to: '/saved-media', label: 'Guardado', icon: Save },
 						].map((item) => (
 							<Link
 								key={item.to}
@@ -41,7 +41,7 @@ const NavbarHero = (): React.JSX.Element => {
 							{ to: '/', label: 'Inicio', icon: House },
 							{ to: '/movies', label: 'Películas', icon: Film },
 							{ to: '/tv', label: 'Series de TV', icon: Tv },
-							{ to: '/favorites', label: 'Guardado', icon: Save },
+							{ to: '/saved-media', label: 'Guardado', icon: Save },
 						].map((item) => (
 							<Link
 								key={item.to}

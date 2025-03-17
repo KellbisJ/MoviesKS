@@ -10,7 +10,7 @@ const MediaSkeleton = () => {
 			{Array.from({ length: count }, (_, index) => (
 				<div
 					key={index}
-					className="w-full min-h-60 max-h-60 md:min-h-80 md:max-h-80 lg:min-h-96 lg:max-h-96 bg-slate-400 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
+					className="w-full min-h-60 max-h-60 md:min-h-80 md:max-h-80 lg:min-h-96 lg:max-h-96 bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
 			))}
 		</div>
 	);
@@ -24,7 +24,7 @@ const MediaNullSkeleton: React.FC<MediaNullSkeletonPropsInterface> = ({ data, ty
 	};
 	return (
 		<div
-			className="w-full min-h-60 max-h-60 md:min-h-80 md:max-h-80 lg:min-h-96 lg:max-h-96 bg-slate-400 rounded-lg shadow-lg cursor-pointer flex justify-center items-center p-4 text-center text-black dark:text-gray-100 text-sm"
+			className="w-full min-h-60 max-h-60 md:min-h-80 md:max-h-80 lg:min-h-96 lg:max-h-96 bg-gray-700 rounded-lg shadow-lg cursor-pointer flex justify-center items-center p-4 text-center text-gray-100 text-sm"
 			onClick={() => handleNavigation(data)}>
 			No image available for: {title}
 		</div>
@@ -38,23 +38,23 @@ const CategoriesSkeleton = () => {
 			{Array.from({ length: count }, (_, index) => (
 				<div
 					key={index}
-					className="flex justify-center items-center w-full bg-slate-400 animate-pulse shadow-md cursor-pointer p-1 rounded-md min-w-[40px] min-h-[38px] max-w-full"></div>
+					className="flex justify-center items-center w-full bg-gray-700 animate-pulse shadow-md cursor-pointer p-1 rounded-md min-w-[40px] min-h-[38px] max-w-full"></div>
 			))}
 		</>
 	);
 };
 
 const BigPosterPathSkeleton = () => {
-	return <div className="w-full h-full bg-slate-400 animate-pulse rounded-lg"></div>;
+	return <div className="w-full h-full bg-gray-700 animate-pulse rounded-lg"></div>;
 };
 
 const BigPosterPathNullSkeleton = () => {
-	return <div className="w-full h-full bg-slate-400 rounded-lg flex justify-center items-center">No image available</div>;
+	return <div className="w-full h-full bg-gray-700 rounded-lg flex justify-center items-center">No image available</div>;
 };
 
 const SimilarGenresNullSkeleton = () => {
 	return (
-		<div className="flex justify-center items-center bg-gray-100 dark:bg-slate-400 rounded-md p-1 m-1 min-w-[40px] min-h-[38px] max-w-full text-center text-gray-700 dark:text-stone-100 text-sm">
+		<div className="flex justify-center items-center bg-gray-100 dark:bg-gray-700 rounded-md p-1 m-1 min-w-[40px] min-h-[38px] max-w-full text-center text-gray-700 dark:text-stone-100 text-sm">
 			No similar genres available
 		</div>
 	);
@@ -65,7 +65,7 @@ const SimilarMediaSkeleton = () => {
 	return (
 		<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
 			{Array.from({ length: count }, (_, index) => (
-				<div key={index} className="w-full h-80 bg-slate-400 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
+				<div key={index} className="w-full h-80 bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
 			))}
 		</div>
 	);
@@ -75,24 +75,24 @@ const MediaDetailSkeleton = () => {
 	return (
 		<div className="rounded-lg">
 			<div className="flex flex-wrap gap-5 mb-6 flex-col items-center sm:flex-row md:items-normal">
-				<div className="flex-1 w-full h-[460px] p-4 rounded-lg bg-blue-100 dark:bg-[#363062] flex justify-center">
-					<div className="min-w-64 sm:max-w-[320px] h-[420px] bg-slate-400 animate-pulse rounded-lg"></div>
+				<div className="flex-1 w-full h-[460px] p-4 rounded-lg bg-blue-100 dark:bg-[#14273c] flex justify-center">
+					<div className="min-w-64 sm:max-w-[320px] h-[420px] bg-gray-700 animate-pulse rounded-lg"></div>
 				</div>
-				<div className="flex-[2] flex flex-col gap-4 bg-blue-100 dark:bg-[#363062] p-4 rounded-lg w-full sm:h-[460px]">
-					<div className="w-2/5 h-7 bg-slate-400 animate-pulse rounded-lg"></div>
-					<div className="w-2/5 h-5 bg-slate-400 animate-pulse rounded-lg"></div>
-					<div className="w-2/5 h-5 bg-slate-400 animate-pulse rounded-lg"></div>
-					<div className="w-2/5 h-5 bg-slate-400 animate-pulse rounded-lg"></div>
-					<div className="w-2/5 h-5 bg-slate-400 animate-pulse rounded-lg"></div>
-					<div className="w-2/5 h-5 bg-slate-400 animate-pulse rounded-lg"></div>
+				<div className="flex-[2] flex flex-col gap-4 bg-blue-100 dark:bg-[#14273c] p-4 rounded-lg w-full sm:h-[460px]">
+					<div className="w-2/5 h-7 bg-gray-700 animate-pulse rounded-lg"></div>
+					<div className="w-2/5 h-5 bg-gray-700 animate-pulse rounded-lg"></div>
+					<div className="w-2/5 h-5 bg-gray-700 animate-pulse rounded-lg"></div>
+					<div className="w-2/5 h-5 bg-gray-700 animate-pulse rounded-lg"></div>
+					<div className="w-2/5 h-5 bg-gray-700 animate-pulse rounded-lg"></div>
+					<div className="w-2/5 h-5 bg-gray-700 animate-pulse rounded-lg"></div>
 				</div>
 			</div>
 			<div className="flex flex-col sm:flex-row flex-wrap gap-6 mb-6">
-				<div className="bg-blue-100 dark:bg-[#363062] h-32 p-4 rounded-lg text-white w-full sm:w-4/5">
-					<div className="w-full h-full bg-slate-400 animate-pulse rounded-lg mb-4"></div>
+				<div className="bg-blue-100 dark:bg-[#14273c] h-32 p-4 rounded-lg text-white w-full sm:w-4/5">
+					<div className="w-full h-full bg-gray-700 animate-pulse rounded-lg mb-4"></div>
 				</div>
-				<div className="flex-[2] h-32 bg-blue-100 dark:bg-[#363062] p-4 rounded-lg gap-2.5 min-w-0 flex-wrap justify-center w-1/5 hidden sm:flex">
-					<div className="w-full h-full bg-slate-400 animate-pulse rounded-lg shadow-md"></div>
+				<div className="flex-[2] h-32 bg-blue-100 dark:bg-[#14273c] p-4 rounded-lg gap-2.5 min-w-0 flex-wrap justify-center w-1/5 hidden sm:flex">
+					<div className="w-full h-full bg-gray-700 animate-pulse rounded-lg shadow-md"></div>
 				</div>
 			</div>
 		</div>
@@ -105,7 +105,7 @@ const MediaFavoritesVoid = () => {
 			{Array.from({ length: 3 }, (_, index) => (
 				<div
 					key={index}
-					className="w-full bg-slate-400 border-2 border-dashed border-gray-400 rounded-lg h-80 flex items-center justify-center text-gray-400 text-lg italic text-center relative transition-colors duration-300 hover:bg-gray-200 hover:border-gray-500">
+					className="w-full bg-gray-700 border-2 border-dashed border-gray-400 rounded-lg h-80 flex items-center justify-center text-gray-400 text-lg italic text-center relative transition-colors duration-300 hover:bg-gray-200 hover:border-gray-500">
 					<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-400 text-base opacity-60">
 						No Favorites Yet
 					</div>
@@ -119,12 +119,12 @@ const MediaHomeSkeleton = () => {
 	const count = 20;
 
 	return (
-		<div className="w-full overflow-x-auto scrollbar-minimal break-words bg-blue-100 dark:bg-[#363062]">
+		<div className="w-full overflow-x-auto scrollbar-minimal break-words bg-blue-100 dark:bg-[#14273c]">
 			<div className="flex space-x-4 p-3">
 				{Array.from({ length: count }, (_, index) => (
 					<div
 						key={index}
-						className="flex-shrink-0 w-48 h-60 2xl:w-60 2xl:h-80 bg-slate-400 rounded-lg shadow-lg cursor-pointer p-2 text-red-500 animate-pulse"></div>
+						className="flex-shrink-0 w-48 h-60 2xl:w-60 2xl:h-80 bg-gray-700 rounded-lg shadow-lg cursor-pointer p-2 text-red-500 animate-pulse"></div>
 				))}
 			</div>
 		</div>
@@ -135,10 +135,10 @@ const MediaHomeErrorSkeleton = () => {
 	const count = 20;
 
 	return (
-		<div className="w-full overflow-x-auto scrollbar-minimal break-words bg-blue-100 dark:bg-[#363062]">
+		<div className="w-full overflow-x-auto scrollbar-minimal break-words bg-blue-100 dark:bg-[#14273c]">
 			<div className="flex space-x-4 p-3">
 				{Array.from({ length: count }, (_, index) => (
-					<div key={index} className="flex-shrink-0 w-48 h-60 2xl:w-60 2xl:h-80 bg-slate-400 rounded-lg shadow-lg cursor-pointer p-2 text-red-500">
+					<div key={index} className="flex-shrink-0 w-48 h-60 2xl:w-60 2xl:h-80 bg-gray-700 rounded-lg shadow-lg cursor-pointer p-2 text-red-500">
 						Error loading this, check internet connection or reload the page.
 					</div>
 				))}

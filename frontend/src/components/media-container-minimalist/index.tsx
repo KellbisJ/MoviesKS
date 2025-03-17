@@ -42,10 +42,11 @@ const MediaContainerMinimalist: React.FC<MediaContainerPropsInterface> = ({ medi
 			) : (
 				<div className="relative w-full h-full overflow-hidden rounded-lg shadow-lg cursor-pointer">
 					<img
-						className="h-full w-full object-cover aspect-[2/3]"
+						className="h-full w-full object-cover aspect-[2/3] opacity-0 transition-opacity duration-500"
 						alt={isMovie(media_) ? media_.title : media_.name}
 						src={`https://image.tmdb.org/t/p/w300/${media_.poster_path}`}
 						onClick={handleNavigation}
+						onLoad={(e) => (e.currentTarget.style.opacity = '1')} // nice
 					/>
 
 					<div

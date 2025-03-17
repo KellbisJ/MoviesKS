@@ -1,17 +1,26 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+// PROVIDERS
+import { ThemeContextProvider } from '@/context/theme/indext';
+import { FavoriteMediaProvider } from '../context/favorite-media-context';
+import { SearchProvider } from '../context/search-media-context';
+// PROVIDERS
+
+// VIEW COMPONENTS
 import { Layout } from '../components/layout';
 import { Home } from '@/routes/home';
 import { FilteredMedia } from '@/routes/filtered-media';
 import { MediaAllMovie } from '../routes/media-all-movie';
-import { MediaFavorites } from '../routes/media-favorites';
-import { FavoriteMediaProvider } from '../context/favorite-media-context';
+import { SavedMedia } from '../routes/saved-media';
+
 import { MediaAllTV } from '../routes/media-all-tv';
 import { MediaDetail } from '../routes/media-detail';
 import { MediaAllByCategory } from '../routes/media-all-by-category';
 import { PageNotFound } from '../components/page-not-found';
 import { MediaBySearch } from '../routes/media-by-search';
-import { SearchProvider } from '../context/search-media-context';
-import { ThemeContextProvider } from '@/context/theme/indext';
+import { SearchAboutPage } from '@/routes/search-about';
+import { SearchDiscoverPage } from '@/routes/search-discover';
+// VIEW COMPONENTS
 
 const App = (): React.JSX.Element => (
 	<ThemeContextProvider>
@@ -29,7 +38,9 @@ const App = (): React.JSX.Element => (
 							<Route path=":type/detail/:id" element={<MediaDetail />} />
 							<Route path=":type/all/category/:id" element={<MediaAllByCategory />} />
 							<Route path="search/:type/:query" element={<MediaBySearch />} />
-							<Route path="favorites" element={<MediaFavorites />} />
+							<Route path="saved-media" element={<SavedMedia />} />
+							<Route path="/search/about/:query" element={<SearchAboutPage />} />
+							<Route path="/search/discover/:type" element={<SearchDiscoverPage />} />
 							<Route path="*" element={<PageNotFound />} />
 						</Route>
 					</Routes>

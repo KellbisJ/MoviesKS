@@ -135,7 +135,7 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 							<h2 className="mb-2">Trending Media</h2>
 
 							<span
-								className="mb-3 p-1 bg-white dark:bg-[#22092ceb] text-gray-700 dark:text-gray-300 rounded"
+								className="mb-3 p-1 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded"
 								onClick={() => {
 									handleMediaTypeChange('movies');
 									toggleMoviesModal();
@@ -144,7 +144,7 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 							</span>
 
 							<span
-								className="mb-3 p-1 bg-white dark:bg-[#22092ceb] text-gray-700 dark:text-gray-300 rounded"
+								className="mb-3 p-1 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded"
 								onClick={() => {
 									handleMediaTypeChange('tv');
 									toggleMoviesModal();

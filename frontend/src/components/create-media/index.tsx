@@ -18,7 +18,7 @@ const CreateMediaHome: React.FC<CreateMediaPropsInterface> = ({ media, type }) =
 	}
 
 	return (
-		<div className="w-full overflow-x-auto overflow-y-hidden scrollbar-minimal bg-blue-100 dark:bg-[#363062] rounded-lg">
+		<div className="w-full overflow-x-auto overflow-y-hidden scrollbar-minimal bg-blue-100 dark:bg-[#14273c] rounded-lg">
 			<div className="flex space-x-4 p-3">
 				{media.filter(isMovieOrTV).map((media_) => (
 					<div key={media_.id} className="flex-shrink-0 w-48 h-60 2xl:w-60 2xl:h-80">
