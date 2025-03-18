@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useFavoriteMedia } from '../../context/favorite-media-context';
-import { MediaNullSkeleton } from '../loading-skeletons';
+import { MediaNullSkeletonHome } from '../loading-skeletons';
 import { Save } from 'lucide-react';
 import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
 import { MediaContainerPropsInterface } from '../../types/media-container-props-interface';
@@ -38,7 +38,7 @@ const MediaContainerMinimalist: React.FC<MediaContainerPropsInterface> = ({ medi
 	return (
 		<div className="group relative w-full h-full rounded-lg transition-transform duration-300 hover:scale-105 p-2">
 			{media_.poster_path === null ? (
-				<MediaNullSkeleton data={media_} type={type} title={isMovie(media_) ? media_.title : media_.name} />
+				<MediaNullSkeletonHome data={media_} type={type} title={isMovie(media_) ? media_.title : media_.name} />
 			) : (
 				<div className="relative w-full h-full overflow-hidden rounded-lg shadow-lg cursor-pointer">
 					<img

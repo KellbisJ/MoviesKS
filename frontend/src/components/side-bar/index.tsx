@@ -31,8 +31,8 @@ const SideBar: React.FC<SideBarPropsInterface> = ({ isMobile, isSideBarOpen, tog
 
 							{[
 								{ to: '/', label: 'Inicio', icon: House, aria: 'Inicio', toggle: toggleSideBar },
-								{ to: '/movies', label: 'Películas', icon: Film, aria: 'Películas', toggle: toggleSideBar },
-								{ to: '/tv', label: 'Series de TV', icon: Tv, aria: 'Series de TV', toggle: toggleSideBar },
+								{ to: '/movies/all', label: 'Películas', icon: Film, aria: 'Películas', toggle: toggleSideBar },
+								{ to: '/tv/all', label: 'Series de TV', icon: Tv, aria: 'Series de TV', toggle: toggleSideBar },
 								{ to: '/saved-media', label: 'Guardado', icon: Save, aria: 'Guardado', toggle: toggleSideBar },
 							].map(({ to, label, icon: Icon, aria, toggle }) => (
 								<li key={to} className="w-full">

@@ -6,11 +6,9 @@ import { MovieDetailInterface, TVDetailInterface } from '@/types/media-detail-in
 const MediaSkeleton = () => {
 	const count = 20;
 	return (
-		<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+		<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-5 lg:gap-8">
 			{Array.from({ length: count }, (_, index) => (
-				<div
-					key={index}
-					className="w-full min-h-60 max-h-60 md:min-h-80 md:max-h-80 lg:min-h-96 lg:max-h-96 bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
+				<div key={index} className="w-full h-60 md:h-80 2xl:h-[400px] bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
 			))}
 		</div>
 	);
@@ -24,7 +22,7 @@ const MediaNullSkeleton: React.FC<MediaNullSkeletonPropsInterface> = ({ data, ty
 	};
 	return (
 		<div
-			className="w-full min-h-60 max-h-60 md:min-h-80 md:max-h-80 lg:min-h-96 lg:max-h-96 bg-gray-700 rounded-lg shadow-lg cursor-pointer flex justify-center items-center p-4 text-center text-gray-100 text-sm"
+			className="w-full h-60 md:h-80 2xl:h-[400px] bg-gray-700 rounded-lg shadow-lg cursor-pointer flex justify-center items-center p-4 text-center text-gray-100 text-sm"
 			onClick={() => handleNavigation(data)}>
 			No image available for: {title}
 		</div>
@@ -101,7 +99,7 @@ const MediaDetailSkeleton = () => {
 
 const MediaFavoritesVoid = () => {
 	return (
-		<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+		<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-5 lg:gap-8">
 			{Array.from({ length: 3 }, (_, index) => (
 				<div
 					key={index}
@@ -124,7 +122,7 @@ const MediaHomeSkeleton = () => {
 				{Array.from({ length: count }, (_, index) => (
 					<div
 						key={index}
-						className="flex-shrink-0 w-48 h-60 2xl:w-60 2xl:h-80 bg-gray-700 rounded-lg shadow-lg cursor-pointer p-2 text-red-500 animate-pulse"></div>
+						className="flex-shrink-0 w-32 h-48 md:w-48 md:h-60 2xl:w-60 2xl:h-80 bg-gray-700 rounded-lg shadow-lg cursor-pointer p-2 text-red-500 animate-pulse"></div>
 				))}
 			</div>
 		</div>
@@ -138,7 +136,9 @@ const MediaHomeErrorSkeleton = () => {
 		<div className="w-full overflow-x-auto scrollbar-minimal break-words bg-blue-100 dark:bg-[#14273c]">
 			<div className="flex space-x-4 p-3">
 				{Array.from({ length: count }, (_, index) => (
-					<div key={index} className="flex-shrink-0 w-48 h-60 2xl:w-60 2xl:h-80 bg-gray-700 rounded-lg shadow-lg cursor-pointer p-2 text-red-500">
+					<div
+						key={index}
+						className="flex-shrink-0w-32 h-48 md:w-48 md:h-60 2xl:w-60 2xl:h-80 bg-gray-700 rounded-lg shadow-lg cursor-pointer p-2 text-red-500">
 						Error loading this, check internet connection or reload the page.
 					</div>
 				))}
@@ -147,8 +147,23 @@ const MediaHomeErrorSkeleton = () => {
 	);
 };
 
+const MediaNullSkeletonHome: React.FC<MediaNullSkeletonPropsInterface> = ({ data, type, title }) => {
+	const navigate = useNavigate();
+	const handleNavigation = (data: MovieInterface | TVInterface | MovieDetailInterface | TVDetailInterface) => {
+		const idParam = data.id;
+		navigate(`/${type}/detail/${idParam}`);
+	};
+	return (
+		<div
+			className="w-32 h-48 md:w-48 md:h-60 2xl:w-60 2xl:h-80 bg-gray-700 rounded-lg shadow-lg cursor-pointer flex justify-center items-center p-4 text-center text-gray-100 text-sm"
+			onClick={() => handleNavigation(data)}>
+			No image available for: {title}
+		</div>
+	);
+};
+
 const SingleMediaSkeleton = () => (
-	<div className="w-full min-h-60 max-h-60 md:min-h-80 md:max-h-80 lg:min-h-96 lg:max-h-96 bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
+	<div className="w-full h-60 md:h-80 2xl:h-[400px] bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
 );
 
 export {
@@ -164,4 +179,5 @@ export {
 	MediaHomeSkeleton,
 	MediaHomeErrorSkeleton,
 	SingleMediaSkeleton,
+	MediaNullSkeletonHome,
 };

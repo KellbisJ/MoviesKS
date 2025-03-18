@@ -36,12 +36,12 @@ const MediaContainer: React.FC<MediaContainerPropsInterface> = ({ media_, type }
 	};
 
 	return (
-		<div className="w-full h-full flex flex-col relative group">
+		<div className="w-full h-full flex flex-col relative">
 			{media_.poster_path === null ? (
 				<MediaNullSkeleton data={media_} type={type} title={isMovie(media_) ? media_.title : media_.name} />
 			) : (
 				<img
-					className="w-full h-auto aspect-[2/3] object-cover rounded-lg shadow-lg cursor-pointer opacity-0 transition-opacity duration-500 hover:shadow-xl"
+					className="w-full h-full aspect-[2/3] rounded-lg shadow-lg cursor-pointer opacity-0 transition-opacity duration-500 hover:shadow-xl"
 					alt={isMovie(media_) ? media_.title : media_.name}
 					src={`https://image.tmdb.org/t/p/w500/${media_.poster_path}`}
 					onClick={handleNavigation}
