@@ -13,7 +13,7 @@ interface LazyMediaContainerProps {
 const LazyMediaContainer: React.FC<LazyMediaContainerProps> = ({ media_, type }) => {
 	const { ref, inView } = useInView({
 		triggerOnce: true,
-		rootMargin: '-20px 0px',
+		rootMargin: '0px 0px',
 	});
 
 	const [isLoaded, setIsLoaded] = useState<boolean>(false);

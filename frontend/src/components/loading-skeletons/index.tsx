@@ -138,7 +138,7 @@ const MediaHomeErrorSkeleton = () => {
 				{Array.from({ length: count }, (_, index) => (
 					<div
 						key={index}
-						className="flex-shrink-0w-32 h-48 md:w-48 md:h-60 2xl:w-60 2xl:h-80 bg-gray-700 rounded-lg shadow-lg cursor-pointer p-2 text-red-500">
+						className="flex-shrink-0 w-32 h-48 md:w-48 md:h-60 2xl:w-60 2xl:h-80 bg-gray-700 rounded-lg shadow-lg cursor-pointer p-2 text-red-500">
 						Error loading this, check internet connection or reload the page.
 					</div>
 				))}
