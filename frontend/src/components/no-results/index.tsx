@@ -12,7 +12,7 @@ const NoResults: React.FC<NoResultsProps> = ({
 }) => {
 	return (
 		<div className="flex flex-col items-center justify-center p-8 space-y-4 text-center">
-			<div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-full">
+			<div className="p-4 bg-gray-200 dark:bg-gray-800 rounded-full">
 				<Search size={12} className="text-gray-400 dark:text-gray-600" />
 			</div>
 

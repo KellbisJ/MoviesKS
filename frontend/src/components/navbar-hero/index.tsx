@@ -6,7 +6,7 @@ const NavbarHero = (): React.JSX.Element => {
 	const [isDarkMode, setIsDarkMode] = useDarkMode();
 
 	return (
-		<nav className="bg-transparent">
+		<nav className="bg-transparent transition h-14">
 			<div className="container mx-auto px-4 sm:px-6 py-3">
 				<div className="flex items-start sm:items-center justify-between">
 					{/* Mobile Navigation (left side) */}

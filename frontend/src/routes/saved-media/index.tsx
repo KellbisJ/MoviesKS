@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { CreateMedia } from '../../components/create-media';
 import { useFavoriteMedia } from '../../context/favorite-media-context';
 import { MediaFavoritesVoid } from '../../components/loading-skeletons';
-import { CircleLoaderCenter } from '../../components/circle-loader';
+import { PopcornParticlesLoader } from '../../components/loaders-animation';
 
 const SavedMedia = (): React.JSX.Element => {
 	const [loading, setLoading] = useState<boolean>(true);
@@ -24,7 +24,7 @@ const SavedMedia = (): React.JSX.Element => {
 	return (
 		<>
 			{loading ? (
-				<CircleLoaderCenter />
+				<PopcornParticlesLoader />
 			) : (
 				<>
 					<h2 className="text-center dark:text-gray-100">My Saved Media</h2>

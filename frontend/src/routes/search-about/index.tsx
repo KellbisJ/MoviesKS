@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getMediaBySearch } from '@/services/media-by-search';
 import { MediaBySearchInterface } from '@/types/media-by-search-interface';
-import { CircleLoaderStart } from '@/components/circle-loader';
+import { PopcornParticlesLoader } from '@/components/loaders-animation';
 import { Film, Tv } from 'lucide-react';
 import { CreateMedia } from '@/components/create-media';
 import { NoResults } from '@/components/no-results';
@@ -37,7 +37,7 @@ const SearchAboutPage = () => {
 		<>
 			{loadingComponents ? (
 				<>
-					<CircleLoaderStart />
+					<PopcornParticlesLoader />
 				</>
 			) : (
 				<div className="flex flex-col justify-center items-center">

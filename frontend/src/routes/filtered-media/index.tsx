@@ -3,7 +3,6 @@ import { useLocation, useParams } from 'react-router-dom';
 import { getPreviewTrendingMedia } from '@/services/preview-trending-media';
 import { getMediaByCategory } from '@/services/media-by-category';
 import { CreateMedia } from '@/components/create-media';
-// import { FilteredMediaInterface } from "@/types/filtered-media-interface";
 import { MovieInterface, TVInterface } from '@/types/movie-and-tv-interface';
 import { MediaSkeleton } from '@/components/loading-skeletons';
 
@@ -24,7 +23,7 @@ const FilteredMedia = () => {
 				let mediaFilteredData: MovieInterface[] | TVInterface[];
 				if (location.pathname.includes('/preview/genre/')) {
 					const mediaFiltered = await getMediaByCategory(mediaType, mediaIdGenre);
-					mediaFilteredData = mediaFiltered.results; // top rated and popular media in a future will be filter
+					mediaFilteredData = mediaFiltered.results;
 				} else {
 					const mediaFiltered = await getPreviewTrendingMedia(mediaType);
 					mediaFilteredData = mediaFiltered.results;

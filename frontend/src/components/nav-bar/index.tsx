@@ -49,8 +49,8 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
 	return (
 		<>
 			{isMobile ? (
-				<nav className="top-0 w-full bg-white/80 dark:bg-[#1e1a2fe7] backdrop-blur-sm shadow-md z-[1000] fixed px-6 text-gray-700 dark:text-gray-300 transition">
-					<ul className="flex list-none justify-between items-center py-4 m-0">
+				<nav className="flex top-0 w-full bg-white/80 dark:bg-[#1e1a2fe7] backdrop-blur-sm shadow-md z-[1000] fixed px-6 text-gray-700 dark:text-gray-300 transition h-14 justify-between">
+					<ul className="flex list-none justify-between items-center w-full m-0">
 						<li className="text-lg font-semibold decoration no-underline text-center rounded transition list-none">
 							<button
 								className="navItemSideBarButton"
@@ -64,7 +64,7 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
 							</button>
 						</li>
 						<li className="text-lg font-semibold decoration no-underline text-center rounded transition list-none">
-							<Link className="font-bold text-lg no-underlin" to="/home">
+							<Link className="font-bold text-lg no-underline" to="/home">
 								MoviesKS
 							</Link>
 						</li>
