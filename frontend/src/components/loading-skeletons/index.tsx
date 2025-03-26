@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
-import { MediaNullSkeletonPropsInterface } from '../../types/media-null-skeleton-props-interface';
-import { MovieDetailInterface, TVDetailInterface } from '@/types/media-detail-interface';
+import { MediaNullSkeletonPropsInterface } from './types';
+import { MovieDetailInterface, TVDetailInterface } from '@/services/media-detail/types';
 
 const MediaSkeleton = () => {
 	const count = 20;

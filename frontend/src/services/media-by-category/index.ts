@@ -1,9 +1,9 @@
 import { api, API_MOVIE_CATEGORY, API_TV_CATEGORY } from '../index';
-import { MediaByCategoryInterface } from '../../types/media-by-category-interface';
-import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
+import { MediaByCategoryInterface } from './types';
+import { MediaTypeT } from '@/types/media-type';
 
-async function getMediaByCategory(mediaType: string, genreId: string, page = 1): Promise<MediaByCategoryInterface> {
-	const API_CATEGORY = mediaType === 'movies' ? API_MOVIE_CATEGORY : API_TV_CATEGORY;
+async function getMediaByCategory(mediaType: `${MediaTypeT}`, genreId: string, page = 1): Promise<MediaByCategoryInterface> {
+	const API_CATEGORY = mediaType === MediaTypeT.movie ? API_MOVIE_CATEGORY : API_TV_CATEGORY;
 	try {
 		const { data: media }: { data: MediaByCategoryInterface } = await api.get(API_CATEGORY, {
 			params: {

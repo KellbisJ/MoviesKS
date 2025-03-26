@@ -13,7 +13,7 @@ const NavbarSkeletonForwards = () => {
 	const location = useLocation();
 	const { type, id } = useParams();
 
-	const showFilterbarPaths: string[] = ['/movies', '/tv', `/${type}/preview/genre/${id}`];
+	const showFilterbarPaths: string[] = ['/movie', '/tv', `/${type}/preview/genre/${id}`];
 	const showFilterBar = showFilterbarPaths.includes(location.pathname);
 
 	return (

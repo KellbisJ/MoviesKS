@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // PROVIDERS
 import { ThemeContextProvider } from '@/context/theme/indext';
-import { FavoriteMediaProvider } from '../context/favorite-media-context';
+import { SavedMediaProvider } from '../context/favorite-media-context';
 import { SearchProvider } from '../context/search-media-context';
 // PROVIDERS
 
@@ -24,16 +24,17 @@ import { SearchDiscoverPage } from '@/routes/search-discover';
 
 const App = (): React.JSX.Element => (
 	<ThemeContextProvider>
-		<FavoriteMediaProvider>
+		<SavedMediaProvider>
 			<SearchProvider>
 				<BrowserRouter>
 					<Routes>
 						<Route path="/" element={<Layout />}>
 							<Route index element={<Home />} />
 							<Route path="home" element={<Home />} />
-							<Route path=":type" element={<FilteredMedia />} />
+							<Route path="/movie" element={<FilteredMedia />} />
+							<Route path="/tv" element={<FilteredMedia />} />
 							<Route path=":type/preview/genre/:id" element={<FilteredMedia />} />
-							<Route path="movies/all" element={<MediaAllMovie />} />
+							<Route path="movie/all" element={<MediaAllMovie />} />
 							<Route path="tv/all" element={<MediaAllTV />} />
 							<Route path=":type/detail/:id" element={<MediaDetail />} />
 							<Route path=":type/all/category/:id" element={<MediaAllByCategory />} />
@@ -46,7 +47,7 @@ const App = (): React.JSX.Element => (
 					</Routes>
 				</BrowserRouter>
 			</SearchProvider>
-		</FavoriteMediaProvider>
+		</SavedMediaProvider>
 	</ThemeContextProvider>
 );
 

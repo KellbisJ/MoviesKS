@@ -1,21 +1,22 @@
 import React, { createContext, useContext, useState } from 'react';
-import { SearchContextInterface } from '../../types/search-context-interface';
+import { SearchContextInterface } from './types';
+import { MediaTypeT } from '@/types/media-type';
 
 const searchContext = createContext<SearchContextInterface>({
-    searchQuery: '',
-    updateSearchQuery: () => {},
-    mediaType: 'movies',
-    updateMediaType: () => {}
+	searchQuery: '',
+	updateSearchQuery: () => {},
+	mediaType: MediaTypeT.movie,
+	updateMediaType: (type: MediaTypeT) => {},
 });
 
-const SearchProvider = ({ children }: {children: React.ReactNode}) => {
+const SearchProvider = ({ children }: { children: React.ReactNode }) => {
 	const [searchQuery, setSearchQuery] = useState<string>('');
-	const [mediaType, setMediaType] = useState<string>('movies');
+	const [mediaType, setMediaType] = useState<MediaTypeT>(MediaTypeT.movie);
 
 	const updateSearchQuery = (query: string) => {
 		setSearchQuery(query);
 	};
-	const updateMediaType = (type: string) => {
+	const updateMediaType = (type: MediaTypeT) => {
 		setMediaType(type);
 	};
 

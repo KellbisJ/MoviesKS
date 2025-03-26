@@ -3,8 +3,9 @@ import { useLocation } from 'react-router-dom';
 import { getPreviewTrendingMedia } from '../../services/preview-trending-media';
 import { CreateMedia } from '../../components/create-media';
 import { useInfiniteScroll } from '../../hooks/use-infinite-scroll';
-import { MediaSkeleton } from '../../components/loading-skeletons';
+import { MediaSkeleton } from '@/components/loading-skeletons';
 import { MovieInterface } from '@/types/movie-and-tv-interface';
+import { MediaTypeT } from '@/types/media-type';
 
 const MediaAllMovie = (): React.JSX.Element => {
 	const location = useLocation();
@@ -19,10 +20,10 @@ const MediaAllMovie = (): React.JSX.Element => {
 	const [canLoadMore, setCanLoadMore] = useState<boolean>(true);
 	const [prevPath, setPrevPath] = useState<string>('');
 
-	const mediaType: string = 'movies';
+	const mediaType: MediaTypeT.movie = MediaTypeT.movie;
 
 	useEffect(() => {
-		if (location.pathname === '/movies/all') {
+		if (location.pathname === '/movie/all') {
 			window.scrollTo(0, 0);
 			setLoadingComponents(true);
 			setMovies([]);
@@ -41,9 +42,9 @@ const MediaAllMovie = (): React.JSX.Element => {
 	}, [location]);
 
 	useEffect(() => {
-		if (location.pathname === '/movies/all' && prevPath !== '/movies/all') {
+		if (location.pathname === '/movie/all' && prevPath !== '/movie/all') {
 			window.scrollTo(0, 0);
-			setPrevPath('/movies/all');
+			setPrevPath('/movie/all');
 		}
 	}, [location, prevPath]);
 

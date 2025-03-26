@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDarkMode } from '../../hooks/use-dark-mode';
 import { House, Film, Tv, Save, Sun, Moon } from 'lucide-react';
-import { SideBarPropsInterface } from '../../types/sidebar-props-interface';
+import { SideBarPropsInterface } from './types';
+import { MediaTypeT } from '@/types/media-type';
 
 const SideBar: React.FC<SideBarPropsInterface> = ({ isMobile, isSideBarOpen, toggleSideBar }) => {
 	const [isDarkMode, setIsDarkMode] = useDarkMode();
@@ -31,8 +32,8 @@ const SideBar: React.FC<SideBarPropsInterface> = ({ isMobile, isSideBarOpen, tog
 
 							{[
 								{ to: '/', label: 'Inicio', icon: House, aria: 'Inicio', toggle: toggleSideBar },
-								{ to: '/movies/all', label: 'Películas', icon: Film, aria: 'Películas', toggle: toggleSideBar },
-								{ to: '/tv/all', label: 'Series de TV', icon: Tv, aria: 'Series de TV', toggle: toggleSideBar },
+								{ to: `/${MediaTypeT.movie}/all`, label: 'Películas', icon: Film, aria: 'Películas', toggle: toggleSideBar },
+								{ to: `/${MediaTypeT.tv}/all`, label: 'Series de TV', icon: Tv, aria: 'Series de TV', toggle: toggleSideBar },
 								{ to: '/saved-media', label: 'Guardado', icon: Save, aria: 'Guardado', toggle: toggleSideBar },
 							].map(({ to, label, icon: Icon, aria, toggle }) => (
 								<li key={to} className="w-full">

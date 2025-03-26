@@ -1,9 +1,10 @@
 import { api, API_MOVIE_VIDEOS, API_TV_VIDEOS } from '../index';
-import { MediaVideosInterface } from '../../types/media-videos-interface';
+import { MediaVideosInterface } from './types';
+import { MediaTypeT } from '@/types/media-type';
 
-async function getMediaVideos(type: string, id: string): Promise<MediaVideosInterface> {
+async function getMediaVideos(type: `${MediaTypeT}`, id: string): Promise<MediaVideosInterface> {
 	try {
-		const apiUrl = type === 'movies' ? API_MOVIE_VIDEOS(id) : API_TV_VIDEOS(id);
+		const apiUrl = type === MediaTypeT.movie ? API_MOVIE_VIDEOS(id) : API_TV_VIDEOS(id);
 		const { data: media }: { data: MediaVideosInterface } = await api.get(apiUrl);
 
 		// console.log({ media });

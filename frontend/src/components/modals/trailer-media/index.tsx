@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { CircleX } from 'lucide-react';
-import { TrailerMediaModalPropsInterface } from '../../../types/modals/trailer-media-modal-interface';
+import { TrailerMediaModalPropsInterface } from './types';
 
 const TrailerMedia: React.FC<TrailerMediaModalPropsInterface> = ({ isOpen, onClose, videoKey }) => {
 	if (!isOpen) return null;

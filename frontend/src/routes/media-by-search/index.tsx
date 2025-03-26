@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useValidMediaType } from '@/hooks/use-valid-media-type';
 import { getMediaBySearch } from '../../services/media-by-search';
 import { useInfiniteScroll } from '../../hooks/use-infinite-scroll';
 import { CreateMedia } from '../../components/create-media';
 import { MediaSkeleton } from '../../components/loading-skeletons';
 import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
 import { NoResults } from '@/components/no-results';
+import { MediaTypeT } from '@/types/media-type';
 
 const MediaBySearch = (): React.JSX.Element => {
-	const { type, query } = useParams(); // To use type about media and query parameter from current URL
+	const { query } = useParams();
 
-	const mediaType = type as string;
-	const querySearch = query as string;
+	const mediaType = useValidMediaType();
+	const querySearch = query || '';
 
 	const [loading, setLoading] = useState<boolean>(false);
 	const [loadingComponents, setLoadingComponents] = useState<boolean>(true);
@@ -31,7 +33,7 @@ const MediaBySearch = (): React.JSX.Element => {
 			setCanLoadMore(true);
 
 			async function fetchMedia() {
-				const mediaData = await getMediaBySearch(mediaType, querySearch, 1);
+				const mediaData = await getMediaBySearch(mediaType as MediaTypeT, querySearch, 1);
 				setLoadingComponents(false);
 				const mediaDataResults = mediaData.results;
 				setMedia(mediaDataResults);
@@ -47,7 +49,7 @@ const MediaBySearch = (): React.JSX.Element => {
 
 	const fetchMoreMedia = async () => {
 		setLoading(true);
-		const nextMedia = await getMediaBySearch(mediaType, querySearch, page);
+		const nextMedia = await getMediaBySearch(mediaType as MediaTypeT, querySearch, page);
 		const nextMediaData = nextMedia.results;
 
 		if (nextMediaData && nextMediaData.length > 0) {
@@ -82,7 +84,7 @@ const MediaBySearch = (): React.JSX.Element => {
 			) : (
 				<>
 					<h3 className="my-8 dark:text-gray-100">
-						Search Results for "{querySearch}" in {mediaType === 'movies' ? 'Movies' : 'TV Shows'}
+						Search Results for "{querySearch}" in {mediaType === MediaTypeT.movie ? 'Movies' : 'TV Shows'}
 					</h3>
 					<CreateMedia media={allMedia} type={mediaType} />
 				</>

@@ -13,7 +13,7 @@ const NavbarHero = (): React.JSX.Element => {
 					<div className="flex sm:hidden gap-3">
 						{[
 							{ to: '/', label: 'Inicio', icon: House },
-							{ to: '/movies', label: 'Películas', icon: Film },
+							{ to: '/movie', label: 'Películas', icon: Film },
 							{ to: '/tv', label: 'Series de TV', icon: Tv },
 							{ to: '/saved-media', label: 'Guardado', icon: Save },
 						].map((item) => (
@@ -39,7 +39,7 @@ const NavbarHero = (): React.JSX.Element => {
 					<div className="hidden sm:flex items-center gap-6">
 						{[
 							{ to: '/', label: 'Inicio', icon: House },
-							{ to: '/movies', label: 'Películas', icon: Film },
+							{ to: '/movie', label: 'Películas', icon: Film },
 							{ to: '/tv', label: 'Series de TV', icon: Tv },
 							{ to: '/saved-media', label: 'Guardado', icon: Save },
 						].map((item) => (

@@ -1,8 +1,9 @@
+import { MediaTypeT } from '@/types/media-type';
 import { MovieInterface, TVInterface } from '@/types/movie-and-tv-interface';
 
 interface MediaSectionData {
 	title: string;
-	type: 'movies' | 'tv';
+	type: MediaTypeT;
 	media: MovieInterface[] | TVInterface[];
 }
 

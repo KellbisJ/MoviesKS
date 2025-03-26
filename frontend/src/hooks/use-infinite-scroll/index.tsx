@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { UseInfiniteScrollHookPropsInterface } from '../../types/use-infinite-scroll-hook-props-interface';
+import { UseInfiniteScrollHookPropsInterface } from './types';
 
 const useInfiniteScroll = ({ callback, isLoading, canLoadMore }: UseInfiniteScrollHookPropsInterface) => {
 	useEffect(() => {

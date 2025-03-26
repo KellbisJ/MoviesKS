@@ -1,7 +1,7 @@
-import { MediaDetailPropsInterface } from '../../types/media-detail-props-interface';
+import { MediaDetailPropsInterface } from './types';
 import { BigPosterPathNullSkeleton } from '../loading-skeletons';
 import { SimilarGenresNullSkeleton } from '../loading-skeletons';
-import { useFavoriteMedia } from '../../context/favorite-media-context';
+import { useSavedMedia } from '../../context/favorite-media-context';
 import { CreateMediaImages } from '../create-media-images';
 import { CreateSimilarGenres } from '../create-similar-genres';
 import { CreateSimilarMediaDetail } from '../create-similar-media-detail';
@@ -21,8 +21,8 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = ({
 	videoKey,
 	mediaType,
 }) => {
-	const { favorites } = useFavoriteMedia();
-	const favoriteMedia = [...favorites.movies, ...favorites.tv]; // Because we want to know all favorite media available
+	const { savedMedia } = useSavedMedia();
+	const favoriteMedia = [...savedMedia.movies, ...savedMedia.tv]; // Because we want to know all favorite media available
 	const isFavorite = favoriteMedia.some((favMedia) => favMedia.id === mediaDetail.id); // Whether is movie or tv this will work effectively because it's comparing both cases, when is movie or tv
 
 	return (

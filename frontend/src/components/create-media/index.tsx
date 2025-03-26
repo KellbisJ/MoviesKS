@@ -1,8 +1,8 @@
 import React from 'react';
 import { MediaContainerMinimalist } from '../media-container-minimalist';
-import { CreateMediaPropsInterface } from '../../types/create-media-interface';
+import { CreateMediaPropsInterface } from './types';
 import { MovieInterface, TVInterface } from '@/types/movie-and-tv-interface';
-import { MovieDetailInterface, TVDetailInterface } from '@/types/media-detail-interface';
+import { MovieDetailInterface, TVDetailInterface } from '@/services/media-detail/types';
 import { LazyMediaContainer } from '../lazy-media-container';
 
 const isMovieOrTV = (
@@ -16,6 +16,7 @@ const CreateMediaHome: React.FC<CreateMediaPropsInterface> = ({ media, type }) =
 		console.error('Invalid media data:', media);
 		return null;
 	}
+	// console.log(type);
 
 	return (
 		<div className="w-full overflow-x-auto overflow-y-hidden scrollbar-minimal bg-blue-100 dark:bg-[#14273c] rounded-lg">

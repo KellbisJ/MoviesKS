@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom';
-import { CreatePreviewCategoriesPropsInterface } from '../../types/create-preview-categories-interface';
+import { CreatePreviewCategoriesPropsInterface } from './types';
 
 const CreatePreviewCategories: React.FC<CreatePreviewCategoriesPropsInterface> = ({ categories, onCategoryClick, onCloseModal }) => {
 	return categories.map((genre) => (

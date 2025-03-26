@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CreateSimilarGenresInterface } from '../../types/create-similar-genres-interface';
+import { CreateSimilarGenresInterface } from './types';
 
 const CreateSimilarGenres: React.FC<CreateSimilarGenresInterface> = ({ genres, type }) => {
 	return genres.map((genre) => (

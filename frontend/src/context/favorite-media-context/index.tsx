@@ -1,29 +1,30 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useSaveMedia } from '../../hooks/use-save-media';
 import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
-import { FavoriteMediaContextType } from '../../types/favorite-media-context-interface';
-import { MovieDetailInterface, TVDetailInterface } from '@/types/media-detail-interface';
+import { SaveMediaContextInterface } from './types';
+import { MovieDetailInterface, TVDetailInterface } from '@/services/media-detail/types';
+import { MediaTypeT } from '@/types/media-type';
 
-const initialContextValue: FavoriteMediaContextType = {
-  favorites: {
-    movies: [],
-    tv: [],
-  },
-  saveFavoriteMedia: () => {}
-}
+const initialContextValue: SaveMediaContextInterface = {
+	savedMedia: {
+		movies: [],
+		tv: [],
+	},
+	saveMedia: () => {},
+};
 
-const FavoriteMediaContext = createContext<FavoriteMediaContextType>(initialContextValue);
+const SavedMediaContext = createContext<SaveMediaContextInterface>(initialContextValue);
 
-const FavoriteMediaProvider = ({ children }: {children: React.ReactNode}) => {
-  const [favorites, setFavorites] = useState <FavoriteMediaContextType['favorites']>(initialContextValue.favorites);
+const SavedMediaProvider = ({ children }: { children: React.ReactNode }) => {
+	const [savedMedia, setSavedMedia] = useState<SaveMediaContextInterface['savedMedia']>(initialContextValue.savedMedia);
 
 	useEffect(() => {
 		const storedFavorites = localStorage.getItem('favoriteMedia');
 		const favorites = storedFavorites ? JSON.parse(storedFavorites) : { movies: [], tv: [] };
-		setFavorites(favorites);
+		setSavedMedia(favorites);
 	}, []);
 
-	const saveFavoriteMedia = (mediaType: 'movies' | 'tv', media: MovieInterface | TVInterface | TVDetailInterface | MovieDetailInterface) => {
+	const saveMedia = (mediaType: MediaTypeT, media: MovieInterface | TVInterface | TVDetailInterface | MovieDetailInterface) => {
 		if (!mediaType) {
 			console.error(`invalid media type: ${mediaType}`);
 			return;
@@ -33,22 +34,27 @@ const FavoriteMediaProvider = ({ children }: {children: React.ReactNode}) => {
 		let updatedFavorites;
 		if (!isFavorite) {
 			updatedFavorites = {
-				...favorites,
-				[mediaType]: favorites[mediaType].filter((item) => item.id !== media.id),
+				...savedMedia,
+				[mediaType === MediaTypeT.movie ? 'movies' : MediaTypeT.tv]: savedMedia[mediaType === MediaTypeT.movie ? 'movies' : MediaTypeT.tv].filter(
+					(item) => item.id !== media.id
+				),
 			};
 		} else {
 			updatedFavorites = {
-				...favorites,
-				[mediaType]: [...favorites[mediaType], media],
+				...savedMedia,
+				[mediaType === MediaTypeT.movie ? 'movies' : MediaTypeT.tv]: [
+					...savedMedia[mediaType === MediaTypeT.movie ? 'movies' : MediaTypeT.tv],
+					media,
+				],
 			};
 		}
-		setFavorites(updatedFavorites);
+		setSavedMedia(updatedFavorites);
 		localStorage.setItem('favoriteMedia', JSON.stringify(updatedFavorites));
 	};
 
-	return <FavoriteMediaContext.Provider value={{ favorites, saveFavoriteMedia }}>{children}</FavoriteMediaContext.Provider>;
+	return <SavedMediaContext.Provider value={{ savedMedia, saveMedia }}>{children}</SavedMediaContext.Provider>;
 };
 
-const useFavoriteMedia = () => useContext(FavoriteMediaContext);
+const useSavedMedia = () => useContext(SavedMediaContext);
 
-export { FavoriteMediaProvider, useFavoriteMedia };
+export { SavedMediaProvider, useSavedMedia };

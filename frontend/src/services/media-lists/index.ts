@@ -1,5 +1,6 @@
 import { api, API_MEDIA_LISTS } from '../index';
 import { MoviesListInterface, TvSeriesListInterface, ListTypeMovies, ListTypeTvSeries } from './types';
+import { MediaTypeT } from '@/types/media-type';
 
 interface BaseMediaListInterface<T> {
 	page: number;
@@ -8,11 +9,11 @@ interface BaseMediaListInterface<T> {
 	total_results: number;
 }
 
-async function getMediaLists(page: number, type: 'movie', listType: ListTypeMovies): Promise<BaseMediaListInterface<MoviesListInterface>>;
-async function getMediaLists(page: number, type: 'tv', listType: ListTypeTvSeries): Promise<BaseMediaListInterface<TvSeriesListInterface>>;
+async function getMediaLists(page: number, type: MediaTypeT.movie, listType: ListTypeMovies): Promise<BaseMediaListInterface<MoviesListInterface>>;
+async function getMediaLists(page: number, type: MediaTypeT.tv, listType: ListTypeTvSeries): Promise<BaseMediaListInterface<TvSeriesListInterface>>;
 async function getMediaLists(
 	page: number,
-	type: 'movie' | 'tv',
+	type: MediaTypeT.movie | MediaTypeT.tv,
 	listType: ListTypeMovies | ListTypeTvSeries
 ): Promise<BaseMediaListInterface<MoviesListInterface> | BaseMediaListInterface<TvSeriesListInterface>> {
 	try {

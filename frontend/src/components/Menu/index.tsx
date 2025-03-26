@@ -23,7 +23,7 @@ const Menu = (): React.JSX.Element => {
 
 	const location = useLocation();
 
-	const showFilterbarPaths: string[] = ['/movies', '/tv', `/${type}/preview/genre/${id}`];
+	const showFilterbarPaths: string[] = ['/movie', '/tv', `/${type}/preview/genre/${id}`];
 
 	const showFilterBar = showFilterbarPaths.includes(location.pathname);
 
@@ -46,7 +46,7 @@ const Menu = (): React.JSX.Element => {
 				setIsGenresModalOpen={setIsGenresModalOpen}
 			/>
 			<SideBar isMobile={isMobile} isSideBarOpen={isSideBarOpen} toggleSideBar={toggleSideBar} />
-			{showFilterBar && (
+			{showFilterBar ? (
 				<>
 					<FilterBar
 						isMobile={isMobile}
@@ -58,6 +58,8 @@ const Menu = (): React.JSX.Element => {
 						componentsLoading={componentsLoading}
 					/>
 				</>
+			) : (
+				<></>
 			)}
 		</>
 	);

@@ -1,38 +1,28 @@
 import { useNavigate } from 'react-router-dom';
-import { useFavoriteMedia } from '../../context/favorite-media-context';
+import { useSavedMedia } from '../../context/favorite-media-context';
 import { MediaNullSkeleton } from '../loading-skeletons';
 import { Save } from 'lucide-react';
 import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
-import { MediaContainerPropsInterface } from '../../types/media-container-props-interface';
-import { MovieDetailInterface, TVDetailInterface } from '@/types/media-detail-interface';
+import { MediaContainerPropsInterface } from './types';
+import { MovieDetailInterface, TVDetailInterface } from '@/services/media-detail/types';
+import { MediaTypeT } from '@/types/media-type';
+import { UseHandleSaveMedia } from '@/hooks/use-handle-save-media';
 
 const isMovie = (media: MovieInterface | TVInterface | MovieDetailInterface | TVDetailInterface): media is MovieInterface | MovieDetailInterface => {
 	return (media as MovieInterface | MovieDetailInterface).title !== undefined;
 }; // type checking
 
 const MediaContainer: React.FC<MediaContainerPropsInterface> = ({ media_, type }) => {
-	const { favorites, saveFavoriteMedia } = useFavoriteMedia();
-	const favoriteMedia = favorites[type as 'movies' | 'tv'] || [];
+	const { savedMedia } = useSavedMedia();
+	const favoriteMedia = savedMedia[type === MediaTypeT.movie ? 'movies' : MediaTypeT.tv] || [];
 	const isFavorite = favoriteMedia.some((favMedia) => favMedia.id === media_.id);
 	const navigate = useNavigate();
+
+	const handleSaveMedia = UseHandleSaveMedia();
 
 	const handleNavigation = () => {
 		const idParam = media_.id;
 		navigate(`/${type}/detail/${idParam}`);
-	};
-
-	const handleFavoriteClick = () => {
-		if (!['movies', 'tv'].includes(type)) {
-			console.error(`Invalid media type: ${type}`);
-			return;
-		}
-
-		if (saveFavoriteMedia) {
-			saveFavoriteMedia(type as 'movies' | 'tv', media_);
-		}
-		// else {
-		//   console.error('saveFavoriteMedia is not defined');
-		// }
 	};
 
 	return (
@@ -54,7 +44,7 @@ const MediaContainer: React.FC<MediaContainerPropsInterface> = ({ media_, type }
 					className={`absolute cursor-pointer z-20 transition-colors duration-300 ease-in-out ${
 						isFavorite ? 'text-cyan-400' : 'text-gray-200 hover:text-cyan-400'
 					}`}
-					onClick={handleFavoriteClick}>
+					onClick={handleSaveMedia(type, media_)}>
 					<Save />
 				</span>
 			</div>

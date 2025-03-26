@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSearch } from '../../context/search-media-context';
 import { useDarkMode } from '../../hooks/use-dark-mode';
-import { NavBarPropsInterface } from '../../types/navbar-props-interface';
+import { NavBarPropsInterface } from './types';
 import { House, Film, Tv, Save, Sun, Moon, PanelLeftOpen, PanelLeftClose, Search, TextSearch, CircleX } from 'lucide-react';
+import { MediaTypeT } from '@/types/media-type';
 
 const NavBar: React.FC<NavBarPropsInterface> = ({
 	isMobile,
@@ -20,11 +21,7 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
 	const [isDarkMode, setIsDarkMode] = useDarkMode();
 
 	useEffect(() => {
-		if (location.pathname.includes('/tv')) {
-			updateMediaType('tv');
-		} else {
-			updateMediaType('movies');
-		}
+		updateMediaType(location.pathname.includes('/tv') ? MediaTypeT.tv : MediaTypeT.movie);
 	}, [location, updateMediaType]); // updating mediatype to search
 
 	const handleSearch = (e: React.FormEvent) => {
@@ -87,7 +84,7 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
 								<form onSubmit={handleSearch} className="relative flex-1 max-w-2xl">
 									<input
 										className="w-full p-2 pl-4 pr-10 border-none rounded-2xl text-gray-100 text-base shadow-inner bg-gray-700 transition-all duration-300 ease-in-out focus:outline-none"
-										placeholder={`Search ${mediaType === 'movies' ? 'Movies' : 'TV Series'}`}
+										placeholder={`Search ${mediaType === MediaTypeT.movie ? 'Movies' : 'TV Series'}`}
 										value={searchQuery}
 										onChange={(e) => updateSearchQuery(e.target.value)}
 										onKeyDown={(e) => {
@@ -121,8 +118,8 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
 						<div className="flex items-center gap-4 xl:gap-6">
 							{[
 								{ to: '/home', label: 'Inicio', icon: House },
-								{ to: '/movies/all', label: 'Películas', icon: Film },
-								{ to: '/tv/all', label: 'Series de TV', icon: Tv },
+								{ to: `/${MediaTypeT.movie}/all`, label: 'Películas', icon: Film },
+								{ to: `/${MediaTypeT.tv}/all`, label: 'Series de TV', icon: Tv },
 								{ to: '/saved-media', label: 'Guardado', icon: Save },
 							].map((item) => (
 								<Link
@@ -142,7 +139,7 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
 							className="relative flex items-center w-4/5 max-w-xl bg-gray-100 dark:bg-gray-700 rounded-full transition-all focus-within:ring-2 focus-within:ring-cyan-500">
 							<input
 								type="text"
-								placeholder={`Search ${mediaType === 'movies' ? 'Movies' : 'TV Series'}`}
+								placeholder={`Search ${mediaType === MediaTypeT.movie ? 'Movies' : 'TV Series'}`}
 								className="w-full px-6 py-2 bg-transparent outline-none rounded-full placeholder-gray-500 dark:placeholder-gray-400 text-sm transition-all"
 								value={searchQuery}
 								onChange={(e) => updateSearchQuery(e.target.value)}

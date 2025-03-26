@@ -4,7 +4,8 @@ import { ChevronRight, ChevronLeft } from 'lucide-react';
 import { SelectMediaParameters } from '../modals/select-media-parameters';
 import { CreatePreviewCategories } from '../create-preview-categories';
 import { CategoriesSkeleton } from '../loading-skeletons';
-import { FilterBarPropsInterface } from '../../types/filterbar-interface';
+import { FilterBarPropsInterface } from './types';
+import { MediaTypeT } from '@/types/media-type';
 
 const FilterBar: React.FC<FilterBarPropsInterface> = ({
 	isMobile,
@@ -18,19 +19,19 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const [selectedMediaType, setSelectedMediaType] = useState<string | null>(localStorage.getItem('SELECTED_MEDIA_TYPE_MOVIES_KS') || '');
+	const [selectedMediaType, setSelectedMediaType] = useState<string>(localStorage.getItem('SELECTED_MEDIA_TYPE_MOVIES_KS') || '');
 	const [selectedGenre, setSelectedGenre] = useState<string>(localStorage.getItem('SELECTED_GENRE_TYPE_MOVIES_KS') || '');
 
 	const handleNavigation = (route: string) => {
 		navigate(route);
 	};
 
-	const handleMediaTypeChange = (type: string) => {
+	const handleMediaTypeChange = (type: MediaTypeT) => {
 		setSelectedMediaType(type);
 		setSelectedGenre('');
 		localStorage.setItem('SELECTED_MEDIA_TYPE_MOVIES_KS', type);
 		localStorage.setItem('SELECTED_GENRE_TYPE_MOVIES_KS', '');
-		handleNavigation(type === 'movies' ? '/movies' : '/tv');
+		handleNavigation(type === MediaTypeT.movie ? '/movie' : '/tv');
 	};
 
 	const handleCategoryChange = (genreId: string) => {
@@ -39,7 +40,7 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 			if (category) {
 				setSelectedGenre(category.id.toString());
 				localStorage.setItem('SELECTED_GENRE_TYPE_MOVIES_KS', category.id.toString());
-				const route = `${selectedMediaType === 'movies' ? '/movies' : '/tv'}/preview/genre/${category.id}`;
+				const route = `${selectedMediaType === MediaTypeT.movie ? `/${MediaTypeT.movie}` : `/${MediaTypeT.tv}`}/preview/genre/${category.id}`;
 				handleNavigation(route);
 			}
 			toggleGenresModal();
@@ -47,7 +48,7 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 	};
 
 	useEffect(() => {
-		const pathsToInclude = ['/movies', '/tv', '/movies/preview/genre/', '/tv/preview/genre/'];
+		const pathsToInclude = ['/movie', '/tv', '/movie/preview/genre', '/tv/preview/genre'];
 		const isIncludedPath = pathsToInclude.some((path) => location.pathname.startsWith(path));
 
 		if (!isIncludedPath) {
@@ -56,7 +57,7 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 			localStorage.removeItem('SELECTED_MEDIA_TYPE_MOVIES_KS');
 			localStorage.removeItem('SELECTED_GENRE_TYPE_MOVIES_KS');
 		} else {
-			const mediaType = location.pathname.includes('/movies') ? 'movies' : 'tv';
+			const mediaType = location.pathname.includes('/movie') ? MediaTypeT.movie : MediaTypeT.tv;
 			setSelectedMediaType(mediaType);
 			localStorage.setItem('SELECTED_MEDIA_TYPE_MOVIES_KS', mediaType);
 		}
@@ -85,12 +86,12 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 							<div className="flex w-auto">
 								<span
 									className={`text-gray-100 text-sm mb-1.25 font-medium cursor-pointer ${
-										selectedMediaType === 'movies'
+										selectedMediaType === MediaTypeT.movie
 											? 'text-gray-700 dark:text-stone-100 bg-stone-100 dark:bg-gray-700 hover:bg-cyan-500 dark:hover:bg-cyan-500 p-2.5 pl-2.5 rounded-lg shadow-md transition-all duration-300 ease-in-out border-l-5 border-white w-52 box-border'
 											: 'inline-flex text-white text-sm mb-3 font-medium border-l-5 border-transparent pl-2.5 box-border items-center'
 									}`}
 									onClick={() => {
-										handleMediaTypeChange('movies');
+										handleMediaTypeChange(MediaTypeT.movie);
 										toggleMoviesModal();
 									}}>
 									Movies
@@ -99,12 +100,12 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 							<div className="flex w-auto">
 								<span
 									className={`text-gray-100 text-sm mb-1.25 font-medium cursor-pointer ${
-										selectedMediaType === 'tv'
+										selectedMediaType === MediaTypeT.tv
 											? 'text-gray-700 dark:text-stone-100 bg-stone-100 dark:bg-gray-700 hover:bg-cyan-500 dark:hover:bg-cyan-500 p-2.5 pl-2.5 rounded-lg shadow-md transition-all duration-300 ease-in-out border-l-5 border-white w-52 box-border'
 											: 'inline-flex text-sm mb-3 font-medium border-l-5 border-transparent pl-2.5 box-border items-center'
 									}`}
 									onClick={() => {
-										handleMediaTypeChange('tv');
+										handleMediaTypeChange(MediaTypeT.tv);
 										toggleMoviesModal();
 									}}>
 									TV
@@ -137,7 +138,7 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 							<span
 								className="mb-3 p-1 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded"
 								onClick={() => {
-									handleMediaTypeChange('movies');
+									handleMediaTypeChange(MediaTypeT.movie);
 									toggleMoviesModal();
 								}}>
 								Movies
@@ -146,7 +147,7 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 							<span
 								className="mb-3 p-1 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded"
 								onClick={() => {
-									handleMediaTypeChange('tv');
+									handleMediaTypeChange(MediaTypeT.tv);
 									toggleMoviesModal();
 								}}>
 								TV

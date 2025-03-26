@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { CircleX } from 'lucide-react';
-import { SelectMediaParametersModalInterface } from '../../../types/modals/select-media-props-interface';
+import { SelectMediaParametersModalInterface } from './types';
 
 const SelectMediaParameters: React.FC<SelectMediaParametersModalInterface> = ({ isOpen, onClose, children }) => {
 	if (!isOpen) return null;

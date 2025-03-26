@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getMediaBySearch } from '@/services/media-by-search';
-import { MediaBySearchInterface } from '@/types/media-by-search-interface';
+import { MediaBySearchInterface } from '@/services/media-by-search/types';
 import { PopcornParticlesLoader } from '@/components/loaders-animation';
 import { Film, Tv } from 'lucide-react';
 import { CreateMedia } from '@/components/create-media';
 import { NoResults } from '@/components/no-results';
+import { MediaTypeT } from '@/types/media-type';
 
 const SearchAboutPage = () => {
 	const { query } = useParams();
@@ -19,7 +20,7 @@ const SearchAboutPage = () => {
 		const fetchAllSearches = async () => {
 			if (!query) return;
 			try {
-				const [moviesData, tvData] = await Promise.all([getMediaBySearch('movies', query), getMediaBySearch('tv', query)]);
+				const [moviesData, tvData] = await Promise.all([getMediaBySearch(MediaTypeT.movie, query), getMediaBySearch(MediaTypeT.tv, query)]);
 				setMovies(moviesData);
 				setTv(tvData);
 			} finally {
@@ -44,8 +45,8 @@ const SearchAboutPage = () => {
 					<h1 className="text-gray-600 dark:text-gray-300 mb-4">Results for "{query}"</h1>
 					<div className="flex flex-col sm:flex-row gap-4 sm:gap-8 w-auto">
 						{[
-							{ to: `/search/discover/movies?query=${query}`, label: `Peliculas  (${movies.results.length})`, icon: Film },
-							{ to: `/search/discover/tv?query=${query}`, label: `Series de Tv  (${tv.results.length})`, icon: Tv },
+							{ to: `/search/discover/${MediaTypeT.movie}?query=${query}`, label: `Peliculas  (${movies.results.length})`, icon: Film },
+							{ to: `/search/discover/${MediaTypeT.tv}?query=${query}`, label: `Series de Tv  (${tv.results.length})`, icon: Tv },
 						].map((item, index) => (
 							<Link
 								key={`${item.to}-${index}`}
@@ -62,14 +63,14 @@ const SearchAboutPage = () => {
 					{movies.results.length > 0 && (
 						<div className="mt-8">
 							<h3 className="text-gray-600 dark:text-gray-300 mb-4">About Movies</h3>
-							<CreateMedia type="movies" media={limitedMovies} />
+							<CreateMedia type={MediaTypeT.movie} media={limitedMovies} />
 						</div>
 					)}
 
 					{tv.results.length > 0 && (
 						<div className="mt-8">
 							<h3 className="text-gray-600 dark:text-gray-300 mb-4">About Tv</h3>
-							<CreateMedia type="tv" media={limitedTv} />
+							<CreateMedia type={MediaTypeT.tv} media={limitedTv} />
 						</div>
 					)}
 
