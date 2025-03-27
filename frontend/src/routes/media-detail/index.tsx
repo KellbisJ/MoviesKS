@@ -4,8 +4,6 @@ import { useValidMediaType } from '@/hooks/use-valid-media-type';
 import { getMediaDetail } from '../../services/media-detail';
 import { getSimilarMediaDetail } from '../../services/similar-media-detail';
 import { getMediaVideos } from '../../services/media-videos';
-import { MediaDetailSkeleton, MediaSkeleton } from '../../components/loading-skeletons';
-import { useSavedMedia } from '../../context/favorite-media-context';
 import { MovieDetailInterface, TVDetailInterface } from '@/services/media-detail/types';
 import { GenreInterface } from '../../types/genre-interface';
 import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
@@ -13,7 +11,8 @@ import { MediaVideosInterface, MediaVideosResultInterface } from '@/services/med
 import { getMediaImages } from '../../services/media-images';
 import { MediaImagesInterface } from '@/services/media-images/types';
 import { MediaDetailRender } from '../../components/media-detail-render';
-import { MediaTypeT } from '@/types/media-type';
+import { PopcornParticlesLoader } from '@/components/loaders-animation';
+import { UseHandleSaveMedia } from '@/hooks/use-handle-save-media';
 
 const MediaDetail = (): React.JSX.Element => {
 	const { id } = useParams();
@@ -21,7 +20,7 @@ const MediaDetail = (): React.JSX.Element => {
 	const mediaType = useValidMediaType();
 	const mediaId = id || '';
 
-	const { saveMedia } = useSavedMedia();
+	const handleSaveMedia = UseHandleSaveMedia();
 
 	const [loadingComponents, setLoadingComponents] = useState(true);
 
@@ -85,11 +84,7 @@ const MediaDetail = (): React.JSX.Element => {
 		fetchMediaDetail();
 	}, [mediaType, id]);
 
-	const handleFavoriteClick = () => {
-		if (saveMedia) {
-			saveMedia(mediaType, mediaDetail);
-		}
-	};
+	console.log(mediaDetail);
 
 	const isMovie = (media: MovieDetailInterface | TVDetailInterface): media is MovieDetailInterface => {
 		return (media as MovieDetailInterface).title !== undefined || (media as MovieDetailInterface).original_title !== undefined;
@@ -103,8 +98,7 @@ const MediaDetail = (): React.JSX.Element => {
 		<>
 			{loadingComponents ? (
 				<>
-					<MediaDetailSkeleton />
-					<MediaSkeleton />
+					<PopcornParticlesLoader />
 				</>
 			) : (
 				<MediaDetailRender
@@ -114,7 +108,7 @@ const MediaDetail = (): React.JSX.Element => {
 					similarGenres={similarGenres}
 					similarMedia={similarMedia}
 					isMovie={isMovie}
-					handleFavoriteClick={handleFavoriteClick}
+					handleSaveMedia={handleSaveMedia}
 					showTrailer={showTrailer}
 					setShowTrailer={setShowTrailer}
 					videoKey={videoKey}

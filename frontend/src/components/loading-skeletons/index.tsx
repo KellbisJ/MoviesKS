@@ -6,9 +6,11 @@ import { MovieDetailInterface, TVDetailInterface } from '@/services/media-detail
 const MediaSkeleton = () => {
 	const count = 20;
 	return (
-		<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-5 lg:gap-8">
+		<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
 			{Array.from({ length: count }, (_, index) => (
-				<div key={index} className="w-full h-60 md:h-80 2xl:h-[400px] bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
+				<div
+					key={index}
+					className="w-full h-60 md:h-80 xl:h-[400px] 2xl:h-[520px] bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
 			))}
 		</div>
 	);
@@ -65,34 +67,6 @@ const SimilarMediaSkeleton = () => {
 			{Array.from({ length: count }, (_, index) => (
 				<div key={index} className="w-full h-80 bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
 			))}
-		</div>
-	);
-};
-
-const MediaDetailSkeleton = () => {
-	return (
-		<div className="rounded-lg">
-			<div className="flex flex-wrap gap-5 mb-6 flex-col items-center sm:flex-row md:items-normal">
-				<div className="flex-1 w-full h-[460px] p-4 rounded-lg bg-blue-100 dark:bg-[#14273c] flex justify-center">
-					<div className="min-w-64 sm:max-w-[320px] h-[420px] bg-gray-700 animate-pulse rounded-lg"></div>
-				</div>
-				<div className="flex-[2] flex flex-col gap-4 bg-blue-100 dark:bg-[#14273c] p-4 rounded-lg w-full sm:h-[460px]">
-					<div className="w-2/5 h-7 bg-gray-700 animate-pulse rounded-lg"></div>
-					<div className="w-2/5 h-5 bg-gray-700 animate-pulse rounded-lg"></div>
-					<div className="w-2/5 h-5 bg-gray-700 animate-pulse rounded-lg"></div>
-					<div className="w-2/5 h-5 bg-gray-700 animate-pulse rounded-lg"></div>
-					<div className="w-2/5 h-5 bg-gray-700 animate-pulse rounded-lg"></div>
-					<div className="w-2/5 h-5 bg-gray-700 animate-pulse rounded-lg"></div>
-				</div>
-			</div>
-			<div className="flex flex-col sm:flex-row flex-wrap gap-6 mb-6">
-				<div className="bg-blue-100 dark:bg-[#14273c] h-32 p-4 rounded-lg text-white w-full sm:w-4/5">
-					<div className="w-full h-full bg-gray-700 animate-pulse rounded-lg mb-4"></div>
-				</div>
-				<div className="flex-[2] h-32 bg-blue-100 dark:bg-[#14273c] p-4 rounded-lg gap-2.5 min-w-0 flex-wrap justify-center w-1/5 hidden sm:flex">
-					<div className="w-full h-full bg-gray-700 animate-pulse rounded-lg shadow-md"></div>
-				</div>
-			</div>
 		</div>
 	);
 };
@@ -163,7 +137,7 @@ const MediaNullSkeletonHome: React.FC<MediaNullSkeletonPropsInterface> = ({ data
 };
 
 const SingleMediaSkeleton = () => (
-	<div className="w-full h-60 md:h-80 2xl:h-[400px] bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
+	<div className="w-full h-60 md:h-80 xl:h-[400px] 2xl:h-[520px] bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
 );
 
 export {
@@ -174,7 +148,6 @@ export {
 	BigPosterPathNullSkeleton,
 	SimilarGenresNullSkeleton,
 	SimilarMediaSkeleton,
-	MediaDetailSkeleton,
 	MediaFavoritesVoid,
 	MediaHomeSkeleton,
 	MediaHomeErrorSkeleton,
