@@ -49,7 +49,7 @@ const BigPosterPathSkeleton = () => {
 };
 
 const BigPosterPathNullSkeleton = () => {
-	return <div className="w-full h-full bg-gray-700 rounded-lg flex justify-center items-center">No image available</div>;
+	return <div className="w-full h-full aspect-[2/3] bg-gray-700 rounded-lg flex justify-center items-center">No image available</div>;
 };
 
 const SimilarGenresNullSkeleton = () => {

@@ -13,6 +13,7 @@ import { MediaImagesInterface } from '@/services/media-images/types';
 import { MediaDetailRender } from '../../components/media-detail-render';
 import { PopcornParticlesLoader } from '@/components/loaders-animation';
 import { UseHandleSaveMedia } from '@/hooks/use-handle-save-media';
+import { useWindowSize } from '@/hooks/use-window-size';
 
 const MediaDetail = (): React.JSX.Element => {
 	const { id } = useParams();
@@ -39,42 +40,49 @@ const MediaDetail = (): React.JSX.Element => {
 		window.scrollTo(0, 0);
 
 		async function fetchMediaDetail() {
-			const mediaData = await getMediaDetail(mediaType, mediaId);
-			const similarMediaData = await getSimilarMediaDetail(mediaType, mediaId);
-			const mediaVideosData = await getMediaVideos(mediaType, mediaId);
-			const mediaImagesData = await getMediaImages(mediaType, mediaId);
+			try {
+				const [mediaData, similarMediaData, mediaVideosData] = await Promise.all([
+					getMediaDetail(mediaType, mediaId),
+					getSimilarMediaDetail(mediaType, mediaId),
+					getMediaVideos(mediaType, mediaId),
+				]);
 
-			// console.log('mediaImagesData:', mediaImagesData);
+				// const mediaImagesData = await getMediaImages(mediaType, mediaId);
 
-			if (mediaData && mediaData.genres) {
-				// media detail data
-				setSimilarGenres(mediaData.genres);
-			}
-			if (similarMediaData) {
-				setSimilarMedia(similarMediaData);
-			}
+				// console.log('mediaImagesData:', mediaImagesData);
 
-			setMediaDetail(mediaData);
+				setMediaDetail(mediaData);
 
-			if (mediaVideosData && mediaVideosData.results.length > 0) {
-				// media videos data
-				const video = mediaVideosData.results.find(
-					(video: any) => video.type === 'Trailer' || video.type === 'Teaser' || (video.type === 'Clip' && video.site === 'YouTube')
-				);
-				if (video) {
-					setVideoKey(video.key);
+				if (mediaData && mediaData.genres) {
+					// media detail data
+					setSimilarGenres(mediaData.genres);
 				}
-				setMediaDetailVideos(mediaVideosData.results);
-			} else {
-				setMediaDetailVideos([]);
-			}
+				if (similarMediaData) {
+					setSimilarMedia(similarMediaData);
+				}
 
-			if (mediaImagesData) {
-				// media images data
-				setMediaImages(mediaImagesData);
-			}
+				if (mediaVideosData && mediaVideosData.results.length > 0) {
+					// media videos data
+					const video = mediaVideosData.results.find(
+						(video: any) => video.type === 'Trailer' || video.type === 'Teaser' || (video.type === 'Clip' && video.site === 'YouTube')
+					);
+					if (video) {
+						setVideoKey(video.key);
+					}
+					setMediaDetailVideos(mediaVideosData.results);
+				} else {
+					setMediaDetailVideos([]);
+				}
 
-			setLoadingComponents(false);
+				// if (mediaImagesData) {
+				// 	// media images data
+				// 	setMediaImages(mediaImagesData);
+				// }
+			} catch (error) {
+				console.error(error);
+			} finally {
+				setLoadingComponents(false);
+			}
 		}
 
 		// setTimeout(() => {
@@ -84,7 +92,7 @@ const MediaDetail = (): React.JSX.Element => {
 		fetchMediaDetail();
 	}, [mediaType, id]);
 
-	console.log(mediaDetail);
+	// console.log(mediaDetail);
 
 	const isMovie = (media: MovieDetailInterface | TVDetailInterface): media is MovieDetailInterface => {
 		return (media as MovieDetailInterface).title !== undefined || (media as MovieDetailInterface).original_title !== undefined;
