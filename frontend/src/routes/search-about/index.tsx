@@ -15,14 +15,17 @@ const SearchAboutPage = () => {
 
 	const [movies, setMovies] = useState<MediaBySearchInterface>({ page: 1, results: [], total_pages: 0, total_results: 0 });
 	const [tv, setTv] = useState<MediaBySearchInterface>({ page: 1, results: [], total_pages: 0, total_results: 0 });
+	const [searchWasMade, setSearchWasMade] = useState<boolean>(false);
 
 	useEffect(() => {
+		setSearchWasMade(false);
 		const fetchAllSearches = async () => {
 			if (!query) return;
 			try {
 				const [moviesData, tvData] = await Promise.all([getMediaBySearch(MediaTypeT.movie, query), getMediaBySearch(MediaTypeT.tv, query)]);
 				setMovies(moviesData);
 				setTv(tvData);
+				setSearchWasMade(true);
 			} finally {
 				setLoadingComponents(false);
 			}
@@ -74,7 +77,7 @@ const SearchAboutPage = () => {
 						</div>
 					)}
 
-					{movies.results.length === 0 && tv.results.length === 0 && (
+					{searchWasMade && movies.results.length === 0 && tv.results.length === 0 && (
 						<div className="mt-4 sm:mt-20">
 							<NoResults />
 							<p className="text-lg text-center text-gray-500">

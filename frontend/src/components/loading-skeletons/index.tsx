@@ -6,12 +6,14 @@ import { MovieDetailInterface, TVDetailInterface } from '@/services/media-detail
 const MediaSkeleton = () => {
 	const count = 20;
 	return (
-		<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
-			{Array.from({ length: count }, (_, index) => (
-				<div
-					key={index}
-					className="w-full h-60 md:h-80 xl:h-[400px] 2xl:h-[520px] bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
-			))}
+		<div className="max-w-[1536px] mx-auto">
+			<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
+				{Array.from({ length: count }, (_, index) => (
+					<div
+						key={index}
+						className="w-full h-60 md:h-80 xl:h-[400px] aspect-[2/3] bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
+				))}
+			</div>
 		</div>
 	);
 };
@@ -24,7 +26,7 @@ const MediaNullSkeleton: React.FC<MediaNullSkeletonPropsInterface> = ({ data, ty
 	};
 	return (
 		<div
-			className="w-full h-60 md:h-80 2xl:h-[400px] bg-gray-700 rounded-lg shadow-lg cursor-pointer flex justify-center items-center p-4 text-center text-gray-100 text-sm"
+			className="w-full h-60 md:h-80 xl:h-[400px] aspect-[2/3] bg-gray-700 rounded-lg shadow-lg cursor-pointer flex justify-center items-center p-4 text-center text-gray-100 text-sm"
 			onClick={() => handleNavigation(data)}>
 			No image available for: {title}
 		</div>
@@ -44,10 +46,6 @@ const CategoriesSkeleton = () => {
 	);
 };
 
-const BigPosterPathSkeleton = () => {
-	return <div className="w-full h-full bg-gray-700 animate-pulse rounded-lg"></div>;
-};
-
 const BigPosterPathNullSkeleton = () => {
 	return <div className="w-full h-full aspect-[2/3] bg-gray-700 rounded-lg flex justify-center items-center">No image available</div>;
 };
@@ -60,29 +58,23 @@ const SimilarGenresNullSkeleton = () => {
 	);
 };
 
-const SimilarMediaSkeleton = () => {
-	const count = 20;
-	return (
-		<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
-			{Array.from({ length: count }, (_, index) => (
-				<div key={index} className="w-full h-80 bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
-			))}
-		</div>
-	);
-};
+// const SimilarMediaSkeleton = () => {
+// 	const count = 20;
+// 	return (
+// 		<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+// 			{Array.from({ length: count }, (_, index) => (
+// 				<div key={index} className="w-full h-80 bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
+// 			))}
+// 		</div>
+// 	);
+// };
 
-const MediaFavoritesVoid = () => {
+const MediaSavedVoid = () => {
 	return (
-		<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-5 lg:gap-8">
-			{Array.from({ length: 3 }, (_, index) => (
-				<div
-					key={index}
-					className="w-full bg-gray-700 border-2 border-dashed border-gray-400 rounded-lg h-80 flex items-center justify-center text-gray-400 text-lg italic text-center relative transition-colors duration-300 hover:bg-gray-200 hover:border-gray-500">
-					<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-400 text-base opacity-60">
-						No Favorites Yet
-					</div>
-				</div>
-			))}
+		<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-5 lg:gap-8 w-full">
+			<div className="col-span-full w-full bg-gray-200 dark:bg-gray-700 border-2 border-dashed border-gray-400 rounded-lg h-80 flex items-center justify-center text-gray-500 dark:text-gray-400 italic">
+				No Favorites Yet
+			</div>
 		</div>
 	);
 };
@@ -137,18 +129,17 @@ const MediaNullSkeletonHome: React.FC<MediaNullSkeletonPropsInterface> = ({ data
 };
 
 const SingleMediaSkeleton = () => (
-	<div className="w-full h-60 md:h-80 xl:h-[400px] 2xl:h-[520px] bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
+	<div className="w-full h-60 md:h-80 xl:h-[400px] aspect-[2/3] bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
 );
 
 export {
 	MediaSkeleton,
 	MediaNullSkeleton,
 	CategoriesSkeleton,
-	BigPosterPathSkeleton,
 	BigPosterPathNullSkeleton,
 	SimilarGenresNullSkeleton,
-	SimilarMediaSkeleton,
-	MediaFavoritesVoid,
+	// SimilarMediaSkeleton,
+	MediaSavedVoid,
 	MediaHomeSkeleton,
 	MediaHomeErrorSkeleton,
 	SingleMediaSkeleton,

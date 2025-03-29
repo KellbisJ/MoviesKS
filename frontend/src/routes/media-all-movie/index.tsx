@@ -3,15 +3,15 @@ import { useLocation } from 'react-router-dom';
 import { getPreviewTrendingMedia } from '../../services/preview-trending-media';
 import { CreateMedia } from '../../components/create-media';
 import { useInfiniteScroll } from '../../hooks/use-infinite-scroll';
-import { MediaSkeleton } from '@/components/loading-skeletons';
 import { MovieInterface } from '@/types/movie-and-tv-interface';
 import { MediaTypeT } from '@/types/media-type';
+import { MediaSkeleton } from '@/components/loading-skeletons';
 
 const MediaAllMovie = (): React.JSX.Element => {
 	const location = useLocation();
 
-	const [loading, setLoading] = useState<boolean>(false);
 	const [loadingComponents, setLoadingComponents] = useState<boolean>(true);
+	const [loading, setLoading] = useState<boolean>(false);
 	const [movies, setMovies] = useState<MovieInterface[]>([]);
 	const [moreMovies, setMoreMovies] = useState<MovieInterface[]>([]);
 
@@ -25,7 +25,6 @@ const MediaAllMovie = (): React.JSX.Element => {
 	useEffect(() => {
 		if (location.pathname === '/movie/all') {
 			window.scrollTo(0, 0);
-			setLoadingComponents(true);
 			setMovies([]);
 			setMoreMovies([]);
 			setCanLoadMore(true);
@@ -33,8 +32,8 @@ const MediaAllMovie = (): React.JSX.Element => {
 			async function fetchMedia() {
 				const previewMovies = await getPreviewTrendingMedia(mediaType);
 				const moviesData = previewMovies.results;
-				setLoadingComponents(false);
 				setMovies(moviesData as MovieInterface[]);
+				setLoadingComponents(false);
 			}
 
 			fetchMedia();
@@ -70,7 +69,13 @@ const MediaAllMovie = (): React.JSX.Element => {
 
 	const allMovies = [...movies, ...moreMovies];
 
-	return <>{loadingComponents ? <MediaSkeleton /> : <CreateMedia media={allMovies} type={mediaType} />}</>;
+	return (
+		<>
+			{movies.length === 0 && loadingComponents && <MediaSkeleton />}
+
+			<CreateMedia media={allMovies} type={mediaType} />
+		</>
+	);
 };
 
 export { MediaAllMovie };

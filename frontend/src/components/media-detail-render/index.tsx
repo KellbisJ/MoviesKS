@@ -7,6 +7,7 @@ import { CreateSimilarMediaDetail } from '../create-media';
 import { TrailerMedia } from '../modals/trailer-media';
 import { Star, Save, Clapperboard, Globe, Film, Clock, Ticket } from 'lucide-react';
 import { memo } from 'react';
+import { MediaTypeT } from '@/types/media-type';
 // import { Backdrop } from '@/services/media-images/types';
 
 const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
@@ -24,8 +25,8 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 		mediaType,
 	}) => {
 		const { savedMedia } = useSavedMedia();
-		const favoriteMedia = [...savedMedia.tv];
-		const isFavorite = favoriteMedia.some((favMedia) => favMedia.id === mediaDetail.id);
+		const allSavedMedia = [...savedMedia.movies, ...savedMedia.tv]; // This is to check is the media is saved whether is movie or tv
+		const isSavedMedia = allSavedMedia.some((favMedia) => favMedia.id === mediaDetail.id);
 
 		// New data points
 		const productionCompanies = mediaDetail.production_companies || [];
@@ -39,7 +40,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 
 		const bigPoster = mediaDetail.backdrop_path || mediaDetail.poster_path;
 
-		console.log(spokenLanguages);
+		// console.log(spokenLanguages);
 
 		return (
 			<section className="text-black dark:text-gray-100 mx-auto -mt-8">
@@ -76,14 +77,14 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 									<button
 										onClick={handleSaveMedia(mediaType, mediaDetail)}
 										className={`absolute top-4 right-4 p-2 rounded-full backdrop-blur-sm transition-all ${
-											isFavorite ? 'text-cyan-400 bg-cyan-400/20' : 'text-gray-200 hover:text-cyan-400 bg-gray-800/30 hover:bg-cyan-400/20'
+											isSavedMedia ? 'text-cyan-400 bg-cyan-400/20' : 'text-gray-200 hover:text-cyan-400 bg-gray-800/30 hover:bg-cyan-400/20'
 										}`}>
 										<Save className="w-6 h-6" />
 									</button>
 								</div>
 							</div>
 
-							<div className="flex-1 space-y-6">
+							<div className="flex-1 space-y-8">
 								<div className="space-y-4">
 									<h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
 										{isMovie(mediaDetail) ? mediaDetail.title : mediaDetail.name}
@@ -110,10 +111,10 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 									{mediaDetail.tagline && <p className="text-xl italic">"{mediaDetail.tagline}"</p>}
 								</div>
 
-								<div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
+								<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 									<div className="flex items-center space-x-2">
 										<Film className="w-5 h-5 text-cyan-500" />
-										<span>{mediaType === 'movie' ? 'Movie' : 'TV Series'}</span>
+										<span>{mediaType === MediaTypeT.movie ? 'Película' : 'Serie de televisión'}</span>
 									</div>
 
 									<div className="flex items-center space-x-2">
@@ -147,7 +148,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 								</div>
 
 								{productionCompanies.length > 0 && (
-									<div className="space-y-2">
+									<div className="space-y-4">
 										<h3 className="text-lg font-semibold">Empresas Productoras</h3>
 										<div className="flex flex-wrap gap-4">
 											{productionCompanies.map((company) =>
@@ -159,7 +160,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 														className="h-8 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
 													/>
 												) : (
-													<span key={company.id} className="text-sm text-gray-400">
+													<span key={company.id} className="text-sm">
 														{company.name}
 													</span>
 												)
@@ -169,7 +170,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 								)}
 
 								{spokenLanguages.length > 1 && (
-									<div className="space-y-2">
+									<div className="space-y-4">
 										<h3 className="text-lg font-semibold ">Lenguajes disponibles</h3>
 										<div className="flex flex-wrap gap-2">
 											{spokenLanguages.map((lang) =>
@@ -187,12 +188,12 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 									</div>
 								)}
 
-								<div className="space-y-2">
+								<div className="space-y-4">
 									<h3 className="text-lg font-semibold">Sinopsis</h3>
-									<p className="leading-relaxed">{mediaDetail.overview || 'No overview available.'}</p>
+									<p className="leading-relaxed">{mediaDetail.overview || 'No se ha encontrado una sinopsis.'}</p>
 								</div>
 
-								<div className="space-y-2">
+								<div className="space-y-4">
 									<h3 className="text-lg font-semibold">Géneros similares</h3>
 									<div className="flex flex-wrap gap-2">
 										<CreateSimilarGenres genres={similarGenres} type={mediaType} />

@@ -39,10 +39,12 @@ const CreateMedia: React.FC<CreateMediaPropsInterface> = ({ media, type }) => {
 	}
 
 	return (
-		<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
-			{media.filter(isMovieOrTV).map((media_) => (
-				<LazyMediaContainer key={media_.id} media_={media_} type={type} />
-			))}
+		<div className="max-w-[1536px] mx-auto">
+			<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
+				{media.filter(isMovieOrTV).map((media_) => (
+					<LazyMediaContainer key={media_.id} media_={media_} type={type} />
+				))}
+			</div>
 		</div>
 	);
 };
@@ -54,10 +56,12 @@ const CreateSimilarMediaDetail: React.FC<CreateMediaPropsInterface> = ({ media, 
 	}
 
 	return (
-		<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
-			{media.filter(isMovieOrTV).map((media_) => (
-				<LazyMediaContainerSimilar key={media_.id} mediaData={media_} type={type} />
-			))}
+		<div className="max-w-[1536px] mx-auto">
+			<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
+				{media.filter(isMovieOrTV).map((media_) => (
+					<LazyMediaContainerSimilar key={media_.id} mediaData={media_} type={type} />
+				))}
+			</div>
 		</div>
 	);
 };

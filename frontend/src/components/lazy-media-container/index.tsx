@@ -23,7 +23,7 @@ const LazyMediaContainer: React.FC<LazyMediaContainerProps> = ({ media_, type })
 	}, [inView]); // this logic is to avoid abrupt flickering. When the content of the div below go from SingleMediaSkeleton to MediaContainer.
 
 	return (
-		<div ref={ref} className="w-full h-60 md:h-80 xl:h-[400px] 2xl:h-[520px] aspect-[2/3] transition-opacity duration-500">
+		<div ref={ref} className="w-full h-60 md:h-80 xl:h-[400px] aspect-[2/3] transition-opacity duration-500">
 			{inView && isLoaded ? <MediaContainer media_={media_} type={type} /> : <SingleMediaSkeleton />}
 		</div>
 	);

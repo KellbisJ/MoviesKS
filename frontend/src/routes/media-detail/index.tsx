@@ -8,12 +8,11 @@ import { MovieDetailInterface, TVDetailInterface } from '@/services/media-detail
 import { GenreInterface } from '../../types/genre-interface';
 import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
 import { MediaVideosInterface, MediaVideosResultInterface } from '@/services/media-videos/types';
-import { getMediaImages } from '../../services/media-images';
+// import { getMediaImages } from '../../services/media-images';
 import { MediaImagesInterface } from '@/services/media-images/types';
 import { MediaDetailRender } from '../../components/media-detail-render';
 import { PopcornParticlesLoader } from '@/components/loaders-animation';
 import { UseHandleSaveMedia } from '@/hooks/use-handle-save-media';
-import { useWindowSize } from '@/hooks/use-window-size';
 
 const MediaDetail = (): React.JSX.Element => {
 	const { id } = useParams();
