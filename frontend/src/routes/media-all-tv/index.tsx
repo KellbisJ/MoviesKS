@@ -10,8 +10,9 @@ import { MediaTypeT } from '@/types/media-type';
 const MediaAllTV = (): React.JSX.Element => {
 	const location = useLocation();
 
-	const [loading, setLoading] = useState<boolean>(false);
 	const [loadingComponents, setLoadingComponents] = useState<boolean>(true);
+	const [loading, setLoading] = useState<boolean>(false);
+
 	const [tv, setTv] = useState<TVInterface[]>([]);
 	const [moreMediaTv, setMoreMediaTv] = useState<TVInterface[]>([]);
 
@@ -24,7 +25,6 @@ const MediaAllTV = (): React.JSX.Element => {
 
 	useEffect(() => {
 		if (location.pathname === '/tv/all') {
-			setLoadingComponents(true);
 			setTv([]);
 			setMoreMediaTv([]);
 			setCanLoadMore(true);
@@ -33,8 +33,8 @@ const MediaAllTV = (): React.JSX.Element => {
 			async function fetchMedia() {
 				const previewTV = await getPreviewTrendingMedia(mediaType);
 				const tvData = previewTV.results;
-				setLoadingComponents(false);
 				setTv(tvData as TVInterface[]);
+				setLoadingComponents(false);
 			}
 
 			fetchMedia();
@@ -70,7 +70,13 @@ const MediaAllTV = (): React.JSX.Element => {
 
 	const allTv = [...tv, ...moreMediaTv];
 
-	return <>{loadingComponents ? <MediaSkeleton /> : <CreateMedia media={allTv} type={mediaType} />}</>;
+	return (
+		<>
+			{tv.length === 0 && loadingComponents && <MediaSkeleton />}
+
+			<CreateMedia media={allTv} type={mediaType} />
+		</>
+	);
 };
 
 export { MediaAllTV };
