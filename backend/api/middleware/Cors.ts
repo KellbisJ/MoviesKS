@@ -10,6 +10,7 @@ const allowedOrigins = [
 
 export const CorsOptions: cors.CorsOptions = {
 	origin: (origin, callback) => {
+		console.log('Origin:', origin);
 		if (process.env.NODE_ENV === 'development') {
 			callback(null, true);
 		} else if (process.env.NODE_ENV === 'preview' || process.env.NODE_ENV === 'production') {
