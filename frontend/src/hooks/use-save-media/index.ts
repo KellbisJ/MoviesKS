@@ -11,7 +11,7 @@ const useSaveMedia = (media: MovieInterface | TVInterface | MovieDetailInterface
 				tv: [],
 		  };
 
-	const storageKey = type === MediaTypeT.movie ? 'movies' : 'tv';
+	const storageKey = type === MediaTypeT.movie ? 'movies' : MediaTypeT.tv;
 
 	const isSaved = favorites[storageKey].some((item: typeof media) => item.id === media.id);
 

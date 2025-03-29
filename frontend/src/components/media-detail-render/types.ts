@@ -12,7 +12,10 @@ interface MediaDetailPropsInterface {
 	similarGenres: GenreInterface[];
 	similarMedia: MovieInterface[] | TVInterface[];
 	isMovie: (media: MovieDetailInterface | TVDetailInterface) => media is MovieDetailInterface;
-	handleFavoriteClick: () => void;
+	handleSaveMedia: (
+		type: MediaTypeT,
+		media: MovieInterface | TVInterface | MovieDetailInterface | TVDetailInterface
+	) => (event: React.MouseEvent<HTMLSpanElement>) => void;
 	showTrailer: boolean;
 	setShowTrailer: React.Dispatch<React.SetStateAction<boolean>>;
 	videoKey: string | undefined;

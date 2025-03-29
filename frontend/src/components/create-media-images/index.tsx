@@ -22,20 +22,26 @@ const CreateMediaImages: React.FC<CreateMediaImagePropsInterface> = ({ media, ty
 		}
 	}, [images.length]);
 
+	// console.log(media);
+
 	return (
-		<div className="flex items-center justify-center relative w-full xl:w-96 h-80 md:h-full ">
+		<>
 			{images.length > 1 ? (
-				images.map((mediaImg, index) => (
-					<MediaImagesContainer
-						image={mediaImg}
-						key={index}
-						className={`absolute w-full md:w-4/5 h-full transition-opacity duration-[2500ms] ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}
-					/>
-				))
+				<div className="flex items-center justify-center relative w-full h-auto aspect-video">
+					{images.map((mediaImg, index) => (
+						<MediaImagesContainer
+							image={mediaImg}
+							key={index}
+							className={`absolute inset-0 w-full h-full transition-opacity duration-[2500ms] ${
+								index === currentIndex ? 'opacity-100' : 'opacity-0'
+							}`}
+						/>
+					))}
+				</div>
 			) : (
 				<h3>There are no additional posters</h3>
 			)}
-		</div>
+		</>
 	);
 };
 

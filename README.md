@@ -1,42 +1,49 @@
 # MoviesKS
 
-Este proyecto es un sitio web de base de datos de películas que permite a los usuarios consumir información sobre películas. Los usuarios pueden buscar películas por título, ver detalles sobre películas individuales, y filtrar películas por género, y más.
+MoviesKS es un sitio web de base de datos de películas diseñado para proporcionar a los usuarios información detallada sobre películas. Con esta plataforma, puedes buscar películas por título, explorar detalles específicos de películas individuales y filtrar resultados por género, entre otras funciones.
 
-## Estructura del Proyecto
+## Instalación del Proyecto
 
-/moviesKS
-  └── /frontend
-      └── src/
-      └── index.jsx
-      ... otros archivos y directorios del frontend
-  └── /backend
-      └── /api
-          └── routes
-          └── ... otros archivos y directorios de la API
-      └── index.js
-      ... otros archivos y directorios del backend
-  └── README.md
-  └── .gitignore
+Sigue estos pasos para instalar y ejecutar el proyecto en tu máquina local:
+
+1. **Clonar el Repositorio:**
+
+   - Clona este repositorio utilizando tu método preferido (HTTPS, SSH o GitHub CLI). También puedes hacer un fork del repositorio y clonar desde tu fork.
+
+2. **Configurar el Backend:**
+
+   - Navega al directorio `/backend` desde tu terminal.
+   - Ejecuta el comando `npm install` para instalar todas las dependencias del backend.
+   - Una vez completada la instalación, inicia el servidor con `npm run start`. Esto ejecutará el backend localmente en `localhost:8000`.
+
+3. **Configurar el Frontend:**
+   - Navega al directorio `/frontend` desde tu terminal.
+   - Ejecuta el comando `npm install` para instalar todas las dependencias del frontend.
+   - Inicia el servidor de desarrollo local con `npm run start`. La terminal te indicará el puerto en el que está disponible la aplicación frontend.
 
 ## Comandos Disponibles
 
-Frontend (Vite):
+### Frontend (Vite)
 
-### `npm run start`
+- **`npm run start`**
 
-Este comando inicia el servidor de desarrollo del frontend usando Vite. Esto es útil para trabajar en el proyecto localmente.
+  - Inicia el servidor de desarrollo para trabajar en el frontend localmente.
 
-### `npm run build`
+- **`npm run build`**
 
-Este comando construye el proyecto para producción usando Vite. Esto creará una versión lista para producción de tu aplicación en el directorio dist.
+  - Genera una versión optimizada para producción en la carpeta `dist`.
 
-### `npm run serve`
+- **`npm run serve`**
+  - Previsualiza localmente la versión de producción generada antes de desplegarla.
 
-Este comando inicia un servidor local para previsualizar la versión de producción de tu aplicación. Esto es útil para probar la versión de producción localmente antes de implementarla en un entorno de producción.
+### Backend (Express)
 
-Backend (Express):
+- **`npm run start`**
+  - Inicia y despliega el servidor backend en local.
 
-### `npm run start`
+## Estructura del Proyecto
 
-Este comando inicia el servidor backend usando Node.js en modo de observación. Esto significa que el servidor se reiniciará automáticamente cada vez que se detecten cambios en los archivos fuente.
+El repositorio contiene dos carpetas principales:
 
+- **`/backend:`** Responsable de gestionar solicitudes a la API de TheMovieDB, utilizando los encabezados y claves necesarios para acceder a los datos.
+- **`/frontend:`** Envia solicitudes al backend para obtener y mostrar datos relevantes en la interfaz de usuario.

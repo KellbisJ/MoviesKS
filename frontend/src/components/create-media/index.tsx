@@ -4,6 +4,7 @@ import { CreateMediaPropsInterface } from './types';
 import { MovieInterface, TVInterface } from '@/types/movie-and-tv-interface';
 import { MovieDetailInterface, TVDetailInterface } from '@/services/media-detail/types';
 import { LazyMediaContainer } from '../lazy-media-container';
+import { LazyMediaContainerSimilar } from '../lazy-media-container-similar';
 
 const isMovieOrTV = (
 	media: MovieInterface | TVInterface | MovieDetailInterface | TVDetailInterface
@@ -38,12 +39,31 @@ const CreateMedia: React.FC<CreateMediaPropsInterface> = ({ media, type }) => {
 	}
 
 	return (
-		<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-5 lg:gap-8">
-			{media.filter(isMovieOrTV).map((media_) => (
-				<LazyMediaContainer key={media_.id} media_={media_} type={type} />
-			))}
+		<div className="max-w-[1536px] mx-auto">
+			<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
+				{media.filter(isMovieOrTV).map((media_) => (
+					<LazyMediaContainer key={media_.id} media_={media_} type={type} />
+				))}
+			</div>
 		</div>
 	);
 };
 
-export { CreateMediaHome, CreateMedia };
+const CreateSimilarMediaDetail: React.FC<CreateMediaPropsInterface> = ({ media, type }) => {
+	if (!Array.isArray(media)) {
+		console.error('Invalid media data:', media);
+		return null;
+	}
+
+	return (
+		<div className="max-w-[1536px] mx-auto">
+			<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
+				{media.filter(isMovieOrTV).map((media_) => (
+					<LazyMediaContainerSimilar key={media_.id} mediaData={media_} type={type} />
+				))}
+			</div>
+		</div>
+	);
+};
+
+export { CreateMediaHome, CreateMedia, CreateSimilarMediaDetail };

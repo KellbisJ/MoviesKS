@@ -6,10 +6,14 @@ import { MovieDetailInterface, TVDetailInterface } from '@/services/media-detail
 const MediaSkeleton = () => {
 	const count = 20;
 	return (
-		<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-5 lg:gap-8">
-			{Array.from({ length: count }, (_, index) => (
-				<div key={index} className="w-full h-60 md:h-80 2xl:h-[400px] bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
-			))}
+		<div className="max-w-[1536px] mx-auto">
+			<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
+				{Array.from({ length: count }, (_, index) => (
+					<div
+						key={index}
+						className="w-full h-60 md:h-80 xl:h-[400px] aspect-[2/3] bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
+				))}
+			</div>
 		</div>
 	);
 };
@@ -22,7 +26,7 @@ const MediaNullSkeleton: React.FC<MediaNullSkeletonPropsInterface> = ({ data, ty
 	};
 	return (
 		<div
-			className="w-full h-60 md:h-80 2xl:h-[400px] bg-gray-700 rounded-lg shadow-lg cursor-pointer flex justify-center items-center p-4 text-center text-gray-100 text-sm"
+			className="w-full h-60 md:h-80 xl:h-[400px] aspect-[2/3] bg-gray-700 rounded-lg shadow-lg cursor-pointer flex justify-center items-center p-4 text-center text-gray-100 text-sm"
 			onClick={() => handleNavigation(data)}>
 			No image available for: {title}
 		</div>
@@ -42,12 +46,8 @@ const CategoriesSkeleton = () => {
 	);
 };
 
-const BigPosterPathSkeleton = () => {
-	return <div className="w-full h-full bg-gray-700 animate-pulse rounded-lg"></div>;
-};
-
 const BigPosterPathNullSkeleton = () => {
-	return <div className="w-full h-full bg-gray-700 rounded-lg flex justify-center items-center">No image available</div>;
+	return <div className="w-full h-full aspect-[2/3] bg-gray-700 rounded-lg flex justify-center items-center">No image available</div>;
 };
 
 const SimilarGenresNullSkeleton = () => {
@@ -58,57 +58,23 @@ const SimilarGenresNullSkeleton = () => {
 	);
 };
 
-const SimilarMediaSkeleton = () => {
-	const count = 20;
-	return (
-		<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
-			{Array.from({ length: count }, (_, index) => (
-				<div key={index} className="w-full h-80 bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
-			))}
-		</div>
-	);
-};
+// const SimilarMediaSkeleton = () => {
+// 	const count = 20;
+// 	return (
+// 		<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+// 			{Array.from({ length: count }, (_, index) => (
+// 				<div key={index} className="w-full h-80 bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
+// 			))}
+// 		</div>
+// 	);
+// };
 
-const MediaDetailSkeleton = () => {
+const MediaSavedVoid = () => {
 	return (
-		<div className="rounded-lg">
-			<div className="flex flex-wrap gap-5 mb-6 flex-col items-center sm:flex-row md:items-normal">
-				<div className="flex-1 w-full h-[460px] p-4 rounded-lg bg-blue-100 dark:bg-[#14273c] flex justify-center">
-					<div className="min-w-64 sm:max-w-[320px] h-[420px] bg-gray-700 animate-pulse rounded-lg"></div>
-				</div>
-				<div className="flex-[2] flex flex-col gap-4 bg-blue-100 dark:bg-[#14273c] p-4 rounded-lg w-full sm:h-[460px]">
-					<div className="w-2/5 h-7 bg-gray-700 animate-pulse rounded-lg"></div>
-					<div className="w-2/5 h-5 bg-gray-700 animate-pulse rounded-lg"></div>
-					<div className="w-2/5 h-5 bg-gray-700 animate-pulse rounded-lg"></div>
-					<div className="w-2/5 h-5 bg-gray-700 animate-pulse rounded-lg"></div>
-					<div className="w-2/5 h-5 bg-gray-700 animate-pulse rounded-lg"></div>
-					<div className="w-2/5 h-5 bg-gray-700 animate-pulse rounded-lg"></div>
-				</div>
+		<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-5 lg:gap-8 w-full">
+			<div className="col-span-full w-full bg-gray-200 dark:bg-gray-700 border-2 border-dashed border-gray-400 rounded-lg h-80 flex items-center justify-center text-gray-500 dark:text-gray-400 italic">
+				No Favorites Yet
 			</div>
-			<div className="flex flex-col sm:flex-row flex-wrap gap-6 mb-6">
-				<div className="bg-blue-100 dark:bg-[#14273c] h-32 p-4 rounded-lg text-white w-full sm:w-4/5">
-					<div className="w-full h-full bg-gray-700 animate-pulse rounded-lg mb-4"></div>
-				</div>
-				<div className="flex-[2] h-32 bg-blue-100 dark:bg-[#14273c] p-4 rounded-lg gap-2.5 min-w-0 flex-wrap justify-center w-1/5 hidden sm:flex">
-					<div className="w-full h-full bg-gray-700 animate-pulse rounded-lg shadow-md"></div>
-				</div>
-			</div>
-		</div>
-	);
-};
-
-const MediaFavoritesVoid = () => {
-	return (
-		<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-5 lg:gap-8">
-			{Array.from({ length: 3 }, (_, index) => (
-				<div
-					key={index}
-					className="w-full bg-gray-700 border-2 border-dashed border-gray-400 rounded-lg h-80 flex items-center justify-center text-gray-400 text-lg italic text-center relative transition-colors duration-300 hover:bg-gray-200 hover:border-gray-500">
-					<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-400 text-base opacity-60">
-						No Favorites Yet
-					</div>
-				</div>
-			))}
 		</div>
 	);
 };
@@ -163,19 +129,17 @@ const MediaNullSkeletonHome: React.FC<MediaNullSkeletonPropsInterface> = ({ data
 };
 
 const SingleMediaSkeleton = () => (
-	<div className="w-full h-60 md:h-80 2xl:h-[400px] bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
+	<div className="w-full h-60 md:h-80 xl:h-[400px] aspect-[2/3] bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
 );
 
 export {
 	MediaSkeleton,
 	MediaNullSkeleton,
 	CategoriesSkeleton,
-	BigPosterPathSkeleton,
 	BigPosterPathNullSkeleton,
 	SimilarGenresNullSkeleton,
-	SimilarMediaSkeleton,
-	MediaDetailSkeleton,
-	MediaFavoritesVoid,
+	// SimilarMediaSkeleton,
+	MediaSavedVoid,
 	MediaHomeSkeleton,
 	MediaHomeErrorSkeleton,
 	SingleMediaSkeleton,

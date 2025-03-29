@@ -29,7 +29,7 @@ const HomeViewContent: React.FC<HomeViewContentInterfaceProps> = ({ isLoadingCom
 				<PopcornParticlesLoader />
 			) : (
 				<div className="min-h-screen flex justify-center items-start">
-					<div className="container">
+					<div className="container mx-auto px-4 sm:px-6 py-3">
 						<div className="text-center mt-4 mb-4">
 							<h1 className="text-4xl md:text-5xl font-playfair font-bold text-gray-800 dark:text-white mb-6">MoviesKS</h1>
 							{/* <p className="text-lg text-gray-300 max-w-2xl mx-auto">
@@ -45,7 +45,7 @@ const HomeViewContent: React.FC<HomeViewContentInterfaceProps> = ({ isLoadingCom
 							<div className="flex items-center bg-gray-700  rounded-full px-6 py-4 border border-white/20 dark:border-gray-700">
 								<input
 									type="text"
-									placeholder="Search movies, series..."
+									placeholder="Busca películas, series..."
 									className="w-full bg-transparent border-none focus:ring-0 text-gray-300 placeholder-gray-400 outline-none no-underline pr-2"
 									onChange={handleInputChange}
 								/>
@@ -62,7 +62,7 @@ const HomeViewContent: React.FC<HomeViewContentInterfaceProps> = ({ isLoadingCom
 						</form>
 
 						{mediaSectionData.map((section, index) => (
-							<section key={`${section.type}-${index}`} className="space-y-2 mt-16" role="region" lang="es">
+							<section key={`${section.type}-${index}`} className="space-y-2 mt-12" role="region" lang="es">
 								<h3 className="text-gray-700 dark:text-gray-300">{section.title}</h3>
 								{isLoadingMedia ? (
 									<MediaHomeSkeleton />

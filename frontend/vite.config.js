@@ -14,7 +14,7 @@ export default defineConfig({
 	},
 	root: './',
 	publicDir: true,
-	server: {
-		host: '0.0.0.0',
-	},
+	// server: {
+	// 	host: '0.0.0.0',
+	// }, // this for allow to see your project on local from your mobile media, Idk why the data can be accessed on mobile, if anyone can solve and explain why, I will be glad and thankful.
 });

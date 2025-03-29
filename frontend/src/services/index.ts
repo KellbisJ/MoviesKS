@@ -24,7 +24,19 @@ export const API_MEDIA_LISTS = (type: string, mediaListType: string) => `${BASE_
 const api = axios.create({
 	headers: {
 		'Content-Type': 'application/json;charset=utf-8',
+		'X-Requested-With': 'XMLHttpRequest',
 	},
+	timeout: 10000,
+	// withCredentials: true,
+	// xsrfCookieName: 'XSRF-TOKEN',
+	// xsrfHeaderName: 'X-XSRF-TOKEN',
+});
+
+api.interceptors.request.use((config) => {
+	if (!config.url?.startsWith(BASE_API_URL)) {
+		throw new axios.Cancel('Bloqueado: Petición a dominio no permitido');
+	}
+	return config;
 });
 
 export { api };

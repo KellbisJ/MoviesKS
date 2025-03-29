@@ -4,9 +4,9 @@ import { useParams } from 'react-router-dom';
 import { useInfiniteScroll } from '../../hooks/use-infinite-scroll';
 import { getMediaByCategory } from '../../services/media-by-category';
 import { CreateMedia } from '../../components/create-media';
-import { MediaSkeleton } from '../../components/loading-skeletons';
 import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
 import { MediaTypeT } from '@/types/media-type';
+import { MediaSkeleton } from '@/components/loading-skeletons';
 
 const MediaAllByCategory = (): React.JSX.Element => {
 	const { id } = useParams();
@@ -18,8 +18,9 @@ const MediaAllByCategory = (): React.JSX.Element => {
 		console.error('Invalid media type');
 	}
 
-	const [loading, setLoading] = useState<boolean>(false);
 	const [loadingComponents, setLoadingComponents] = useState<boolean>(true);
+	const [loading, setLoading] = useState<boolean>(false);
+
 	const [media, setMedia] = useState<MovieInterface[] | TVInterface[]>([]);
 	const [moreMedia, setMoreMedia] = useState<MovieInterface[] | TVInterface[]>([]);
 
@@ -28,7 +29,6 @@ const MediaAllByCategory = (): React.JSX.Element => {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-		setLoadingComponents(true);
 		setMedia([]);
 		setMoreMedia([]);
 		setCanLoadMore(true);
@@ -36,9 +36,9 @@ const MediaAllByCategory = (): React.JSX.Element => {
 		async function fetchMedia() {
 			const mediaData = await getMediaByCategory(mediaType, mediaIdGenre);
 			const mediaDataResults = mediaData.results;
-			setLoadingComponents(false);
 			setMedia(mediaDataResults);
 			setCanLoadMore(true);
+			setLoadingComponents(false);
 		}
 		fetchMedia();
 	}, []);
@@ -71,17 +71,10 @@ const MediaAllByCategory = (): React.JSX.Element => {
 
 	return (
 		<>
-			{loadingComponents ? (
-				<>
-					<h2 className="my-8 dark:text-gray-100">Loading...</h2>
-					<MediaSkeleton />
-				</>
-			) : (
-				<>
-					<h2 className="my-8 dark:text-gray-100">All Media by Category: {mediaType}</h2>
-					<CreateMedia media={allMedia} type={mediaType} />
-				</>
-			)}
+			<h2 className="my-8 dark:text-gray-100">All Media by Category: {mediaType}</h2>
+			{media.length === 0 && loadingComponents && <MediaSkeleton />}
+
+			<CreateMedia media={allMedia} type={mediaType} />
 		</>
 	);
 };

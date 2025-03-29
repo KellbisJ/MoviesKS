@@ -5,9 +5,8 @@ import { getPreviewTrendingMedia } from '@/services/preview-trending-media';
 import { getMediaByCategory } from '@/services/media-by-category';
 import { CreateMedia } from '@/components/create-media';
 import { MovieInterface, TVInterface } from '@/types/movie-and-tv-interface';
-import { MediaSkeleton } from '@/components/loading-skeletons';
 import { MediaTypeT } from '@/types/media-type';
-import { isValidMediaType } from '@/utils/media-type-validation';
+import { MediaSkeleton } from '@/components/loading-skeletons';
 
 const FilteredMedia = () => {
 	const location = useLocation();
@@ -20,12 +19,11 @@ const FilteredMedia = () => {
 		console.error('Invalid media type');
 	}
 
-	const [loadingComponents, setLoadingComponents] = useState(true);
+	const [loadingComponents, setLoadingComponents] = useState<boolean>(true);
 	const [media, setMedia] = useState<MovieInterface[] | TVInterface[]>([]);
 
 	useEffect(() => {
 		const fetchMedia = async () => {
-			setLoadingComponents(true);
 			try {
 				let mediaFilteredData: MovieInterface[] | TVInterface[];
 				if (location.pathname.includes('/preview/genre/')) {
@@ -47,7 +45,13 @@ const FilteredMedia = () => {
 		fetchMedia();
 	}, [location, mediaType, mediaIdGenre]);
 
-	return <>{loadingComponents ? <MediaSkeleton /> : <CreateMedia media={media} type={mediaType} />}</>;
+	return (
+		<>
+			{media.length === 0 && loadingComponents && <MediaSkeleton />}
+
+			<CreateMedia media={media} type={mediaType} />
+		</>
+	);
 };
 
 export { FilteredMedia };
