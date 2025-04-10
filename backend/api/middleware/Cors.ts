@@ -9,19 +9,10 @@ const allowedOrigins = [
 ];
 
 export const CorsOptions: cors.CorsOptions = {
-	origin: (origin, callback) => {
-		console.log('Origin:', origin);
-		if (process.env.NODE_ENV === 'development') {
-			callback(null, true);
-		} else if (process.env.NODE_ENV === 'preview' || process.env.NODE_ENV === 'production') {
-			if (!origin || allowedOrigins.includes(origin)) {
-				callback(null, true);
-			} else {
-				callback(new Error(`Not allowed by CORS: ${origin}`));
-			}
-		}
-	},
+	origin: allowedOrigins,
 	credentials: true,
+	methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+	allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
 };
 
 export const CorsMiddleware = cors(CorsOptions);

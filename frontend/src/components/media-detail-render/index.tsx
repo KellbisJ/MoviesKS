@@ -31,7 +31,9 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 		// New data points
 		const productionCompanies = mediaDetail.production_companies || [];
 		const spokenLanguages = mediaDetail.spoken_languages || [];
-		const releaseDate = isMovie(mediaDetail) ? mediaDetail.release_date : mediaDetail.first_air_date;
+		const releaseDate = isMovie(mediaDetail)
+			? mediaDetail.release_date
+			: mediaDetail.first_air_date;
 		const runtime = isMovie(mediaDetail)
 			? `${mediaDetail.runtime} min`
 			: mediaDetail.episode_run_time?.[0]
@@ -49,7 +51,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 						{bigPoster && (
 							<img
 								className="w-full h-full object-cover object-center shadow-2xl opacity-0 transition-opacity duration-500"
-								src={`https://image.tmdb.org/t/p/original/${bigPoster}`}
+								src={`https://image.tmdb.org/t/p/w1280/${bigPoster}`}
 								alt="Backdrop"
 								loading="eager"
 								onLoad={(e) => (e.currentTarget.style.opacity = '1')} // nice
@@ -66,7 +68,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 									{mediaDetail.poster_path ? (
 										<img
 											className="w-full h-auto aspect-[2/3] object-cover opacity-0 transition-opacity duration-500"
-											src={`https://image.tmdb.org/t/p/w780/${mediaDetail.poster_path}`}
+											src={`https://image.tmdb.org/t/p/w400/${mediaDetail.poster_path}`}
 											alt="Poster"
 											loading="eager"
 											onLoad={(e) => (e.currentTarget.style.opacity = '1')} // nice
@@ -77,7 +79,9 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 									<button
 										onClick={handleSaveMedia(mediaType, mediaDetail)}
 										className={`absolute top-4 right-4 p-2 rounded-full backdrop-blur-sm transition-all ${
-											isSavedMedia ? 'text-cyan-400 bg-cyan-400/20' : 'text-gray-200 hover:text-cyan-400 bg-gray-800/30 hover:bg-cyan-400/20'
+											isSavedMedia
+												? 'text-cyan-400 bg-cyan-400/20'
+												: 'text-gray-200 hover:text-cyan-400 bg-gray-800/30 hover:bg-cyan-400/20'
 										}`}>
 										<Save className="w-6 h-6" />
 									</button>
@@ -88,14 +92,18 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 								<div className="space-y-4">
 									<h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
 										{isMovie(mediaDetail) ? mediaDetail.title : mediaDetail.name}
-										<span className="ml-4 text-2xl font-normal text-gray-300">({new Date(releaseDate).getFullYear()})</span>
+										<span className="ml-4 text-2xl font-normal text-gray-300">
+											({new Date(releaseDate).getFullYear()})
+										</span>
 									</h1>
 
 									<div className="flex items-center flex-wrap gap-4">
 										<div className="flex items-center bg-gray-800/70 px-3 py-1 rounded-full backdrop-blur-sm border border-gray-700">
 											<Star className="w-5 h-5 mr-1 text-yellow-400" />
 											<span className="font-medium">{mediaDetail.vote_average.toFixed(1)}</span>
-											<span className="ml-2 text-gray-300">({mediaDetail.vote_count.toLocaleString()})</span>
+											<span className="ml-2 text-gray-300">
+												({mediaDetail.vote_count.toLocaleString()})
+											</span>
 										</div>
 
 										{mediaDetailVideos?.length > 0 && (
@@ -114,7 +122,9 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 								<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 									<div className="flex items-center space-x-2">
 										<Film className="w-5 h-5 text-cyan-500" />
-										<span>{mediaType === MediaTypeT.movie ? 'Película' : 'Serie de televisión'}</span>
+										<span>
+											{mediaType === MediaTypeT.movie ? 'Película' : 'Serie de televisión'}
+										</span>
 									</div>
 
 									<div className="flex items-center space-x-2">
@@ -175,11 +185,15 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 										<div className="flex flex-wrap gap-2">
 											{spokenLanguages.map((lang) =>
 												lang.name ? (
-													<span key={lang.name} className="p-2 min-w-20 w-20 max-w-28 text-sm text-center rounded-full bg-cyan-500">
+													<span
+														key={lang.name}
+														className="p-2 min-w-20 w-20 max-w-28 text-sm text-center rounded-full bg-cyan-500">
 														{lang.english_name}
 													</span>
 												) : (
-													<span key={lang.name} className="p-2 min-w-20 w-20 max-w-28 text-sm text-center rounded-full bg-cyan-500">
+													<span
+														key={lang.name}
+														className="p-2 min-w-20 w-20 max-w-28 text-sm text-center rounded-full bg-cyan-500">
 														{lang.iso_639_1}
 													</span>
 												)
@@ -190,7 +204,9 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 
 								<div className="space-y-4">
 									<h3 className="text-lg font-semibold">Sinopsis</h3>
-									<p className="leading-relaxed">{mediaDetail.overview || 'No se ha encontrado una sinopsis.'}</p>
+									<p className="leading-relaxed">
+										{mediaDetail.overview || 'No se ha encontrado una sinopsis.'}
+									</p>
 								</div>
 
 								<div className="space-y-4">
@@ -222,7 +238,11 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 					</div>
 				</div>
 
-				<TrailerMedia isOpen={showTrailer} onClose={() => setShowTrailer(false)} videoKey={videoKey as string} />
+				<TrailerMedia
+					isOpen={showTrailer}
+					onClose={() => setShowTrailer(false)}
+					videoKey={videoKey as string}
+				/>
 			</section>
 		);
 	}

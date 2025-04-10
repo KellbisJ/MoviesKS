@@ -7,7 +7,7 @@ const TrailerMedia: React.FC<TrailerMediaModalPropsInterface> = ({ isOpen, onClo
 	if (!isOpen) return null;
 	return ReactDOM.createPortal(
 		<div className="fixed inset-0 bg-black backdrop-blur-sm bg-opacity-50 flex justify-center items-center z-[999]">
-			<div className="relative w-[80%] max-w-[800px] bg-blue-100 dark:bg-[#363062] p-5 rounded-lg shadow-lg flex flex-col items-center">
+			<div className="relative container md:w-[724px] bg-blue-100 dark:bg-[#363062] shadow-lg flex flex-col items-center">
 				<CircleX
 					size={32}
 					className="absolute -bottom-10 sm:-bottom-14 left-1/2 -translate-x-1/2 text-center border-none transition duration-300 ease-in-out transform hover:scale-110 shadow-md cursor-pointer text-red-500"
@@ -16,14 +16,14 @@ const TrailerMedia: React.FC<TrailerMediaModalPropsInterface> = ({ isOpen, onClo
 
 				{videoKey && (
 					<iframe
-						width="560"
-						height="315"
+						width="724"
+						height="407"
 						src={`https://www.youtube.com/embed/${videoKey}`}
 						title="Trailer"
 						frameBorder="0"
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 						allowFullScreen
-						className="w-full h-64 lg:h-[450px] border-none rounded-lg md:h-80"></iframe>
+						className="container md:w-[724px] h-80 lg:h-96"></iframe>
 				)}
 			</div>
 		</div>,
