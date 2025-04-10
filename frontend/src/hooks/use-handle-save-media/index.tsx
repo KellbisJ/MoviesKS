@@ -7,9 +7,14 @@ const UseHandleSaveMedia = () => {
 	const { saveMedia } = useSavedMedia();
 
 	const handleSaveMedia =
-		(type: MediaTypeT, media: MovieInterface | TVInterface | MovieDetailInterface | TVDetailInterface) =>
+		(
+			type: MediaTypeT,
+			media: MovieInterface | TVInterface | MovieDetailInterface | TVDetailInterface
+		) =>
 		(event: React.MouseEvent<HTMLSpanElement>) => {
 			if (type === MediaTypeT.movie || type === MediaTypeT.tv) {
+				event.preventDefault();
+				event.stopPropagation();
 				saveMedia(type, media);
 				return;
 			}
