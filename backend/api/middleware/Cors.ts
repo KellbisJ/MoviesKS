@@ -5,9 +5,7 @@ dotenv.config();
 
 const allowedOrigins = [
 	'https://movies-ks-frontend.vercel.app',
-	'https://movies-ks-frontend-git-develop-kellbis-projects.vercel.app',
 	'https://movies-ks-backend.vercel.app',
-	'https://movies-ks-backend-git-develop-kellbis-projects.vercel.app',
 ];
 
 export const CorsOptions: cors.CorsOptions = {
@@ -17,9 +15,6 @@ export const CorsOptions: cors.CorsOptions = {
 		if (!origin) return callback(null, true);
 
 		if (process.env.NODE_ENV === 'development') {
-			return callback(null, true);
-		}
-		if (process.env.NODE_ENV === 'test') {
 			return callback(null, true);
 		}
 
