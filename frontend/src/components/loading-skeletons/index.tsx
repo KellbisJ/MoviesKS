@@ -28,7 +28,7 @@ const MediaNullSkeleton: React.FC<MediaNullSkeletonPropsInterface> = ({ data, ty
 	};
 	return (
 		<div
-			className="w-full h-60 md:h-80 xl:h-[400px] aspect-[2/3] bg-gray-700 rounded-lg shadow-lg cursor-pointer flex justify-center items-center p-4 text-center text-gray-100 text-sm"
+			className="w-full h-36 md:h-80 xl:h-[400px] aspect-[2/3] bg-gray-700 rounded-lg shadow-lg cursor-pointer flex justify-center items-center p-4 text-center text-gray-100 text-sm"
 			onClick={() => handleNavigation(data)}>
 			No image available for: {title}
 		</div>
