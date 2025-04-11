@@ -41,6 +41,19 @@ Follow these steps to install and run the project locally:
 - **`npm run start`**
   - Starts and mount the backend on local.
 
+## Environment variables
+
+- Frontend:
+  - **`VITE_APP_SERVER=<backend-server-url>`**
+- Backend:
+  - **`NODE_ENV=<work-env>`**
+  - **`PORT=<port-number>`**
+  - **`API_KEY=<your-themoviedb-api-key>`**
+
+### Request a free TheMovieDB Api Key
+
+[TheMovieDB](https://www.themoviedb.org 'TheMovieDB')
+
 ## Project Structure
 
 The repository includes two main directories:

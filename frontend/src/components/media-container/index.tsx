@@ -36,7 +36,7 @@ const MediaContainer: React.FC<MediaContainerPropsInterface> = ({ media_, type }
 					to={`/${type}/detail/${media_.id}`}
 					className="block w-full h-full relative overflow-hidden rounded-lg shadow-lg cursor-pointer">
 					<img
-						className="w-full h-full aspect-[2/3] rounded-lg shadow-lg cursor-pointer opacity-0 transition-opacity duration-500 hover:shadow-xl"
+						className="w-full h-auto aspect-[2/1.5] sm:aspect-auto sm:h-full srounded-lg shadow-lg cursor-pointer opacity-0 transition-opacity duration-500 hover:shadow-xl"
 						alt={isMovie(media_) ? media_.title : media_.name}
 						src={`https://image.tmdb.org/t/p/w400/${media_.poster_path}`}
 						onLoad={(e) => (e.currentTarget.style.opacity = '1')} // nice

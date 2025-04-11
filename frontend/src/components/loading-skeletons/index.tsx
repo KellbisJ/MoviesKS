@@ -7,11 +7,11 @@ const MediaSkeleton = () => {
 	const count = 20;
 	return (
 		<div className="max-w-[1536px] mx-auto">
-			<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
+			<div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
 				{Array.from({ length: count }, (_, index) => (
 					<div
 						key={index}
-						className="w-full h-60 md:h-80 xl:h-[400px] aspect-[2/3] bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
+						className="w-full h-36 md:h-80 xl:h-[400px] aspect-[2/3] bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
 				))}
 			</div>
 		</div>
@@ -20,7 +20,9 @@ const MediaSkeleton = () => {
 
 const MediaNullSkeleton: React.FC<MediaNullSkeletonPropsInterface> = ({ data, type, title }) => {
 	const navigate = useNavigate();
-	const handleNavigation = (data: MovieInterface | TVInterface | MovieDetailInterface | TVDetailInterface) => {
+	const handleNavigation = (
+		data: MovieInterface | TVInterface | MovieDetailInterface | TVDetailInterface
+	) => {
 		const idParam = data.id;
 		navigate(`/${type}/detail/${idParam}`);
 	};
@@ -47,7 +49,11 @@ const CategoriesSkeleton = () => {
 };
 
 const BigPosterPathNullSkeleton = () => {
-	return <div className="w-full h-full aspect-[2/3] bg-gray-700 rounded-lg flex justify-center items-center">No image available</div>;
+	return (
+		<div className="w-full h-full aspect-[2/3] bg-gray-700 rounded-lg flex justify-center items-center">
+			No image available
+		</div>
+	);
 };
 
 const SimilarGenresNullSkeleton = () => {
@@ -113,9 +119,15 @@ const MediaHomeErrorSkeleton = () => {
 	);
 };
 
-const MediaNullSkeletonHome: React.FC<MediaNullSkeletonPropsInterface> = ({ data, type, title }) => {
+const MediaNullSkeletonHome: React.FC<MediaNullSkeletonPropsInterface> = ({
+	data,
+	type,
+	title,
+}) => {
 	const navigate = useNavigate();
-	const handleNavigation = (data: MovieInterface | TVInterface | MovieDetailInterface | TVDetailInterface) => {
+	const handleNavigation = (
+		data: MovieInterface | TVInterface | MovieDetailInterface | TVDetailInterface
+	) => {
 		const idParam = data.id;
 		navigate(`/${type}/detail/${idParam}`);
 	};
@@ -129,7 +141,7 @@ const MediaNullSkeletonHome: React.FC<MediaNullSkeletonPropsInterface> = ({ data
 };
 
 const SingleMediaSkeleton = () => (
-	<div className="w-full h-60 md:h-80 xl:h-[400px] aspect-[2/3] bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
+	<div className="w-full h-36 md:h-80 xl:h-[400px] aspect-[2/3] bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
 );
 
 export {
