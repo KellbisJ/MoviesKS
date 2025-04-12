@@ -5,7 +5,7 @@ import { SearchMediaInterface } from '../../interfaces/search-media';
 
 dotenv.config();
 
-const searchMediaRouter = express.Router();
+const SearchMediaRouter = express.Router();
 
 const searchMedia = async (req: Request, res: Response, type: string) => {
 	const { query } = req.params;
@@ -29,9 +29,13 @@ const searchMedia = async (req: Request, res: Response, type: string) => {
 					error: axiosError.message,
 				});
 			} else if (axiosError.request) {
-				res.status(500).json({ message: 'No response received from the server', error: axiosError.message });
+				res
+					.status(500)
+					.json({ message: 'No response received from the server', error: axiosError.message });
 			} else {
-				res.status(500).json({ message: 'An unexpected error occurred', error: axiosError.message });
+				res
+					.status(500)
+					.json({ message: 'An unexpected error occurred', error: axiosError.message });
 			}
 		} else {
 			res.status(500).json({ message: 'An unexpected error occurred', error: String(error) });
@@ -39,12 +43,12 @@ const searchMedia = async (req: Request, res: Response, type: string) => {
 	}
 };
 
-searchMediaRouter.get('/search/movie/:query', (req: Request, res: Response) => {
+SearchMediaRouter.get('/search/movie/:query', (req: Request, res: Response) => {
 	searchMedia(req, res, 'movie');
 });
 
-searchMediaRouter.get('/search/tv/:query', (req: Request, res: Response) => {
+SearchMediaRouter.get('/search/tv/:query', (req: Request, res: Response) => {
 	searchMedia(req, res, 'tv');
 });
 
-export { searchMediaRouter };
+export { SearchMediaRouter };

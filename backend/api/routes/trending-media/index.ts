@@ -6,7 +6,7 @@ import { PreviewTvInterface } from '../../interfaces/trending-preview-tv';
 
 dotenv.config();
 
-const previewMediaRouter = express.Router();
+const TrendingMedia = express.Router();
 
 const getTrendingMedia = async (req: Request, res: Response, type: string) => {
 	const { page } = req.query;
@@ -18,24 +18,35 @@ const getTrendingMedia = async (req: Request, res: Response, type: string) => {
 	}
 
 	try {
-		const { data }: { data: PreviewMoviesInterface | PreviewTvInterface } = await axios.get(api_url);
+		const { data }: { data: PreviewMoviesInterface | PreviewTvInterface } = await axios.get(
+			api_url
+		);
 		res.json(data);
 	} catch (error) {
 		const axiosError = error as AxiosError;
-		if (axios.isAxiosError(axiosError) && axiosError.response && axiosError.response.status === 404) {
+		if (
+			axios.isAxiosError(axiosError) &&
+			axiosError.response &&
+			axiosError.response.status === 404
+		) {
 			res.status(404).json({ message: `No trending ${type} found`, error: axiosError.message });
 		} else {
-			res.status(500).json({ message: `An error occurred while fetching trending ${type}`, error: axiosError.message });
+			res
+				.status(500)
+				.json({
+					message: `An error occurred while fetching trending ${type}`,
+					error: axiosError.message,
+				});
 		}
 	}
 };
 
-previewMediaRouter.get('/trending/movie/day', (req: Request, res: Response) => {
+TrendingMedia.get('/trending/movie/day', (req: Request, res: Response) => {
 	getTrendingMedia(req, res, 'movie');
 });
 
-previewMediaRouter.get('/trending/tv/day', (req: Request, res: Response) => {
+TrendingMedia.get('/trending/tv/day', (req: Request, res: Response) => {
 	getTrendingMedia(req, res, 'tv');
 });
 
-export { previewMediaRouter };
+export { TrendingMedia };
