@@ -3,11 +3,11 @@ import { useParams } from 'react-router-dom';
 import { useValidMediaType } from '@/hooks/use-valid-media-type';
 import { getMediaBySearch } from '../../services/media-by-search';
 import { useInfiniteScroll } from '../../hooks/use-infinite-scroll';
-import { CreateMedia } from '../../components/create-media';
+import { CreateMedia } from '../../components/specific/create-media';
 import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
-import { NoResults } from '@/components/no-results';
+import { NoResults } from '@/components/layout/no-results';
 import { MediaTypeT } from '@/types/media-type';
-import { PopcornParticlesLoader } from '@/components/loaders-animation';
+import { PopcornParticlesLoader } from '@/components/utilities/loaders-animation';
 
 const MediaBySearch = (): React.JSX.Element => {
 	const { query } = useParams();
@@ -57,7 +57,9 @@ const MediaBySearch = (): React.JSX.Element => {
 		if (nextMediaData && nextMediaData.length > 0) {
 			setMoreMedia((prevMedia) => {
 				const mediaIds = new Set([...media, ...prevMedia].map((media) => media.id));
-				const uniqueNextMedia = nextMediaData.filter((media): media is MovieInterface | TVInterface => !mediaIds.has(media.id));
+				const uniqueNextMedia = nextMediaData.filter(
+					(media): media is MovieInterface | TVInterface => !mediaIds.has(media.id)
+				);
 				return [...prevMedia, ...uniqueNextMedia] as MovieInterface[] | TVInterface[];
 			});
 			setPage((prevPage) => prevPage + 1);
@@ -76,7 +78,8 @@ const MediaBySearch = (): React.JSX.Element => {
 			{loadingComponents && media.length === 0 && <PopcornParticlesLoader />}
 
 			<h3 className="my-8 dark:text-gray-100">
-				Search Results for "{querySearch}" in {mediaType === MediaTypeT.movie ? 'Movies' : 'TV Shows'}
+				Search Results for "{querySearch}" in{' '}
+				{mediaType === MediaTypeT.movie ? 'Movies' : 'TV Shows'}
 			</h3>
 			<CreateMedia media={allMedia} type={mediaType} />
 

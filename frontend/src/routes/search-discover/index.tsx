@@ -4,10 +4,10 @@ import { useSearchParams } from 'react-router-dom';
 import { useValidMediaType } from '@/hooks/use-valid-media-type';
 import { getMediaBySearch } from '@/services/media-by-search';
 import { MediaBySearchInterface } from '@/services/media-by-search/types';
-import { CreateMedia } from '@/components/create-media';
-import { NoResults } from '@/components/no-results';
+import { CreateMedia } from '@/components/specific/create-media';
+import { NoResults } from '@/components/layout/no-results';
 import { MediaTypeT } from '@/types/media-type';
-import { PopcornParticlesLoader } from '@/components/loaders-animation';
+import { PopcornParticlesLoader } from '@/components/utilities/loaders-animation';
 
 const SearchDiscoverPage = () => {
 	const [searchParams] = useSearchParams();
@@ -22,7 +22,12 @@ const SearchDiscoverPage = () => {
 	const [loadingComponents, setLoadingComponents] = useState(true);
 	const [searchWasMade, setSearchWasMade] = useState<boolean>(false);
 
-	const [media, setMedia] = useState<MediaBySearchInterface>({ page: 1, results: [], total_pages: 0, total_results: 0 });
+	const [media, setMedia] = useState<MediaBySearchInterface>({
+		page: 1,
+		results: [],
+		total_pages: 0,
+		total_results: 0,
+	});
 
 	useEffect(() => {
 		const fetchData = async () => {

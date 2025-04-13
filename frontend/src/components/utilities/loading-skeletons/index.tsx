@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
+import { MovieInterface, TVInterface } from '@/types/movie-and-tv-interface';
 import { MediaNullSkeletonPropsInterface } from './types';
 import { MovieDetailInterface, TVDetailInterface } from '@/services/media-detail/types';
 

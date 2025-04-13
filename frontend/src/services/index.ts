@@ -22,6 +22,7 @@ export const API_MOVIE_IMAGES = (id: string) => `${BASE_API_URL}/movie/${id}/ima
 export const API_TV_IMAGES = (id: string) => `${BASE_API_URL}/tv/${id}/images`;
 export const API_MEDIA_LISTS = (type: string, mediaListType: string) =>
 	`${BASE_API_URL}/${type}/${mediaListType}`;
+export const API_CONFIG_LANGUAGES = `${BASE_API_URL}/configurations/languages`;
 
 const api = axios.create({
 	baseURL: BASE_API_URL,

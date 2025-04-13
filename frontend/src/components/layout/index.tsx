@@ -1,10 +1,13 @@
 import { Outlet } from 'react-router-dom';
-import { Menu } from '../Menu';
-import { NavbarHero } from '../navbar-hero';
-import { Footer } from '../Footer';
+import { Menu } from './Menu';
+import { NavbarHero } from './navbar-hero';
+import { Footer } from './Footer';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { NavbarSkeletonHero, NavbarSkeletonForwards } from '../loading-skeletons/NavbarSkeletons';
+import {
+	NavbarSkeletonHero,
+	NavbarSkeletonForwards,
+} from '../utilities/loading-skeletons/NavbarSkeletons';
 
 const Layout = (): React.JSX.Element => {
 	const location = useLocation();
@@ -12,7 +15,9 @@ const Layout = (): React.JSX.Element => {
 
 	const showNavbarHeroPaths: string[] = ['/', '/home', '/search/about', '/search/discover'];
 
-	const showNavbarHero = showNavbarHeroPaths.some((path) => location.pathname === path || location.pathname.startsWith(`${path}/`));
+	const showNavbarHero = showNavbarHeroPaths.some(
+		(path) => location.pathname === path || location.pathname.startsWith(`${path}/`)
+	);
 
 	useEffect(() => {
 		const timeout = setTimeout(() => {

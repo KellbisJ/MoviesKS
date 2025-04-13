@@ -3,10 +3,10 @@ import { useValidMediaType } from '@/hooks/use-valid-media-type';
 import { useParams } from 'react-router-dom';
 import { useInfiniteScroll } from '../../hooks/use-infinite-scroll';
 import { getMediaByCategory } from '../../services/media-by-category';
-import { CreateMedia } from '../../components/create-media';
+import { CreateMedia } from '../../components/specific/create-media';
 import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
 import { MediaTypeT } from '@/types/media-type';
-import { MediaSkeleton } from '@/components/loading-skeletons';
+import { MediaSkeleton } from '@/components/utilities/loading-skeletons';
 
 const MediaAllByCategory = (): React.JSX.Element => {
 	const { id } = useParams();
@@ -53,7 +53,9 @@ const MediaAllByCategory = (): React.JSX.Element => {
 				const mediaIds = new Set([...media, ...prevMedia].map((media) => media.id)); // Create a Set of all media IDs from the current and previous media
 
 				// Filter out media items that are already in the Set
-				const uniqueNextMedia = nextMediaData.filter((media): media is MovieInterface | TVInterface => !mediaIds.has(media.id));
+				const uniqueNextMedia = nextMediaData.filter(
+					(media): media is MovieInterface | TVInterface => !mediaIds.has(media.id)
+				);
 
 				// Return the combined list of previous media and unique new media
 				return [...prevMedia, ...uniqueNextMedia] as MovieInterface[] | TVInterface[];

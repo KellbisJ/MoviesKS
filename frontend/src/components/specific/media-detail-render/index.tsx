@@ -1,10 +1,10 @@
 // media-detail-render.tsx
 import { MediaDetailPropsInterface } from './types';
-import { BigPosterPathNullSkeleton } from '../loading-skeletons';
-import { useSavedMedia } from '../../context/favorite-media-context';
+import { BigPosterPathNullSkeleton } from '@/components/utilities/loading-skeletons';
+import { useSavedMedia } from '../../../context/favorite-media-context';
 import { CreateSimilarGenres } from '../create-similar-genres';
 import { CreateSimilarMediaDetail } from '../create-media';
-import { TrailerMedia } from '../modals/trailer-media';
+import { TrailerMedia } from '../../modals/trailer-media';
 import { Star, Save, Clapperboard, Globe, Film, Clock, Ticket } from 'lucide-react';
 import { memo } from 'react';
 import { MediaTypeT } from '@/types/media-type';

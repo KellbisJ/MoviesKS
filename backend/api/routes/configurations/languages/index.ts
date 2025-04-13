@@ -14,7 +14,7 @@ const searchMedia = async (req: Request, res: Response) => {
 https://api.themoviedb.org/3/configuration/languages?api_key=${api_key}`;
 
 	try {
-		const { data }: { data: LanguagesInterface } = await axios.get(api_url);
+		const { data }: { data: LanguagesInterface[] } = await axios.get(api_url);
 		res.json(data);
 	} catch (error) {
 		if (axios.isAxiosError(error)) {

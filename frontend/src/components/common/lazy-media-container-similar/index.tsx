@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { MediaContainer } from '../media-container';
-import { SingleMediaSkeleton } from '../loading-skeletons';
-import { LazyMediaContainerProps } from './types';
+import { SingleMediaSkeleton } from '@/components/utilities/loading-skeletons';
+import { LazyMediaContainerSimilarProps } from './types';
 
-const LazyMediaContainer: React.FC<LazyMediaContainerProps> = ({ media_, type }) => {
+const LazyMediaContainerSimilar = memo(({ mediaData, type }: LazyMediaContainerSimilarProps) => {
 	const { ref, inView } = useInView({
 		triggerOnce: true,
-		rootMargin: '0px 0px',
+		rootMargin: '200px 0px',
 	});
 
 	const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -25,12 +25,12 @@ const LazyMediaContainer: React.FC<LazyMediaContainerProps> = ({ media_, type })
 	return (
 		<div ref={ref} className="w-full h-36 md:h-80 xl:h-[400px] transition-opacity duration-500">
 			{inView && isLoaded ? (
-				<MediaContainer media_={media_} type={type} />
+				<MediaContainer media_={mediaData} type={type} />
 			) : (
 				<SingleMediaSkeleton />
 			)}
 		</div>
 	);
-};
+});
 
-export { LazyMediaContainer };
+export { LazyMediaContainerSimilar };

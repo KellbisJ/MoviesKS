@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
-import { SelectMediaParameters } from '../modals/select-media-parameters';
-import { CreatePreviewCategories } from '../create-preview-categories';
-import { CategoriesSkeleton } from '../loading-skeletons';
+import { SelectMediaParameters } from '../../modals/select-media-parameters';
+import { CreatePreviewCategories } from '../../specific/create-preview-categories';
+import { CategoriesSkeleton } from '@/components/utilities/loading-skeletons';
 import { FilterBarPropsInterface } from './types';
 import { MediaTypeT } from '@/types/media-type';
 
@@ -19,8 +19,12 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const [selectedMediaType, setSelectedMediaType] = useState<string>(localStorage.getItem('SELECTED_MEDIA_TYPE_MOVIES_KS') || '');
-	const [selectedGenre, setSelectedGenre] = useState<string>(localStorage.getItem('SELECTED_GENRE_TYPE_MOVIES_KS') || '');
+	const [selectedMediaType, setSelectedMediaType] = useState<string>(
+		localStorage.getItem('SELECTED_MEDIA_TYPE_MOVIES_KS') || ''
+	);
+	const [selectedGenre, setSelectedGenre] = useState<string>(
+		localStorage.getItem('SELECTED_GENRE_TYPE_MOVIES_KS') || ''
+	);
 
 	const handleNavigation = (route: string) => {
 		navigate(route);
@@ -40,7 +44,9 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 			if (category) {
 				setSelectedGenre(category.id.toString());
 				localStorage.setItem('SELECTED_GENRE_TYPE_MOVIES_KS', category.id.toString());
-				const route = `${selectedMediaType === MediaTypeT.movie ? `/${MediaTypeT.movie}` : `/${MediaTypeT.tv}`}/preview/genre/${category.id}`;
+				const route = `${
+					selectedMediaType === MediaTypeT.movie ? `/${MediaTypeT.movie}` : `/${MediaTypeT.tv}`
+				}/preview/genre/${category.id}`;
 				handleNavigation(route);
 			}
 			toggleGenresModal();
@@ -73,7 +79,9 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 	return (
 		<div className="flex flex-col items-center md:items-start p-6 lg:p-8 mt-[60px] lg:mt-16 bg-gray-700 w-full gap-4 text-stone-100 transition min-h-44">
 			<div className="flex justify-between items-center w-full md:w-2/5 sm:w-lg p-2.5 px-5 bg-gray-600 rounded relative transition">
-				{selectedMediaType ? selectedMediaType.charAt(0).toUpperCase() + selectedMediaType.slice(1) : 'Select Media Type'}
+				{selectedMediaType
+					? selectedMediaType.charAt(0).toUpperCase() + selectedMediaType.slice(1)
+					: 'Select Media Type'}
 				<button onClick={toggleMoviesModal} className="">
 					{isMoviesModalOpen ? <ChevronLeft /> : <ChevronRight />}
 				</button>
@@ -118,13 +126,17 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 			{selectedMediaType && (
 				<div className="flex justify-between items-center w-full md:w-2/5 p-2.5 px-5 bg-gray-600 rounded relative transition">
 					Genres
-					<button onClick={toggleGenresModal}>{isGenresModalOpen ? <ChevronLeft /> : <ChevronRight />}</button>
+					<button onClick={toggleGenresModal}>
+						{isGenresModalOpen ? <ChevronLeft /> : <ChevronRight />}
+					</button>
 					{!isMobile && isGenresModalOpen && (
 						<div className="absolute top-0 left-full ml-2 w-80 p-2.5 bg-gray-600 z-20 shadow-md rounded-lg transition text-sm">
 							<div className="mb-3 ml-3">
 								<h2 className="text-base lg:text-xl">Genres</h2>
 							</div>
-							<div className="grid grid-cols-2 gap-2.5">{componentsLoading ? <CategoriesSkeleton /> : categoryElements}</div>
+							<div className="grid grid-cols-2 gap-2.5">
+								{componentsLoading ? <CategoriesSkeleton /> : categoryElements}
+							</div>
 						</div>
 					)}
 				</div>

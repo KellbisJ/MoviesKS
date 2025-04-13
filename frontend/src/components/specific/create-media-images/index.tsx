@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CreateMediaImagePropsInterface } from './types';
-import { MediaImagesContainer } from '../media-images-container';
+import { MediaImagesContainer } from '@/components/common/media-images-container';
 import { Backdrop } from '@/services/media-images/types';
 
 const CreateMediaImages: React.FC<CreateMediaImagePropsInterface> = ({ media, type }) => {

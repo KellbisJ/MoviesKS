@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { CreateMedia } from '../../components/create-media';
+import { CreateMedia } from '../../components/specific/create-media';
 import { useSavedMedia } from '../../context/favorite-media-context';
-import { MediaSavedVoid } from '../../components/loading-skeletons';
-import { PopcornParticlesLoader } from '../../components/loaders-animation';
+import { MediaSavedVoid } from '../../components/utilities/loading-skeletons';
+import { PopcornParticlesLoader } from '../../components/utilities/loaders-animation';
 import { MediaTypeT } from '@/types/media-type';
 
 const SavedMedia = (): React.JSX.Element => {
@@ -32,20 +32,30 @@ const SavedMedia = (): React.JSX.Element => {
 			) : (
 				<>
 					<div className="max-w-[1536px] mx-auto">
-						<h1 className="text-center text-2xl sm:text-3xl font-bold dark:text-gray-100 mb-12">My Saved Media</h1>
+						<h1 className="text-center text-2xl sm:text-3xl font-bold dark:text-gray-100 mb-12">
+							My Saved Media
+						</h1>
 
 						<section aria-labelledby="movies-section" className="mb-12">
 							<h2 id="movies-section" className="text-2xl font-semibold dark:text-gray-100 mb-8">
 								Movies
 							</h2>
-							{hasMovies ? <CreateMedia media={savedMedia.movies} type={MediaTypeT.movie} /> : <MediaSavedVoid />}
+							{hasMovies ? (
+								<CreateMedia media={savedMedia.movies} type={MediaTypeT.movie} />
+							) : (
+								<MediaSavedVoid />
+							)}
 						</section>
 
 						<section aria-labelledby="tv-section">
 							<h2 id="tv-section" className="text-2xl font-semibold dark:text-gray-100 mb-8">
 								TV Shows
 							</h2>
-							{hasShows ? <CreateMedia media={savedMedia.tv} type={MediaTypeT.tv} /> : <MediaSavedVoid />}
+							{hasShows ? (
+								<CreateMedia media={savedMedia.tv} type={MediaTypeT.tv} />
+							) : (
+								<MediaSavedVoid />
+							)}
 						</section>
 					</div>
 				</>

@@ -1,9 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useSearch } from '../../context/search-media-context';
-import { useDarkMode } from '../../hooks/use-dark-mode';
+import { useSearch } from '../../../context/search-media-context';
+import { useDarkMode } from '../../../hooks/use-dark-mode';
 import { NavBarPropsInterface } from './types';
-import { House, Film, Tv, Save, Sun, Moon, PanelLeftOpen, PanelLeftClose, Search, TextSearch, CircleX } from 'lucide-react';
+import {
+	House,
+	Film,
+	Tv,
+	Save,
+	Sun,
+	Moon,
+	PanelLeftOpen,
+	PanelLeftClose,
+	Search,
+	TextSearch,
+	CircleX,
+} from 'lucide-react';
 import { MediaTypeT } from '@/types/media-type';
 
 const NavBar: React.FC<NavBarPropsInterface> = ({
@@ -84,7 +96,9 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
 								<form onSubmit={handleSearch} className="relative flex-1 max-w-2xl">
 									<input
 										className="w-full p-2 pl-4 pr-10 border-none rounded-2xl text-gray-100 text-base shadow-inner bg-gray-700 transition-all duration-300 ease-in-out focus:outline-none"
-										placeholder={`Search ${mediaType === MediaTypeT.movie ? 'Movies' : 'TV Series'}`}
+										placeholder={`Search ${
+											mediaType === MediaTypeT.movie ? 'Movies' : 'TV Series'
+										}`}
 										value={searchQuery}
 										onChange={(e) => updateSearchQuery(e.target.value)}
 										onKeyDown={(e) => {
@@ -108,7 +122,9 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
 			) : (
 				<nav className="hidden md:flex justify-between items-center fixed top-0 w-full px-8 bg-white/80 dark:bg-[#1e1a2fe7] backdrop-blur-sm z-[1000] shadow-md h-16 text-gray-700 dark:text-stone-100 transition">
 					<div className="flex items-center gap-6 xl:gap-8 flex-1">
-						<Link to="/" className="text-2xl font-bold hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">
+						<Link
+							to="/"
+							className="text-2xl font-bold hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">
 							<span className="flex items-center gap-2">
 								<Film size={24} />
 								MoviesKS
@@ -144,7 +160,9 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
 								value={searchQuery}
 								onChange={(e) => updateSearchQuery(e.target.value)}
 							/>
-							<button type="submit" className="p-2 mr-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+							<button
+								type="submit"
+								className="p-2 mr-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
 								<Search size={20} className="text-gray-600 dark:text-gray-300" />
 							</button>
 						</form>
@@ -152,7 +170,11 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
 						<button
 							onClick={() => setIsDarkMode(!isDarkMode)}
 							className="p-1.5 rounded-lg transition-colors bg-stone-100 dark:bg-gray-700 hover:bg-cyan-500 dark:hover:bg-cyan-500">
-							{isDarkMode ? <Sun size={20} className="text-yellow-400" /> : <Moon size={20} className="text-black dark:text-gray-300" />}
+							{isDarkMode ? (
+								<Sun size={20} className="text-yellow-400" />
+							) : (
+								<Moon size={20} className="text-black dark:text-gray-300" />
+							)}
 						</button>
 					</div>
 				</nav>

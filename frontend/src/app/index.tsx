@@ -16,7 +16,7 @@ import { SavedMedia } from '../routes/saved-media';
 import { MediaAllTV } from '../routes/media-all-tv';
 import { MediaDetail } from '../routes/media-detail';
 import { MediaAllByCategory } from '../routes/media-all-by-category';
-import { PageNotFound } from '../components/page-not-found';
+import { PageNotFound } from '../components/layout/page-not-found';
 import { MediaBySearch } from '../routes/media-by-search';
 import { SearchAboutPage } from '@/routes/search-about';
 import { SearchDiscoverPage } from '@/routes/search-discover';

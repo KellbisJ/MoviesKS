@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useDarkMode } from '@/hooks/use-dark-mode';
-import { House, Film, Tv, Save, Sun, Moon } from 'lucide-react';
+import { House, Film, Tv, Save, Sun, Moon, Languages } from 'lucide-react';
+import { LanguagesSideBar } from '@/components/common/languages-sidebar';
+import { useState } from 'react';
 
 const NavbarHero = (): React.JSX.Element => {
 	const [isDarkMode, setIsDarkMode] = useDarkMode();
+	const [showLangSidebar, setShowLangSideBar] = useState<boolean>(false);
 
 	return (
 		<nav className="bg-transparent transition h-14">
@@ -55,13 +58,29 @@ const NavbarHero = (): React.JSX.Element => {
 					</div>
 
 					{/* Right side ( for both mobile/desktop) */}
-					<div className="flex items-start sm:items-center">
+					<div className="flex items-start sm:items-center gap-3 relative">
+						<button
+							type="button"
+							className="p-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg text-gray-600 hover:text-cyan-500 dark:text-gray-300 hover:bg-cyan-500 dark:hover:bg-cyan-500 transition-colors duration-300"
+							aria-label={'translate'}
+							onClick={() => {
+								setShowLangSideBar(!showLangSidebar);
+							}}>
+							{<Languages size={20} className="text-black dark:text-gray-300" />}
+						</button>
+
+						{showLangSidebar && <LanguagesSideBar />}
+
 						<button
 							type="button"
 							className="p-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg text-gray-600 hover:text-cyan-500 dark:text-gray-300 hover:bg-cyan-500  dark:hover:bg-cyan-500 transition-colors duration-300"
 							onClick={() => setIsDarkMode(!isDarkMode)}
 							aria-label={isDarkMode ? 'Light mode' : 'Dark mode'}>
-							{isDarkMode ? <Sun className="text-yellow-500" size={20} /> : <Moon className="text-black" size={20} />}
+							{isDarkMode ? (
+								<Sun className="text-yellow-500" size={20} />
+							) : (
+								<Moon className="text-black" size={20} />
+							)}
 						</button>
 					</div>
 				</div>

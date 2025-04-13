@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getMediaBySearch } from '@/services/media-by-search';
 import { MediaBySearchInterface } from '@/services/media-by-search/types';
-import { PopcornParticlesLoader } from '@/components/loaders-animation';
+import { PopcornParticlesLoader } from '@/components/utilities/loaders-animation';
 import { Film, Tv } from 'lucide-react';
-import { CreateMedia } from '@/components/create-media';
-import { NoResults } from '@/components/no-results';
+import { CreateMedia } from '@/components/specific/create-media';
+import { NoResults } from '@/components/layout/no-results';
 import { MediaTypeT } from '@/types/media-type';
 
 const SearchAboutPage = () => {
@@ -13,8 +13,18 @@ const SearchAboutPage = () => {
 
 	const [loadingComponents, setLoadingComponents] = useState(true);
 
-	const [movies, setMovies] = useState<MediaBySearchInterface>({ page: 1, results: [], total_pages: 0, total_results: 0 });
-	const [tv, setTv] = useState<MediaBySearchInterface>({ page: 1, results: [], total_pages: 0, total_results: 0 });
+	const [movies, setMovies] = useState<MediaBySearchInterface>({
+		page: 1,
+		results: [],
+		total_pages: 0,
+		total_results: 0,
+	});
+	const [tv, setTv] = useState<MediaBySearchInterface>({
+		page: 1,
+		results: [],
+		total_pages: 0,
+		total_results: 0,
+	});
 	const [searchWasMade, setSearchWasMade] = useState<boolean>(false);
 
 	useEffect(() => {
@@ -22,7 +32,10 @@ const SearchAboutPage = () => {
 		const fetchAllSearches = async () => {
 			if (!query) return;
 			try {
-				const [moviesData, tvData] = await Promise.all([getMediaBySearch(MediaTypeT.movie, query), getMediaBySearch(MediaTypeT.tv, query)]);
+				const [moviesData, tvData] = await Promise.all([
+					getMediaBySearch(MediaTypeT.movie, query),
+					getMediaBySearch(MediaTypeT.tv, query),
+				]);
 				setMovies(moviesData);
 				setTv(tvData);
 				setSearchWasMade(true);
@@ -48,8 +61,16 @@ const SearchAboutPage = () => {
 					<h1 className="text-gray-600 dark:text-gray-300 mb-4">Results for "{query}"</h1>
 					<div className="flex flex-col sm:flex-row gap-4 sm:gap-8 w-auto">
 						{[
-							{ to: `/search/discover/${MediaTypeT.movie}?query=${query}`, label: `Peliculas  (${movies.results.length})`, icon: Film },
-							{ to: `/search/discover/${MediaTypeT.tv}?query=${query}`, label: `Series de Tv  (${tv.results.length})`, icon: Tv },
+							{
+								to: `/search/discover/${MediaTypeT.movie}?query=${query}`,
+								label: `Peliculas  (${movies.results.length})`,
+								icon: Film,
+							},
+							{
+								to: `/search/discover/${MediaTypeT.tv}?query=${query}`,
+								label: `Series de Tv  (${tv.results.length})`,
+								icon: Tv,
+							},
 						].map((item, index) => (
 							<Link
 								key={`${item.to}-${index}`}

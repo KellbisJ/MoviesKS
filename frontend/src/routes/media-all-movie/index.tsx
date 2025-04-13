@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getPreviewTrendingMedia } from '../../services/preview-trending-media';
-import { CreateMedia } from '../../components/create-media';
+import { CreateMedia } from '../../components/specific/create-media';
 import { useInfiniteScroll } from '../../hooks/use-infinite-scroll';
 import { MovieInterface } from '@/types/movie-and-tv-interface';
 import { MediaTypeT } from '@/types/media-type';
-import { MediaSkeleton } from '@/components/loading-skeletons';
+import { MediaSkeleton } from '@/components/utilities/loading-skeletons';
 
 const MediaAllMovie = (): React.JSX.Element => {
 	const location = useLocation();
@@ -55,7 +55,9 @@ const MediaAllMovie = (): React.JSX.Element => {
 		if (nextMoviesMediaData && nextMoviesMediaData.length > 0) {
 			setMoreMovies((prevMovies) => {
 				const movieIds = new Set([...movies, ...prevMovies].map((movie) => movie.id));
-				const uniqueNextMovies = nextMoviesMediaData.filter((movie): movie is MovieInterface => !movieIds.has(movie.id));
+				const uniqueNextMovies = nextMoviesMediaData.filter(
+					(movie): movie is MovieInterface => !movieIds.has(movie.id)
+				);
 				return [...prevMovies, ...uniqueNextMovies];
 			});
 			setPage((prevPage) => prevPage + 1);

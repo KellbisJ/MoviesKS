@@ -1,10 +1,10 @@
 import React from 'react';
-import { MediaContainerMinimalist } from '../media-container-minimalist';
+import { MediaContainerMinimalist } from '../../common/media-container-minimalist';
 import { CreateMediaPropsInterface } from './types';
 import { MovieInterface, TVInterface } from '@/types/movie-and-tv-interface';
 import { MovieDetailInterface, TVDetailInterface } from '@/services/media-detail/types';
-import { LazyMediaContainer } from '../lazy-media-container';
-import { LazyMediaContainerSimilar } from '../lazy-media-container-similar';
+import { LazyMediaContainer } from '../../common/lazy-media-container';
+import { LazyMediaContainerSimilar } from '../../common/lazy-media-container-similar';
 
 const isMovieOrTV = (
 	media: MovieInterface | TVInterface | MovieDetailInterface | TVDetailInterface
