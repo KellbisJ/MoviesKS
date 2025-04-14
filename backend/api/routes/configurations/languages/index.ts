@@ -10,6 +10,8 @@ const ConfigurationsAPI = express.Router();
 const api_key: string | undefined = process.env.API_KEY;
 
 const searchMedia = async (req: Request, res: Response) => {
+	// const language = req.lang.languageContext;
+
 	let api_url: string = `
 https://api.themoviedb.org/3/configuration/languages?api_key=${api_key}`;
 

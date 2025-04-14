@@ -9,9 +9,12 @@ dotenv.config();
 const TrendingMedia = express.Router();
 
 const getTrendingMedia = async (req: Request, res: Response, type: string) => {
+	const language = req.lang.languageContext;
+
 	const { page } = req.query;
+
 	const api_key: string | undefined = process.env.API_KEY;
-	let api_url: string = `https://api.themoviedb.org/3/trending/${type}/day?api_key=${api_key}&language=es`;
+	let api_url: string = `https://api.themoviedb.org/3/trending/${type}/day?api_key=${api_key}&language=${language}`;
 
 	if (page) {
 		api_url += `&page=${page}`;
@@ -31,12 +34,10 @@ const getTrendingMedia = async (req: Request, res: Response, type: string) => {
 		) {
 			res.status(404).json({ message: `No trending ${type} found`, error: axiosError.message });
 		} else {
-			res
-				.status(500)
-				.json({
-					message: `An error occurred while fetching trending ${type}`,
-					error: axiosError.message,
-				});
+			res.status(500).json({
+				message: `An error occurred while fetching trending ${type}`,
+				error: axiosError.message,
+			});
 		}
 	}
 };

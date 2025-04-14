@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // PROVIDERS
 import { ThemeContextProvider } from '@/context/theme/indext';
+import { LanguagesProvider } from '@/context/lang';
 import { SavedMediaProvider } from '../context/favorite-media-context';
 import { SearchProvider } from '../context/search-media-context';
 // PROVIDERS
@@ -24,30 +25,32 @@ import { SearchDiscoverPage } from '@/routes/search-discover';
 
 const App = (): React.JSX.Element => (
 	<ThemeContextProvider>
-		<SavedMediaProvider>
-			<SearchProvider>
-				<BrowserRouter>
-					<Routes>
-						<Route path="/" element={<Layout />}>
-							<Route index element={<Home />} />
-							<Route path="home" element={<Home />} />
-							<Route path="/movie" element={<FilteredMedia />} />
-							<Route path="/tv" element={<FilteredMedia />} />
-							<Route path=":type/preview/genre/:id" element={<FilteredMedia />} />
-							<Route path="movie/all" element={<MediaAllMovie />} />
-							<Route path="tv/all" element={<MediaAllTV />} />
-							<Route path=":type/detail/:id" element={<MediaDetail />} />
-							<Route path=":type/all/category/:id" element={<MediaAllByCategory />} />
-							<Route path="search/:type/:query" element={<MediaBySearch />} />
-							<Route path="saved-media" element={<SavedMedia />} />
-							<Route path="/search/about/:query" element={<SearchAboutPage />} />
-							<Route path="/search/discover/:type" element={<SearchDiscoverPage />} />
-							<Route path="*" element={<PageNotFound />} />
-						</Route>
-					</Routes>
-				</BrowserRouter>
-			</SearchProvider>
-		</SavedMediaProvider>
+		<LanguagesProvider>
+			<SavedMediaProvider>
+				<SearchProvider>
+					<BrowserRouter>
+						<Routes>
+							<Route path="/" element={<Layout />}>
+								<Route index element={<Home />} />
+								<Route path="home" element={<Home />} />
+								<Route path="/movie" element={<FilteredMedia />} />
+								<Route path="/tv" element={<FilteredMedia />} />
+								<Route path=":type/preview/genre/:id" element={<FilteredMedia />} />
+								<Route path="movie/all" element={<MediaAllMovie />} />
+								<Route path="tv/all" element={<MediaAllTV />} />
+								<Route path=":type/detail/:id" element={<MediaDetail />} />
+								<Route path=":type/all/category/:id" element={<MediaAllByCategory />} />
+								<Route path="search/:type/:query" element={<MediaBySearch />} />
+								<Route path="saved-media" element={<SavedMedia />} />
+								<Route path="/search/about/:query" element={<SearchAboutPage />} />
+								<Route path="/search/discover/:type" element={<SearchDiscoverPage />} />
+								<Route path="*" element={<PageNotFound />} />
+							</Route>
+						</Routes>
+					</BrowserRouter>
+				</SearchProvider>
+			</SavedMediaProvider>
+		</LanguagesProvider>
 	</ThemeContextProvider>
 );
 

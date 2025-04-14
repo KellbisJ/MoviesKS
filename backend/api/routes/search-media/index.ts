@@ -5,15 +5,19 @@ import { SearchMediaInterface } from '../../interfaces/search-media';
 
 dotenv.config();
 
+const api_key: string | undefined = process.env.API_KEY;
+
 const SearchMediaRouter = express.Router();
 
 const searchMedia = async (req: Request, res: Response, type: string) => {
 	const { query } = req.params;
 	const { page = 1 } = req.query;
-	const api_key: string | undefined = process.env.API_KEY;
+
+	const language = req.lang.languageContext;
+
 	const api_url: string = `https://api.themoviedb.org/3/search/${type}?query=${encodeURIComponent(
 		query
-	)}&api_key=${api_key}&language=es&include_adult=false&page=${page}`;
+	)}&api_key=${api_key}&language=${language}&include_adult=false&page=${page}`;
 
 	try {
 		const { data }: { data: SearchMediaInterface } = await axios.get(api_url);

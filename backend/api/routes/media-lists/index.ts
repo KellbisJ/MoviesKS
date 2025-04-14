@@ -42,7 +42,9 @@ const getMediaLists = async (
 
 	const api_key: string | undefined = process.env.API_KEY;
 
-	let api_url: string = `https://api.themoviedb.org/3/${type}/${listType}?api_key=${api_key}&language=es`;
+	const language = req.lang.languageContext;
+
+	let api_url: string = `https://api.themoviedb.org/3/${type}/${listType}?api_key=${api_key}&language=${language}`;
 
 	if (page) {
 		api_url += `&page=${page}`;
@@ -67,19 +69,15 @@ const getMediaLists = async (
 			axiosError.response &&
 			axiosError.response.status === 404
 		) {
-			res
-				.status(404)
-				.json({
-					message: `${type.charAt(0).toUpperCase() + type.slice(1)} not found`,
-					error: axiosError.message,
-				});
+			res.status(404).json({
+				message: `${type.charAt(0).toUpperCase() + type.slice(1)} not found`,
+				error: axiosError.message,
+			});
 		} else {
-			res
-				.status(500)
-				.json({
-					message: `An error occurred while fetching ${type} details`,
-					error: axiosError.message,
-				});
+			res.status(500).json({
+				message: `An error occurred while fetching ${type} details`,
+				error: axiosError.message,
+			});
 		}
 	}
 };
