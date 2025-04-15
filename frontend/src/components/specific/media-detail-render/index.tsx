@@ -202,10 +202,12 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 									</div>
 								)}
 
-								<div className="space-y-4">
-									<h3 className="text-lg font-semibold">Sinopsis</h3>
-									<p className="leading-relaxed">{mediaDetail.overview}</p>
-								</div>
+								{mediaDetail.overview && (
+									<div className="space-y-4">
+										<h3 className="text-lg font-semibold">Sinopsis</h3>
+										<p className="leading-relaxed">{mediaDetail.overview}</p>
+									</div>
+								)}
 
 								<div className="space-y-4">
 									<h3 className="text-lg font-semibold">Géneros similares</h3>

@@ -11,12 +11,28 @@ const api_key: string | undefined = process.env.API_KEY;
 
 const searchMedia = async (req: Request, res: Response) => {
 	// const language = req.lang.languageContext;
+	const currentPath = req.originalUrl;
 
-	let api_url: string = `
+	const isConfigurationsLanguages =
+		currentPath.includes('/configurations') && currentPath.includes('/languages');
+
+	const isConfigurationsPrimaryTranslations =
+		currentPath.includes('/configurations') && currentPath.includes('/primary');
+
+	let api_url: string = '';
+
+	if (isConfigurationsLanguages) {
+		api_url = `
 https://api.themoviedb.org/3/configuration/languages?api_key=${api_key}`;
-
+	} else if (isConfigurationsPrimaryTranslations) {
+		api_url = `
+https://api.themoviedb.org/3/configuration/primary_translations?api_key=${api_key}`;
+	} else {
+		res.status(400).json({ error: 'Invalid endpointt' });
+		return;
+	}
 	try {
-		const { data }: { data: LanguagesInterface[] } = await axios.get(api_url);
+		const { data }: { data: LanguagesInterface[] | string[] } = await axios.get(api_url);
 		res.json(data);
 	} catch (error) {
 		if (axios.isAxiosError(error)) {
@@ -44,6 +60,9 @@ https://api.themoviedb.org/3/configuration/languages?api_key=${api_key}`;
 };
 
 ConfigurationsAPI.get('/configurations/languages', (req: Request, res: Response) => {
+	searchMedia(req, res);
+});
+ConfigurationsAPI.get('/configurations/primary/translations', (req: Request, res: Response) => {
 	searchMedia(req, res);
 });
 

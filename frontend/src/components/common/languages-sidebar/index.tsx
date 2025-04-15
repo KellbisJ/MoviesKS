@@ -1,20 +1,29 @@
-import { LanguagesInterface } from '@/types/languages';
+import {
+	LanguageISOCode,
+	LanguagesInterface,
+	langKeys,
+	languagesEN,
+	languagesES,
+	langValuesEN,
+	langValuesES,
+} from '@/types/languages';
 import { useEffect, useState } from 'react';
 import { useLanguages } from '@/context/lang';
 
 const LanguagesSideBar = (): React.JSX.Element => {
-	const { langReqData, setLanguageLS } = useLanguages();
+	const { setLanguageLS } = useLanguages();
 
-	const [languagesAvailable, setLanguagesAvailable] = useState<LanguagesInterface[]>([]);
-
-	const languageCodes = langReqData.map((l) => l.iso_639_1);
+	const [languagesAvailable, setLanguagesAvailable] = useState<string[]>([]);
 
 	useEffect(() => {
-		setLanguagesAvailable(langReqData);
+		setLanguagesAvailable(langValuesES);
 	}, []);
 
-	const handleSelectLanguage = (lang: LanguagesInterface['iso_639_1']) => {
-		setLanguageLS(lang);
+	const handleSelectLanguage = (lang: LanguageISOCode) => {
+		return new Promise<void>((resolve, reject) => {
+			setLanguageLS(lang);
+			resolve();
+		});
 	};
 
 	// console.log(languagesAvailable);
@@ -28,9 +37,15 @@ const LanguagesSideBar = (): React.JSX.Element => {
 							key={index}
 							className="p-1 cursor-pointer bg-slate-200 rounded break-words"
 							onClick={() => {
-								handleSelectLanguage(language.iso_639_1);
+								handleSelectLanguage(langKeys[index])
+									.then(() => {
+										window.location.reload();
+									})
+									.catch((err) => {
+										console.error(err.message);
+									});
 							}}>
-							{language.english_name !== 'No Language' && <p>{language.english_name}</p>}
+							{language}
 						</div>
 					))
 				) : (
