@@ -34,6 +34,10 @@ const LanguagesProvider = ({ children }: { children: React.ReactNode }) => {
 		setLanguage(newLanguage);
 	};
 
+	useEffect(() => {
+		setLanguageLS(getLanguageLS());
+	}, []);
+
 	return (
 		<LanguageContext.Provider value={{ language, getLanguageLS, setLanguageLS }}>
 			{children}
