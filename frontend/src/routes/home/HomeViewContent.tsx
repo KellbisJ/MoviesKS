@@ -39,7 +39,7 @@ const HomeViewContent: React.FC<HomeViewContentInterfaceProps> = ({
 				<div className="min-h-screen flex justify-center items-start">
 					<div className="container mx-auto px-4 sm:px-6 py-3">
 						<div className="text-center mt-4 mb-4">
-							<h1 className="text-4xl md:text-5xl font-playfair font-bold text-gray-800 dark:text-white mb-6">
+							<h1 className="text-3xl md:text-5xl font-playfair font-bold text-gray-800 dark:text-white mb-6">
 								MoviesKS
 							</h1>
 							{/* <p className="text-lg text-gray-300 max-w-2xl mx-auto">

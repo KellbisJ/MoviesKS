@@ -58,7 +58,7 @@ const NavbarHero = (): React.JSX.Element => {
 					</div>
 
 					{/* Right side ( for both mobile/desktop) */}
-					<div className="flex items-start sm:items-center gap-3 relative">
+					<div className="flex items-start sm:items-center gap-2 sm:gap-3 relative">
 						<button
 							type="button"
 							className="p-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg text-gray-600 hover:text-cyan-500 dark:text-gray-300 hover:bg-cyan-500 dark:hover:bg-cyan-500 transition-colors duration-300"
