@@ -1,5 +1,4 @@
-import { MovieInterface } from '../movie';
-import { TVInterface } from '../tv';
+import { MovieInterface, TVInterface } from '../movies-and-tvseries/types';
 
 interface SearchMediaInterface {
 	page: number;

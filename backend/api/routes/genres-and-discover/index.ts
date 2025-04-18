@@ -1,8 +1,7 @@
 import express, { Request, Response } from 'express';
 import axios, { AxiosError } from 'axios';
 import dotenv from 'dotenv';
-import { PreviewCategoriesMediaInterface } from '../../interfaces/preview-categories-media';
-import { CategoryMediaPreviewDiscoverInterface } from '../../interfaces/category-media-preview-discover';
+import { PreviewCategoriesMediaInterface, CategoryMediaPreviewDiscoverInterface } from './types';
 
 dotenv.config();
 

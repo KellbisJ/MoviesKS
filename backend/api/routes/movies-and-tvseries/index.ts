@@ -1,9 +1,14 @@
 import express, { Request, Response } from 'express';
 import axios, { AxiosError } from 'axios';
 import dotenv from 'dotenv';
-import { MovieDetailInterface, TVDetailInterface } from '../../interfaces/detail-media';
-import { MovieSimilarInterface, TVSimilarInterface } from '../../interfaces/similar-media';
-import { MediaVideosInterface } from '../../interfaces/videos-media';
+import {
+	MovieDetailInterface,
+	TVDetailInterface,
+	MovieSimilarInterface,
+	TVSimilarInterface,
+	MediaVideosInterface,
+	MediaImagesInterface,
+} from './types';
 
 dotenv.config();
 
@@ -66,7 +71,8 @@ const getMediaData = async (req: Request, res: Response, type: string) => {
 				| TVDetailInterface
 				| MovieSimilarInterface
 				| TVSimilarInterface
-				| MediaVideosInterface;
+				| MediaVideosInterface
+				| MediaImagesInterface;
 		} = await axios.get(api_url);
 		res.json(data);
 	} catch (error) {

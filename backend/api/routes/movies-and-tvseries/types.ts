@@ -1,4 +1,34 @@
-import { GenreInterface } from '../genre';
+import { GenreInterface } from '../genres-and-discover/types';
+
+// MOVIE
+interface MovieInterface {
+	backdrop_path: string;
+	id: number;
+	title: string;
+	original_title: string;
+	overview: string;
+	poster_path: string;
+	media_type: MediaType;
+	adult: boolean;
+	original_language: string | OriginalLanguage;
+	genre_ids: number[];
+	popularity: number;
+	release_date: Date;
+	video: boolean;
+	vote_average: number;
+	vote_count: number;
+}
+
+enum MediaType {
+	Movie = 'movie',
+}
+
+enum OriginalLanguage {
+	En = 'en',
+	Fr = 'fr',
+	No = 'no',
+	Te = 'te',
+}
 
 // Movie
 interface MovieDetailInterface {
@@ -31,6 +61,28 @@ interface MovieDetailInterface {
 }
 
 // TV
+
+interface TVInterface {
+	backdrop_path: string;
+	id: number;
+	name: string;
+	original_name: string;
+	overview: string;
+	poster_path: string;
+	media_type: MediaType;
+	adult: boolean;
+	original_language: string;
+	genre_ids: number[];
+	popularity: number;
+	first_air_date: Date;
+	vote_average: number;
+	vote_count: number;
+	origin_country: string[];
+}
+
+enum MediaType {
+	Tv = 'tv',
+}
 
 interface TVDetailInterface {
 	adult: boolean;
@@ -137,4 +189,66 @@ interface SeasonInterface {
 	vote_average: number;
 } // <--
 
-export { MovieDetailInterface, TVDetailInterface };
+// SIMILAR MEDIA (DETAIL)
+
+interface MovieSimilarInterface {
+	page: number;
+	results: MovieInterface[];
+	total_pages: number;
+	total_results: number;
+}
+
+interface TVSimilarInterface {
+	page: number;
+	results: TVInterface[];
+	total_pages: number;
+	total_results: number;
+}
+
+// MEDIA VIDEOS
+
+interface MediaVideosInterface {
+	id: number;
+	results: Result[];
+}
+
+interface Result {
+	iso_639_1: string;
+	iso_3166_1: string;
+	name: string;
+	key: string;
+	site: string;
+	size: number;
+	type: string;
+	official: boolean;
+	published_at: Date;
+	id: string;
+}
+
+interface MediaImagesInterface {
+	backdrops: Backdrop[];
+	id: number;
+	logos: Backdrop[];
+	posters: Backdrop[];
+}
+
+interface Backdrop {
+	aspect_ratio: number;
+	height: number;
+	iso_639_1: null | string;
+	file_path: string;
+	vote_average: number;
+	vote_count: number;
+	width: number;
+}
+
+export {
+	MovieInterface,
+	TVInterface,
+	MovieDetailInterface,
+	TVDetailInterface,
+	MovieSimilarInterface,
+	TVSimilarInterface,
+	MediaVideosInterface,
+	MediaImagesInterface,
+};

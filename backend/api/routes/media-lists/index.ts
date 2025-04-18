@@ -6,14 +6,11 @@ import {
 	PopularMoviesInterface,
 	TopRatedMoviesListInterface,
 	UpcomingMoviesListInterface,
-} from '../../interfaces/movie-lists';
-import {
 	AiringTodayTvSeriesListInterface,
 	OnTheAirTvSeriesListInterface,
 	PopularTvSeriesInterface,
 	TopRatedTvSeriesListInterface,
-} from '../../interfaces/tv-series-lists';
-
+} from './types';
 dotenv.config();
 
 const MediaListRouter = express.Router();
