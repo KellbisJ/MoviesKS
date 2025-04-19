@@ -10,6 +10,7 @@ import {
 import { useEffect, useState } from 'react';
 import { useLanguages } from '@/context/lang';
 import { Check } from 'lucide-react';
+import { spanishLangs } from '@/utils/is-spanish-lang';
 
 const LanguagesSideBar = (): React.JSX.Element => {
 	const { language, setLanguageLS } = useLanguages();
@@ -18,24 +19,6 @@ const LanguagesSideBar = (): React.JSX.Element => {
 		{ code: LanguageISOCode; name: string }[]
 	>([]);
 	const [once, setOnce] = useState<boolean>(false);
-
-	const spanishLangs: LanguageISOCode[] = [
-		'es-AR',
-		'es-CL',
-		'es-DO',
-		'es-EC',
-		'es-GQ',
-		'es-GT',
-		'es-HN',
-		'es-MX',
-		'es-NI',
-		'es-PA',
-		'es-PE',
-		'es-PY',
-		'es-SV',
-		'es-UY',
-		'es-ES',
-	];
 
 	const isSpanishTranslation = spanishLangs.some((lang) => language === lang);
 

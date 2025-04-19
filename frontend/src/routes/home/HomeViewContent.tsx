@@ -7,6 +7,8 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { HomeViewContentInterfaceProps } from './types';
 import { PopcornParticlesLoader } from '@/components/utilities/loaders-animation';
+import { isSpanishLang } from '@/utils/is-spanish-lang';
+import { useLanguages } from '@/context/lang';
 
 const HomeViewContent: React.FC<HomeViewContentInterfaceProps> = ({
 	isLoadingComponents,
@@ -14,6 +16,7 @@ const HomeViewContent: React.FC<HomeViewContentInterfaceProps> = ({
 	isErrorCatched,
 	mediaSectionData,
 }) => {
+	const { language } = useLanguages();
 	const [query, setQuery] = useState('');
 
 	const navigate = useNavigate();
@@ -42,12 +45,12 @@ const HomeViewContent: React.FC<HomeViewContentInterfaceProps> = ({
 							<h1 className="text-3xl md:text-5xl font-playfair font-bold text-gray-800 dark:text-white mb-6">
 								MoviesKS
 							</h1>
-							{/* <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-						Explore and discover detailed information about your favorite movies and TV shows. Only explore and pick up information.
-					</p> */}
+
 							<p className="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
-								Explora y descubre información detallada sobre tus películas y series favoritas.
-								Solo explora y recopila información.
+								{isSpanishLang(language)
+									? `Explora y descubre información detallada sobre tus películas y series favoritas.
+								Solo explora y recopila información.`
+									: `Explore and discover detailed information about your favorite movies and TV shows. Only explore and pick up information.`}
 							</p>
 						</div>
 
