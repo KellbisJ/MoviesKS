@@ -2,11 +2,38 @@ import { Link } from 'react-router-dom';
 import { useDarkMode } from '@/hooks/use-dark-mode';
 import { House, Film, Tv, Save, Sun, Moon, Languages } from 'lucide-react';
 import { LanguagesSideBar } from '@/components/common/languages-sidebar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { isSpanishLang } from '@/utils/is-spanish-lang';
+import { useLanguages } from '@/context/lang';
 
 const NavbarHero = (): React.JSX.Element => {
+	const { language } = useLanguages();
 	const [isDarkMode, setIsDarkMode] = useDarkMode();
 	const [showLangSidebar, setShowLangSideBar] = useState<boolean>(false);
+
+	const [labels, setLabels] = useState<{
+		home: string;
+		movies: string;
+		tv: string;
+		saved: string;
+	}>({
+		home: 'Inicio',
+		movies: 'Películas',
+		tv: 'Series de TV',
+		saved: 'Guardado',
+	});
+
+	useEffect(() => {
+		if (!isSpanishLang(language)) {
+			setLabels((prevLabels) => ({
+				...prevLabels,
+				home: 'Home',
+				movies: 'Movies',
+				tv: 'TV Series',
+				saved: 'Saved',
+			}));
+		}
+	}, [language]);
 
 	return (
 		<nav className="bg-transparent transition h-14">
@@ -15,10 +42,22 @@ const NavbarHero = (): React.JSX.Element => {
 					{/* Mobile Navigation (left side) */}
 					<div className="flex sm:hidden gap-3">
 						{[
-							{ to: '/', label: 'Inicio', icon: House },
-							{ to: '/movie', label: 'Películas', icon: Film },
-							{ to: '/tv', label: 'Series de TV', icon: Tv },
-							{ to: '/saved-media', label: 'Guardado', icon: Save },
+							{ to: '/', label: labels.home, icon: House },
+							{
+								to: '/movie',
+								label: labels.movies,
+								icon: Film,
+							},
+							{
+								to: '/tv',
+								label: labels.tv,
+								icon: Tv,
+							},
+							{
+								to: '/saved-media',
+								label: labels.saved,
+								icon: Save,
+							},
 						].map((item) => (
 							<Link
 								key={item.to}
@@ -41,10 +80,10 @@ const NavbarHero = (): React.JSX.Element => {
 					{/* Desktop Navigation (center) */}
 					<div className="hidden sm:flex items-center gap-6">
 						{[
-							{ to: '/', label: 'Inicio', icon: House },
-							{ to: '/movie', label: 'Películas', icon: Film },
-							{ to: '/tv', label: 'Series de TV', icon: Tv },
-							{ to: '/saved-media', label: 'Guardado', icon: Save },
+							{ to: '/', label: labels.home, icon: House },
+							{ to: '/movie', label: labels.movies, icon: Film },
+							{ to: '/tv', label: labels.tv, icon: Tv },
+							{ to: '/saved-media', label: labels.saved, icon: Save },
 						].map((item) => (
 							<Link
 								key={item.to}

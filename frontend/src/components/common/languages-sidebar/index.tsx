@@ -1,16 +1,8 @@
-import {
-	LanguageISOCode,
-	LanguagesInterface,
-	langKeys,
-	languagesEN,
-	languagesES,
-	langValuesEN,
-	langValuesES,
-} from '@/types/languages';
+import { LanguageISOCode, langKeys, langValuesEN, langValuesES } from '@/types/languages';
 import { useEffect, useState } from 'react';
 import { useLanguages } from '@/context/lang';
 import { Check } from 'lucide-react';
-import { spanishLangs } from '@/utils/is-spanish-lang';
+import { isSpanishLang } from '@/utils/is-spanish-lang';
 
 const LanguagesSideBar = (): React.JSX.Element => {
 	const { language, setLanguageLS } = useLanguages();
@@ -20,10 +12,10 @@ const LanguagesSideBar = (): React.JSX.Element => {
 	>([]);
 	const [once, setOnce] = useState<boolean>(false);
 
-	const isSpanishTranslation = spanishLangs.some((lang) => language === lang);
+	// const isSpanishTranslation = spanishLangs.some((lang) => language === lang);
 
 	useEffect(() => {
-		const langValues = isSpanishTranslation ? langValuesES : langValuesEN;
+		const langValues = isSpanishLang(language) ? langValuesES : langValuesEN;
 		const combined = langKeys.map((code, index) => ({
 			code,
 			name: langValues[index],
