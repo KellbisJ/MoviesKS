@@ -59,7 +59,11 @@ const HomeViewContent: React.FC<HomeViewContentInterfaceProps> = ({
 							<div className="flex items-center bg-gray-700  rounded-full px-6 py-4 border border-white/20 dark:border-gray-700">
 								<input
 									type="text"
-									placeholder="Busca películas, series..."
+									placeholder={`${
+										isSpanishLang(language)
+											? 'Busca películas, series...'
+											: 'Search for movies, series...'
+									}`}
 									className="w-full bg-transparent border-none focus:ring-0 text-gray-300 placeholder-gray-400 outline-none no-underline pr-2"
 									onChange={handleInputChange}
 								/>

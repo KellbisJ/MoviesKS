@@ -20,6 +20,7 @@ const Menu = (): React.JSX.Element => {
 		componentsLoading,
 	} = useCategories();
 	const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(false);
+	const [showLangSidebar, setShowLangSideBar] = useState<boolean>(false);
 
 	const location = useLocation();
 
@@ -44,6 +45,8 @@ const Menu = (): React.JSX.Element => {
 				setIsSideBarOpen={setIsSideBarOpen}
 				setIsMoviesModalOpen={setIsMoviesModalOpen}
 				setIsGenresModalOpen={setIsGenresModalOpen}
+				showLangSidebar={showLangSidebar}
+				setShowLangSideBar={setShowLangSideBar}
 			/>
 			<SideBar isMobile={isMobile} isSideBarOpen={isSideBarOpen} toggleSideBar={toggleSideBar} />
 			{showFilterBar ? (

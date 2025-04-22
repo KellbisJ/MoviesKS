@@ -15,8 +15,12 @@ import {
 	Search,
 	TextSearch,
 	CircleX,
+	Languages,
 } from 'lucide-react';
 import { MediaTypeT } from '@/types/media-type';
+
+import { useMenuLang } from '@/hooks/use-menu-lang';
+import { LanguagesSideBar } from '@/components/common/languages-sidebar';
 
 const NavBar: React.FC<NavBarPropsInterface> = ({
 	isMobile,
@@ -25,12 +29,16 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
 	setIsSideBarOpen,
 	setIsMoviesModalOpen,
 	setIsGenresModalOpen,
+	showLangSidebar,
+	setShowLangSideBar,
 }) => {
 	const { searchQuery, updateSearchQuery, updateMediaType, mediaType } = useSearch();
 	const location = useLocation();
 	const navigate = useNavigate();
 	const [showSearchBar, setShowSearchBar] = useState(false);
+
 	const [isDarkMode, setIsDarkMode] = useDarkMode();
+	const { menuLangValues, menuLangStored, updateMenuLang } = useMenuLang();
 
 	useEffect(() => {
 		updateMediaType(location.pathname.includes('/tv') ? MediaTypeT.tv : MediaTypeT.movie);
@@ -168,6 +176,16 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
 						</form>
 
 						<button
+							type="button"
+							className="p-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg text-gray-600 hover:text-cyan-500 dark:text-gray-300 hover:bg-cyan-500 dark:hover:bg-cyan-500 transition-colors duration-300"
+							aria-label={'translate'}
+							onClick={() => {
+								setShowLangSideBar(!showLangSidebar);
+							}}>
+							{<Languages size={20} className="text-black dark:text-gray-300" />}
+						</button>
+
+						<button
 							onClick={() => setIsDarkMode(!isDarkMode)}
 							className="p-1.5 rounded-lg transition-colors bg-stone-100 dark:bg-gray-700 hover:bg-cyan-500 dark:hover:bg-cyan-500">
 							{isDarkMode ? (
@@ -176,6 +194,12 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
 								<Moon size={20} className="text-black dark:text-gray-300" />
 							)}
 						</button>
+
+						{showLangSidebar && (
+							<div className="absolute">
+								<LanguagesSideBar />
+							</div>
+						)}
 					</div>
 				</nav>
 			)}

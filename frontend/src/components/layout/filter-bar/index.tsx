@@ -6,6 +6,8 @@ import { CreatePreviewCategories } from '../../specific/create-preview-categorie
 import { CategoriesSkeleton } from '@/components/utilities/loading-skeletons';
 import { FilterBarPropsInterface } from './types';
 import { MediaTypeT } from '@/types/media-type';
+import { isSpanishLang } from '@/utils/is-spanish-lang';
+import { useLanguages } from '@/context/lang';
 
 const FilterBar: React.FC<FilterBarPropsInterface> = ({
 	isMobile,
@@ -16,6 +18,8 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 	categories,
 	componentsLoading,
 }) => {
+	const { language } = useLanguages();
+
 	const navigate = useNavigate();
 	const location = useLocation();
 
@@ -79,16 +83,29 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 	return (
 		<div className="flex flex-col items-center md:items-start p-6 lg:p-8 mt-[60px] lg:mt-16 bg-gray-700 w-full gap-4 text-stone-100 transition min-h-44">
 			<div className="flex justify-between items-center w-full md:w-2/5 sm:w-lg p-2.5 px-5 bg-gray-600 rounded relative transition">
-				{selectedMediaType
+				{isSpanishLang(language)
+					? selectedMediaType === MediaTypeT.movie
+						? 'Películas'
+						: selectedMediaType === MediaTypeT.tv
+						? 'Series de TV'
+						: 'Select media'
+					: selectedMediaType === MediaTypeT.movie
+					? 'Movies'
+					: selectedMediaType === MediaTypeT.tv
+					? 'TV Series'
+					: ''}
+				{/* {selectedMediaType
 					? selectedMediaType.charAt(0).toUpperCase() + selectedMediaType.slice(1)
-					: 'Select Media Type'}
+					: 'Select Media Type'} */}
 				<button onClick={toggleMoviesModal} className="">
 					{isMoviesModalOpen ? <ChevronLeft /> : <ChevronRight />}
 				</button>
 				{!isMobile && isMoviesModalOpen && (
 					<div className="absolute top-0 left-full w-80 p-2.5 bg-gray-600 z-50 ml-2 shadow-md rounded-lg hidden md:block transition">
 						<div className="mb-3 ml-3">
-							<h2 className="text-base lg:text-xl">Type</h2>
+							<h2 className="text-base lg:text-xl">
+								{isSpanishLang(language) ? 'Tipo de multimedia' : 'Multimedia Type'}
+							</h2>
 						</div>
 						<div className="grid grid-cols-1 gap-2.5">
 							<div className="flex w-auto">
@@ -102,7 +119,7 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 										handleMediaTypeChange(MediaTypeT.movie);
 										toggleMoviesModal();
 									}}>
-									Movies
+									{isSpanishLang(language) ? 'Películas' : 'Movies'}
 								</span>
 							</div>
 							<div className="flex w-auto">
@@ -116,7 +133,7 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 										handleMediaTypeChange(MediaTypeT.tv);
 										toggleMoviesModal();
 									}}>
-									TV
+									{isSpanishLang(language) ? 'Series de TV' : 'TV Series'}
 								</span>
 							</div>
 						</div>
@@ -125,14 +142,16 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 			</div>
 			{selectedMediaType && (
 				<div className="flex justify-between items-center w-full md:w-2/5 p-2.5 px-5 bg-gray-600 rounded relative transition">
-					Genres
+					{isSpanishLang(language) ? 'Géneros' : 'Genres'}
 					<button onClick={toggleGenresModal}>
 						{isGenresModalOpen ? <ChevronLeft /> : <ChevronRight />}
 					</button>
 					{!isMobile && isGenresModalOpen && (
 						<div className="absolute top-0 left-full ml-2 w-80 p-2.5 bg-gray-600 z-20 shadow-md rounded-lg transition text-sm">
 							<div className="mb-3 ml-3">
-								<h2 className="text-base lg:text-xl">Genres</h2>
+								<h2 className="text-base lg:text-xl">
+									{isSpanishLang(language) ? 'Géneros (multimedia)' : 'Genres (multimedia)'}
+								</h2>
 							</div>
 							<div className="grid grid-cols-2 gap-2.5">
 								{componentsLoading ? <CategoriesSkeleton /> : categoryElements}
@@ -145,7 +164,7 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 				<>
 					<SelectMediaParameters isOpen={isMoviesModalOpen} onClose={toggleMoviesModal}>
 						<div className="flex flex-col text-gray-100">
-							<h2 className="mb-2">Trending Media</h2>
+							<h2 className="mb-2">Multimedia</h2>
 
 							<span
 								className="mb-3 p-1 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded"
@@ -153,7 +172,7 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 									handleMediaTypeChange(MediaTypeT.movie);
 									toggleMoviesModal();
 								}}>
-								Movies
+								{isSpanishLang(language) ? 'Películas' : 'Movies'}
 							</span>
 
 							<span
@@ -162,13 +181,13 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 									handleMediaTypeChange(MediaTypeT.tv);
 									toggleMoviesModal();
 								}}>
-								TV
+								{isSpanishLang(language) ? 'Series de TV' : 'TV Series'}
 							</span>
 						</div>
 					</SelectMediaParameters>
 					<SelectMediaParameters isOpen={isGenresModalOpen} onClose={toggleGenresModal}>
 						<div className="flex flex-col text-gray-100">
-							<h2 className="mb-2">Genres</h2>
+							<h2 className="mb-2">{isSpanishLang(language) ? 'Géneros' : 'Genres'}</h2>
 							<div className="flex flex-col gap-2">{categoryElements}</div>
 						</div>
 					</SelectMediaParameters>

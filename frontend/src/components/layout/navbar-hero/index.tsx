@@ -9,6 +9,7 @@ import { useLanguages } from '@/context/lang';
 const NavbarHero = (): React.JSX.Element => {
 	const { language } = useLanguages();
 	const [isDarkMode, setIsDarkMode] = useDarkMode();
+
 	const [showLangSidebar, setShowLangSideBar] = useState<boolean>(false);
 
 	const [labels, setLabels] = useState<{
