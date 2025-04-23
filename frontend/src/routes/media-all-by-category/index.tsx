@@ -7,8 +7,11 @@ import { CreateMedia } from '../../components/specific/create-media';
 import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
 import { MediaTypeT } from '@/types/media-type';
 import { MediaSkeleton } from '@/components/utilities/loading-skeletons';
+import { isSpanishLang } from '@/utils/is-spanish-lang';
+import { useLanguages } from '@/context/lang';
 
 const MediaAllByCategory = (): React.JSX.Element => {
+	const { language } = useLanguages();
 	const { id } = useParams();
 
 	const mediaType = useValidMediaType();
@@ -73,7 +76,11 @@ const MediaAllByCategory = (): React.JSX.Element => {
 
 	return (
 		<>
-			<h2 className="my-8 dark:text-gray-100">All Media by Category: {mediaType}</h2>
+			<h2 className="my-8 dark:text-gray-100">
+				{isSpanishLang(language)
+					? 'Todo el multimedia filtrado por esta categoría'
+					: 'All multimedia filtered by this category'}
+			</h2>
 			{media.length === 0 && loadingComponents && <MediaSkeleton />}
 
 			<CreateMedia media={allMedia} type={mediaType} />

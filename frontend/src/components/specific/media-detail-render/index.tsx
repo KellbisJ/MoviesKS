@@ -8,6 +8,8 @@ import { TrailerMedia } from '../../modals/trailer-media';
 import { Star, Save, Clapperboard, Globe, Film, Clock, Ticket } from 'lucide-react';
 import { memo } from 'react';
 import { MediaTypeT } from '@/types/media-type';
+import { isSpanishLang } from '@/utils/is-spanish-lang';
+import { useLanguages } from '@/context/lang';
 // import { Backdrop } from '@/services/media-images/types';
 
 const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
@@ -24,6 +26,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 		videoKey,
 		mediaType,
 	}) => {
+		const { language } = useLanguages();
 		const { savedMedia } = useSavedMedia();
 		const allSavedMedia = [...savedMedia.movies, ...savedMedia.tv]; // This is to check is the media is saved whether is movie or tv
 		const isSavedMedia = allSavedMedia.some((favMedia) => favMedia.id === mediaDetail.id);
@@ -111,7 +114,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 												onClick={() => setShowTrailer(true)}
 												className="flex items-center bg-cyan-500 hover:bg-cyan-600 px-4 py-2 rounded-full transition-all">
 												<Clapperboard className="w-5 h-5 mr-2" />
-												Ver Trailer
+												{isSpanishLang(language) ? 'Ver Trailer' : 'Watch Trailer'}
 											</button>
 										)}
 									</div>
@@ -123,7 +126,15 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 									<div className="flex items-center space-x-2">
 										<Film className="w-5 h-5 text-cyan-500" />
 										<span>
-											{mediaType === MediaTypeT.movie ? 'Película' : 'Serie de televisión'}
+											{mediaType === MediaTypeT.movie
+												? isSpanishLang(language)
+													? 'Película'
+													: 'Movie'
+												: mediaType === MediaTypeT.tv
+												? isSpanishLang(language)
+													? `Serie de TV`
+													: 'TV serie'
+												: 'mocoverde multimedia'}
 										</span>
 									</div>
 
@@ -144,14 +155,18 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 
 									{isMovie(mediaDetail) && mediaDetail.budget > 0 && (
 										<div className="flex items-center space-x-2">
-											<span className="font-medium">Presupuesto:</span>
+											<span className="font-medium">
+												{isSpanishLang(language) ? 'Presupuesto:' : 'Budget:'}
+											</span>
 											<span>${mediaDetail.budget.toLocaleString()}</span>
 										</div>
 									)}
 
 									{isMovie(mediaDetail) && mediaDetail.revenue > 0 && (
 										<div className="flex items-center space-x-2">
-											<span className="font-medium">Recaudación:</span>
+											<span className="font-medium">
+												{isSpanishLang(language) ? 'Recaudación:' : 'Revenue:'}{' '}
+											</span>
 											<span>${mediaDetail.revenue.toLocaleString()}</span>
 										</div>
 									)}
@@ -159,7 +174,9 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 
 								{productionCompanies.length > 0 && (
 									<div className="space-y-4">
-										<h3 className="text-lg font-semibold">Empresas Productoras</h3>
+										<h3 className="text-lg font-semibold">
+											{isSpanishLang(language) ? 'Empresas Productoras' : 'Production Companies'}
+										</h3>
 										<div className="flex flex-wrap gap-4">
 											{productionCompanies.map((company) =>
 												company.logo_path ? (
@@ -181,7 +198,9 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 
 								{spokenLanguages.length > 1 && (
 									<div className="space-y-4">
-										<h3 className="text-lg font-semibold ">Lenguajes disponibles</h3>
+										<h3 className="text-lg font-semibold ">
+											{isSpanishLang(language) ? 'Lenguajes disponibles' : 'Available languages'}
+										</h3>
 										<div className="flex flex-wrap gap-2">
 											{spokenLanguages.map((lang) =>
 												lang.name ? (
@@ -204,13 +223,17 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 
 								{mediaDetail.overview && (
 									<div className="space-y-4">
-										<h3 className="text-lg font-semibold">Sinopsis</h3>
+										<h3 className="text-lg font-semibold">
+											{isSpanishLang(language) ? 'Sinopsis' : 'Synopsis'}
+										</h3>
 										<p className="leading-relaxed">{mediaDetail.overview}</p>
 									</div>
 								)}
 
 								<div className="space-y-4">
-									<h3 className="text-lg font-semibold">Géneros similares</h3>
+									<h3 className="text-lg font-semibold">
+										{isSpanishLang(language) ? 'Géneros similares' : 'Similar genres'}
+									</h3>
 									<div className="flex flex-wrap gap-2">
 										<CreateSimilarGenres genres={similarGenres} type={mediaType} />
 									</div>

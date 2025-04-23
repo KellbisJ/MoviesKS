@@ -33,7 +33,7 @@ const api = axios.create({
 		'Content-Type': 'application/json;charset=utf-8',
 		'X-Requested-With': 'XMLHttpRequest',
 	},
-	timeout: 10000,
+	timeout: 15000,
 	withCredentials: true,
 
 	// xsrfCookieName: 'XSRF-TOKEN',

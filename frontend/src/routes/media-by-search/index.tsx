@@ -8,8 +8,11 @@ import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface'
 import { NoResults } from '@/components/layout/no-results';
 import { MediaTypeT } from '@/types/media-type';
 import { PopcornParticlesLoader } from '@/components/utilities/loaders-animation';
+import { isSpanishLang } from '@/utils/is-spanish-lang';
+import { useLanguages } from '@/context/lang';
 
 const MediaBySearch = (): React.JSX.Element => {
+	const { language } = useLanguages();
 	const { query } = useParams();
 
 	const mediaType = useValidMediaType();
@@ -78,8 +81,15 @@ const MediaBySearch = (): React.JSX.Element => {
 			{loadingComponents && media.length === 0 && <PopcornParticlesLoader />}
 
 			<h3 className="my-8 dark:text-gray-100">
-				Search Results for "{querySearch}" in{' '}
-				{mediaType === MediaTypeT.movie ? 'Movies' : 'TV Shows'}
+				{mediaType === MediaTypeT.movie
+					? isSpanishLang(language)
+						? `Resultados de búsqueda de "${querySearch}" en Películas`
+						: `Search results for "${querySearch}" in Movies`
+					: mediaType === MediaTypeT.tv
+					? isSpanishLang(language)
+						? `Resultados de búsqueda de "${querySearch}" en Series de TV`
+						: `Search results for "${querySearch}" in TV Series`
+					: 'MOCO VERDE'}
 			</h3>
 			<CreateMedia media={allMedia} type={mediaType} />
 

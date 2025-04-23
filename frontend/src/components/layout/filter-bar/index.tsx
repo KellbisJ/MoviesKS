@@ -88,12 +88,12 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 						? 'Películas'
 						: selectedMediaType === MediaTypeT.tv
 						? 'Series de TV'
-						: 'Select media'
+						: 'Select multimedia'
 					: selectedMediaType === MediaTypeT.movie
 					? 'Movies'
 					: selectedMediaType === MediaTypeT.tv
 					? 'TV Series'
-					: ''}
+					: 'Select multimedia'}
 				{/* {selectedMediaType
 					? selectedMediaType.charAt(0).toUpperCase() + selectedMediaType.slice(1)
 					: 'Select Media Type'} */}

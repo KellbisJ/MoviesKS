@@ -1,15 +1,14 @@
 import { Search } from 'lucide-react';
 import React from 'react';
+import { isSpanishLang } from '@/utils/is-spanish-lang';
+import { useLanguages } from '@/context/lang';
 
-interface NoResultsProps {
-	title?: string;
-	description?: string;
-}
-
-const NoResults: React.FC<NoResultsProps> = ({
-	title = 'No se encontraron resultados',
-	description = 'No encontramos lo que buscas. Prueba con otras palabras clave o revisa la ortografía.',
-}) => {
+const NoResults = () => {
+	const { language } = useLanguages();
+	const title = isSpanishLang(language) ? 'No se encontraron resultados' : 'No results found';
+	const description = isSpanishLang(language)
+		? 'No encontramos lo que buscas. Prueba con otras palabras clave o revisa la ortografía.'
+		: "We couldn't find what you were looking for. Try other keywords or check your spelling.";
 	return (
 		<div className="flex flex-col items-center justify-center p-8 space-y-4 text-center">
 			<div className="p-4 bg-gray-200 dark:bg-gray-800 rounded-full">
