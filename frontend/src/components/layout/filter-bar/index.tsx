@@ -81,7 +81,7 @@ const FilterBar: React.FC<FilterBarPropsInterface> = ({
 	});
 
 	return (
-		<div className="flex flex-col items-center md:items-start p-6 lg:p-8 mt-[60px] lg:mt-16 bg-gray-700 w-full gap-4 text-stone-100 transition min-h-44">
+		<div className="flex flex-col items-center justify-center md:items-start p-6 lg:p-8 lg:mt-16 bg-gray-700 w-full gap-4 text-stone-100 transition min-h-44">
 			<div className="flex justify-between items-center w-full md:w-2/5 sm:w-lg p-2.5 px-5 bg-gray-600 rounded relative transition">
 				{isSpanishLang(language)
 					? selectedMediaType === MediaTypeT.movie

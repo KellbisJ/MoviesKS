@@ -7,12 +7,11 @@ import { useLanguages } from '@/context/lang';
 import { ThemeBtn } from '@/components/common/theme-btn';
 import { TranslateBtn } from '@/components/common/translate-btn';
 import { MobileBottomNavBar } from '../mobile-bottom-navbar';
+import { Scroll0 } from '@/utils/scroll-0';
 
 const NavbarHero = (): React.JSX.Element => {
 	const { language } = useLanguages();
 
-	const [showNavigationPathsBottomMenu, setShowNavigationPathsBottomMenu] = useState(false);
-	const [showSettingsBottomMenu, setShowSettingsBottomMenu] = useState(false);
 	const [showLangSidebar, setShowLangSideBar] = useState<boolean>(false);
 
 	const [labels, setLabels] = useState<{
@@ -42,17 +41,19 @@ const NavbarHero = (): React.JSX.Element => {
 		}
 	}, [language]);
 
+	Scroll0();
+
 	// #16C47F good green color
 
 	return (
 		<>
 			{/* Desktop*/}
-			<nav className="hidden sm:block bg-[#222831]  bg-transparent  transition h-12 sm:h-14 w-full ">
+			<nav className="hidden lg:block bg-[#222831]  bg-transparent  transition h-12 sm:h-14 w-full">
 				<div className="container mx-auto px-4 sm:px-6 py-3">
 					<div className="flex items-start sm:items-center sm:justify-between">
-						<h2 className="hidden sm:block text-xl font-bold text-gray-800 dark:text-gray-100 dark:hover:text-cyan-500 hover:text-cyan-500 transition-colors duration-300">
+						<span className="hidden sm:block text-xl font-bold text-gray-800 dark:text-gray-100 transition-colors duration-300">
 							<Link to="/">MoviesKS</Link>
-						</h2>
+						</span>
 
 						{/* Desktop Navigation (center) */}
 						<div className="hidden sm:flex items-center gap-6">
@@ -65,7 +66,7 @@ const NavbarHero = (): React.JSX.Element => {
 								<Link
 									key={item.to}
 									to={item.to}
-									className="flex items-center gap-2 text-gray-600 hover:text-cyan-500 dark:text-gray-300 dark:hover:text-cyan-500 transition-colors duration-300 text-sm"
+									className="flex items-center gap-2 text-gray-600 hover:text-[#16C47F] dark:text-gray-300 dark:hover:text-[#16C47F] transition-colors duration-300 text-sm"
 									aria-label={item.label}>
 									<item.icon size={20} className="flex-shrink-0" />
 									<span className="font-medium">{item.label}</span>
@@ -95,14 +96,7 @@ const NavbarHero = (): React.JSX.Element => {
 			</nav>
 
 			{/* Mobile*/}
-			<MobileBottomNavBar
-				showNavigationPathsBottomMenu={showNavigationPathsBottomMenu}
-				setShowNavigationPathsBottomMenu={setShowNavigationPathsBottomMenu}
-				showSettingsBottomMenu={showSettingsBottomMenu}
-				setShowSettingsBottomMenu={setShowSettingsBottomMenu}
-				showLangSidebar={showLangSidebar}
-				setShowLangSideBar={setShowLangSideBar}
-			/>
+			<MobileBottomNavBar />
 		</>
 	);
 };

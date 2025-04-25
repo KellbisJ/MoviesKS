@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavBar } from '../nav-bar/index.tsx';
 import { FilterBar } from '../filter-bar/index.tsx';
-import { SideBar } from '../side-bar/index.tsx';
 import { useWindowSize } from '@/hooks/use-window-size/index.tsx';
 import { useCategories } from '@/hooks/use-categories/index.tsx';
 import { useLocation, useParams } from 'react-router-dom';
@@ -48,7 +47,7 @@ const Menu = (): React.JSX.Element => {
 				showLangSidebar={showLangSidebar}
 				setShowLangSideBar={setShowLangSideBar}
 			/>
-			<SideBar isMobile={isMobile} isSideBarOpen={isSideBarOpen} toggleSideBar={toggleSideBar} />
+			{/* <SideBar isMobile={isMobile} isSideBarOpen={isSideBarOpen} toggleSideBar={toggleSideBar} /> */}
 			{showFilterBar ? (
 				<>
 					<FilterBar

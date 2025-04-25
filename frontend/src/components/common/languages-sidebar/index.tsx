@@ -41,13 +41,13 @@ const LanguagesSideBar = (): React.JSX.Element => {
 	// console.log(languagesAvailable);
 
 	return (
-		<div className="absolute w-44 h-60 sm:w-56 sm:h-80  top-10 right-0 sm:p-2 bg-blue-100 dark:bg-[#14273c] rounded-lg overflow-y-auto scrollbar-minimal text-sm transition text-gray-800 dark:text-gray-100">
+		<div className="absolute w-44 h-60 lg:w-56 lg:h-80  top-10 right-0 lg:p-2 bg-blue-100 dark:bg-[#14273c] rounded-lg overflow-y-auto scrollbar-minimal text-sm transition text-gray-800 dark:text-gray-100">
 			<div className="flex flex-col p-2 gap-2.5">
 				<p className="font-bold text-base">
 					{menuLangStored === 'en' ? 'Menu Language:' : 'Idioma del Menú:'}
 				</p>
 
-				<div className="flex flex-col sm:flex-row justify-between">
+				<div className="flex flex-col lg:flex-row justify-between">
 					<button
 						type="button"
 						onClick={() => updateMenuLang('es')}
@@ -75,7 +75,7 @@ const LanguagesSideBar = (): React.JSX.Element => {
 					languagesAvailable.map((lang) => (
 						<button
 							key={lang.code}
-							className={`p-2 sm:p-3.5 cursor-pointer break-words hover:bg-white dark:hover:bg-[#4a5568] rounded-md duration-150 relative ${
+							className={`p-2 lg:p-3.5 cursor-pointer break-words hover:bg-white dark:hover:bg-[#4a5568] rounded-md duration-150 relative ${
 								lang.code === language ? 'bg-white dark:bg-[#4a5568]' : ''
 							}`}
 							onClick={() => {
