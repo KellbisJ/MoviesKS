@@ -6,6 +6,7 @@ import { LanguagesSideBar } from '@/components/common/languages-sidebar';
 import { useEffect, useState } from 'react';
 import { isSpanishLang } from '@/utils/is-spanish-lang';
 import { useLanguages } from '@/context/lang';
+import { underlinePath } from '@/utils/underline-path';
 
 const MobileBottomNavBar = (): React.JSX.Element => {
 	const { language } = useLanguages();
@@ -42,12 +43,12 @@ const MobileBottomNavBar = (): React.JSX.Element => {
 		}
 	}, [language]);
 
-	const underlinePath = (basePath: string) => {
-		if (basePath === '/') {
-			return location.pathname === '/' || location.pathname === '/home';
-		}
-		return location.pathname.startsWith(basePath);
-	};
+	// const underlinePath = (basePath: string) => {
+	// 	if (basePath === '/') {
+	// 		return location.pathname === '/' || location.pathname === '/home';
+	// 	}
+	// 	return location.pathname.startsWith(basePath);
+	// };
 
 	const navItems = [
 		{
@@ -118,7 +119,9 @@ const MobileBottomNavBar = (): React.JSX.Element => {
 							key={item.to}
 							to={item.to}
 							className={`flex flex-col items-center gap-1 text-xs transition-colors duration-200 ${
-								underlinePath(item.base) ? 'text-[#16C47F]' : 'text-gray-300 hover:text-[#16C47F]'
+								underlinePath(item.base, location)
+									? 'text-[#16C47F]'
+									: 'text-gray-300 hover:text-[#16C47F]'
 							}`}
 							aria-label={item.label}>
 							<item.icon size={18} className="flex-shrink-0" />

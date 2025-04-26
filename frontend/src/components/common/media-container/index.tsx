@@ -45,8 +45,8 @@ const MediaContainer: React.FC<MediaContainerPropsInterface> = ({ media_, type }
 						onClick={handleSaveMedia(type, media_)}
 						className={`absolute top-1 opacity-0 group-hover:opacity-100 right-1 p-2 rounded-full backdrop-blur-sm transition-all ${
 							isFavorite
-								? 'text-cyan-400 bg-cyan-400/20'
-								: 'text-gray-200 hover:text-cyan-400 bg-gray-800/30 hover:bg-cyan-400/20'
+								? 'text-[#16C47F] bg-[#16C47F]/20'
+								: 'text-gray-200 hover:text-[#16C47F] bg-gray-800/30 hover:bg-[#16C47F]/20'
 						}`}>
 						<Save className="w-6 h-6" />
 					</button>

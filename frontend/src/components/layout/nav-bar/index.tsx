@@ -19,11 +19,15 @@ import {
 } from 'lucide-react';
 import { MediaTypeT } from '@/types/media-type';
 
-import { useMenuLang } from '@/hooks/use-menu-lang';
 import { LanguagesSideBar } from '@/components/common/languages-sidebar';
 import { MobileBottomNavBar } from '../mobile-bottom-navbar';
 import { handleSearch2 } from '@/utils/handle-search';
 import { Scroll0 } from '@/utils/scroll-0';
+import { TranslateBtn } from '@/components/common/translate-btn';
+import { ThemeBtn } from '@/components/common/theme-btn';
+import { underlinePath } from '@/utils/underline-path';
+import { isSpanishLang } from '@/utils/is-spanish-lang';
+import { useLanguages } from '@/context/lang';
 
 const NavBar: React.FC<NavBarPropsInterface> = ({
 	isMobile,
@@ -35,25 +39,72 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
 	showLangSidebar,
 	setShowLangSideBar,
 }) => {
+	const { language } = useLanguages();
 	const { searchQuery, updateSearchQuery, updateMediaType, mediaType } = useSearch();
+
 	const location = useLocation();
 	const navigate = useNavigate();
 
-	const [isDarkMode, setIsDarkMode] = useDarkMode();
+	useEffect(() => {
+		if (!isSpanishLang(language)) {
+			setLabels((prevLabels) => ({
+				...prevLabels,
+				home: 'Home',
+				movies: 'Movies',
+				tv: 'TV Series',
+				saved: 'Saved',
+				search: 'Search',
+			}));
+		}
+	}, [language]);
+
+	const [labels, setLabels] = useState<{
+		home: string;
+		movies: string;
+		tv: string;
+		saved: string;
+	}>({
+		home: 'Inicio',
+		movies: 'Películas',
+		tv: 'Series de TV',
+		saved: 'Guardado',
+	});
 
 	useEffect(() => {
 		updateMediaType(location.pathname.includes('/tv') ? MediaTypeT.tv : MediaTypeT.movie);
 	}, [location, updateMediaType]); // updating mediatype to search
 
-	Scroll0();
+	useEffect(() => {
+		Scroll0();
+	}, []);
+
+	const navItems = [
+		{ to: '/home', base: '/home', label: labels.home, icon: House },
+		{
+			to: '/movie',
+			base: '/movie',
+			label: labels.movies,
+			icon: Film,
+		},
+		{
+			to: '/tv',
+			base: '/tv',
+			label: labels.tv,
+			icon: Tv,
+		},
+		{
+			to: '/saved-media',
+			base: '/saved-media',
+			label: labels.saved,
+			icon: Save,
+		},
+	];
 
 	return (
 		<>
 			<nav className="hidden lg:flex justify-between items-center fixed top-0 w-full px-8 bg-white/80 dark:bg-[#1e1a2fe7] backdrop-blur-sm z-[1000] shadow-md h-16 text-gray-700 dark:text-stone-100 transition">
 				<div className="flex items-center gap-6 xl:gap-8 flex-1">
-					<Link
-						to="/"
-						className="text-2xl font-bold hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">
+					<Link to="/" className="text-2xl font-bold">
 						<span className="flex items-center gap-2">
 							<Film size={24} />
 							MoviesKS
@@ -61,16 +112,15 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
 					</Link>
 
 					<div className="flex items-center gap-4 xl:gap-6">
-						{[
-							{ to: '/home', label: 'Inicio', icon: House },
-							{ to: `/${MediaTypeT.movie}/all`, label: 'Películas', icon: Film },
-							{ to: `/${MediaTypeT.tv}/all`, label: 'Series de TV', icon: Tv },
-							{ to: '/saved-media', label: 'Guardado', icon: Save },
-						].map((item) => (
+						{navItems.map((item) => (
 							<Link
 								key={item.to}
 								to={item.to}
-								className="flex items-center gap-2 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors text-sm">
+								className={`flex items-center gap-2 hover:text-[#16C47F] transition-colors duration-200 text-sm ${
+									underlinePath(item.base, location)
+										? 'text-[#16C47F]'
+										: 'text-gray-600 dark:text-gray-300 hover:text-[#16C47F] dark:hover:text-[#16C47F]'
+								}`}>
 								<item.icon size={18} className="flex-shrink-0" />
 								{item.label}
 							</Link>
@@ -81,13 +131,14 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
 				<div className="flex items-center gap-4 xl:gap-6 flex-1 justify-end">
 					<form
 						onSubmit={(e) => handleSearch2(e, searchQuery, mediaType, navigate)}
-						className="relative flex items-center w-4/5 max-w-xl bg-gray-100 dark:bg-gray-700 rounded-full transition-all focus-within:ring-2 focus-within:ring-cyan-500">
+						className="relative flex items-center w-4/5 max-w-xl bg-gray-100 dark:bg-gray-700 rounded-full transition-all focus-within:ring-2 focus-within:ring-[#16C47F]">
 						<input
 							type="text"
 							placeholder={`Search ${mediaType === MediaTypeT.movie ? 'Movies' : 'TV Series'}`}
 							className="w-full px-6 py-2 bg-transparent outline-none rounded-full placeholder-gray-500 dark:placeholder-gray-400 text-sm transition-all"
 							value={searchQuery}
 							onChange={(e) => updateSearchQuery(e.target.value)}
+							name="2ndNavbarInputSearchMedia"
 						/>
 						<button
 							type="submit"
@@ -96,31 +147,16 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
 						</button>
 					</form>
 
-					<button
-						type="button"
-						className="p-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg text-gray-600 hover:text-cyan-500 dark:text-gray-300 hover:bg-cyan-500 dark:hover:bg-cyan-500 transition-colors duration-300"
-						aria-label={'translate'}
-						onClick={() => {
-							setShowLangSideBar(!showLangSidebar);
-						}}>
-						{<Languages size={20} className="text-black dark:text-gray-300" />}
-					</button>
+					<TranslateBtn showLangSidebar={showLangSidebar} setShowLangSideBar={setShowLangSideBar} />
 
-					<button
-						onClick={() => setIsDarkMode(!isDarkMode)}
-						className="p-1.5 rounded-lg transition-colors bg-stone-100 dark:bg-gray-700 hover:bg-cyan-500 dark:hover:bg-cyan-500">
-						{isDarkMode ? (
-							<Sun size={20} className="text-yellow-400" />
-						) : (
-							<Moon size={20} className="text-black dark:text-gray-300" />
-						)}
-					</button>
+					<ThemeBtn />
 
-					{showLangSidebar && (
-						<div className="absolute">
-							<LanguagesSideBar />
-						</div>
-					)}
+					<div
+						className={`absolute top-6 right-8 rounded-lg shadow-lg transition-all duration-200 ease-out ${
+							showLangSidebar ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'
+						}`}>
+						{<LanguagesSideBar />}
+					</div>
 				</div>
 			</nav>
 			<MobileBottomNavBar />

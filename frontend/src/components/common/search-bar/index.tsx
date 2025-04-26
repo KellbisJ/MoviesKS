@@ -24,6 +24,7 @@ const SearchBar = (): React.JSX.Element => {
 					}`}
 					className="w-full bg-transparent border-none focus:ring-0 text-gray-300 placeholder-gray-400 outline-none no-underline pr-2"
 					onChange={handleInputChange}
+					name="bigSearchBarForm"
 				/>
 				<button
 					type="submit"

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Globe, Settings, User, House, Film, Tv, Save } from 'lucide-react';
 import { LanguagesSideBar } from '@/components/common/languages-sidebar';
 import { useEffect, useState } from 'react';
@@ -8,9 +8,11 @@ import { ThemeBtn } from '@/components/common/theme-btn';
 import { TranslateBtn } from '@/components/common/translate-btn';
 import { MobileBottomNavBar } from '../mobile-bottom-navbar';
 import { Scroll0 } from '@/utils/scroll-0';
+import { underlinePath } from '@/utils/underline-path';
 
 const NavbarHero = (): React.JSX.Element => {
 	const { language } = useLanguages();
+	const location = useLocation();
 
 	const [showLangSidebar, setShowLangSideBar] = useState<boolean>(false);
 
@@ -41,7 +43,36 @@ const NavbarHero = (): React.JSX.Element => {
 		}
 	}, [language]);
 
-	Scroll0();
+	useEffect(() => {
+		Scroll0();
+	}, []);
+
+	const navItems = [
+		{
+			to: '/',
+			base: '/',
+			label: labels.home,
+			icon: House,
+		},
+		{
+			to: '/movie',
+			base: '/movie',
+			label: labels.movies,
+			icon: Film,
+		},
+		{
+			to: '/tv',
+			base: '/tv',
+			label: labels.tv,
+			icon: Tv,
+		},
+		{
+			to: '/saved-media',
+			base: '/saved-media',
+			label: labels.saved,
+			icon: Save,
+		},
+	];
 
 	// #16C47F good green color
 
@@ -57,16 +88,15 @@ const NavbarHero = (): React.JSX.Element => {
 
 						{/* Desktop Navigation (center) */}
 						<div className="hidden sm:flex items-center gap-6">
-							{[
-								{ to: '/', label: labels.home, icon: House },
-								{ to: '/movie', label: labels.movies, icon: Film },
-								{ to: '/tv', label: labels.tv, icon: Tv },
-								{ to: '/saved-media', label: labels.saved, icon: Save },
-							].map((item) => (
+							{navItems.map((item) => (
 								<Link
 									key={item.to}
 									to={item.to}
-									className="flex items-center gap-2 text-gray-600 hover:text-[#16C47F] dark:text-gray-300 dark:hover:text-[#16C47F] transition-colors duration-300 text-sm"
+									className={`flex items-center gap-2 transition-colors duration-200 text-sm ${
+										underlinePath(item.base, location)
+											? 'text-[#16C47F]'
+											: 'text-gray-600 dark:text-gray-300 hover:text-[#16C47F] dark:hover:text-[#16C47F]'
+									}`}
 									aria-label={item.label}>
 									<item.icon size={20} className="flex-shrink-0" />
 									<span className="font-medium">{item.label}</span>
