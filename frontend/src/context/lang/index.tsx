@@ -13,7 +13,9 @@ const LanguageContext = createContext<LanguageContextInterface>({
 });
 
 const LanguagesProvider = ({ children }: { children: React.ReactNode }) => {
-	const [language, setLanguage] = useState<LanguageISOCode>(DEFAULT_LANG);
+	const [language, setLanguage] = useState<LanguageISOCode>(() => {
+		return (localStorage.getItem(LANG_STORAGE_KEY) as LanguageISOCode) || DEFAULT_LANG;
+	});
 
 	const getLanguageLS = (): LanguageISOCode => {
 		const stored = localStorage.getItem(LANG_STORAGE_KEY);
@@ -33,10 +35,6 @@ const LanguagesProvider = ({ children }: { children: React.ReactNode }) => {
 		localStorage.setItem(LANG_STORAGE_KEY, newLanguage);
 		setLanguage(newLanguage);
 	};
-
-	useEffect(() => {
-		setLanguageLS(getLanguageLS());
-	}, []);
 
 	return (
 		<LanguageContext.Provider value={{ language, getLanguageLS, setLanguageLS }}>
