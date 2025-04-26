@@ -3,7 +3,7 @@
 		"target": "ES6",
 		"module": "commonjs",
 		"outDir": "./dist",
-		"rootDir": "./api",
+		"rootDir": "./",
 		"strict": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,
@@ -12,8 +12,10 @@
 		"resolveJsonModule": true,
 		"allowSyntheticDefaultImports": true,
 		"noImplicitAny": true,
-		"noImplicitReturns": true
+		"noImplicitReturns": true,
+		"typeRoots": ["./node_modules/@types", "./api/types"],
+		"types": ["express"]
 	},
-	"include": ["api/**/*"],
+	"include": ["/**/*", "api/**/*", "api/types/**/*"],
 	"exclude": ["node_modules", "dist"]
 }

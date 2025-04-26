@@ -10,8 +10,8 @@ import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface'
 import { MediaVideosInterface, MediaVideosResultInterface } from '@/services/media-videos/types';
 // import { getMediaImages } from '../../services/media-images';
 import { MediaImagesInterface } from '@/services/media-images/types';
-import { MediaDetailRender } from '../../components/media-detail-render';
-import { PopcornParticlesLoader } from '@/components/loaders-animation';
+import { MediaDetailRender } from '../../components/specific/media-detail-render';
+import { PopcornParticlesLoader } from '@/components/utilities/loaders-animation';
 import { UseHandleSaveMedia } from '@/hooks/use-handle-save-media';
 
 const MediaDetail = (): React.JSX.Element => {
@@ -24,7 +24,9 @@ const MediaDetail = (): React.JSX.Element => {
 
 	const [loadingComponents, setLoadingComponents] = useState(true);
 
-	const [mediaDetail, setMediaDetail] = useState<MovieDetailInterface | TVDetailInterface>({} as MovieDetailInterface);
+	const [mediaDetail, setMediaDetail] = useState<MovieDetailInterface | TVDetailInterface>(
+		{} as MovieDetailInterface
+	);
 
 	const [mediaDetailVideos, setMediaDetailVideos] = useState<MediaVideosResultInterface[]>([]);
 	const [similarGenres, setSimilarGenres] = useState<GenreInterface[]>([]);
@@ -63,7 +65,10 @@ const MediaDetail = (): React.JSX.Element => {
 				if (mediaVideosData && mediaVideosData.results.length > 0) {
 					// media videos data
 					const video = mediaVideosData.results.find(
-						(video: any) => video.type === 'Trailer' || video.type === 'Teaser' || (video.type === 'Clip' && video.site === 'YouTube')
+						(video: any) =>
+							video.type === 'Trailer' ||
+							video.type === 'Teaser' ||
+							(video.type === 'Clip' && video.site === 'YouTube')
 					);
 					if (video) {
 						setVideoKey(video.key);
@@ -93,8 +98,13 @@ const MediaDetail = (): React.JSX.Element => {
 
 	// console.log(mediaDetail);
 
-	const isMovie = (media: MovieDetailInterface | TVDetailInterface): media is MovieDetailInterface => {
-		return (media as MovieDetailInterface).title !== undefined || (media as MovieDetailInterface).original_title !== undefined;
+	const isMovie = (
+		media: MovieDetailInterface | TVDetailInterface
+	): media is MovieDetailInterface => {
+		return (
+			(media as MovieDetailInterface).title !== undefined ||
+			(media as MovieDetailInterface).original_title !== undefined
+		);
 	};
 
 	//   const isTV = (media: MovieInterface | TVInterface): media is TVInterface => {

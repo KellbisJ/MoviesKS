@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getPreviewTrendingMedia } from '../../services/preview-trending-media';
-import { CreateMedia } from '../../components/create-media';
+import { CreateMedia } from '../../components/specific/create-media';
 import { useInfiniteScroll } from '../../hooks/use-infinite-scroll';
-import { MediaSkeleton } from '../../components/loading-skeletons';
+import { MediaSkeleton } from '../../components/utilities/loading-skeletons';
 import { TVInterface } from '@/types/movie-and-tv-interface';
 import { MediaTypeT } from '@/types/media-type';
 
@@ -56,7 +56,9 @@ const MediaAllTV = (): React.JSX.Element => {
 		if (nextTvMediaData && nextTvMediaData.length > 0) {
 			setMoreMediaTv((prevTvMedia) => {
 				const tvMediaIds = new Set([...tv, ...prevTvMedia].map((tv) => tv.id));
-				const uniqueNextTv = nextTvMediaData.filter((tv): tv is TVInterface => !tvMediaIds.has(tv.id));
+				const uniqueNextTv = nextTvMediaData.filter(
+					(tv): tv is TVInterface => !tvMediaIds.has(tv.id)
+				);
 				return [...prevTvMedia, ...uniqueNextTv];
 			});
 			setPage((prevPage) => prevPage + 1);

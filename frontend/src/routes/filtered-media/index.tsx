@@ -3,10 +3,10 @@ import { useValidMediaType } from '@/hooks/use-valid-media-type';
 import { useLocation, useParams } from 'react-router-dom';
 import { getPreviewTrendingMedia } from '@/services/preview-trending-media';
 import { getMediaByCategory } from '@/services/media-by-category';
-import { CreateMedia } from '@/components/create-media';
+import { CreateMedia } from '@/components/specific/create-media';
 import { MovieInterface, TVInterface } from '@/types/movie-and-tv-interface';
 import { MediaTypeT } from '@/types/media-type';
-import { MediaSkeleton } from '@/components/loading-skeletons';
+import { MediaSkeleton } from '@/components/utilities/loading-skeletons';
 
 const FilteredMedia = () => {
 	const location = useLocation();

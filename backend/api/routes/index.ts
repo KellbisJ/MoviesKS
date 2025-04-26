@@ -1,13 +1,10 @@
 import { Router } from 'express';
-import { previewMediaRouter } from './preview-media';
-import { previewCategoriesMediaRouter } from './preview-categories-media';
-import { categoryMediaPreviewDiscoverRouter } from './category-media-preview-discover';
-import { detailMediaRouter } from './detail-media';
-import { detailMediaSimilarRouter } from './detail-media-similar';
-import { videosMediaRouter } from './videos-media';
-import { searchMediaRouter } from './search-media';
-import { mediaImagesRouter } from './media-images';
-import { mediaListRouter } from './media-lists';
+import { TrendingMedia } from './trending-media';
+import { MediaGenresAndDiscover } from './genres-and-discover';
+import { MediaData } from './movies-and-tvseries';
+import { SearchMediaRouter } from './search-media';
+import { MediaListRouter } from './media-lists';
+import { ConfigurationsAPI } from './configurations/languages';
 
 const router = Router();
 
@@ -19,12 +16,12 @@ router.get('/', (req, res) => {
 		PreviewTvCategories: 'http://localhost:8000/api/genre/tv/list',
 		CategoryMoviePreview: 'http://localhost:8000/api/discover/movie?with_genres=28&page=1',
 		CategoryTvPreview: 'http://localhost:8000/api/discover/tv?with_genres=10759&page=1',
-		DetailMovie: 'http://localhost:8000/api/movie/550?language=en-US',
-		DetailTv: 'http://localhost:8000/api/tv/1399?language=en-US',
-		DetailMovieSimilar: 'http://localhost:8000/api/movie/550/similar?language=en-US&page=1',
-		DetailTvSimilar: 'http://localhost:8000/api/tv/1399/similar?language=en-US&page=1',
-		VideosMovies: 'http://localhost:8000/api/movie/550/videos?language=en-US',
-		VideosTv: 'http://localhost:8000/api/tv/1399/videos?language=en-US',
+		DetailMovie: 'http://localhost:8000/api/movie/550?language=es',
+		DetailTv: 'http://localhost:8000/api/tv/1399?language=es',
+		DetailMovieSimilar: 'http://localhost:8000/api/movie/550/similar?language=es&page=1',
+		DetailTvSimilar: 'http://localhost:8000/api/tv/1399/similar?language=es&page=1',
+		VideosMovies: 'http://localhost:8000/api/movie/550/videos',
+		VideosTv: 'http://localhost:8000/api/tv/1399/videos',
 		SearchMovies: 'http://localhost:8000/api/search/movie/hola',
 		SearchTvSeries: 'http://localhost:8000/api/search/tv/game',
 		MovieImages: 'http://localhost:8000/api/movie/550/images',
@@ -34,17 +31,16 @@ router.get('/', (req, res) => {
 		PopularMoviesList: 'http://localhost:8000/api/movie/popular',
 		TopRatedMoviesList: 'http://localhost:8000/api/movie/top_rated',
 		UpcomingMoviesList: 'http://localhost:8000/api/movie/upcoming',
+		LanguagesConfig: 'http://localhost:8000/api/configurations/languages',
+		PrimaryLanguagesConfig: 'http://localhost:8000/api/configurations/primary/translations',
 	}); // Spaghetti
 });
 
-router.use(previewMediaRouter);
-router.use(previewCategoriesMediaRouter);
-router.use(categoryMediaPreviewDiscoverRouter);
-router.use(detailMediaRouter);
-router.use(detailMediaSimilarRouter);
-router.use(videosMediaRouter);
-router.use(searchMediaRouter);
-router.use(mediaImagesRouter);
-router.use(mediaListRouter);
+router.use(TrendingMedia);
+router.use(MediaGenresAndDiscover);
+router.use(MediaData);
+router.use(SearchMediaRouter);
+router.use(MediaListRouter);
+router.use(ConfigurationsAPI);
 
 export default router;

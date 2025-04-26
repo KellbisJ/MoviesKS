@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { DEFAULT_LANG, LANG_STORAGE_KEY } from '@/context/lang';
+import { LanguageISOCode } from '@/types/languages';
 
 const BASE_API_URL: string = import.meta.env.VITE_APP_SERVER || 'http://localhost:8000/api';
 
@@ -22,6 +24,7 @@ export const API_MOVIE_IMAGES = (id: string) => `${BASE_API_URL}/movie/${id}/ima
 export const API_TV_IMAGES = (id: string) => `${BASE_API_URL}/tv/${id}/images`;
 export const API_MEDIA_LISTS = (type: string, mediaListType: string) =>
 	`${BASE_API_URL}/${type}/${mediaListType}`;
+export const API_CONFIG_LANGUAGES = `${BASE_API_URL}/configurations/languages`;
 
 const api = axios.create({
 	baseURL: BASE_API_URL,
@@ -30,7 +33,7 @@ const api = axios.create({
 		'Content-Type': 'application/json;charset=utf-8',
 		'X-Requested-With': 'XMLHttpRequest',
 	},
-	timeout: 10000,
+	timeout: 15000,
 	withCredentials: true,
 
 	// xsrfCookieName: 'XSRF-TOKEN',
@@ -41,6 +44,8 @@ api.interceptors.request.use((config) => {
 	if (!config.url?.startsWith(BASE_API_URL)) {
 		throw new axios.Cancel('Bloqueado: Petición a dominio no permitido');
 	}
+	const language = localStorage.getItem(LANG_STORAGE_KEY) || (DEFAULT_LANG as LanguageISOCode);
+	config.headers['X-LANG-CONTEXT'] = language;
 	return config;
 });
 
