@@ -5,6 +5,7 @@ import { CorsMiddleware } from './api/middleware';
 import { securityHeadersMiddleware } from './api/middleware/SecurityHeaders';
 import { languageMiddleware } from './api/middleware/LanguageHandler';
 import routes from './api/routes';
+import { initializeServer } from './api/bootstrap';
 
 dotenv.config();
 
@@ -18,6 +19,12 @@ app.use('/api', routes);
 export default app;
 
 // Now bootstrap file initialize the server
-if (require.main === module) {
-	import('./api/bootstrap').then(({ initializeServer }) => initializeServer());
-}
+
+initializeServer().catch((error) => {
+	console.error('Failed to initialize server:', error);
+	process.exit(1);
+});
+
+// if (require.main === module) {
+// 	import('./api/bootstrap').then(({ initializeServer }) => initializeServer());
+// }

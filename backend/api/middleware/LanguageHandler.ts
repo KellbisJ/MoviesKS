@@ -1,33 +1,65 @@
 /// <reference path="../types/express.d.ts" />
 
+import axios from 'axios';
 import { Request, Response, NextFunction } from 'express';
-import {
-	LanguageISOCode,
-	LanguagesInterface,
-	langKeys,
-} from '../routes/configurations/languages/types';
+import { LanguageISOCode } from '../routes/configurations/languages/types';
 
 const DEFAULT_LANG = 'es-MX' as LanguageISOCode;
-let VALID_LANGUAGES = new Set<LanguageISOCode>([]);
+let VALID_LANGUAGES = new Set<LanguageISOCode>([DEFAULT_LANG]);
+let isInitializing = false;
+let initializationPromise: Promise<void> | null = null;
 
 const initializeValidLanguages = (languages: LanguageISOCode[]) => {
-	// Always include default language
-	VALID_LANGUAGES = new Set<LanguageISOCode>([DEFAULT_LANG, ...languages]); // Spanish mx default
-	console.log(`Initialized ${VALID_LANGUAGES.size} valid languages`);
+	VALID_LANGUAGES = new Set([...VALID_LANGUAGES, ...languages]);
+	console.log(`Valid languages updated (${VALID_LANGUAGES.size})`);
 };
 
-const languageMiddleware = (req: Request, res: Response, next: NextFunction) => {
-	const contextHeader = req.header('X-LANG-CONTEXT') as LanguageISOCode;
+const languageMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+	if (!initializationPromise) {
+		initializationPromise = initializeLanguages();
+	}
 
-	const isValid = contextHeader ? VALID_LANGUAGES.has(contextHeader) : false;
+	try {
+		await initializationPromise;
+	} catch (error) {
+		console.error('Language system degraded - using defaults');
+	}
+
+	const contextHeader = req.header('X-LANG-CONTEXT') as LanguageISOCode;
+	const isValid = VALID_LANGUAGES.has(contextHeader);
 
 	req.lang = {
-		languageContext: isValid ? contextHeader! : DEFAULT_LANG,
+		languageContext: isValid ? contextHeader : DEFAULT_LANG,
 		isValid,
 	};
-	console.log(req.lang);
 
 	res.set('X-LANG-CONTEXT', req.lang.languageContext);
 	next();
 };
+
+async function initializeLanguages() {
+	if (isInitializing) return;
+	isInitializing = true;
+
+	try {
+		const res = await axios.get<LanguageISOCode[]>(
+			`https://api.themoviedb.org/3/configuration/primary_translations?api_key=${process.env.API_KEY}`,
+			{
+				headers: {
+					'Cache-Control': 'public, max-age=86400',
+				},
+			}
+		);
+		initializeValidLanguages(res.data);
+	} catch (error) {
+		console.error('Language init failed:', error);
+		initializationPromise = null;
+		throw error;
+	} finally {
+		isInitializing = false;
+	}
+}
+
+initializeLanguages();
+
 export { VALID_LANGUAGES, initializeValidLanguages, languageMiddleware };
