@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Globe, Settings, User, House, Film, Tv, Save, Search } from 'lucide-react';
 import { ThemeBtn } from '@/components/common/theme-btn';
 import { TranslateBtn } from '@/components/common/translate-btn';
@@ -7,27 +7,32 @@ import { useEffect, useState } from 'react';
 import { isSpanishLang } from '@/utils/is-spanish-lang';
 import { useLanguages } from '@/context/lang';
 import { underlinePath } from '@/utils/underline-path';
+import { handleSearch2 } from '@/utils/handle-search';
+import { useSearch } from '@/context/search-media-context';
+import { MediaTypeT } from '@/types/media-type';
 
 const MobileBottomNavBar = (): React.JSX.Element => {
 	const { language } = useLanguages();
 	const location = useLocation();
+	const { searchQuery, updateSearchQuery, updateMediaType, mediaType } = useSearch();
+
+	const navigate = useNavigate();
 
 	const [showNavigationPathsBottomMenu, setShowNavigationPathsBottomMenu] = useState(false);
 	const [showSettingsBottomMenu, setShowSettingsBottomMenu] = useState(false);
 	const [showLangSidebar, setShowLangSideBar] = useState<boolean>(false);
+	const [showSearchBar, setShowSearchBar] = useState<boolean>(false);
 
 	const [labels, setLabels] = useState<{
 		home: string;
 		movies: string;
 		tv: string;
 		saved: string;
-		search: string;
 	}>({
 		home: 'Inicio',
 		movies: 'Películas',
 		tv: 'Series de TV',
 		saved: 'Guardado',
-		search: 'Buscar',
 	});
 
 	useEffect(() => {
@@ -38,17 +43,9 @@ const MobileBottomNavBar = (): React.JSX.Element => {
 				movies: 'Movies',
 				tv: 'TV Series',
 				saved: 'Saved',
-				search: 'Search',
 			}));
 		}
 	}, [language]);
-
-	// const underlinePath = (basePath: string) => {
-	// 	if (basePath === '/') {
-	// 		return location.pathname === '/' || location.pathname === '/home';
-	// 	}
-	// 	return location.pathname.startsWith(basePath);
-	// };
 
 	const navItems = [
 		{
@@ -75,12 +72,6 @@ const MobileBottomNavBar = (): React.JSX.Element => {
 			label: labels.saved,
 			icon: Save,
 		},
-		{
-			to: '/search',
-			base: '/search',
-			label: labels.search,
-			icon: Search,
-		},
 	];
 
 	return (
@@ -93,6 +84,7 @@ const MobileBottomNavBar = (): React.JSX.Element => {
 						setShowNavigationPathsBottomMenu((prev) => !prev);
 						setShowSettingsBottomMenu(false);
 						setShowLangSideBar(false);
+						setShowSearchBar(false);
 					}}
 					aria-label="navigation"
 				/>
@@ -101,6 +93,8 @@ const MobileBottomNavBar = (): React.JSX.Element => {
 					onClick={() => {
 						setShowSettingsBottomMenu((prev) => !prev);
 						setShowNavigationPathsBottomMenu(false);
+						setShowSearchBar(false);
+						setShowLangSideBar(false);
 					}}
 					aria-label="settings"
 				/>
@@ -128,6 +122,19 @@ const MobileBottomNavBar = (): React.JSX.Element => {
 							<span>{item.label}</span>
 						</Link>
 					))}
+					<div
+						className={`flex flex-col items-center gap-1 text-xs transition-colors duration-200 ${
+							showSearchBar ? 'text-[#16C47F]' : 'text-gray-300'
+						} `}
+						onClick={() => {
+							setShowSearchBar((prev) => !prev);
+							setShowSettingsBottomMenu(false);
+							setShowNavigationPathsBottomMenu(false);
+							setShowLangSideBar(false);
+						}}>
+						<Search size={18} className="flex-shrink-0" />
+						<span>{`${isSpanishLang(language) ? 'Buscar' : 'Search'}`}</span>
+					</div>
 				</div>
 			</div>
 
@@ -152,6 +159,34 @@ const MobileBottomNavBar = (): React.JSX.Element => {
 							<LanguagesSideBar />
 						</div>
 					</div>
+				</div>
+			</div>
+
+			{/* Search Bar */}
+			<div
+				className={`fixed bottom-12 left-0 right-0 h-12 bg-[#222831] transition-all duration-300 ease-out ${
+					showSearchBar
+						? 'translate-y-0 opacity-100'
+						: 'translate-y-full opacity-0 pointer-events-none'
+				}`}>
+				<div className="flex justify-center items-center h-full px-2">
+					<form
+						onSubmit={(e) => handleSearch2(e, searchQuery, mediaType, navigate)}
+						className="relative flex items-center w-4/5 max-w-xl bg-gray-100 dark:bg-gray-700 rounded-full transition-all focus-within:ring-2 focus-within:ring-[#16C47F]">
+						<input
+							type="text"
+							placeholder={`Search ${mediaType === MediaTypeT.movie ? 'Movies' : 'TV Series'}`}
+							className="w-full px-6 py-2 bg-transparent outline-none rounded-full placeholder-gray-500 dark:placeholder-gray-400 text-sm transition-all"
+							value={searchQuery}
+							onChange={(e) => updateSearchQuery(e.target.value)}
+							name="BottomNavbarInputSearchMedia"
+						/>
+						<button
+							type="submit"
+							className="p-2 mr-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+							<Search size={20} className="text-gray-600 dark:text-gray-300" />
+						</button>
+					</form>
 				</div>
 			</div>
 		</nav>

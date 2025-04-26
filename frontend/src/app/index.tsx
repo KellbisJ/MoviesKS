@@ -20,7 +20,6 @@ import { PageNotFound } from '../components/layout/page-not-found';
 import { MediaBySearch } from '../routes/media-by-search';
 import { SearchAboutPage } from '@/routes/search-about';
 import { SearchDiscoverPage } from '@/routes/search-discover';
-import { SearchView } from '@/routes/search-view';
 // VIEW COMPONENTS
 
 const App = (): React.JSX.Element => (
@@ -44,7 +43,6 @@ const App = (): React.JSX.Element => (
 								<Route path="saved-media" element={<SavedMedia />} />
 								<Route path="/search/about/:query" element={<SearchAboutPage />} />
 								<Route path="/search/discover/:type" element={<SearchDiscoverPage />} />
-								<Route path="/search" element={<SearchView />} />
 								<Route path="*" element={<PageNotFound />} />
 							</Route>
 						</Routes>
