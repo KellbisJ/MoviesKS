@@ -61,7 +61,7 @@ const SearchAboutPage = () => {
 				</>
 			) : (
 				<div className="flex flex-col justify-center items-center">
-					<h1 className="text-gray-600 dark:text-gray-300 mb-4">
+					<h1 className="text-gray-600 dark:text-gray-300 my-4">
 						{isSpanishLang(language) ? `Resultados para "${query}"` : `Results for "${query}"`}
 					</h1>
 					<div className="flex flex-col sm:flex-row gap-4 sm:gap-8 w-auto">
@@ -95,7 +95,7 @@ const SearchAboutPage = () => {
 
 					{movies.results.length > 0 && (
 						<div className="mt-8">
-							<h3 className="text-gray-600 dark:text-gray-300 mb-4">
+							<h3 className="text-gray-600 dark:text-gray-300 mb-4 p-3">
 								{isSpanishLang(language) ? 'Acerca de las películas' : 'About Movies'}
 							</h3>
 							<CreateMedia type={MediaTypeT.movie} media={limitedMovies} />
@@ -104,7 +104,7 @@ const SearchAboutPage = () => {
 
 					{tv.results.length > 0 && (
 						<div className="mt-8">
-							<h3 className="text-gray-600 dark:text-gray-300 mb-4">
+							<h3 className="text-gray-600 dark:text-gray-300 mb-4 p-3">
 								{isSpanishLang(language) ? 'Acerca de series de televisión' : 'About Tv Series'}
 							</h3>
 							<CreateMedia type={MediaTypeT.tv} media={limitedTv} />

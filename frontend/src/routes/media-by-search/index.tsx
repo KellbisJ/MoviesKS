@@ -80,7 +80,7 @@ const MediaBySearch = (): React.JSX.Element => {
 		<>
 			{loadingComponents && media.length === 0 && <PopcornParticlesLoader />}
 
-			<h3 className="my-8 dark:text-gray-100">
+			<h3 className="mb-8 dark:text-gray-100 p-3">
 				{mediaType === MediaTypeT.movie
 					? isSpanishLang(language)
 						? `Resultados de búsqueda de "${querySearch}" en Películas`

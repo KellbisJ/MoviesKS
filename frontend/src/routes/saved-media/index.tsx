@@ -31,7 +31,7 @@ const SavedMedia = (): React.JSX.Element => {
 			) : (
 				<>
 					<div className="max-w-[1536px] mx-auto">
-						<div className="mb-12 flex flex-col gap-2">
+						<div className="mb-12 flex flex-col gap-2 p-3">
 							<h1 className="text-2xl sm:text-3xl font-bold dark:text-gray-100">
 								{isSpanishLang(language) ? 'Mis medios guardados' : 'My Saved Media'}
 							</h1>
@@ -43,7 +43,9 @@ const SavedMedia = (): React.JSX.Element => {
 						</div>
 
 						<section aria-labelledby="movies-section" className="mb-12">
-							<h2 id="movies-section" className="text-2xl font-semibold dark:text-gray-100 mb-8">
+							<h2
+								id="movies-section"
+								className="text-2xl font-semibold dark:text-gray-100 mb-8 p-3">
 								{isSpanishLang(language) ? 'Películas' : 'Movies'}
 							</h2>
 							{hasMovies ? (
@@ -54,7 +56,7 @@ const SavedMedia = (): React.JSX.Element => {
 						</section>
 
 						<section aria-labelledby="tv-section">
-							<h2 id="tv-section" className="text-2xl font-semibold dark:text-gray-100 mb-8">
+							<h2 id="tv-section" className="text-2xl font-semibold dark:text-gray-100 mb-8 p-3">
 								{isSpanishLang(language) ? 'Series de TV' : 'TV series'}
 							</h2>
 							{hasShows ? (

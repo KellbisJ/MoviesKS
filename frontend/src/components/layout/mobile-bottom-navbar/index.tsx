@@ -124,7 +124,7 @@ const MobileBottomNavBar = (): React.JSX.Element => {
 					))}
 					<div
 						className={`flex flex-col items-center gap-1 text-xs transition-colors duration-200 ${
-							showSearchBar ? 'text-[#16C47F]' : 'text-gray-300'
+							underlinePath('/search', location) ? 'text-[#16C47F]' : 'text-gray-300'
 						} `}
 						onClick={() => {
 							setShowSearchBar((prev) => !prev);

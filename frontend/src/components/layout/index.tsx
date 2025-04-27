@@ -41,7 +41,7 @@ const Layout = (): React.JSX.Element => {
 
 			{!showNavbarHero && !isLoading && <Menu />}
 
-			<div className="flex-1 min-h-screen lg:mt-16 p-6 lg:p-8">
+			<div className="flex-1 min-h-screen lg:mt-16 lg:p-8">
 				<Outlet />
 			</div>
 			<Footer />

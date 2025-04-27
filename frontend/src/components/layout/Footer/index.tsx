@@ -5,7 +5,7 @@ import { useLanguages } from '@/context/lang';
 const Footer = (): React.JSX.Element => {
 	const { language } = useLanguages();
 	return (
-		<footer className="bg-transparent text-gray-700 dark:text-white text-center py-5 w-full min-h-72 h-72 text-base p-2 transition">
+		<footer className="bg-transparent text-gray-700 dark:text-white text-center py-5 w-full min-h-72 h-72 text-base p-2 transition mb-12 lg:mb-0">
 			<div className="flex flex-col justify-end w-full h-full gap-2">
 				<p className="m-0">
 					{isSpanishLang(language)

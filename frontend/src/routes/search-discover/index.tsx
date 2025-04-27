@@ -51,7 +51,7 @@ const SearchDiscoverPage = () => {
 
 			{media.results.length > 0 && (
 				<>
-					<h1 className="mb-8 text-gray-600 dark:text-gray-300">
+					<h1 className="mb-8 text-gray-600 dark:text-gray-300 p-3">
 						{mediaType === MediaTypeT.movie
 							? isSpanishLang(language)
 								? `Busqueda de peliculas: ${query}`

@@ -7,7 +7,7 @@ const MediaSkeleton = () => {
 	const count = 20;
 	return (
 		<div className="max-w-[1536px] mx-auto">
-			<div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
+			<div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-3">
 				{Array.from({ length: count }, (_, index) => (
 					<div
 						key={index}
