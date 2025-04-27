@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // PROVIDERS
-import { ThemeContextProvider } from '@/context/theme/indext';
 import { LanguagesProvider } from '@/context/lang';
+import { ThemeContextProvider } from '@/context/theme/indext';
 import { SavedMediaProvider } from '../context/favorite-media-context';
 import { SearchProvider } from '../context/search-media-context';
 // PROVIDERS
@@ -23,8 +23,8 @@ import { SearchDiscoverPage } from '@/routes/search-discover';
 // VIEW COMPONENTS
 
 const App = (): React.JSX.Element => (
-	<ThemeContextProvider>
-		<LanguagesProvider>
+	<LanguagesProvider>
+		<ThemeContextProvider>
 			<SavedMediaProvider>
 				<SearchProvider>
 					<BrowserRouter>
@@ -49,8 +49,8 @@ const App = (): React.JSX.Element => (
 					</BrowserRouter>
 				</SearchProvider>
 			</SavedMediaProvider>
-		</LanguagesProvider>
-	</ThemeContextProvider>
+		</ThemeContextProvider>
+	</LanguagesProvider>
 );
 
 export { App };
