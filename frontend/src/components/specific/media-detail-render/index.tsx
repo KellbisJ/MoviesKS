@@ -1,4 +1,3 @@
-// media-detail-render.tsx
 import { MediaDetailPropsInterface } from './types';
 import { BigPosterPathNullSkeleton } from '@/components/utilities/loading-skeletons';
 import { useSavedMedia } from '../../../context/favorite-media-context';
@@ -48,8 +47,8 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 		// console.log(spokenLanguages);
 
 		return (
-			<section className="text-black dark:text-gray-100 mx-auto -mt-8">
-				<div className="relative mb-12 h-[90vh] sm:min-h-screen sm:h-auto">
+			<section className="text-black dark:text-gray-100 mx-auto px-6 lg:px-0 lg:-mt-8">
+				<div className="relative mb-12 h-[90vh] lg:min-h-screen lg:h-auto">
 					<picture className="absolute inset-0 -mx-6 lg:-mx-8 overflow-hidden">
 						{bigPoster && (
 							<img
@@ -64,7 +63,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 						<div className="absolute bottom-0 w-full h-14 bg-gradient-to-t from-gray-800 via-gray-800/20 dark:from-gray-900 dark:via-gray-[#1E1A2F]/20" />
 					</picture>
 
-					<article className="relative z-10 container mx-auto px-4 pb-4 lg:px-6 lg:pb-20 pt-12 sm:pt-20 opacity-100 h-full overflow-y-auto sm:overflow-visible">
+					<article className="relative z-10 container mx-auto px-4 pb-4 lg:px-6 lg:pb-20 pt-12 sm:pt-20 opacity-100 h-full overflow-y-auto lg:overflow-visible">
 						<div className="flex flex-col lg:flex-row gap-8 text-gray-100">
 							<div className="w-full lg:w-1/3 xl:w-1/4 relative group">
 								<div className="relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
@@ -243,7 +242,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 					</article>
 				</div>
 
-				<div className="mx-auto px-4 lg:px-6 mt-32 relative">
+				<div className="mx-auto mt-32 relative">
 					<div
 						className="absolute -top-32 left-0 right-0 h-14 
              bg-gradient-to-b from-gray-800 via-gray-800/20 to-transparent

@@ -26,11 +26,6 @@ const Layout = (): React.JSX.Element => {
 		return () => clearTimeout(timeout);
 	}, []);
 
-	useEffect(() => {
-		// console.log(location);
-		// console.log(showNavbarHero);
-	}, [location]);
-
 	return (
 		<main className="bg-gray-100 dark:bg-[#1E1A2F] flex flex-col min-h-screen dark:bg-gradient-to-b transition">
 			{showNavbarHero && isLoading && <NavbarSkeletonHero />}
