@@ -12,16 +12,16 @@ const getGenresAndDiscoverData = async (req: Request, res: Response, type: strin
 	const currentPath = req.originalUrl;
 	console.log(currentPath);
 
-	const language = req.lang.languageContext;
+	const { lang } = req;
 
 	let api_url: string = '';
 
 	if (currentPath.includes('/genre/')) {
 		// Only genre list.
-		api_url = `https://api.themoviedb.org/3/genre/${type}/list?api_key=${api_key}&language=${language}`;
+		api_url = `https://api.themoviedb.org/3/genre/${type}/list?api_key=${api_key}&language=${lang}`;
 	} else if (currentPath.includes('/discover/')) {
 		// Discover by genres
-		api_url = `https://api.themoviedb.org/3/discover/${type}?api_key=${api_key}&language=${language}`;
+		api_url = `https://api.themoviedb.org/3/discover/${type}?api_key=${api_key}&language=${lang}`;
 		const { with_genres, page } = req.query;
 		if (with_genres) {
 			api_url += `&with_genres=${with_genres}`;

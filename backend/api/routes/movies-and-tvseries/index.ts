@@ -19,7 +19,7 @@ const MediaData = express.Router();
 const getMediaData = async (req: Request, res: Response, type: string) => {
 	const currentPath = req.originalUrl;
 
-	const language = req.lang.languageContext;
+	const { lang } = req;
 
 	console.log(currentPath);
 
@@ -45,18 +45,16 @@ const getMediaData = async (req: Request, res: Response, type: string) => {
 	const isDetailEndpoint = (path: string, type: string) => path.includes(`/${type}/`);
 
 	if (isSimilarEndpoint(currentPath, type)) {
-		api_url = `https://api.themoviedb.org/3/${type}/${id}/similar?api_key=${api_key}&language=${language}`;
+		api_url = `https://api.themoviedb.org/3/${type}/${id}/similar?api_key=${api_key}&language=${lang}`;
 	} else if (isVideosEndpoint(currentPath, type)) {
-		api_url = `https://api.themoviedb.org/3/${type}/${id}/videos?api_key=${api_key}&language=${
-			language || 'es'
-		}`;
+		api_url = `https://api.themoviedb.org/3/${type}/${id}/videos?api_key=${api_key}&language=${lang}`;
 		if (page) {
 			api_url += page;
 		}
 	} else if (isImagesEndpoint(currentPath, type)) {
-		api_url = `https://api.themoviedb.org/3/${type}/${id}/images?api_key=${api_key}&language=${language}`;
+		api_url = `https://api.themoviedb.org/3/${type}/${id}/images?api_key=${api_key}&language=${lang}`;
 	} else if (isDetailEndpoint(currentPath, type)) {
-		api_url = `https://api.themoviedb.org/3/${type}/${id}?api_key=${api_key}&language=${language}`;
+		api_url = `https://api.themoviedb.org/3/${type}/${id}?api_key=${api_key}&language=${lang}`;
 	} else {
 		res.status(400).json({ error: 'Invalid endpointt' });
 		return;

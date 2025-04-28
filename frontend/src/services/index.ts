@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { DEFAULT_LANG, LANG_STORAGE_KEY } from '@/context/lang';
-import { LanguageISOCode } from '@/types/languages';
+import { currentLanguage } from '@/context/lang';
 
 const BASE_API_URL: string = import.meta.env.VITE_APP_SERVER || 'http://localhost:8000/api';
 
@@ -44,8 +43,8 @@ api.interceptors.request.use((config) => {
 	if (!config.url?.startsWith(BASE_API_URL)) {
 		throw new axios.Cancel('Bloqueado: Petición a dominio no permitido');
 	}
-	const language = localStorage.getItem(LANG_STORAGE_KEY) || (DEFAULT_LANG as LanguageISOCode);
-	config.headers['X-LANG-CONTEXT'] = language;
+
+	config.headers['X-LANG-CONTEXT'] = currentLanguage;
 	return config;
 });
 

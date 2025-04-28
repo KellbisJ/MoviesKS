@@ -39,9 +39,9 @@ const getMediaLists = async (
 
 	const api_key: string | undefined = process.env.API_KEY;
 
-	const language = req.lang.languageContext;
+	const { lang } = req;
 
-	let api_url: string = `https://api.themoviedb.org/3/${type}/${listType}?api_key=${api_key}&language=${language}`;
+	let api_url: string = `https://api.themoviedb.org/3/${type}/${listType}?api_key=${api_key}&language=${lang}`;
 
 	if (page) {
 		api_url += `&page=${page}`;

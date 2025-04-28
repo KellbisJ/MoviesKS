@@ -18,13 +18,7 @@ app.use('/api', routes);
 
 export default app;
 
-// Now bootstrap file initialize the server
-
 initializeServer().catch((error) => {
 	console.error('Failed to initialize server:', error);
 	process.exit(1);
 });
-
-// if (require.main === module) {
-// 	import('./api/bootstrap').then(({ initializeServer }) => initializeServer());
-// }

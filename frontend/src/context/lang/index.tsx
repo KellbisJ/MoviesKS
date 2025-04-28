@@ -4,12 +4,15 @@ import { LanguageContextInterface } from './types';
 
 const DEFAULT_LANG = 'es-MX' as LanguageISOCode;
 const LANG_STORAGE_KEY: string = 'MOVIESKS_LANG';
+let currentLanguage: LanguageISOCode = DEFAULT_LANG;
 
 const LanguageContext = createContext<LanguageContextInterface | undefined>(undefined);
 
 const LanguagesProvider = ({ children }: { children: React.ReactNode }) => {
 	const [language, setLanguage] = useState<LanguageISOCode>(() => {
-		return (localStorage.getItem(LANG_STORAGE_KEY) as LanguageISOCode) || DEFAULT_LANG;
+		const storedLang = localStorage.getItem(LANG_STORAGE_KEY) as LanguageISOCode;
+		currentLanguage = storedLang || DEFAULT_LANG;
+		return currentLanguage;
 	});
 
 	const contextValue = useMemo<LanguageContextInterface>(
@@ -17,9 +20,10 @@ const LanguagesProvider = ({ children }: { children: React.ReactNode }) => {
 			language,
 			setLanguageLS: (newLanguage: LanguageISOCode) => {
 				if (!newLanguage) {
-					console.error('Incorrect language, could not be used');
+					console.error('Incorrect language');
 				}
 				localStorage.setItem(LANG_STORAGE_KEY, newLanguage);
+				currentLanguage = newLanguage;
 				setLanguage(newLanguage);
 			},
 		}),
@@ -37,4 +41,4 @@ const useLanguages = () => {
 	return context;
 };
 
-export { LanguagesProvider, useLanguages, LANG_STORAGE_KEY, DEFAULT_LANG };
+export { LanguagesProvider, useLanguages, LANG_STORAGE_KEY, DEFAULT_LANG, currentLanguage };

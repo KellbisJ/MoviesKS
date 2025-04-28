@@ -8,12 +8,12 @@ dotenv.config();
 const TrendingMedia = express.Router();
 
 const getTrendingMedia = async (req: Request, res: Response, type: string) => {
-	const language = req.lang.languageContext;
+	const { lang } = req;
 
 	const { page } = req.query;
 
 	const api_key: string | undefined = process.env.API_KEY;
-	let api_url: string = `https://api.themoviedb.org/3/trending/${type}/day?api_key=${api_key}&language=${language}`;
+	let api_url: string = `https://api.themoviedb.org/3/trending/${type}/day?api_key=${api_key}&language=${lang}`;
 
 	if (page) {
 		api_url += `&page=${page}`;

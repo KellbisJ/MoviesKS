@@ -13,11 +13,11 @@ const searchMedia = async (req: Request, res: Response, type: string) => {
 	const { query } = req.params;
 	const { page = 1 } = req.query;
 
-	const language = req.lang.languageContext;
+	const { lang } = req;
 
 	const api_url: string = `https://api.themoviedb.org/3/search/${type}?query=${encodeURIComponent(
 		query
-	)}&api_key=${api_key}&language=${language}&include_adult=false&page=${page}`;
+	)}&api_key=${api_key}&language=${lang}&include_adult=false&page=${page}`;
 
 	try {
 		const { data }: { data: SearchMediaInterface } = await axios.get(api_url);
