@@ -8,6 +8,7 @@ import {
 	TVSimilarInterface,
 	MediaVideosInterface,
 	MediaImagesInterface,
+	MediaReviewInterface,
 } from './types';
 
 dotenv.config();
@@ -33,32 +34,38 @@ const getMediaData = async (req: Request, res: Response, type: string) => {
 
 	let api_url: string = '';
 
-	const isSimilarEndpoint = (path: string, type: string) =>
-		path.includes(`/${type}/`) && path.includes('/similar');
-
-	const isVideosEndpoint = (path: string, type: string) =>
-		path.includes(`/${type}/`) && path.includes('/videos');
-
-	const isImagesEndpoint = (path: string, type: string) =>
-		path.includes(`/${type}/`) && path.includes('/images');
-
-	const isDetailEndpoint = (path: string, type: string) => path.includes(`/${type}/`);
-
-	if (isSimilarEndpoint(currentPath, type)) {
-		api_url = `https://api.themoviedb.org/3/${type}/${id}/similar?api_key=${api_key}&language=${lang}`;
-	} else if (isVideosEndpoint(currentPath, type)) {
-		api_url = `https://api.themoviedb.org/3/${type}/${id}/videos?api_key=${api_key}&language=${lang}`;
-		if (page) {
-			api_url += page;
+	function endpointVerifier(
+		path: string,
+		type: string
+	): string | express.Response<any, Record<string, any>> {
+		if (path.includes(`/${type}/`) && path.includes('/reviews')) {
+			api_url = `https://api.themoviedb.org/3/${type}/${id}/reviews?api_key=${api_key}&language=${lang}`;
+			return 'isReviewsEndpoint';
 		}
-	} else if (isImagesEndpoint(currentPath, type)) {
-		api_url = `https://api.themoviedb.org/3/${type}/${id}/images?api_key=${api_key}&language=${lang}`;
-	} else if (isDetailEndpoint(currentPath, type)) {
-		api_url = `https://api.themoviedb.org/3/${type}/${id}?api_key=${api_key}&language=${lang}`;
-	} else {
-		res.status(400).json({ error: 'Invalid endpointt' });
-		return;
+		if (path.includes(`/${type}/`) && path.includes('/similar')) {
+			api_url = `https://api.themoviedb.org/3/${type}/${id}/similar?api_key=${api_key}&language=${lang}`;
+			return 'isSimilarEndpoint';
+		}
+		if (path.includes(`/${type}/`) && path.includes('/videos')) {
+			api_url = `https://api.themoviedb.org/3/${type}/${id}/videos?api_key=${api_key}&language=${lang}`;
+			// 	if (page) {
+			// 		api_url += page;
+			// 	}
+			return 'isVideosEndpoint';
+		}
+		if (path.includes(`/${type}/`) && path.includes('/images')) {
+			api_url = `https://api.themoviedb.org/3/${type}/${id}/images?api_key=${api_key}&language=${lang}`;
+			return 'isImagesEndpoint';
+		}
+		if (path.includes(`/${type}/`)) {
+			api_url = `https://api.themoviedb.org/3/${type}/${id}?api_key=${api_key}&language=${lang}`;
+			return 'isDetailEndpoint';
+		}
+
+		return res.status(400).json({ error: 'Invalid endpointt' });
 	}
+
+	endpointVerifier(currentPath, type);
 
 	try {
 		const {
@@ -70,7 +77,8 @@ const getMediaData = async (req: Request, res: Response, type: string) => {
 				| MovieSimilarInterface
 				| TVSimilarInterface
 				| MediaVideosInterface
-				| MediaImagesInterface;
+				| MediaImagesInterface
+				| MediaReviewInterface;
 		} = await axios.get(api_url);
 		res.json(data);
 	} catch (error) {
@@ -126,6 +134,15 @@ MediaData.get('/movie/:id/images', (req: Request, res: Response) => {
 });
 
 MediaData.get('/tv/:id/images', (req: Request, res: Response) => {
+	getMediaData(req, res, 'tv');
+});
+
+// MEDIA REVIEWS
+MediaData.get('/movie/:id/reviews', (req: Request, res: Response) => {
+	getMediaData(req, res, 'movie');
+});
+
+MediaData.get('/tv/:id/reviews', (req: Request, res: Response) => {
 	getMediaData(req, res, 'tv');
 });
 
