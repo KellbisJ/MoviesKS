@@ -6,6 +6,39 @@ import { SearchMediaRouter } from './search-media';
 import { MediaListRouter } from './media-lists';
 import { ConfigurationsAPI } from './configurations/languages';
 
+const apiSections = [
+	'ACCOUNT',
+	'AUTHENTICATION',
+	'CERTIFICATIONS',
+	'CHANGES',
+	'COLLECTIONS',
+	'COMPANIES',
+	'CONFIGURATION',
+	'CREDITS',
+	'DISCOVER',
+	'FIND',
+	'GENRES',
+	'GUEST SESSIONS',
+	'KEYWORDS',
+	'LISTS',
+	'MOVIE LISTS',
+	'MOVIES',
+	'NETWORKS',
+	'PEOPLE LISTS',
+	'PEOPLE',
+	'REVIEWS',
+	'SEARCH',
+	'TRENDING',
+	'TV SERIES LISTS',
+	'TV SERIES',
+	'TV SEASONS',
+	'TV EPISODES',
+	'TV EPISODE GROUPS',
+	'WATCH PROVIDERS',
+] as const;
+
+type EndpointSection = (typeof apiSections)[number];
+
 const router = Router();
 
 router.get('/', (req, res) => {
@@ -46,3 +79,4 @@ router.use(MediaListRouter);
 router.use(ConfigurationsAPI);
 
 export default router;
+export { EndpointSection };

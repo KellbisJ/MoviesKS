@@ -12,8 +12,20 @@ import {
 } from './types';
 import { endpointVerifier } from '../../utils/endpointVerifier';
 import { LanguageISOCode } from '../configurations/languages/types';
+import { EndpointSection } from '..';
+import { EndpointVerifierInterface } from '../../utils/endpointVerifier';
 
 dotenv.config();
+
+const endpointsMoviesAndTvAll: EndpointSection[] = [
+	'MOVIES',
+	'MOVIE LISTS',
+	'TV SERIES',
+	'TV SERIES LISTS',
+	'TV SEASONS',
+	'TV EPISODES',
+	'TV EPISODE GROUPS',
+];
 
 const api_key: string | undefined = process.env.API_KEY;
 
@@ -37,14 +49,7 @@ const getMediaData = async (req: Request, res: Response, type: string) => {
 	let api_url: string = 'https://api.themoviedb.org/3';
 	let api_url_req: string = '';
 
-	const endpoints: {
-		endpoint: string;
-		mediaTypeRequired: boolean;
-		idRequired: boolean;
-		mediaType?: string;
-		mediaId?: string;
-		lang?: LanguageISOCode;
-	}[] = [
+	const endpoints: EndpointVerifierInterface[] = [
 		{
 			endpoint: 'reviews',
 			mediaTypeRequired: true,
@@ -86,9 +91,7 @@ const getMediaData = async (req: Request, res: Response, type: string) => {
 		},
 	];
 
-	const config = { endpoints };
-
-	api_url_req = endpointVerifier(currentPath, api_url, config, api_key);
+	api_url_req = endpointVerifier(currentPath, endpointsMoviesAndTvAll, api_url, endpoints, api_key);
 
 	try {
 		const {
@@ -169,4 +172,4 @@ MediaData.get('/tv/:id/reviews', (req: Request, res: Response) => {
 	getMediaData(req, res, 'tv');
 });
 
-export { MediaData };
+export { MediaData, endpointsMoviesAndTvAll };
