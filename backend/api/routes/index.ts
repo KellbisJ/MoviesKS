@@ -3,8 +3,9 @@ import { TrendingMedia } from './trending-media';
 import { MediaGenresAndDiscover } from './genres-and-discover';
 import { MediaData } from './movies-and-tvseries';
 import { SearchMediaRouter } from './search-media';
-import { MediaListRouter } from './media-lists';
 import { ConfigurationsAPI } from './configurations/languages';
+
+let api_url: string = 'https://api.themoviedb.org/3';
 
 const apiSections = [
 	'ACCOUNT',
@@ -75,8 +76,7 @@ router.use(TrendingMedia);
 router.use(MediaGenresAndDiscover);
 router.use(MediaData);
 router.use(SearchMediaRouter);
-router.use(MediaListRouter);
 router.use(ConfigurationsAPI);
 
 export default router;
-export { EndpointSection };
+export { api_url, EndpointSection };
