@@ -58,37 +58,30 @@ const getMediaData = async (req: Request, res: Response, type: string) => {
 
 	const endpoints: EndpointVerifierInterface[] = [
 		{
-			// Associated with TV SERIES and MOVIES section, only media details endpoints
-			endpoint: ['movie', 'tv'],
-			mediaTypeRequired: false,
-			idRequired: true,
-			mediaId: id,
+			// Media details endpoints
+			paths: [`${type}/${id}`],
 			lang: lang,
 		},
 		{
-			// Associated with TV SERIES and MOVIES section, but dynamic endpoints
-			endpoint: ['reviews', 'similar', 'videos', 'images'],
-			mediaTypeRequired: true,
-			idRequired: true,
-			mediaType: type,
-			mediaId: id,
-			lang: lang,
-		},
-		{
-			// Associated with MOVIE LISTS and TV SERIES LISTS endpoints
-			endpoint: [
-				'now_playing',
-				'popular',
-				'top_rated',
-				'upcoming',
-				'airing_today',
-				'on_the_air',
-				'popular',
-				'top_rated',
+			// Media dynamic endpoints
+			paths: [
+				`${type}/${id}/reviews`,
+				`${type}/${id}/similar`,
+				`${type}/${id}/images`,
+				`${type}/${id}/videos`,
 			],
-			mediaTypeRequired: true,
-			idRequired: false,
-			mediaType: type,
+			lang: lang,
+		},
+		{
+			// Media lists endpoints
+			paths: [
+				`${type}/now_playing`,
+				`${type}/popular`,
+				`${type}/top_rated`,
+				`${type}/upcoming`,
+				`${type}/airing_today`,
+				`${type}/on_the_air`,
+			],
 			lang: lang,
 		},
 	];

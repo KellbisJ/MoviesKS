@@ -4,11 +4,7 @@ import { endpointsMoviesAndTvAll } from '../routes/movies-and-tvseries';
 import { MoviesAndTvSeriesAllEndpoints } from './pathCreator';
 
 interface EndpointVerifierInterface {
-	endpoint: string[];
-	mediaTypeRequired: boolean;
-	idRequired: boolean;
-	mediaType?: string;
-	mediaId?: string;
+	paths: string[];
 	lang?: LanguageISOCode;
 }
 
@@ -19,6 +15,8 @@ function endpointVerifier(
 	api_key: string | undefined
 ): string {
 	let url: string = '';
+
+	console.log(proxyPath);
 
 	for (const parameter of endpointParams) {
 		switch (endpointSection) {

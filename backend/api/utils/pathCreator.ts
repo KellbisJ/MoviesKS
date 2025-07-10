@@ -6,36 +6,17 @@ function MoviesAndTvSeriesAllEndpoints(
 	parameter: EndpointVerifierInterface,
 	api_key: string | undefined
 ): string {
-	const { endpoint, mediaTypeRequired, idRequired, mediaType, mediaId, lang } = parameter;
-
-	const notMediaDetailsEndpointArr = endpoint.filter((val) => val !== 'movie' && val !== 'tv');
-
-	const endpointMatched = notMediaDetailsEndpointArr.find((val) => proxyPath.includes(`/${val}`));
-
-	console.log(notMediaDetailsEndpointArr);
-	console.log(endpointMatched);
-
-	const notMediaDetails = endpointMatched !== undefined;
-
-	console.log(notMediaDetails);
+	const { paths, lang } = parameter;
 
 	let url = '';
 
-	for (const ep of endpoint) {
-		if (notMediaDetails && mediaTypeRequired && idRequired) {
-			url = `${api_url}/${mediaType}/${mediaId}/${endpointMatched}?api_key=${api_key}&language=${lang}`;
-			// Associated with TV SERIES and MOVIES section, but dynamic endpoints
-			break;
-		} else if (!notMediaDetails && mediaTypeRequired && idRequired) {
-			url = `${api_url}/${mediaType}/${mediaId}?api_key=${api_key}&language=${lang}`;
-			// Associated with TV SERIES and MOVIES section, only media details endpoints
-			break;
-		} else if (notMediaDetails && mediaTypeRequired && !idRequired) {
-			url = `${api_url}/${mediaType}/${endpointMatched}?api_key=${api_key}&language=${lang}`;
-			// Associated with MOVIE LISTS and TV SERIES LISTS endpoints
-			break;
-		}
-		if (url) break;
+	const cleanPath = proxyPath
+		.split('?')[0]
+		.replace(/^\/api/, '')
+		.replace(/^\/+|\/+$/g, ''); // must be showed like, for example: movie/top_rated to match with the condition below.
+
+	if (paths.includes(cleanPath)) {
+		url = `${api_url}/${cleanPath}?api_key=${api_key}&language=${lang}`;
 	}
 
 	return url;
