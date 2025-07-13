@@ -130,64 +130,33 @@ const getMediaData = async (req: Request, res: Response, type: string) => {
 	}
 };
 
-// MEDIA DETAIL
-MediaData.get('/movie/:id', (req: Request, res: Response) => {
-	getMediaData(req, res, 'movie');
+const mediaRoutes: Array<{ type: 'movie' | 'tv'; path: string }> = [
+	// id required endpoints
+	{ type: 'movie', path: ':id' },
+	{ type: 'tv', path: ':id' },
+	{ type: 'movie', path: ':id/similar' },
+	{ type: 'tv', path: ':id/similar' },
+	{ type: 'movie', path: ':id/videos' },
+	{ type: 'tv', path: ':id/videos' },
+	{ type: 'movie', path: ':id/images' },
+	{ type: 'tv', path: ':id/images' },
+	{ type: 'movie', path: ':id/reviews' },
+	{ type: 'tv', path: ':id/reviews' },
+
+	// not id required endpoints
+	{ type: 'movie', path: 'now_playing' },
+	{ type: 'movie', path: 'popular' },
+	{ type: 'movie', path: 'top_rated' },
+	{ type: 'movie', path: 'upcoming' },
+	{ type: 'tv', path: 'airing_today' },
+	{ type: 'tv', path: 'on_the_air' },
+	{ type: 'tv', path: 'popular' },
+	{ type: 'tv', path: 'top_rated' },
+];
+
+mediaRoutes.forEach(({ type, path }) => {
+	MediaData.get(`/${type}/${path}`, (req: Request, res: Response) => {
+		getMediaData(req, res, type);
+	});
 });
-
-MediaData.get('/tv/:id', (req: Request, res: Response) => {
-	getMediaData(req, res, 'tv');
-});
-
-// MEDIA DETAIL SIMILAR
-MediaData.get('/movie/:id/similar', (req: Request, res: Response) => {
-	getMediaData(req, res, 'movie');
-});
-
-MediaData.get('/tv/:id/similar', (req: Request, res: Response) => {
-	getMediaData(req, res, 'tv');
-});
-
-// MEDIA VIDEOS
-MediaData.get('/movie/:id/videos', (req: Request, res: Response) => {
-	getMediaData(req, res, 'movie');
-});
-
-MediaData.get('/tv/:id/videos', (req: Request, res: Response) => {
-	getMediaData(req, res, 'tv');
-});
-
-// MEDIA IMAGES
-MediaData.get('/movie/:id/images', (req: Request, res: Response) => {
-	getMediaData(req, res, 'movie');
-});
-
-MediaData.get('/tv/:id/images', (req: Request, res: Response) => {
-	getMediaData(req, res, 'tv');
-});
-
-// MEDIA REVIEWS
-MediaData.get('/movie/:id/reviews', (req: Request, res: Response) => {
-	getMediaData(req, res, 'movie');
-});
-
-MediaData.get('/tv/:id/reviews', (req: Request, res: Response) => {
-	getMediaData(req, res, 'tv');
-});
-
-// MEDIA LISTS
-
-// MOVIE
-MediaData.get('/movie/now_playing', (req, res) => getMediaData(req, res, 'movie'));
-MediaData.get('/movie/popular', (req, res) => getMediaData(req, res, 'movie'));
-MediaData.get('/movie/top_rated', (req, res) => getMediaData(req, res, 'movie'));
-MediaData.get('/movie/upcoming', (req, res) => getMediaData(req, res, 'movie'));
-
-MediaData.get('/tv/airing_today', (req, res) => getMediaData(req, res, 'tv'));
-MediaData.get('/tv/on_the_air', (req, res) => getMediaData(req, res, 'tv'));
-MediaData.get('/tv/popular', (req, res) => getMediaData(req, res, 'tv'));
-MediaData.get('/tv/top_rated', (req, res) => getMediaData(req, res, 'tv'));
-
-// TV
-// MEDIA LISTS
 export { MediaData, endpointsMoviesAndTvAll };
