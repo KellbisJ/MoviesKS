@@ -2,6 +2,8 @@ import express, { Request, Response } from 'express';
 import axios, { AxiosError } from 'axios';
 import dotenv from 'dotenv';
 import { LanguagesInterface } from './types';
+import { EndpointVerifierInterface } from '../../utils/endpointVerifier';
+import { endpointVerifier } from '../../utils/endpointVerifier';
 
 dotenv.config();
 
@@ -9,28 +11,24 @@ const ConfigurationsAPI = express.Router();
 
 const api_key: string | undefined = process.env.API_KEY;
 
+// configurations
+
 const searchMedia = async (req: Request, res: Response) => {
 	// const language = req.lang.languageContext;
 	const currentPath = req.originalUrl;
 
-	const isConfigurationsLanguages =
-		currentPath.includes('/configurations') && currentPath.includes('/languages');
-
-	const isConfigurationsPrimaryTranslations =
-		currentPath.includes('/configurations') && currentPath.includes('/primary');
-
 	let api_url: string = '';
 
-	if (isConfigurationsLanguages) {
-		api_url = `
-https://api.themoviedb.org/3/configuration/languages?api_key=${api_key}`;
-	} else if (isConfigurationsPrimaryTranslations) {
-		api_url = `
-https://api.themoviedb.org/3/configuration/primary_translations?api_key=${api_key}`;
-	} else {
-		res.status(400).json({ error: 'Invalid endpointt' });
-		return;
-	}
+	const endpoints: EndpointVerifierInterface[] = [
+		{
+			paths: ['configuration/languages'],
+		},
+		{
+			paths: ['configuration/primary_translations'],
+		},
+	];
+
+	api_url = endpointVerifier(currentPath, endpoints, api_key);
 	try {
 		const { data }: { data: LanguagesInterface[] | string[] } = await axios.get(api_url);
 		res.json(data);
@@ -59,10 +57,10 @@ https://api.themoviedb.org/3/configuration/primary_translations?api_key=${api_ke
 	}
 };
 
-ConfigurationsAPI.get('/configurations/languages', (req: Request, res: Response) => {
+ConfigurationsAPI.get('/configuration/languages', (req: Request, res: Response) => {
 	searchMedia(req, res);
 });
-ConfigurationsAPI.get('/configurations/primary/translations', (req: Request, res: Response) => {
+ConfigurationsAPI.get('/configuration/primary_translations', (req: Request, res: Response) => {
 	searchMedia(req, res);
 });
 

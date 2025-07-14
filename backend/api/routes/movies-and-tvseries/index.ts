@@ -19,21 +19,21 @@ import {
 	TopRatedTvSeriesListInterface,
 } from './types';
 import { endpointVerifier } from '../../utils/endpointVerifier';
-import { LanguageISOCode } from '../configurations/languages/types';
+import { LanguageISOCode } from '../addons/types';
 import { api_url, EndpointSection } from '..';
 import { EndpointVerifierInterface } from '../../utils/endpointVerifier';
 
 dotenv.config();
 
-const endpointsMoviesAndTvAll: EndpointSection[] = [
-	'MOVIES',
-	'MOVIE LISTS',
-	'TV SERIES',
-	'TV SERIES LISTS',
-	'TV SEASONS',
-	'TV EPISODES',
-	'TV EPISODE GROUPS',
-];
+// const endpointsMoviesAndTvAll: EndpointSection[] = [
+// 	'MOVIES',
+// 	'MOVIE LISTS',
+// 	'TV SERIES',
+// 	'TV SERIES LISTS',
+// 	'TV SEASONS',
+// 	'TV EPISODES',
+// 	'TV EPISODE GROUPS',
+// ];
 
 const api_key: string | undefined = process.env.API_KEY;
 
@@ -44,7 +44,7 @@ const getMediaData = async (req: Request, res: Response, type: string) => {
 
 	const { lang } = req;
 
-	console.log(currentPath);
+	// console.log(currentPath);
 
 	const { id } = req.params;
 
@@ -86,7 +86,7 @@ const getMediaData = async (req: Request, res: Response, type: string) => {
 		},
 	];
 
-	api_url_req = endpointVerifier(currentPath, endpointsMoviesAndTvAll, endpoints, api_key);
+	api_url_req = endpointVerifier(currentPath, endpoints, api_key);
 
 	try {
 		const {
@@ -159,4 +159,4 @@ mediaRoutes.forEach(({ type, path }) => {
 		getMediaData(req, res, type);
 	});
 });
-export { MediaData, endpointsMoviesAndTvAll };
+export { MediaData };

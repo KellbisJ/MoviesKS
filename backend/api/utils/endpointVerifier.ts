@@ -1,7 +1,5 @@
-import { LanguageISOCode } from '../routes/configurations/languages/types';
-import { EndpointSection } from '../routes';
-import { endpointsMoviesAndTvAll } from '../routes/movies-and-tvseries';
-import { MoviesAndTvSeriesAllEndpoints } from './pathCreator';
+import { LanguageISOCode } from '../routes/addons/types';
+import { api_url, EndpointSection } from '../routes';
 
 interface EndpointVerifierInterface {
 	paths: string[];
@@ -10,21 +8,22 @@ interface EndpointVerifierInterface {
 
 function endpointVerifier(
 	proxyPath: string,
-	endpointSection: EndpointSection | EndpointSection[],
 	endpointParams: EndpointVerifierInterface[],
 	api_key: string | undefined
 ): string {
 	let url: string = '';
 
-	console.log(proxyPath);
+	const cleanPath = proxyPath
+		.split('?')[0]
+		.replace(/^\/api/, '')
+		.replace(/^\/+|\/+$/g, ''); // must be showed like, for example: movie/top_rated to match with the condition below.
+	console.log(cleanPath);
 
 	for (const parameter of endpointParams) {
-		switch (endpointSection) {
-			case endpointsMoviesAndTvAll:
-				url = MoviesAndTvSeriesAllEndpoints(proxyPath, parameter, api_key);
-				break;
-			default:
-				console.error('No path sended or found.');
+		const { paths, lang } = parameter;
+		if (paths.includes(cleanPath)) {
+			url = `${api_url}/${cleanPath}?api_key=${api_key}&language=${lang}`;
+			break;
 		}
 		if (url) break;
 	}

@@ -3,7 +3,7 @@ import { TrendingMedia } from './trending-media';
 import { MediaGenresAndDiscover } from './genres-and-discover';
 import { MediaData } from './movies-and-tvseries';
 import { SearchMediaRouter } from './search-media';
-import { ConfigurationsAPI } from './configurations/languages';
+import { ConfigurationsAPI } from './addons';
 
 let api_url: string = 'https://api.themoviedb.org/3';
 
@@ -65,8 +65,8 @@ router.get('/', (req, res) => {
 		PopularMoviesList: 'http://localhost:8000/api/movie/popular',
 		TopRatedMoviesList: 'http://localhost:8000/api/movie/top_rated',
 		UpcomingMoviesList: 'http://localhost:8000/api/movie/upcoming',
-		LanguagesConfig: 'http://localhost:8000/api/configurations/languages',
-		PrimaryLanguagesConfig: 'http://localhost:8000/api/configurations/primary/translations',
+		LanguagesConfig: 'http://localhost:8000/api/configuration/languages',
+		PrimaryLanguagesConfig: 'http://localhost:8000/api/configuration/primary_translations',
 		MovieReviews: 'http://localhost:8000/api/movie/550/reviews',
 		TvReviews: 'http://localhost:8000/api/tv/1399/reviews',
 	}); // Spaghetti

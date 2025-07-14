@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { LanguageISOCode } from '../routes/configurations/languages/types';
+import { LanguageISOCode } from '../routes/addons/types';
 
 const DEFAULT_LANG = 'es-MX' as LanguageISOCode;
 
