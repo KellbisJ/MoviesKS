@@ -1,5 +1,3 @@
-import { GenreInterface } from '../genres-and-discover/types';
-
 // MOVIE
 interface MovieInterface {
 	backdrop_path: string;
@@ -388,6 +386,22 @@ enum OriginCountry {
 
 // MEDIA LISTS
 
+interface GenreInterface {
+	id: number;
+	name: string;
+}
+
+interface PreviewCategoriesMediaInterface {
+	genres: GenreInterface[];
+}
+
+interface CategoryMediaPreviewDiscoverInterface {
+	page: number;
+	results: MovieInterface[] | TVInterface[];
+	total_pages: number;
+	total_results: number;
+}
+
 export {
 	MovieInterface,
 	TVInterface,
@@ -406,4 +420,6 @@ export {
 	OnTheAirTvSeriesListInterface,
 	PopularTvSeriesInterface,
 	TopRatedTvSeriesListInterface,
+	PreviewCategoriesMediaInterface,
+	CategoryMediaPreviewDiscoverInterface,
 };

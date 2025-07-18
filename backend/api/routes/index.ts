@@ -1,44 +1,10 @@
 import { Router } from 'express';
 import { TrendingMedia } from './trending-media';
-import { MediaGenresAndDiscover } from './genres-and-discover';
 import { MediaData } from './movies-and-tvseries';
 import { SearchMediaRouter } from './search-media';
 import { ConfigurationsAPI } from './addons';
 
 let api_url: string = 'https://api.themoviedb.org/3';
-
-const apiSections = [
-	'ACCOUNT',
-	'AUTHENTICATION',
-	'CERTIFICATIONS',
-	'CHANGES',
-	'COLLECTIONS',
-	'COMPANIES',
-	'CONFIGURATION',
-	'CREDITS',
-	'DISCOVER',
-	'FIND',
-	'GENRES',
-	'GUEST SESSIONS',
-	'KEYWORDS',
-	'LISTS',
-	'MOVIE LISTS',
-	'MOVIES',
-	'NETWORKS',
-	'PEOPLE LISTS',
-	'PEOPLE',
-	'REVIEWS',
-	'SEARCH',
-	'TRENDING',
-	'TV SERIES LISTS',
-	'TV SERIES',
-	'TV SEASONS',
-	'TV EPISODES',
-	'TV EPISODE GROUPS',
-	'WATCH PROVIDERS',
-] as const;
-
-type EndpointSection = (typeof apiSections)[number];
 
 const router = Router();
 
@@ -73,10 +39,9 @@ router.get('/', (req, res) => {
 });
 
 router.use(TrendingMedia);
-router.use(MediaGenresAndDiscover);
 router.use(MediaData);
 router.use(SearchMediaRouter);
 router.use(ConfigurationsAPI);
 
 export default router;
-export { api_url, EndpointSection };
+export { api_url };

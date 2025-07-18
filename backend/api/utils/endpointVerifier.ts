@@ -1,5 +1,5 @@
 import { LanguageISOCode } from '../routes/addons/types';
-import { api_url, EndpointSection } from '../routes';
+import { api_url } from '../routes';
 
 interface EndpointVerifierInterface {
 	paths: string[];

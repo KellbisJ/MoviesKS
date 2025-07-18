@@ -17,29 +17,20 @@ import {
 	OnTheAirTvSeriesListInterface,
 	PopularTvSeriesInterface,
 	TopRatedTvSeriesListInterface,
+	PreviewCategoriesMediaInterface,
+	CategoryMediaPreviewDiscoverInterface,
 } from './types';
 import { endpointVerifier } from '../../utils/endpointVerifier';
 import { LanguageISOCode } from '../addons/types';
-import { api_url, EndpointSection } from '..';
 import { EndpointVerifierInterface } from '../../utils/endpointVerifier';
 
 dotenv.config();
-
-// const endpointsMoviesAndTvAll: EndpointSection[] = [
-// 	'MOVIES',
-// 	'MOVIE LISTS',
-// 	'TV SERIES',
-// 	'TV SERIES LISTS',
-// 	'TV SEASONS',
-// 	'TV EPISODES',
-// 	'TV EPISODE GROUPS',
-// ];
 
 const api_key: string | undefined = process.env.API_KEY;
 
 const MediaData = express.Router();
 
-const getMediaData = async (req: Request, res: Response, type: string) => {
+const getMediaData = async (req: Request, res: Response, type?: string) => {
 	const currentPath = req.originalUrl;
 
 	const { lang } = req;
@@ -48,7 +39,10 @@ const getMediaData = async (req: Request, res: Response, type: string) => {
 
 	const { id } = req.params;
 
-	const { page } = req.query;
+	const { with_genres, page } = req.query;
+	// if (with_genres) {
+	// 	api_url += `&with_genres=${with_genres}`;
+	// }
 
 	if (type !== 'movie' && type !== 'tv') {
 		res.status(400).json({ error: 'Invalid endpoint: mediaType must be "movie" or "tv"' });
@@ -84,6 +78,16 @@ const getMediaData = async (req: Request, res: Response, type: string) => {
 			],
 			lang: lang,
 		},
+		{
+			// genre
+			paths: [`genre/${type}/list`],
+			lang: lang,
+		},
+		{
+			// discover
+			paths: [`discover/${type}`],
+			lang: lang,
+		},
 	];
 
 	api_url_req = endpointVerifier(currentPath, endpoints, api_key);
@@ -107,7 +111,9 @@ const getMediaData = async (req: Request, res: Response, type: string) => {
 				| AiringTodayTvSeriesListInterface
 				| OnTheAirTvSeriesListInterface
 				| PopularTvSeriesInterface
-				| TopRatedTvSeriesListInterface;
+				| TopRatedTvSeriesListInterface
+				| PreviewCategoriesMediaInterface
+				| CategoryMediaPreviewDiscoverInterface;
 		} = await axios.get(api_url_req);
 		res.json(data);
 	} catch (error) {
@@ -117,10 +123,12 @@ const getMediaData = async (req: Request, res: Response, type: string) => {
 			axiosError.response &&
 			axiosError.response.status === 404
 		) {
-			res.status(404).json({
-				message: `${type.charAt(0).toUpperCase() + type.slice(1)} not found`,
-				error: axiosError.message,
-			});
+			if (typeof type === 'string') {
+				res.status(404).json({
+					message: `${type.charAt(0).toUpperCase() + type.slice(1)} not found`,
+					error: axiosError.message,
+				});
+			}
 		} else {
 			res.status(500).json({
 				message: `An error occurred while fetching ${type} details`,
@@ -154,9 +162,26 @@ const mediaRoutes: Array<{ type: 'movie' | 'tv'; path: string }> = [
 	{ type: 'tv', path: 'top_rated' },
 ];
 
+const mediaRoutesGenresAndDiscover: Array<{ type: 'movie' | 'tv'; path: string }> = [
+	// genres
+	{ type: 'movie', path: 'genre/movie/list' },
+	{ type: 'tv', path: 'genre/tv/list' },
+
+	//discover
+	{ type: 'movie', path: 'discover/movie' },
+	{ type: 'tv', path: 'discover/tv' },
+];
+
 mediaRoutes.forEach(({ type, path }) => {
 	MediaData.get(`/${type}/${path}`, (req: Request, res: Response) => {
 		getMediaData(req, res, type);
 	});
 });
+
+mediaRoutesGenresAndDiscover.forEach(({ type, path }) => {
+	MediaData.get(`/${path}`, (req: Request, res: Response) => {
+		getMediaData(req, res, type);
+	});
+});
+
 export { MediaData };
