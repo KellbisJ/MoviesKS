@@ -1,31 +1,30 @@
+import express, { Request, Response } from 'express';
 import { LanguageISOCode } from '../routes/addons/types';
 import { api_url } from '../routes';
 
-interface EndpointVerifierInterface {
-	paths: string[];
-	lang?: LanguageISOCode;
-}
-
 function endpointVerifier(
 	proxyPath: string,
-	endpointParams: EndpointVerifierInterface[],
-	api_key: string | undefined
+	pathToGet: string,
+	api_key: string | undefined,
+	lang?: LanguageISOCode,
+	includeAdult?: string,
+	page?: string
 ): string {
 	let url: string = '';
 
-	const cleanPath = proxyPath
+	const proxyCleanPath = proxyPath
 		.split('?')[0]
 		.replace(/^\/api/, '')
 		.replace(/^\/+|\/+$/g, ''); // must be showed like, for example: movie/top_rated to match with the condition below.
-	console.log(cleanPath);
+	console.log(proxyCleanPath);
 
-	for (const parameter of endpointParams) {
-		const { paths, lang } = parameter;
-		if (paths.includes(cleanPath)) {
-			url = `${api_url}/${cleanPath}?api_key=${api_key}&language=${lang}`;
-			break;
+	if (pathToGet.includes(proxyCleanPath)) {
+		url = `${api_url}/${proxyCleanPath}?api_key=${api_key}`;
+		if (lang) url += `&language=${lang}`;
+		if ((includeAdult && includeAdult === 'true') || includeAdult === 'false') {
+			url += `&include_adult=${includeAdult}`;
 		}
-		if (url) break;
+		if (page) url += `&page=${page}`;
 	}
 
 	if (!url) {
@@ -35,4 +34,4 @@ function endpointVerifier(
 	return url;
 }
 
-export { endpointVerifier, EndpointVerifierInterface };
+export { endpointVerifier };

@@ -2,7 +2,6 @@ import express, { Request, Response } from 'express';
 import axios, { AxiosError } from 'axios';
 import dotenv from 'dotenv';
 import { LanguagesInterface } from './types';
-import { EndpointVerifierInterface } from '../../utils/endpointVerifier';
 import { endpointVerifier } from '../../utils/endpointVerifier';
 
 dotenv.config();
@@ -11,24 +10,20 @@ const ConfigurationsAPI = express.Router();
 
 const api_key: string | undefined = process.env.API_KEY;
 
+const configurationsRoutes: Array<{ path: string }> = [
+	{ path: 'configuration/languages' },
+	{ path: 'configuration/primary_translations' },
+];
+
 // configurations
 
-const searchMedia = async (req: Request, res: Response) => {
+const getAddons = async (req: Request, res: Response, pathToGet: string) => {
 	// const language = req.lang.languageContext;
 	const currentPath = req.originalUrl;
 
 	let api_url: string = '';
 
-	const endpoints: EndpointVerifierInterface[] = [
-		{
-			paths: ['configuration/languages'],
-		},
-		{
-			paths: ['configuration/primary_translations'],
-		},
-	];
-
-	api_url = endpointVerifier(currentPath, endpoints, api_key);
+	api_url = endpointVerifier(currentPath, pathToGet, api_key);
 	try {
 		const { data }: { data: LanguagesInterface[] | string[] } = await axios.get(api_url);
 		res.json(data);
@@ -57,11 +52,10 @@ const searchMedia = async (req: Request, res: Response) => {
 	}
 };
 
-ConfigurationsAPI.get('/configuration/languages', (req: Request, res: Response) => {
-	searchMedia(req, res);
-});
-ConfigurationsAPI.get('/configuration/primary_translations', (req: Request, res: Response) => {
-	searchMedia(req, res);
+configurationsRoutes.forEach(({ path }) => {
+	ConfigurationsAPI.get(`/${path}`, (req: Request, res: Response) => {
+		getAddons(req, res, path);
+	});
 });
 
 export { ConfigurationsAPI };

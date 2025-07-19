@@ -22,7 +22,6 @@ import {
 } from './types';
 import { endpointVerifier } from '../../utils/endpointVerifier';
 import { LanguageISOCode } from '../addons/types';
-import { EndpointVerifierInterface } from '../../utils/endpointVerifier';
 
 dotenv.config();
 
@@ -30,67 +29,44 @@ const api_key: string | undefined = process.env.API_KEY;
 
 const MediaData = express.Router();
 
-const getMediaData = async (req: Request, res: Response, type?: string) => {
+const mediaRoutes: Array<{ proxyPath: string; requiresId: boolean }> = [
+	// id required endpoints
+	{ proxyPath: 'movie/:id', requiresId: true },
+	{ proxyPath: 'tv/:id', requiresId: true },
+	{ proxyPath: 'movie/:id/similar', requiresId: true },
+	{ proxyPath: 'tv/:id/similar', requiresId: true },
+	{ proxyPath: 'movie/:id/videos', requiresId: true },
+	{ proxyPath: 'tv/:id/videos', requiresId: true },
+	{ proxyPath: 'movie/:id/images', requiresId: true },
+	{ proxyPath: 'tv/:id/images', requiresId: true },
+	{ proxyPath: 'movie/:id/reviews', requiresId: true },
+	{ proxyPath: 'tv/:id/reviews', requiresId: true },
+
+	// not id required endpoints
+	{ proxyPath: 'movie/now_playing', requiresId: false },
+	{ proxyPath: 'movie/popular', requiresId: false },
+	{ proxyPath: 'movie/top_rated', requiresId: false },
+	{ proxyPath: 'movie/upcoming', requiresId: false },
+	{ proxyPath: 'tv/airing_today', requiresId: false },
+	{ proxyPath: 'tv/on_the_air', requiresId: false },
+	{ proxyPath: 'tv/popular', requiresId: false },
+	{ proxyPath: 'tv/top_rated', requiresId: false },
+	{ proxyPath: 'genre/movie/list', requiresId: false },
+	{ proxyPath: 'genre/tv/list', requiresId: false },
+	{ proxyPath: 'discover/movie', requiresId: false },
+	{ proxyPath: 'discover/tv', requiresId: false },
+];
+
+const getMediaData = async (req: Request, res: Response, pathToGet: string) => {
 	const currentPath = req.originalUrl;
 
 	const { lang } = req;
 
-	// console.log(currentPath);
-
-	const { id } = req.params;
-
-	const { with_genres, page } = req.query;
-	// if (with_genres) {
-	// 	api_url += `&with_genres=${with_genres}`;
-	// }
-
-	if (type !== 'movie' && type !== 'tv') {
-		res.status(400).json({ error: 'Invalid endpoint: mediaType must be "movie" or "tv"' });
-	}
+	const { with_genres, page, include_adult } = req.query as Record<string, string | undefined>;
 
 	let api_url_req: string = '';
 
-	const endpoints: EndpointVerifierInterface[] = [
-		{
-			// Media details endpoints
-			paths: [`${type}/${id}`],
-			lang: lang,
-		},
-		{
-			// Media dynamic endpoints
-			paths: [
-				`${type}/${id}/reviews`,
-				`${type}/${id}/similar`,
-				`${type}/${id}/images`,
-				`${type}/${id}/videos`,
-			],
-			lang: lang,
-		},
-		{
-			// Media lists endpoints
-			paths: [
-				`${type}/now_playing`,
-				`${type}/popular`,
-				`${type}/top_rated`,
-				`${type}/upcoming`,
-				`${type}/airing_today`,
-				`${type}/on_the_air`,
-			],
-			lang: lang,
-		},
-		{
-			// genre
-			paths: [`genre/${type}/list`],
-			lang: lang,
-		},
-		{
-			// discover
-			paths: [`discover/${type}`],
-			lang: lang,
-		},
-	];
-
-	api_url_req = endpointVerifier(currentPath, endpoints, api_key);
+	api_url_req = endpointVerifier(currentPath, pathToGet, api_key, lang, include_adult, page);
 
 	try {
 		const {
@@ -118,69 +94,31 @@ const getMediaData = async (req: Request, res: Response, type?: string) => {
 		res.json(data);
 	} catch (error) {
 		const axiosError = error as AxiosError;
-		if (
-			axios.isAxiosError(axiosError) &&
-			axiosError.response &&
-			axiosError.response.status === 404
-		) {
-			if (typeof type === 'string') {
-				res.status(404).json({
-					message: `${type.charAt(0).toUpperCase() + type.slice(1)} not found`,
-					error: axiosError.message,
-				});
+
+		if (axios.isAxiosError(axiosError)) {
+			const errorMessage = `Request failed: ${axiosError.message}`;
+			console.error(errorMessage);
+
+			if (axiosError.response) {
+				console.error(`Status: ${axiosError.response.status}`);
+				console.error(`Response data: ${JSON.stringify(axiosError.response.data)}`);
 			}
 		} else {
-			res.status(500).json({
-				message: `An error occurred while fetching ${type} details`,
-				error: axiosError.message,
-			});
+			console.error('An unexpected error occurred:', error);
 		}
 	}
 };
 
-const mediaRoutes: Array<{ type: 'movie' | 'tv'; path: string }> = [
-	// id required endpoints
-	{ type: 'movie', path: ':id' },
-	{ type: 'tv', path: ':id' },
-	{ type: 'movie', path: ':id/similar' },
-	{ type: 'tv', path: ':id/similar' },
-	{ type: 'movie', path: ':id/videos' },
-	{ type: 'tv', path: ':id/videos' },
-	{ type: 'movie', path: ':id/images' },
-	{ type: 'tv', path: ':id/images' },
-	{ type: 'movie', path: ':id/reviews' },
-	{ type: 'tv', path: ':id/reviews' },
+mediaRoutes.forEach(({ proxyPath, requiresId }) => {
+	MediaData.get(`/${proxyPath}`, (req: Request, res: Response) => {
+		const id = requiresId ? req.params.id : undefined;
 
-	// not id required endpoints
-	{ type: 'movie', path: 'now_playing' },
-	{ type: 'movie', path: 'popular' },
-	{ type: 'movie', path: 'top_rated' },
-	{ type: 'movie', path: 'upcoming' },
-	{ type: 'tv', path: 'airing_today' },
-	{ type: 'tv', path: 'on_the_air' },
-	{ type: 'tv', path: 'popular' },
-	{ type: 'tv', path: 'top_rated' },
-];
+		let pathToGet = proxyPath;
+		if (id) pathToGet = pathToGet.replace(':id', id);
 
-const mediaRoutesGenresAndDiscover: Array<{ type: 'movie' | 'tv'; path: string }> = [
-	// genres
-	{ type: 'movie', path: 'genre/movie/list' },
-	{ type: 'tv', path: 'genre/tv/list' },
+		console.log('pathToGet', pathToGet);
 
-	//discover
-	{ type: 'movie', path: 'discover/movie' },
-	{ type: 'tv', path: 'discover/tv' },
-];
-
-mediaRoutes.forEach(({ type, path }) => {
-	MediaData.get(`/${type}/${path}`, (req: Request, res: Response) => {
-		getMediaData(req, res, type);
-	});
-});
-
-mediaRoutesGenresAndDiscover.forEach(({ type, path }) => {
-	MediaData.get(`/${path}`, (req: Request, res: Response) => {
-		getMediaData(req, res, type);
+		getMediaData(req, res, pathToGet);
 	});
 });
 
