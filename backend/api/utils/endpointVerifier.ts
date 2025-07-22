@@ -8,7 +8,8 @@ function endpointVerifier(
 	api_key: string | undefined,
 	lang?: LanguageISOCode,
 	includeAdult?: string,
-	page?: string
+	page?: string,
+	query?: string
 ): string {
 	let url: string = '';
 
@@ -25,6 +26,8 @@ function endpointVerifier(
 			url += `&include_adult=${includeAdult}`;
 		}
 		if (page) url += `&page=${page}`;
+
+		if (query) url += `&query=${query}`;
 	}
 
 	if (!url) {

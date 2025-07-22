@@ -1,7 +1,5 @@
 import { Router } from 'express';
-import { TrendingMedia } from './trending-media';
 import { MediaData } from './movies-and-tvseries';
-import { SearchMediaRouter } from './search-media';
 import { ConfigurationsAPI } from './addons';
 
 let api_url: string = 'https://api.themoviedb.org/3';
@@ -22,8 +20,8 @@ router.get('/', (req, res) => {
 		DetailTvSimilar: 'http://localhost:8000/api/tv/1399/similar?language=es&page=1',
 		VideosMovies: 'http://localhost:8000/api/movie/550/videos',
 		VideosTv: 'http://localhost:8000/api/tv/1399/videos',
-		SearchMovies: 'http://localhost:8000/api/search/movie/hola',
-		SearchTvSeries: 'http://localhost:8000/api/search/tv/game',
+		SearchMovies: 'http://localhost:8000/api/search/movie/?query=hola',
+		SearchTvSeries: 'http://localhost:8000/api/search/tv/?query=game',
 		MovieImages: 'http://localhost:8000/api/movie/550/images',
 		TVImages: 'http://localhost:8000/api/tv/1399/images',
 		PopularTvList: 'http://localhost:8000/api/tv/popular',
@@ -38,9 +36,7 @@ router.get('/', (req, res) => {
 	}); // Spaghetti
 });
 
-router.use(TrendingMedia);
 router.use(MediaData);
-router.use(SearchMediaRouter);
 router.use(ConfigurationsAPI);
 
 export default router;

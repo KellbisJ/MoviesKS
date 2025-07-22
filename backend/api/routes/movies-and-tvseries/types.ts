@@ -402,24 +402,55 @@ interface CategoryMediaPreviewDiscoverInterface {
 	total_results: number;
 }
 
-export {
-	MovieInterface,
-	TVInterface,
-	MovieDetailInterface,
-	TVDetailInterface,
-	MovieSimilarInterface,
-	TVSimilarInterface,
-	MediaVideosInterface,
-	MediaImagesInterface,
-	MediaReviewInterface,
-	NowPlayingMoviesListInterface,
-	PopularMoviesInterface,
-	TopRatedMoviesListInterface,
-	UpcomingMoviesListInterface,
-	AiringTodayTvSeriesListInterface,
-	OnTheAirTvSeriesListInterface,
-	PopularTvSeriesInterface,
-	TopRatedTvSeriesListInterface,
-	PreviewCategoriesMediaInterface,
-	CategoryMediaPreviewDiscoverInterface,
-};
+// preview
+
+interface PreviewMoviesInterface {
+	page: number;
+	results: MovieInterface[];
+	total_pages: number;
+	total_results: number;
+}
+
+interface PreviewTvInterface {
+	page: number;
+	results: TVInterface[];
+	total_pages: number;
+	total_results: number;
+}
+
+// preview
+
+// search
+
+interface SearchMediaInterface {
+	page: number;
+	results: MovieInterface[] | TVInterface[];
+	total_pages: number;
+	total_results: number;
+}
+
+// search
+
+type MediaDataT =
+	| MovieDetailInterface
+	| TVDetailInterface
+	| MovieSimilarInterface
+	| TVSimilarInterface
+	| MediaVideosInterface
+	| MediaImagesInterface
+	| MediaReviewInterface
+	| NowPlayingMoviesListInterface
+	| PopularMoviesInterface
+	| TopRatedMoviesListInterface
+	| UpcomingMoviesListInterface
+	| AiringTodayTvSeriesListInterface
+	| OnTheAirTvSeriesListInterface
+	| PopularTvSeriesInterface
+	| TopRatedTvSeriesListInterface
+	| PreviewCategoriesMediaInterface
+	| CategoryMediaPreviewDiscoverInterface
+	| PreviewMoviesInterface
+	| PreviewTvInterface
+	| SearchMediaInterface;
+
+export { MediaDataT };

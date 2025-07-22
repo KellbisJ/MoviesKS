@@ -1,25 +1,7 @@
 import express, { Request, Response } from 'express';
 import axios, { AxiosError } from 'axios';
 import dotenv from 'dotenv';
-import {
-	MovieDetailInterface,
-	TVDetailInterface,
-	MovieSimilarInterface,
-	TVSimilarInterface,
-	MediaVideosInterface,
-	MediaImagesInterface,
-	MediaReviewInterface,
-	NowPlayingMoviesListInterface,
-	PopularMoviesInterface,
-	TopRatedMoviesListInterface,
-	UpcomingMoviesListInterface,
-	AiringTodayTvSeriesListInterface,
-	OnTheAirTvSeriesListInterface,
-	PopularTvSeriesInterface,
-	TopRatedTvSeriesListInterface,
-	PreviewCategoriesMediaInterface,
-	CategoryMediaPreviewDiscoverInterface,
-} from './types';
+import { MediaDataT } from './types';
 import { endpointVerifier } from '../../utils/endpointVerifier';
 import { LanguageISOCode } from '../addons/types';
 
@@ -55,6 +37,16 @@ const mediaRoutes: Array<{ proxyPath: string; requiresId: boolean }> = [
 	{ proxyPath: 'genre/tv/list', requiresId: false },
 	{ proxyPath: 'discover/movie', requiresId: false },
 	{ proxyPath: 'discover/tv', requiresId: false },
+
+	// trending
+	{ proxyPath: 'trending/movie/day', requiresId: false },
+	{ proxyPath: 'trending/tv/day', requiresId: false },
+	{ proxyPath: 'trending/movie/week', requiresId: false },
+	{ proxyPath: 'trending/tv/week', requiresId: false },
+
+	// search
+	{ proxyPath: 'search/movie', requiresId: false },
+	{ proxyPath: 'search/tv', requiresId: false },
 ];
 
 const getMediaData = async (req: Request, res: Response, pathToGet: string) => {
@@ -62,34 +54,20 @@ const getMediaData = async (req: Request, res: Response, pathToGet: string) => {
 
 	const { lang } = req;
 
-	const { with_genres, page, include_adult } = req.query as Record<string, string | undefined>;
+	const { with_genres, page, include_adult, query } = req.query as Record<
+		string,
+		string | undefined
+	>;
 
 	let api_url_req: string = '';
 
-	api_url_req = endpointVerifier(currentPath, pathToGet, api_key, lang, include_adult, page);
+	api_url_req = endpointVerifier(currentPath, pathToGet, api_key, lang, include_adult, page, query);
 
 	try {
 		const {
 			data,
 		}: {
-			data:
-				| MovieDetailInterface
-				| TVDetailInterface
-				| MovieSimilarInterface
-				| TVSimilarInterface
-				| MediaVideosInterface
-				| MediaImagesInterface
-				| MediaReviewInterface
-				| NowPlayingMoviesListInterface
-				| PopularMoviesInterface
-				| TopRatedMoviesListInterface
-				| UpcomingMoviesListInterface
-				| AiringTodayTvSeriesListInterface
-				| OnTheAirTvSeriesListInterface
-				| PopularTvSeriesInterface
-				| TopRatedTvSeriesListInterface
-				| PreviewCategoriesMediaInterface
-				| CategoryMediaPreviewDiscoverInterface;
+			data: MediaDataT;
 		} = await axios.get(api_url_req);
 		res.json(data);
 	} catch (error) {
@@ -115,7 +93,6 @@ mediaRoutes.forEach(({ proxyPath, requiresId }) => {
 
 		let pathToGet = proxyPath;
 		if (id) pathToGet = pathToGet.replace(':id', id);
-
 		console.log('pathToGet', pathToGet);
 
 		getMediaData(req, res, pathToGet);
