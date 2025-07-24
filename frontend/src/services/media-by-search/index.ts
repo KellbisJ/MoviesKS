@@ -1,16 +1,23 @@
-import { api, API_SEARCH_MOVIES, API_SEARCH_TV } from '../index';
+import { api, API_SEARCH_MEDIA } from '../index';
 import { MediaBySearchInterface } from './types';
 import { MediaTypeT } from '@/types/media-type';
 
-async function getMediaBySearch(type: `${MediaTypeT}`, query: string, page = 1): Promise<MediaBySearchInterface> {
+async function getMediaBySearch(
+	type: `${MediaTypeT}`,
+	query: string,
+	page = 1
+): Promise<MediaBySearchInterface> {
 	try {
-		const apiUrl = type === MediaTypeT.movie ? API_SEARCH_MOVIES(query) : API_SEARCH_TV(query);
 		// console.log('Fetching API URL:', apiUrl);
-		const { data: media }: { data: MediaBySearchInterface } = await api.get(apiUrl, {
-			params: {
-				page: page,
-			},
-		});
+		const { data: media }: { data: MediaBySearchInterface } = await api.get(
+			API_SEARCH_MEDIA(type),
+			{
+				params: {
+					query: query,
+					page: page,
+				},
+			}
+		);
 		// console.log('API Response:', media);
 		return media;
 	} catch (error) {

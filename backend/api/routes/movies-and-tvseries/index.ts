@@ -54,14 +54,11 @@ const getMediaData = async (req: Request, res: Response, pathToGet: string) => {
 
 	const { lang } = req;
 
-	const { with_genres, page, include_adult, query } = req.query as Record<
-		string,
-		string | undefined
-	>;
+	const { page, query, with_genres } = req.query as Record<string, string | undefined>;
 
 	let api_url_req: string = '';
 
-	api_url_req = endpointVerifier(currentPath, pathToGet, api_key, lang, include_adult, page, query);
+	api_url_req = endpointVerifier(currentPath, pathToGet, api_key, lang, page, query, with_genres);
 
 	try {
 		const {
@@ -93,7 +90,7 @@ mediaRoutes.forEach(({ proxyPath, requiresId }) => {
 
 		let pathToGet = proxyPath;
 		if (id) pathToGet = pathToGet.replace(':id', id);
-		console.log('pathToGet', pathToGet);
+		// console.log('pathToGet', pathToGet);
 
 		getMediaData(req, res, pathToGet);
 	});

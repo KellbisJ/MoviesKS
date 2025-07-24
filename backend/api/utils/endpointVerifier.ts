@@ -7,9 +7,9 @@ function endpointVerifier(
 	pathToGet: string,
 	api_key: string | undefined,
 	lang?: LanguageISOCode,
-	includeAdult?: string,
 	page?: string,
-	query?: string
+	query?: string,
+	with_genres?: string
 ): string {
 	let url: string = '';
 
@@ -17,22 +17,25 @@ function endpointVerifier(
 		.split('?')[0]
 		.replace(/^\/api/, '')
 		.replace(/^\/+|\/+$/g, ''); // must be showed like, for example: movie/top_rated to match with the condition below.
-	console.log(proxyCleanPath);
+	// console.log(proxyCleanPath);
 
 	if (pathToGet.includes(proxyCleanPath)) {
-		url = `${api_url}/${proxyCleanPath}?api_key=${api_key}`;
+		url = `${api_url}/${proxyCleanPath}?api_key=${api_key}&include_adult=false`;
+
 		if (lang) url += `&language=${lang}`;
-		if ((includeAdult && includeAdult === 'true') || includeAdult === 'false') {
-			url += `&include_adult=${includeAdult}`;
-		}
+
 		if (page) url += `&page=${page}`;
 
 		if (query) url += `&query=${query}`;
+
+		if (with_genres) url += `&with_genres=${with_genres}`;
 	}
 
 	if (!url) {
 		console.error('ERROR: NO matching path');
 	}
+
+	// console.log('urlss', url);
 
 	return url;
 }
