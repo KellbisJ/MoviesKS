@@ -265,7 +265,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 					/>
 
 					<div className="space-y-12">
-						<section className="space-y-4">
+						<section className="flex space-y-4 justify-center flex-col items-center">
 							<div className="flex justify-center gap-4 mb-14">
 								{MEDIA_TABS.map((tab) => (
 									<button
