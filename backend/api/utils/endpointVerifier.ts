@@ -22,7 +22,11 @@ function endpointVerifier(
 	if (pathToGet.includes(proxyCleanPath)) {
 		url = `${api_url}/${proxyCleanPath}?api_key=${api_key}&include_adult=false`;
 
-		if (lang) url += `&language=${lang}`;
+		if (lang) {
+			if (!pathToGet.includes('/images')) {
+				url += `&language=${lang}`;
+			}
+		}
 
 		if (page) url += `&page=${page}`;
 

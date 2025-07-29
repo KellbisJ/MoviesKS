@@ -4,6 +4,7 @@ import { MediaImagesInterface } from '@/services/media-images/types';
 import { MediaVideosResultInterface } from '@/services/media-videos/types';
 import { MovieInterface, TVInterface } from '@/types/movie-and-tv-interface';
 import { MediaTypeT } from '@/types/media-type';
+import { MediaReviewInterface } from '@/services/reviews/types';
 
 interface MediaDetailPropsInterface {
 	mediaDetail: MovieDetailInterface | TVDetailInterface;
@@ -11,6 +12,7 @@ interface MediaDetailPropsInterface {
 	mediaImages: MediaImagesInterface;
 	similarGenres: GenreInterface[];
 	similarMedia: MovieInterface[] | TVInterface[];
+	mediaReviews: MediaReviewInterface;
 	isMovie: (media: MovieDetailInterface | TVDetailInterface) => media is MovieDetailInterface;
 	handleSaveMedia: (
 		type: MediaTypeT,

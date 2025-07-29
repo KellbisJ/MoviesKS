@@ -18,11 +18,13 @@ export const API_GENRE_TV_URL = `${BASE_API_URL}/genre/tv/list`;
 export const API_MOVIE_VIDEOS = (id: string) => `${BASE_API_URL}/movie/${id}/videos`;
 export const API_TV_VIDEOS = (series_id: string) => `${BASE_API_URL}/tv/${series_id}/videos`;
 export const API_SEARCH_MEDIA = (type: string) => `${BASE_API_URL}/search/${type}`;
-export const API_MOVIE_IMAGES = (id: string) => `${BASE_API_URL}/movie/${id}/images`;
-export const API_TV_IMAGES = (id: string) => `${BASE_API_URL}/tv/${id}/images`;
+export const API_MEDIA_IMAGES = (type: string, id: string) =>
+	`${BASE_API_URL}/${type}/${id}/images`;
 export const API_MEDIA_LISTS = (type: string, mediaListType: string) =>
 	`${BASE_API_URL}/${type}/${mediaListType}`;
 export const API_CONFIG_LANGUAGES = `${BASE_API_URL}/configurations/languages`;
+export const API_MEDIA_REVIEWS = (type: string, id: string) =>
+	`${BASE_API_URL}/${type}/${id}/reviews`;
 
 const api = axios.create({
 	baseURL: BASE_API_URL,

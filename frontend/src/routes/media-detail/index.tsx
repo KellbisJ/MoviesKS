@@ -4,15 +4,18 @@ import { useValidMediaType } from '@/hooks/use-valid-media-type';
 import { getMediaDetail } from '../../services/media-detail';
 import { getSimilarMediaDetail } from '../../services/similar-media-detail';
 import { getMediaVideos } from '../../services/media-videos';
+import { getMediaImages } from '../../services/media-images';
 import { MovieDetailInterface, TVDetailInterface } from '@/services/media-detail/types';
 import { GenreInterface } from '../../types/genre-interface';
 import { MovieInterface, TVInterface } from '../../types/movie-and-tv-interface';
 import { MediaVideosInterface, MediaVideosResultInterface } from '@/services/media-videos/types';
-// import { getMediaImages } from '../../services/media-images';
+
 import { MediaImagesInterface } from '@/services/media-images/types';
 import { MediaDetailRender } from '../../components/specific/media-detail-render';
 import { PopcornParticlesLoader } from '@/components/utilities/loaders-animation';
 import { UseHandleSaveMedia } from '@/hooks/use-handle-save-media';
+import { MediaReviewInterface } from '@/services/reviews/types';
+import { getMediaReviews } from '@/services/reviews';
 
 const MediaDetail = (): React.JSX.Element => {
 	const { id } = useParams();
@@ -32,6 +35,9 @@ const MediaDetail = (): React.JSX.Element => {
 	const [similarGenres, setSimilarGenres] = useState<GenreInterface[]>([]);
 	const [similarMedia, setSimilarMedia] = useState<MovieInterface[] | TVInterface[]>([]);
 	const [mediaImages, setMediaImages] = useState<MediaImagesInterface>({} as MediaImagesInterface);
+	const [mediaReviews, setMediaReviews] = useState<MediaReviewInterface>(
+		{} as MediaReviewInterface
+	);
 
 	const [showTrailer, setShowTrailer] = useState<boolean>(false);
 	const [videoKey, setVideoKey] = useState<string>();
@@ -42,15 +48,14 @@ const MediaDetail = (): React.JSX.Element => {
 
 		async function fetchMediaDetail() {
 			try {
-				const [mediaData, similarMediaData, mediaVideosData] = await Promise.all([
-					getMediaDetail(mediaType, mediaId),
-					getSimilarMediaDetail(mediaType, mediaId),
-					getMediaVideos(mediaType, mediaId),
-				]);
-
-				// const mediaImagesData = await getMediaImages(mediaType, mediaId);
-
-				// console.log('mediaImagesData:', mediaImagesData);
+				const [mediaData, similarMediaData, mediaVideosData, mediaImagesData, mediaReviewsData] =
+					await Promise.all([
+						getMediaDetail(mediaType, mediaId),
+						getSimilarMediaDetail(mediaType, mediaId),
+						getMediaVideos(mediaType, mediaId),
+						getMediaImages(mediaType, mediaId),
+						getMediaReviews(mediaType, mediaId),
+					]);
 
 				setMediaDetail(mediaData);
 
@@ -78,10 +83,15 @@ const MediaDetail = (): React.JSX.Element => {
 					setMediaDetailVideos([]);
 				}
 
-				// if (mediaImagesData) {
-				// 	// media images data
-				// 	setMediaImages(mediaImagesData);
-				// }
+				if (mediaImages) {
+					// media images data
+					setMediaImages(mediaImagesData);
+					console.log(mediaImages);
+				}
+
+				if (mediaReviewsData) {
+					setMediaReviews(mediaReviewsData);
+				}
 			} catch (error) {
 				console.error(error);
 			} finally {
@@ -107,10 +117,6 @@ const MediaDetail = (): React.JSX.Element => {
 		);
 	};
 
-	//   const isTV = (media: MovieInterface | TVInterface): media is TVInterface => {
-	//   return (media as TVInterface).name !== undefined || (media as TVInterface).original_name !== undefined;
-	// };
-
 	return (
 		<>
 			{loadingComponents ? (
@@ -124,6 +130,7 @@ const MediaDetail = (): React.JSX.Element => {
 					mediaImages={mediaImages}
 					similarGenres={similarGenres}
 					similarMedia={similarMedia}
+					mediaReviews={mediaReviews}
 					isMovie={isMovie}
 					handleSaveMedia={handleSaveMedia}
 					showTrailer={showTrailer}

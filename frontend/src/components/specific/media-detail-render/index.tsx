@@ -1,8 +1,10 @@
+import React, { useEffect, useState } from 'react';
 import { MediaDetailPropsInterface } from './types';
 import { BigPosterPathNullSkeleton } from '@/components/utilities/loading-skeletons';
 import { useSavedMedia } from '../../../context/favorite-media-context';
 import { CreateSimilarGenres } from '../create-similar-genres';
 import { CreateSimilarMediaDetail } from '../create-media';
+import { CreateMediaImages } from '../create-media-images';
 import { TrailerMedia } from '../../modals/trailer-media';
 import { Star, Save, Clapperboard, Globe, Film, Clock, Ticket } from 'lucide-react';
 import { memo } from 'react';
@@ -18,6 +20,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 		mediaImages,
 		similarGenres,
 		similarMedia,
+		mediaReviews,
 		isMovie,
 		handleSaveMedia,
 		showTrailer,
@@ -29,6 +32,17 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 		const { savedMedia } = useSavedMedia();
 		const allSavedMedia = [...savedMedia.movies, ...savedMedia.tv]; // This is to check is the media is saved whether is movie or tv
 		const isSavedMedia = allSavedMedia.some((favMedia) => favMedia.id === mediaDetail.id);
+
+		const MEDIA_TABS = [
+			{ id: 'Similar', label: 'Similar Content' },
+			{ id: 'Images', label: 'Images' },
+			{ id: 'Videos', label: 'Videos' },
+			{ id: 'Reviews', label: 'Reviews' },
+		] as const;
+
+		type TabID = (typeof MEDIA_TABS)[number]['id'];
+
+		const [activeTab, setActiveTab] = useState<TabID>('Similar');
 
 		// New data points
 		const productionCompanies = mediaDetail.production_companies || [];
@@ -251,12 +265,31 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 					/>
 
 					<div className="space-y-12">
-						{similarMedia.length > 0 && (
-							<section className="space-y-4">
-								<h2 className="text-2xl font-bold">Multimedia Similar</h2>
+						<section className="space-y-4">
+							<div className="flex justify-center gap-4 mb-14">
+								{MEDIA_TABS.map((tab) => (
+									<button
+										key={tab.id}
+										onClick={() => setActiveTab(tab.id)}
+										className={
+											'px-2 py-1 rounded-md text-gray-600 dark:text-gray-300 border-cyan-500 border-r-8 border-l-8 bg-gray-200 dark:bg-gray-900 transition"'
+										}>
+										{tab.label}
+									</button>
+								))}
+							</div>
+
+							{activeTab === 'Similar' && (
 								<CreateSimilarMediaDetail media={similarMedia} type={mediaType} />
-							</section>
-						)}
+							)}
+							{activeTab === 'Images' && <CreateMediaImages images={mediaImages} />}
+							{/* {showAdditionalInfo === 'Videos' && (
+							
+							)}
+              {showAdditionalInfo === 'Reviews' && (
+							
+							)} */}
+						</section>
 					</div>
 				</div>
 
