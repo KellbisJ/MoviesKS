@@ -3,14 +3,40 @@ import { useInView } from 'react-intersection-observer';
 import { MediaContainer } from '../media-container';
 import { SingleMediaSkeleton } from '@/components/utilities/loading-skeletons';
 import { LazyMediaContainerProps } from './types';
+import { MediaImageContainer } from '../media-image-container';
 
-const LazyMediaContainer: React.FC<LazyMediaContainerProps> = ({ media_, type }) => {
+const LazyMediaContainer: React.FC<LazyMediaContainerProps> = ({
+	media_,
+	type,
+	containerType,
+	images,
+	colSpan,
+	imgUrl,
+	mediaImg,
+}) => {
+	const pxIntersection =
+		containerType === 'Normal' ? '0px 0px' : containerType === 'Images' ? '0px 0px' : '200px 0px';
+
 	const { ref, inView } = useInView({
 		triggerOnce: true,
-		rootMargin: '0px 0px',
+		rootMargin: pxIntersection,
 	});
 
 	const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
+	const containerStyles =
+		containerType === 'Normal'
+			? 'w-full h-36 md:h-80 xl:h-[400px] transition-opacity duration-500'
+			: containerType === 'Similar'
+			? 'w-full h-36 md:h-80 xl:h-[400px] transition-opacity duration-500'
+			: containerType === 'Images'
+			? 'relative overflow-hidden rounded-lg shadow-lg group w-full h-full'
+			: '';
+
+	const dynamicStyles = {
+		...(colSpan !== undefined && { gridColumn: `span ${colSpan}` }),
+		...(mediaImg?.aspect_ratio && { aspectRatio: mediaImg.aspect_ratio }),
+	};
 
 	useEffect(() => {
 		if (inView) {
@@ -20,15 +46,32 @@ const LazyMediaContainer: React.FC<LazyMediaContainerProps> = ({ media_, type })
 
 			return () => clearTimeout(timer);
 		}
-	}, [inView]); // this logic is to avoid abrupt flickering. When the content of the div below go from SingleMediaSkeleton to MediaContainer.
+	}, [inView]);
+	const renderContent = () => {
+		if (!inView || !isLoaded) {
+			return <SingleMediaSkeleton />;
+		}
+
+		if (containerType === 'Normal' || containerType === 'Similar') {
+			if (media_ && type) {
+				return <MediaContainer media_={media_} type={type} />;
+			}
+			return <div className="text-red-500">Missing media or type</div>;
+		}
+
+		if (containerType === 'Images') {
+			if (images) {
+				return <MediaImageContainer mediaImg={mediaImg} colSpan={colSpan} imgUrl={imgUrl} />;
+			}
+			return <div className="text-red-500">No images available</div>;
+		}
+
+		return <div className="text-red-500">Unhandled container type</div>;
+	};
 
 	return (
-		<div ref={ref} className="w-full h-36 md:h-80 xl:h-[400px] transition-opacity duration-500">
-			{inView && isLoaded ? (
-				<MediaContainer media_={media_} type={type} />
-			) : (
-				<SingleMediaSkeleton />
-			)}
+		<div ref={ref} className={containerStyles} style={dynamicStyles}>
+			{renderContent()}
 		</div>
 	);
 };

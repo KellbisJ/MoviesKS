@@ -86,7 +86,7 @@ const MediaDetail = (): React.JSX.Element => {
 				if (mediaImages) {
 					// media images data
 					setMediaImages(mediaImagesData);
-					console.log(mediaImages);
+					// console.log(mediaImages);
 				}
 
 				if (mediaReviewsData) {

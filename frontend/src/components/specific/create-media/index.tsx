@@ -4,7 +4,6 @@ import { CreateMediaPropsInterface } from './types';
 import { MovieInterface, TVInterface } from '@/types/movie-and-tv-interface';
 import { MovieDetailInterface, TVDetailInterface } from '@/services/media-detail/types';
 import { LazyMediaContainer } from '../../common/lazy-media-container';
-import { LazyMediaContainerSimilar } from '../../common/lazy-media-container-similar';
 
 const isMovieOrTV = (
 	media: MovieInterface | TVInterface | MovieDetailInterface | TVDetailInterface
@@ -20,7 +19,6 @@ const CreateMediaHome: React.FC<CreateMediaPropsInterface> = ({ media, type }) =
 		console.error('Invalid media data:', media);
 		return null;
 	}
-	// console.log(type);
 
 	return (
 		<div className="w-full overflow-x-auto overflow-y-hidden scrollbar-minimal bg-blue-100 dark:bg-[#14273c] rounded-lg">
@@ -47,28 +45,26 @@ const CreateMedia: React.FC<CreateMediaPropsInterface> = ({ media, type }) => {
 		<div className="max-w-[1536px] mx-auto">
 			<div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-3">
 				{media.filter(isMovieOrTV).map((media_) => (
-					<LazyMediaContainer key={media_.id} media_={media_} type={type} />
+					<LazyMediaContainer key={media_.id} media_={media_} type={type} containerType="Normal" />
 				))}
 			</div>
 		</div>
 	);
 };
 
-const CreateSimilarMediaDetail: React.FC<CreateMediaPropsInterface> = ({ media, type }) => {
-	if (!Array.isArray(media)) {
-		console.error('Invalid media data:', media);
-		return null;
-	}
+// const CreateSimilarMediaDetail: React.FC<CreateMediaPropsInterface> = ({ media, type }) => {
+// 	if (!Array.isArray(media)) {
+// 		console.error('Invalid media data:', media);
+// 		return null;
+// 	}
 
-	return (
-		<div className="max-w-[1536px] mx-auto">
-			<div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
-				{media.filter(isMovieOrTV).map((media_) => (
-					<LazyMediaContainerSimilar key={media_.id} mediaData={media_} type={type} />
-				))}
-			</div>
-		</div>
-	);
-};
+// 	return (
+// 		<>
+// 			{media.filter(isMovieOrTV).map((media_) => (
+// 				<LazyMediaContainer key={media_.id} media_={media_} type={type} containerType="Similar" />
+// 			))}
+// 		</>
+// 	);
+// };
 
-export { CreateMediaHome, CreateMedia, CreateSimilarMediaDetail };
+export { CreateMediaHome, CreateMedia };
