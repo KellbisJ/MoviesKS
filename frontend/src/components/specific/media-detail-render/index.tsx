@@ -3,7 +3,7 @@ import { MediaDetailPropsInterface } from './types';
 import { BigPosterPathNullSkeleton } from '@/components/utilities/loading-skeletons';
 import { useSavedMedia } from '../../../context/favorite-media-context';
 import { CreateSimilarGenres } from '../create-similar-genres';
-// import { CreateSimilarMediaDetail } from '../create-media';
+import { CreateMedia } from '../create-media';
 import { CreateMediaImages } from '../create-media-images';
 import { TrailerMedia } from '../../modals/trailer-media';
 import { Star, Save, Clapperboard, Globe, Film, Clock, Ticket } from 'lucide-react';
@@ -11,8 +11,7 @@ import { memo } from 'react';
 import { MediaTypeT } from '@/types/media-type';
 import { isSpanishLang } from '@/utils/is-spanish-lang';
 import { useLanguages } from '@/context/lang';
-// import { Backdrop } from '@/services/media-images/types';
-import { LazyMediaContainer } from '@/components/common/lazy-media-container';
+import { CreateMediaVideos } from '../create-media-videos';
 
 const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 	({
@@ -280,14 +279,12 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 								))}
 							</div>
 
-							{/* {activeTab === 'Similar' && (
-								<CreateSimilarMediaDetail media={similarMedia} type={mediaType} />
-							)} */}
-							{activeTab === 'Images' && <CreateMediaImages images={mediaImages} />}
-							{/* {showAdditionalInfo === 'Videos' && (
-							
+							{activeTab === 'Similar' && (
+								<CreateMedia media={similarMedia} type={mediaType} containerType="Similar" />
 							)}
-              {showAdditionalInfo === 'Reviews' && (
+							{activeTab === 'Images' && <CreateMediaImages images={mediaImages} />}
+							{activeTab === 'Videos' && <CreateMediaVideos />}
+							{/* {showAdditionalInfo === 'Reviews' && (
 							
 							)} */}
 						</section>

@@ -35,7 +35,7 @@ const CreateMediaHome: React.FC<CreateMediaPropsInterface> = ({ media, type }) =
 	);
 };
 
-const CreateMedia: React.FC<CreateMediaPropsInterface> = ({ media, type }) => {
+const CreateMedia: React.FC<CreateMediaPropsInterface> = ({ media, type, containerType }) => {
 	if (!Array.isArray(media)) {
 		console.error('Invalid media data:', media);
 		return null;
@@ -45,26 +45,16 @@ const CreateMedia: React.FC<CreateMediaPropsInterface> = ({ media, type }) => {
 		<div className="max-w-[1536px] mx-auto">
 			<div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-3">
 				{media.filter(isMovieOrTV).map((media_) => (
-					<LazyMediaContainer key={media_.id} media_={media_} type={type} containerType="Normal" />
+					<LazyMediaContainer
+						key={media_.id}
+						media_={media_}
+						type={type}
+						containerType={containerType}
+					/>
 				))}
 			</div>
 		</div>
 	);
 };
-
-// const CreateSimilarMediaDetail: React.FC<CreateMediaPropsInterface> = ({ media, type }) => {
-// 	if (!Array.isArray(media)) {
-// 		console.error('Invalid media data:', media);
-// 		return null;
-// 	}
-
-// 	return (
-// 		<>
-// 			{media.filter(isMovieOrTV).map((media_) => (
-// 				<LazyMediaContainer key={media_.id} media_={media_} type={type} containerType="Similar" />
-// 			))}
-// 		</>
-// 	);
-// };
 
 export { CreateMediaHome, CreateMedia };

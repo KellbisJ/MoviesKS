@@ -12,7 +12,7 @@ const MediaImageContainer = ({
 	colSpan?: number;
 	imgUrl?: string;
 }): React.JSX.Element => {
-	console.log(mediaImg);
+	// console.log(mediaImg);
 
 	if (mediaImg) {
 		return (

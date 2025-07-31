@@ -15,8 +15,8 @@ export const API_MOVIE_CATEGORY = `${BASE_API_URL}/discover/movie`;
 export const API_TV_CATEGORY = `${BASE_API_URL}/discover/tv`;
 export const API_GENRE_MOVIE_URL = `${BASE_API_URL}/genre/movie/list`;
 export const API_GENRE_TV_URL = `${BASE_API_URL}/genre/tv/list`;
-export const API_MOVIE_VIDEOS = (id: string) => `${BASE_API_URL}/movie/${id}/videos`;
-export const API_TV_VIDEOS = (series_id: string) => `${BASE_API_URL}/tv/${series_id}/videos`;
+export const API_MEDIA_VIDEOS = (type: string, id: string) =>
+	`${BASE_API_URL}/${type}/${id}/videos`;
 export const API_SEARCH_MEDIA = (type: string) => `${BASE_API_URL}/search/${type}`;
 export const API_MEDIA_IMAGES = (type: string, id: string) =>
 	`${BASE_API_URL}/${type}/${id}/images`;

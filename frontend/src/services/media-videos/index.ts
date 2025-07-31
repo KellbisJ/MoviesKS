@@ -1,11 +1,12 @@
-import { api, API_MOVIE_VIDEOS, API_TV_VIDEOS } from '../index';
+import { api, API_MEDIA_VIDEOS } from '../index';
 import { MediaVideosInterface } from './types';
 import { MediaTypeT } from '@/types/media-type';
 
 async function getMediaVideos(type: `${MediaTypeT}`, id: string): Promise<MediaVideosInterface> {
 	try {
-		const apiUrl = type === MediaTypeT.movie ? API_MOVIE_VIDEOS(id) : API_TV_VIDEOS(id);
-		const { data: media }: { data: MediaVideosInterface } = await api.get(apiUrl);
+		const { data: media }: { data: MediaVideosInterface } = await api.get(
+			API_MEDIA_VIDEOS(type, id)
+		);
 
 		// console.log({ media });
 		if (media && media.id && media.results && media.results.length > 0) {

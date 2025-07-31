@@ -5,6 +5,7 @@ import { MediaTypeT } from '@/types/media-type';
 interface CreateMediaPropsInterface {
 	media: MovieInterface[] | TVInterface[] | MovieDetailInterface[] | TVDetailInterface[];
 	type: MediaTypeT;
+	containerType: 'Normal' | 'Similar' | 'Images';
 }
 
 export { CreateMediaPropsInterface };
