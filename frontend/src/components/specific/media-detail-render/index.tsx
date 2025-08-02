@@ -12,6 +12,7 @@ import { MediaTypeT } from '@/types/media-type';
 import { isSpanishLang } from '@/utils/is-spanish-lang';
 import { useLanguages } from '@/context/lang';
 import { CreateMediaVideos } from '../create-media-videos';
+import { CreateMediaReviews } from '../create-media-reviews';
 
 const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 	({
@@ -264,31 +265,27 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
              pointer-events-none inset-0 -mx-6 lg:-mx-8 overflow-hidden"
 					/>
 
-					<div className="space-y-12">
-						<section className="flex space-y-4 justify-center flex-col items-center">
-							<div className="flex flex-col sm:flex-row justify-center gap-4 mb-14">
-								{MEDIA_TABS.map((tab) => (
-									<button
-										key={tab.id}
-										onClick={() => setActiveTab(tab.id)}
-										className={
-											'px-2 py-1 rounded-md text-gray-600 dark:text-gray-300 border-cyan-500 border-r-8 border-l-8 bg-gray-200 dark:bg-gray-900 transition"'
-										}>
-										{tab.label}
-									</button>
-								))}
-							</div>
+					<section className="flex space-y-12justify-center flex-col items-center">
+						<div className="flex flex-col sm:flex-row justify-center gap-4 mb-14">
+							{MEDIA_TABS.map((tab) => (
+								<button
+									key={tab.id}
+									onClick={() => setActiveTab(tab.id)}
+									className={
+										'px-2 py-1 rounded-md text-gray-600 dark:text-gray-300 border-cyan-500 border-r-8 border-l-8 bg-gray-200 dark:bg-gray-900 transition"'
+									}>
+									{tab.label}
+								</button>
+							))}
+						</div>
 
-							{activeTab === 'Similar' && (
-								<CreateMedia media={similarMedia} type={mediaType} containerType="Similar" />
-							)}
-							{activeTab === 'Images' && <CreateMediaImages images={mediaImages} />}
-							{activeTab === 'Videos' && <CreateMediaVideos />}
-							{/* {showAdditionalInfo === 'Reviews' && (
-							
-							)} */}
-						</section>
-					</div>
+						{activeTab === 'Similar' && (
+							<CreateMedia media={similarMedia} type={mediaType} containerType="Similar" />
+						)}
+						{activeTab === 'Images' && <CreateMediaImages images={mediaImages} />}
+						{activeTab === 'Videos' && <CreateMediaVideos />}
+						{activeTab === 'Reviews' && <CreateMediaReviews />}
+					</section>
 				</div>
 
 				<TrailerMedia

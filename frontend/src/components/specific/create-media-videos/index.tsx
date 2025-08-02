@@ -25,7 +25,7 @@ const CreateMediaVideos = (): React.JSX.Element => {
 	return (
 		<section className="px-4 py-8">
 			{mediaVideos.length > 0 ? (
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-14">
 					{mediaVideos.map((video) => (
 						<div key={video.key} className="w-full max-w-[560px] mx-auto">
 							<div className="aspect-video bg-gray-100 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">

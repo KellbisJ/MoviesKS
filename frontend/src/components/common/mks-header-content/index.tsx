@@ -5,7 +5,7 @@ const MksHeaderContent = (): React.JSX.Element => {
 	const { language } = useLanguages();
 	return (
 		<div className="text-center mt-4 mb-4">
-			<h1 className="text-3xl md:text-5xl font-bold text-gray-800 dark:text-white mb-6">
+			<h1 className="text-3xl md:text-5xl font-bold text-gray-800 dark:text-stone-100 mb-6">
 				MoviesKS
 			</h1>
 

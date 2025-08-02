@@ -22,4 +22,4 @@ interface AuthorDetailsInterface {
 	rating?: number;
 }
 
-export { MediaReviewInterface };
+export { MediaReviewInterface, AuthorReview };
