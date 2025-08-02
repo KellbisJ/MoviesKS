@@ -1,26 +1,10 @@
-import { useValidMediaType } from '@/hooks/use-valid-media-type';
-import { getMediaVideos } from '@/services/media-videos';
 import { MediaVideosResultInterface } from '@/services/media-videos/types';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 
-const CreateMediaVideos = (): React.JSX.Element => {
-	const { id } = useParams();
-
-	const mediaType = useValidMediaType();
-	const mediaId = id || '';
-
-	const [mediaVideos, setMediaVideos] = useState<MediaVideosResultInterface[]>([]);
-
-	useEffect(() => {
-		const fetchMediaVideos = async () => {
-			const req = await getMediaVideos(mediaType, mediaId);
-			const mediaVideosData = req.results;
-			setMediaVideos(mediaVideosData);
-		};
-		fetchMediaVideos();
-	}, []);
-
+const CreateMediaVideos = ({
+	mediaVideos,
+}: {
+	mediaVideos: MediaVideosResultInterface[];
+}): React.JSX.Element => {
 	console.log(mediaVideos);
 	return (
 		<section className="px-4 py-8">

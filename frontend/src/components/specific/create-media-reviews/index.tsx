@@ -1,38 +1,20 @@
-import { useValidMediaType } from '@/hooks/use-valid-media-type';
-import { getMediaReviews } from '@/services/reviews';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { MediaReviewInterface, AuthorReview } from '@/services/reviews/types';
+import { AuthorReview } from '@/services/reviews/types';
 import { Star, ExternalLink } from 'lucide-react';
 
-const CreateMediaReviews = (): React.JSX.Element => {
-	const { id } = useParams();
-
-	const mediaId = id || '';
-
-	const type = useValidMediaType();
-
-	const [reviews, setReviews] = useState<AuthorReview[]>([]);
+const CreateMediaReviews = ({
+	mediaReviews,
+}: {
+	mediaReviews: AuthorReview[];
+}): React.JSX.Element => {
 	const [isLoading, setIsLoading] = useState(true);
-	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
-		const fetchMediaReviews = async () => {
-			try {
-				setIsLoading(true);
-				const res: MediaReviewInterface = await getMediaReviews(type, mediaId);
-				console.log(res);
-
-				setReviews(res.results);
-			} catch (err) {
-				setError('Failed to load reviews. Please try again later.');
-			} finally {
-				setIsLoading(false);
-			}
-		};
-		fetchMediaReviews();
-		// console.log(reviews);
-	}, [type, mediaId]);
+		const timeoutId = setTimeout(() => {
+			setIsLoading(false);
+		}, 200);
+		return () => clearTimeout(timeoutId);
+	}, [mediaReviews]);
 
 	const StarRating = ({ rating }: { rating?: number }) => {
 		if (!rating) return null;
@@ -41,10 +23,6 @@ const CreateMediaReviews = (): React.JSX.Element => {
 		const fullStars = Math.floor(normalizedRating);
 		const hasHalfStar = normalizedRating - fullStars >= 0.5;
 		const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
-
-		// console.log(
-		// 	`Normalizedrating: ${normalizedRating}, fullstarts: ${fullStars}, hasHalfStart: ${hasHalfStar}, emptyStars: ${emptyStars}`
-		// );
 
 		return (
 			<div className="flex items-center">
@@ -93,9 +71,9 @@ const CreateMediaReviews = (): React.JSX.Element => {
 	return (
 		<div className="w-full max-w-3xl mx-auto py-8">
 			{isLoading ? (
-				<div className="animate-pulse my-16">
+				<div className="flex flex-col gap-8 animate-pulse my-16">
 					{[...Array(3)].map((_, i) => (
-						<div key={i} className="bg-white dark:bg-gray-600 rounded-xl shadow-sm p-6">
+						<div key={i} className="bg-white dark:bg-gray-600 rounded-xl shadow-sm p-6 mt-18">
 							<div className="flex justify-between">
 								<div className="flex items-center space-x-3">
 									<div className="bg-gray-200 dark:bg-blue-100  rounded-full h-10 w-10"></div>
@@ -114,11 +92,7 @@ const CreateMediaReviews = (): React.JSX.Element => {
 						</div>
 					))}
 				</div>
-			) : !isLoading && error ? (
-				<div className="bg-red-50 text-red-700 p-4 rounded-lg">
-					<p>{error}</p>
-				</div>
-			) : !isLoading && !error && reviews.length === 0 ? (
+			) : !isLoading && mediaReviews.length === 0 ? (
 				<div className="bg-blue-100 dark:bg-gray-500 text-gray-700 dark:text-stone-100 p-4 rounded-lg">
 					<p>No reviews available for this media.</p>
 				</div>
@@ -127,12 +101,12 @@ const CreateMediaReviews = (): React.JSX.Element => {
 					<div className="flex justify-between items-center mb-6">
 						<h2 className="text-2xl font-bold text-gray-900 dark:text-stone-100">User Reviews</h2>
 						<div className="text-sm text-gray-500 dark:text-stone-100">
-							{reviews.length} reviews
+							{mediaReviews.length} reviews
 						</div>
 					</div>
 
 					<div className="space-y-6 w-full max-w-3xl">
-						{reviews.map((review) => (
+						{mediaReviews.map((review) => (
 							<div
 								key={review.id}
 								className="bg-white dark:bg-gray-600 rounded-xl shadow-sm p-6 border border-gray-100 dark:border-gray-700 hover:shadow-md dark:hover:shadow-lg transition-shadow">

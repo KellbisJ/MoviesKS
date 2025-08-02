@@ -13,26 +13,75 @@ import { isSpanishLang } from '@/utils/is-spanish-lang';
 import { useLanguages } from '@/context/lang';
 import { CreateMediaVideos } from '../create-media-videos';
 import { CreateMediaReviews } from '../create-media-reviews';
+import { UseHandleSaveMedia } from '@/hooks/use-handle-save-media';
+import { MovieInterface, TVInterface } from '@/types/movie-and-tv-interface';
+import { MediaImagesInterface } from '@/services/media-images/types';
+import { MediaReviewInterface } from '@/services/reviews/types';
+import { MediaVideosResultInterface } from '@/services/media-videos/types';
+import { getSimilarMediaDetail } from '@/services/similar-media-detail';
+import { getMediaVideos } from '@/services/media-videos';
+import { getMediaImages } from '@/services/media-images';
+import { getMediaReviews } from '@/services/reviews';
 
 const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
-	({
-		mediaDetail,
-		mediaDetailVideos,
-		mediaImages,
-		similarGenres,
-		similarMedia,
-		mediaReviews,
-		isMovie,
-		handleSaveMedia,
-		showTrailer,
-		setShowTrailer,
-		videoKey,
-		mediaType,
-	}) => {
+	({ mediaDetail, similarGenres, isMovie, mediaType, mediaId }) => {
 		const { language } = useLanguages();
 		const { savedMedia } = useSavedMedia();
 		const allSavedMedia = [...savedMedia.movies, ...savedMedia.tv]; // This is to check is the media is saved whether is movie or tv
 		const isSavedMedia = allSavedMedia.some((favMedia) => favMedia.id === mediaDetail.id);
+
+		const handleSaveMedia = UseHandleSaveMedia();
+
+		const [loadingAdditionalMediaData, setLoadingAdditionalMediaData] = useState<boolean>(true);
+
+		const [similarMedia, setSimilarMedia] = useState<MovieInterface[] | TVInterface[]>([]);
+		const [mediaImages, setMediaImages] = useState<MediaImagesInterface>(
+			{} as MediaImagesInterface
+		);
+		const [mediaVideos, setMediaVideos] = useState<MediaVideosResultInterface[]>([]);
+		const [mediaReviews, setMediaReviews] = useState<MediaReviewInterface>(
+			{} as MediaReviewInterface
+		);
+
+		const [showTrailer, setShowTrailer] = useState<boolean>(false);
+		const [videoKey, setVideoKey] = useState<string>();
+
+		useEffect(() => {
+			const fetchMediaDetailAdditionalData = async () => {
+				try {
+					const [similarMediaData, mediaVideosData, mediaImagesData, mediaReviewsData] =
+						await Promise.all([
+							getSimilarMediaDetail(mediaType, mediaId),
+							getMediaVideos(mediaType, mediaId),
+							getMediaImages(mediaType, mediaId),
+							getMediaReviews(mediaType, mediaId),
+						]);
+					setSimilarMedia(similarMediaData);
+
+					if (mediaVideosData && mediaVideosData.results.length > 0) {
+						const video = mediaVideosData.results.find(
+							(video: any) =>
+								video.type === 'Trailer' ||
+								video.type === 'Teaser' ||
+								(video.type === 'Clip' && video.site === 'YouTube')
+						);
+						if (video) {
+							setVideoKey(video.key);
+						}
+						setMediaVideos(mediaVideosData.results);
+					} else {
+						setMediaVideos([]);
+					}
+					setMediaImages(mediaImagesData);
+					setMediaReviews(mediaReviewsData);
+				} catch (err) {
+					console.error(err);
+				} finally {
+					setLoadingAdditionalMediaData(false);
+				}
+			};
+			fetchMediaDetailAdditionalData();
+		}, [mediaType, mediaId]);
 
 		const MEDIA_TABS = [
 			{ id: 'Similar', label: 'Similar Content' },
@@ -123,7 +172,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 											</span>
 										</div>
 
-										{mediaDetailVideos?.length > 0 && (
+										{videoKey && (
 											<button
 												onClick={() => setShowTrailer(true)}
 												className="flex items-center bg-cyan-500 hover:bg-cyan-600 px-4 py-2 rounded-full transition-all">
@@ -266,25 +315,33 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 					/>
 
 					<section className="flex space-y-12justify-center flex-col items-center">
-						<div className="flex flex-col sm:flex-row justify-center gap-4 mb-14">
-							{MEDIA_TABS.map((tab) => (
-								<button
-									key={tab.id}
-									onClick={() => setActiveTab(tab.id)}
-									className={
-										'px-2 py-1 rounded-md text-gray-600 dark:text-gray-300 border-cyan-500 border-r-8 border-l-8 bg-gray-200 dark:bg-gray-900 transition"'
-									}>
-									{tab.label}
-								</button>
-							))}
-						</div>
+						{!loadingAdditionalMediaData ? (
+							<>
+								<div className="flex flex-col sm:flex-row justify-center gap-4 mb-14">
+									{MEDIA_TABS.map((tab) => (
+										<button
+											key={tab.id}
+											onClick={() => setActiveTab(tab.id)}
+											className={
+												'px-2 py-1 rounded-md text-gray-600 dark:text-gray-300 border-cyan-500 border-r-8 border-l-8 bg-gray-200 dark:bg-gray-900 transition"'
+											}>
+											{tab.label}
+										</button>
+									))}
+								</div>
 
-						{activeTab === 'Similar' && (
-							<CreateMedia media={similarMedia} type={mediaType} containerType="Similar" />
+								{activeTab === 'Similar' && (
+									<CreateMedia media={similarMedia} type={mediaType} containerType="Similar" />
+								)}
+								{activeTab === 'Images' && <CreateMediaImages images={mediaImages} />}
+								{activeTab === 'Videos' && <CreateMediaVideos mediaVideos={mediaVideos} />}
+								{activeTab === 'Reviews' && (
+									<CreateMediaReviews mediaReviews={mediaReviews.results} />
+								)}
+							</>
+						) : (
+							<></>
 						)}
-						{activeTab === 'Images' && <CreateMediaImages images={mediaImages} />}
-						{activeTab === 'Videos' && <CreateMediaVideos />}
-						{activeTab === 'Reviews' && <CreateMediaReviews />}
 					</section>
 				</div>
 

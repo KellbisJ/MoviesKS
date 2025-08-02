@@ -49,7 +49,11 @@ const SavedMedia = (): React.JSX.Element => {
 								{isSpanishLang(language) ? 'Películas' : 'Movies'}
 							</h2>
 							{hasMovies ? (
-								<CreateMedia media={savedMedia.movies} type={MediaTypeT.movie} />
+								<CreateMedia
+									media={savedMedia.movies}
+									type={MediaTypeT.movie}
+									containerType="Normal"
+								/>
 							) : (
 								<MediaSavedVoid />
 							)}
@@ -60,7 +64,7 @@ const SavedMedia = (): React.JSX.Element => {
 								{isSpanishLang(language) ? 'Series de TV' : 'TV series'}
 							</h2>
 							{hasShows ? (
-								<CreateMedia media={savedMedia.tv} type={MediaTypeT.tv} />
+								<CreateMedia media={savedMedia.tv} type={MediaTypeT.tv} containerType="Normal" />
 							) : (
 								<MediaSavedVoid />
 							)}
