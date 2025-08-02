@@ -42,7 +42,11 @@ const HomeViewContent: React.FC<HomeViewContentInterfaceProps> = ({
 								) : isErrorCatched ? (
 									<MediaHomeErrorSkeleton />
 								) : (
-									<CreateMediaHome type={section.type} media={section.media} />
+									<CreateMediaHome
+										type={section.type}
+										media={section.media}
+										containerType="Normal"
+									/>
 								)}
 							</section>
 						))}

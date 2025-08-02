@@ -14,7 +14,7 @@ const isMovieOrTV = (
 	);
 };
 
-const CreateMediaHome: React.FC<CreateMediaPropsInterface> = ({ media, type }) => {
+const CreateMediaHome: React.FC<CreateMediaPropsInterface> = ({ media, type, containerType }) => {
 	if (!Array.isArray(media)) {
 		console.error('Invalid media data:', media);
 		return null;

@@ -62,7 +62,7 @@ const SearchDiscoverPage = () => {
 								: `Tv series search: ${query}`
 							: 'Polladurarocadura'}
 					</h1>
-					<CreateMedia type={mediaType} media={media.results} />
+					<CreateMedia type={mediaType} media={media.results} containerType="Normal" />
 				</>
 			)}
 

@@ -83,7 +83,7 @@ const MediaAllByCategory = (): React.JSX.Element => {
 			</h2>
 			{media.length === 0 && loadingComponents && <MediaSkeleton />}
 
-			<CreateMedia media={allMedia} type={mediaType} />
+			<CreateMedia media={allMedia} type={mediaType} containerType="Normal" />
 		</>
 	);
 };
