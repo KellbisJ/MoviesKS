@@ -34,10 +34,11 @@ const CreateMediaImages = ({ images }: { images: MediaImagesInterface }): React.
 					<LazyMediaContainer
 						key={mediaImg.file_path}
 						containerType="Images"
-						images={images}
 						colSpan={colSpan}
 						imgUrl={imgUrl}
 						mediaImg={mediaImg}
+						allImages={allImages}
+						mediaImageId={images.id}
 					/>
 				);
 			})}

@@ -9,10 +9,11 @@ const LazyMediaContainer: React.FC<LazyMediaContainerProps> = ({
 	media_,
 	type,
 	containerType,
-	images,
 	colSpan,
 	imgUrl,
 	mediaImg,
+	allImages,
+	mediaImageId,
 }) => {
 	const pxIntersection =
 		containerType === 'Normal' ? '0px 0px' : containerType === 'Images' ? '0px 0px' : '200px 0px';
@@ -64,8 +65,16 @@ const LazyMediaContainer: React.FC<LazyMediaContainerProps> = ({
 		}
 
 		if (containerType === 'Images') {
-			if (images) {
-				return <MediaImageContainer mediaImg={mediaImg} colSpan={colSpan} imgUrl={imgUrl} />;
+			if (mediaImg && colSpan && imgUrl && allImages && mediaImageId) {
+				return (
+					<MediaImageContainer
+						mediaImg={mediaImg}
+						colSpan={colSpan}
+						imgUrl={imgUrl}
+						allImages={allImages}
+						mediaImageId={mediaImageId}
+					/>
+				);
 			}
 			return <div className="text-red-500">No images available</div>;
 		}

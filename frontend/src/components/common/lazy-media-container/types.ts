@@ -8,10 +8,11 @@ interface LazyMediaContainerProps {
 	media_?: MovieInterface | TVInterface | MovieDetailInterface | TVDetailInterface;
 	type?: MediaTypeT;
 	containerType: 'Minimal' | 'Normal' | 'Similar' | 'Images';
-	images?: MediaImagesInterface;
 	colSpan?: number;
 	imgUrl?: string;
 	mediaImg?: MediaImageT;
+	allImages?: MediaImageT[];
+	mediaImageId?: number;
 }
 
 export { LazyMediaContainerProps };
