@@ -330,9 +330,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 									))}
 								</div>
 
-								{activeTab === 'Similar' && (
-									<CreateMedia media={similarMedia} type={mediaType} containerType="Similar" />
-								)}
+								{activeTab === 'Similar' && <CreateMedia media={similarMedia} type={mediaType} />}
 								{activeTab === 'Images' && <CreateMediaImages images={mediaImages} />}
 								{activeTab === 'Videos' && <CreateMediaVideos mediaVideos={mediaVideos} />}
 								{activeTab === 'Reviews' && (

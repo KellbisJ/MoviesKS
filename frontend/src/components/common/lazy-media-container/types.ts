@@ -7,7 +7,7 @@ import { MediaImageT } from '@/components/specific/create-media-images';
 interface LazyMediaContainerProps {
 	media_?: MovieInterface | TVInterface | MovieDetailInterface | TVDetailInterface;
 	type?: MediaTypeT;
-	containerType: 'Normal' | 'Similar' | 'Images';
+	containerType: 'Minimal' | 'Normal' | 'Similar' | 'Images';
 	images?: MediaImagesInterface;
 	colSpan?: number;
 	imgUrl?: string;

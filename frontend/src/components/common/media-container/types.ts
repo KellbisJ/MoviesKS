@@ -5,7 +5,7 @@ import { MediaTypeT } from '@/types/media-type';
 interface MediaContainerPropsInterface {
 	media_: MovieInterface | TVInterface | MovieDetailInterface | TVDetailInterface;
 	type: MediaTypeT;
-	load?: boolean;
+	variant: 'Default' | 'Minimal';
 }
 
 export { MediaContainerPropsInterface };

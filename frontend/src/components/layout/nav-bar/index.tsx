@@ -81,13 +81,13 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
 	const navItems = [
 		{ to: '/home', base: '/home', label: labels.home, icon: House },
 		{
-			to: '/movie',
+			to: location.pathname.startsWith('/movie') ? '/movie/all' : '/movie',
 			base: '/movie',
 			label: labels.movies,
 			icon: Film,
 		},
 		{
-			to: '/tv',
+			to: location.pathname.startsWith('/tv') ? '/tv/all' : '/tv',
 			base: '/tv',
 			label: labels.tv,
 			icon: Tv,

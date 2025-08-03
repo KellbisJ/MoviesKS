@@ -98,7 +98,7 @@ const SearchAboutPage = () => {
 							<h3 className="text-gray-600 dark:text-gray-300 mb-4 p-3">
 								{isSpanishLang(language) ? 'Acerca de las películas' : 'About Movies'}
 							</h3>
-							<CreateMedia type={MediaTypeT.movie} media={limitedMovies} containerType="Normal" />
+							<CreateMedia type={MediaTypeT.movie} media={limitedMovies} />
 						</div>
 					)}
 
@@ -107,7 +107,7 @@ const SearchAboutPage = () => {
 							<h3 className="text-gray-600 dark:text-gray-300 mb-4 p-3">
 								{isSpanishLang(language) ? 'Acerca de series de televisión' : 'About Tv Series'}
 							</h3>
-							<CreateMedia type={MediaTypeT.tv} media={limitedTv} containerType="Normal" />
+							<CreateMedia type={MediaTypeT.tv} media={limitedTv} />
 						</div>
 					)}
 

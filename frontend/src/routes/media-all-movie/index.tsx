@@ -75,7 +75,7 @@ const MediaAllMovie = (): React.JSX.Element => {
 		<>
 			{movies.length === 0 && loadingComponents && <MediaSkeleton />}
 
-			<CreateMedia media={allMovies} type={mediaType} containerType="Normal" />
+			<CreateMedia media={allMovies} type={mediaType} />
 		</>
 	);
 };

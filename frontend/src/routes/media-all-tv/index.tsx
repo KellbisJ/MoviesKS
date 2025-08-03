@@ -76,7 +76,7 @@ const MediaAllTV = (): React.JSX.Element => {
 		<>
 			{tv.length === 0 && loadingComponents && <MediaSkeleton />}
 
-			<CreateMedia media={allTv} type={mediaType} containerType="Normal" />
+			<CreateMedia media={allTv} type={mediaType} />
 		</>
 	);
 };

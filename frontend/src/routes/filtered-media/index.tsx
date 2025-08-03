@@ -49,7 +49,7 @@ const FilteredMedia = () => {
 		<>
 			{media.length === 0 && loadingComponents && <MediaSkeleton />}
 
-			<CreateMedia media={media} type={mediaType} containerType="Normal" />
+			<CreateMedia media={media} type={mediaType} />
 		</>
 	);
 };

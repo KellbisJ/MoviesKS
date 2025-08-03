@@ -12,7 +12,7 @@ const CreateMediaVideos = ({
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-14">
 					{mediaVideos.map((video) => (
 						<div key={video.key} className="w-full max-w-[560px] mx-auto">
-							<div className="aspect-video bg-gray-100 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+							<div className="aspect-video bg-gray-100 dark:bg-gray-900 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
 								<iframe
 									src={`https://www.youtube.com/embed/${video.key}`}
 									title={video.name || 'Media Trailer'}

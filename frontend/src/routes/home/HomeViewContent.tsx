@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CreateMediaHome } from '@/components/specific/create-media';
+import { CreateMedia } from '@/components/specific/create-media';
 import {
 	MediaHomeSkeleton,
 	MediaHomeErrorSkeleton,
@@ -42,11 +42,7 @@ const HomeViewContent: React.FC<HomeViewContentInterfaceProps> = ({
 								) : isErrorCatched ? (
 									<MediaHomeErrorSkeleton />
 								) : (
-									<CreateMediaHome
-										type={section.type}
-										media={section.media}
-										containerType="Normal"
-									/>
+									<CreateMedia type={section.type} media={section.media} section="Home" />
 								)}
 							</section>
 						))}

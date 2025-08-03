@@ -91,7 +91,7 @@ const MediaBySearch = (): React.JSX.Element => {
 						: `Search results for "${querySearch}" in TV Series`
 					: 'MOCO VERDE'}
 			</h3>
-			<CreateMedia media={allMedia} type={mediaType} containerType="Normal" />
+			<CreateMedia media={allMedia} type={mediaType} section="Default" />
 
 			{searchWasMade && media.length === 0 && <NoResults />}
 		</>
