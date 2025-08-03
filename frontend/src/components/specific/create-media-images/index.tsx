@@ -27,7 +27,7 @@ const CreateMediaImages = ({ images }: { images: MediaImagesInterface }): React.
 		<section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 grid-auto-rows: auto; grid-flow-row-dense gap-4 container">
 			{allImages.map((mediaImg) => {
 				const colSpan = getColSpan(mediaImg);
-				const imgSize = mediaImg.type === 'backdrop' ? 'w1280' : 'w500';
+				const imgSize = mediaImg.type === 'backdrop' ? 'w780' : 'w342';
 				const imgUrl = `https://image.tmdb.org/t/p/${imgSize}${mediaImg.file_path}`;
 
 				return (

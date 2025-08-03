@@ -41,7 +41,7 @@ const MediaContainer: React.FC<MediaContainerPropsInterface> = ({ media_, type, 
 		);
 
 	const title = isMovie(media_) ? media_.title : media_.name;
-	const imgSize = variant === 'Minimal' ? 'w300' : 'w400';
+	const imgSize = variant === 'Minimal' ? 'w185' : 'w342';
 
 	return (
 		<div className={containerClasses} style={{ touchAction: 'manipulation' }}>

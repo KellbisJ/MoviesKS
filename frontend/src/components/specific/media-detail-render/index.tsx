@@ -108,8 +108,6 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 
 		const bigPoster = mediaDetail.backdrop_path || mediaDetail.poster_path;
 
-		// console.log(spokenLanguages);
-
 		return (
 			<section className="text-black dark:text-gray-100 mx-auto px-6 lg:px-0 lg:-mt-8">
 				<div className="relative mb-12 h-[90vh] lg:min-h-screen lg:h-auto">
@@ -117,7 +115,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 						{bigPoster && (
 							<img
 								className="w-full h-full object-cover object-center shadow-2xl opacity-0 transition-opacity duration-500"
-								src={`https://image.tmdb.org/t/p/w1280/${bigPoster}`}
+								src={`https://image.tmdb.org/t/p/w780/${bigPoster}`}
 								alt="Backdrop"
 								loading="eager"
 								onLoad={(e) => (e.currentTarget.style.opacity = '1')} // nice
