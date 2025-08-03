@@ -322,9 +322,11 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 										<button
 											key={tab.id}
 											onClick={() => setActiveTab(tab.id)}
-											className={
-												'px-2 py-1 rounded-md text-gray-600 dark:text-gray-300 border-cyan-500 border-r-8 border-l-8 bg-gray-200 dark:bg-gray-900 transition"'
-											}>
+											className={`px-2 py-1 rounded-md text-gray-600 dark:text-gray-300  border-r-8 border-l-8 bg-gray-200 dark:bg-gray-900 transition ${
+												activeTab === tab.id
+													? 'border-[#16C47F] dark:border-[#16C47F]'
+													: 'border-cyan-500 dark:border-cyan-500'
+											}`}>
 											{tab.label}
 										</button>
 									))}
