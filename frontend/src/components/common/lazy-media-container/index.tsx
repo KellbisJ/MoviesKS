@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { MediaContainer } from '../media-container';
-import { SingleMediaSkeleton } from '@/components/utilities/loading-skeletons';
+import { MediaHomeSkeleton, SingleMediaSkeleton } from '@/components/utilities/loading-skeletons';
 import { LazyMediaContainerProps } from './types';
 import { MediaImageContainer } from '../media-image-container';
 
@@ -54,7 +54,10 @@ const LazyMediaContainer: React.FC<LazyMediaContainerProps> = ({
 	}, [inView]);
 	const renderContent = () => {
 		if (!inView || !isLoaded) {
-			return <SingleMediaSkeleton />;
+			if (containerType === 'Normal' || containerType === 'Similar' || containerType === 'Images') {
+				return <SingleMediaSkeleton />;
+			}
+			return <MediaHomeSkeleton />;
 		}
 
 		if (containerType === 'Normal' || containerType === 'Similar' || containerType === 'Minimal') {
