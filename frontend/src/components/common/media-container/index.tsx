@@ -29,7 +29,7 @@ const MediaContainer: React.FC<MediaContainerPropsInterface> = ({ media_, type, 
 	const aspectClass =
 		variant === 'Minimal'
 			? 'h-full w-full object-cover aspect-[2/3]'
-			: 'w-full h-auto aspect-[2/1.5] sm:aspect-auto sm:h-full';
+			: 'w-full h-full aspect-[2/1.5]';
 
 	const mediaTitle = isMovie(media_) ? media_.title : media_.name;
 

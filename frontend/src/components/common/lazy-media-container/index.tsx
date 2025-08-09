@@ -27,11 +27,11 @@ const LazyMediaContainer: React.FC<LazyMediaContainerProps> = ({
 
 	const containerStyles =
 		containerType === 'Normal'
-			? 'w-full h-36 md:h-80 xl:h-[400px] transition-opacity duration-500'
+			? 'w-full h-36 sm:h-60 md:h-80 xl:h-[400px] transition-opacity duration-500'
 			: containerType === 'Minimal'
 			? 'flex-shrink-0 w-32 h-48 md:w-48 md:h-60 2xl:w-60 2xl:h-80'
 			: containerType === 'Similar'
-			? 'w-full h-36 md:h-80 xl:h-[400px] transition-opacity duration-500'
+			? 'w-full h-36 sm:h-60 md:h-80 xl:h-[400px] transition-opacity duration-500'
 			: containerType === 'Images'
 			? 'relative overflow-hidden rounded-lg shadow-lg group w-full h-full'
 			: '';

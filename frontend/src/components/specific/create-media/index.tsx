@@ -13,17 +13,6 @@ const isMovieOrTV = (
 	);
 };
 
-// const CreateMediaHome: React.FC<CreateMediaPropsInterface> = ({ media, type, containerType }) => {
-// 	if (!Array.isArray(media)) {
-// 		console.error('Invalid media data:', media);
-// 		return null;
-// 	}
-
-// 	return (
-
-// 	);
-// };
-
 const CreateMedia: React.FC<CreateMediaPropsInterface> = ({ media, type, section = 'Default' }) => {
 	if (!Array.isArray(media)) {
 		console.error('Invalid media data:', media);
@@ -36,7 +25,7 @@ const CreateMedia: React.FC<CreateMediaPropsInterface> = ({ media, type, section
 		<>
 			{section === 'Default' ? (
 				<div className="max-w-[1536px] mx-auto">
-					<div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-3">
+					<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-3">
 						{media.filter(isMovieOrTV).map((media_) => (
 							<LazyMediaContainer
 								key={media_.id}
