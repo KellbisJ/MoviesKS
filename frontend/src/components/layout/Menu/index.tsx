@@ -23,7 +23,12 @@ const Menu = (): React.JSX.Element => {
 
 	const location = useLocation();
 
-	const showFilterbarPaths: string[] = ['/movie', '/tv', `/${type}/preview/genre/${id}`];
+	const showFilterbarPaths: string[] = [
+		'/movie',
+		'/tv',
+		`/movie/preview/genre/${id}`,
+		`/tv/preview/genre/${id}`,
+	];
 
 	const showFilterBar = showFilterbarPaths.includes(location.pathname);
 
