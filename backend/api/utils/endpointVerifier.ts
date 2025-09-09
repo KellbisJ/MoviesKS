@@ -6,10 +6,11 @@ function endpointVerifier(
 	proxyPath: string,
 	pathToGet: string,
 	api_key: string | undefined,
-	lang?: LanguageISOCode,
+	pageLanguageCustomHeader?: LanguageISOCode,
 	page?: string,
 	query?: string,
-	with_genres?: string
+	with_genres?: string,
+	language?: string
 ): string {
 	let url: string = '';
 
@@ -22,9 +23,9 @@ function endpointVerifier(
 	if (pathToGet.includes(proxyCleanPath)) {
 		url = `${api_url}/${proxyCleanPath}?api_key=${api_key}&include_adult=false`;
 
-		if (lang) {
-			if (!pathToGet.includes('/images')) {
-				url += `&language=${lang}`;
+		if (pageLanguageCustomHeader) {
+			if (!pathToGet.includes('/images') && !pathToGet.includes('/reviews')) {
+				url += `&language=${pageLanguageCustomHeader}`;
 			}
 		}
 
@@ -33,6 +34,8 @@ function endpointVerifier(
 		if (query) url += `&query=${query}`;
 
 		if (with_genres) url += `&with_genres=${with_genres}`;
+
+		if (language) url += `&language=${language}`;
 	}
 
 	if (!url) {

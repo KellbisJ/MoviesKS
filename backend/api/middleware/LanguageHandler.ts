@@ -6,7 +6,7 @@ const DEFAULT_LANG = 'es-MX' as LanguageISOCode;
 declare global {
 	namespace Express {
 		interface Request {
-			lang: LanguageISOCode;
+			pageLanguageCustomHeader: LanguageISOCode;
 		}
 	}
 }
@@ -14,7 +14,7 @@ declare global {
 const languageMiddleware = async (req: Request, res: Response, next: NextFunction) => {
 	const headerLang = req.header('X-LANG-CONTEXT') as LanguageISOCode;
 
-	req.lang = headerLang || DEFAULT_LANG;
+	req.pageLanguageCustomHeader = headerLang || DEFAULT_LANG;
 
 	next();
 };

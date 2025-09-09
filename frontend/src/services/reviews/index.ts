@@ -1,14 +1,33 @@
 import { api, API_MEDIA_REVIEWS } from '..';
 import { MediaTypeT } from '@/types/media-type';
 import { MediaReviewInterface } from './types';
+import { LanguageISOCode } from '@/types/languages';
 
-async function getMediaReviews(type: `${MediaTypeT}`, id: string): Promise<MediaReviewInterface> {
+async function getMediaReviews(
+	type: `${MediaTypeT}`,
+	id: string,
+	lang: LanguageISOCode
+): Promise<MediaReviewInterface> {
 	try {
-		const { data: reviews }: { data: MediaReviewInterface } = await api.get(
-			API_MEDIA_REVIEWS(type, id)
-		);
+		async function getDataMediaReviews(lang: LanguageISOCode): Promise<MediaReviewInterface> {
+			const { data: reviews }: { data: MediaReviewInterface } = await api.get(
+				API_MEDIA_REVIEWS(type, id),
+				{
+					params: {
+						language: lang,
+					},
+				}
+			);
+			return reviews;
+		}
 
-		return reviews;
+		const reviewsData = getDataMediaReviews(lang);
+
+		if ((await reviewsData).results.length === 0) {
+			return getDataMediaReviews((lang = 'en-US'));
+		} // Superficial Fallback
+
+		return reviewsData;
 	} catch (error) {
 		console.error(error);
 		throw error;

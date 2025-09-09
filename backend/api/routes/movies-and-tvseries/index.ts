@@ -52,13 +52,22 @@ const mediaRoutes: Array<{ proxyPath: string; requiresId: boolean }> = [
 const getMediaData = async (req: Request, res: Response, pathToGet: string) => {
 	const currentPath = req.originalUrl;
 
-	const { lang } = req;
+	const { pageLanguageCustomHeader } = req;
 
-	const { page, query, with_genres } = req.query as Record<string, string | undefined>;
+	const { page, query, with_genres, language } = req.query as Record<string, string | undefined>;
 
 	let api_url_req: string = '';
 
-	api_url_req = endpointVerifier(currentPath, pathToGet, api_key, lang, page, query, with_genres);
+	api_url_req = endpointVerifier(
+		currentPath,
+		pathToGet,
+		api_key,
+		pageLanguageCustomHeader,
+		page,
+		query,
+		with_genres,
+		language
+	);
 
 	try {
 		const {

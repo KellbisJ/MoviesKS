@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
 		UpcomingMoviesList: 'http://localhost:8000/api/movie/upcoming',
 		LanguagesConfig: 'http://localhost:8000/api/configuration/languages',
 		PrimaryLanguagesConfig: 'http://localhost:8000/api/configuration/primary_translations',
-		MovieReviews: 'http://localhost:8000/api/movie/550/reviews',
+		MovieReviews: 'http://localhost:8000/api/movie/550/reviews?language=es',
 		TvReviews: 'http://localhost:8000/api/tv/1399/reviews',
 	}); // Spaghetti
 });

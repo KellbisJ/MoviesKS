@@ -22,6 +22,7 @@ import { getSimilarMediaDetail } from '@/services/similar-media-detail';
 import { getMediaVideos } from '@/services/media-videos';
 import { getMediaImages } from '@/services/media-images';
 import { getMediaReviews } from '@/services/reviews';
+import { currentLanguage } from '@/context/lang';
 
 const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 	({ mediaDetail, similarGenres, isMovie, mediaType, mediaId }) => {
@@ -54,7 +55,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 							getSimilarMediaDetail(mediaType, mediaId),
 							getMediaVideos(mediaType, mediaId),
 							getMediaImages(mediaType, mediaId),
-							getMediaReviews(mediaType, mediaId),
+							getMediaReviews(mediaType, mediaId, currentLanguage),
 						]);
 					setSimilarMedia(similarMediaData);
 
