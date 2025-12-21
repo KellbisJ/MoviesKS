@@ -24,6 +24,12 @@ const SavedMedia = (): React.JSX.Element => {
 	const hasMovies = savedMedia.movies.length > 0;
 	const hasShows = savedMedia.tv.length > 0;
 
+	const LocalStorageText = React.createElement(
+		'span',
+		{ className: 'text-cyan-500' },
+		'Local Storage'
+	);
+
 	return (
 		<>
 			{loadingComponents ? (
@@ -36,9 +42,17 @@ const SavedMedia = (): React.JSX.Element => {
 								{isSpanishLang(language) ? 'Mis medios guardados' : 'My Saved Media'}
 							</h1>
 							<p className="dark:text-gray-100">
-								{isSpanishLang(language)
-									? 'Temporal, según el dispositivo digital. Este contenido multimedia se almacena en caché y solo en el navegador de ese dispositivo.'
-									: "Temporary, depending on the digital device. This media is cached and stored only on that device's browser."}
+								{isSpanishLang(language) ? (
+									<>
+										Temporal, según el dispositivo digital. Este contenido se guarda en el{' '}
+										{LocalStorageText}.
+									</>
+								) : (
+									<>
+										Temporary, depending on the digital device. This media is saved in the{' '}
+										{LocalStorageText}.
+									</>
+								)}
 							</p>
 						</div>
 
