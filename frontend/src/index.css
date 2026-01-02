@@ -31,7 +31,7 @@ h6 {
 .scrollbar-minimal::-webkit-scrollbar-thumb:hover {
 	background: #718096;
 }
-
+/* 
 @keyframes christmasLights {
 	0% {
 		background: linear-gradient(to right, #ff0e0e, #01a801, #fff707);
@@ -46,4 +46,4 @@ h6 {
 
 .christmas-lights {
 	animation: christmasLights 4s linear infinite;
-}
+} */

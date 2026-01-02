@@ -9,7 +9,7 @@ const MksHeaderContent = (): React.JSX.Element => {
 				<h1 className="text-3xl md:text-5xl font-bold text-gray-800 dark:text-gray-100 p-1">
 					MoviesKS
 				</h1>
-				<div className="absolute inset-0 christmas-lights rounded-lg opacity-20 dark:opacity-15"></div>
+				<div className="absolute inset-0 rounded-lg opacity-20 dark:opacity-15"></div>
 			</div>
 
 			<p className="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
