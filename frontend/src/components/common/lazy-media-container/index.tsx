@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { MediaContainer } from "../media-container";
 import {
@@ -19,9 +19,11 @@ const LazyMediaContainer: React.FC<LazyMediaContainerProps> = ({
   mediaImageId,
 }) => {
   const pxIntersection =
-    containerType === "Normal" || containerType === "Images"
+    containerType === "Normal"
       ? "0px 0px"
-      : "200px 0px";
+      : containerType === "Images"
+        ? "0px 0px"
+        : "200px 0px";
 
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -29,18 +31,7 @@ const LazyMediaContainer: React.FC<LazyMediaContainerProps> = ({
   });
 
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
-
-  const hasLoaded = useRef<boolean>(false);
-
-  useEffect(() => {
-    if (inView && !hasLoaded.current) {
-      const timer = setTimeout(() => {
-        hasLoaded.current = true;
-        setIsLoaded(true);
-      }, 150);
-      return () => clearTimeout(timer);
-    }
-  }, [inView]);
+  const isMounted = useRef<boolean>(true);
 
   const containerStyles = useMemo(() => {
     switch (containerType) {
@@ -67,7 +58,30 @@ const LazyMediaContainer: React.FC<LazyMediaContainerProps> = ({
   const variantForMediaContainer =
     containerType === "Minimal" ? "Minimal" : "Default";
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (inView && isMounted.current) {
+        setIsLoaded(true);
+      }
+    }, 150);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [inView]);
+
   const renderContent = () => {
+    if (!inView || !isLoaded) {
+      if (
+        containerType === "Normal" ||
+        containerType === "Similar" ||
+        containerType === "Images"
+      ) {
+        return <SingleMediaSkeleton />;
+      }
+      return <MediaHomeSkeleton />;
+    }
+
     if (
       containerType === "Normal" ||
       containerType === "Similar" ||
@@ -103,20 +117,9 @@ const LazyMediaContainer: React.FC<LazyMediaContainerProps> = ({
     return <div className="text-red-500">Unhandled container type</div>;
   };
 
-  const renderSkeleton = () => {
-    if (
-      containerType === "Normal" ||
-      containerType === "Similar" ||
-      containerType === "Images"
-    ) {
-      return <SingleMediaSkeleton />;
-    }
-    return <MediaHomeSkeleton />;
-  };
-
   return (
     <div ref={ref} className={containerStyles} style={dynamicStyles}>
-      {!isLoaded ? renderSkeleton() : renderContent()}
+      {renderContent()}
     </div>
   );
 };
