@@ -48,7 +48,7 @@ const CreateMedia: React.FC<CreateMediaPropsInterface> = ({
     <>
       {section === "Default" ? (
         <div className="max-w-[1536px] mx-auto">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {filteredMedia.map(handleMediaRender)}
           </div>
         </div>

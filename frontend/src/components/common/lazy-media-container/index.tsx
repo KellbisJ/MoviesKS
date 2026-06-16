@@ -24,7 +24,7 @@ const LazyMediaContainer: React.FC<LazyMediaContainerProps> = ({
   });
 
   const containerStyles = useMemo(() => {
-    const base = "transition-opacity duration-300 w-full h-full";
+    const base = "w-full h-[280px]";
     switch (containerType) {
       case "Normal":
       case "Similar":
