@@ -3,19 +3,20 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
   "scripts": {
-    "dev": "pnpm --filter=./backend --filter=./frontend dev",
-    "dev:backend": "pnpm --filter ./backend dev",
-    "dev:frontend": "pnpm --filter ./frontend dev",
-    "build:frontend": "pnpm --filter ./frontend... build",
+    "dev": "concurrently \"bun run --cwd frontend dev\" \"bun run --cwd backend dev\"",
+    "dev:backend": "bun run --cwd backend dev",
+    "dev:frontend": "bun run --cwd frontend dev",
+    "build:frontend": "bun run --cwd frontend build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "packageManager": "pnpm@11.7.0",
   "engines": {
-    "node": "22.x"
+    "node": ">=22.x"
   },
   "pnpm": {
     "peerDependencyRules": {
@@ -24,5 +25,7 @@
       }
     }
   },
-  "type": "module"
+  "devDependencies": {
+    "concurrently": "^10.0.3"
+  }
 }

@@ -1,5 +1,0 @@
-packages:
-  - "frontend"
-  - "backend"
-allowBuilds:
-  esbuild: false

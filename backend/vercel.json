@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "installCommand": "pnpm install",
+  "installCommand": "bun install",
   "builds": [
     {
       "src": "index.ts",
