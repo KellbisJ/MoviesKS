@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from "react";
+import React, { useMemo, useCallback, memo } from "react";
 import { CreateMediaPropsInterface } from "./types";
 import { MovieInterface, TVInterface } from "@/types/movie-and-tv-interface";
 import {
@@ -20,47 +20,45 @@ const isMovieOrTV = (
   );
 };
 
-const CreateMedia: React.FC<CreateMediaPropsInterface> = ({
-  media,
-  type,
-  section = "Default",
-}) => {
-  const filteredMedia = useMemo(() => {
-    if (!Array.isArray(media)) return [];
-    return media.filter(isMovieOrTV);
-  }, [media]);
+const CreateMedia: React.FC<CreateMediaPropsInterface> = memo(
+  ({ media, type, section = "Default" }) => {
+    const filteredMedia = useMemo(() => {
+      if (!Array.isArray(media)) return [];
+      return media.filter(isMovieOrTV);
+    }, [media]);
 
-  const handleMediaRender = useCallback(
-    (mediaItem: (typeof filteredMedia)[number]) => (
-      <LazyMediaContainer
-        key={mediaItem.id}
-        media_={mediaItem}
-        type={type}
-        containerType={section === "Default" ? "Normal" : "Minimal"}
-      />
-    ),
-    [type, section]
-  );
+    const handleMediaRender = useCallback(
+      (mediaItem: (typeof filteredMedia)[number]) => (
+        <LazyMediaContainer
+          key={mediaItem.id}
+          media_={mediaItem}
+          type={type}
+          containerType={section === "Default" ? "Normal" : "Minimal"}
+        />
+      ),
+      [type, section]
+    );
 
-  if (!section) return <p>No section specified on CreateMedia</p>;
+    if (!section) return <p>No section specified on CreateMedia</p>;
 
-  return (
-    <>
-      {section === "Default" ? (
-        <div className="max-w-[1536px] mx-auto">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {filteredMedia.map(handleMediaRender)}
+    return (
+      <>
+        {section === "Default" ? (
+          <div className="max-w-[1536px] mx-auto">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              {filteredMedia.map(handleMediaRender)}
+            </div>
           </div>
-        </div>
-      ) : (
-        <div className="w-full overflow-x-auto overflow-y-hidden scrollbar-minimal bg-blue-100 dark:bg-[#14273c] rounded-lg">
-          <div className="flex space-x-4 p-3">
-            {filteredMedia.map(handleMediaRender)}
+        ) : (
+          <div className="w-full overflow-x-auto overflow-y-hidden scrollbar-minimal bg-blue-100 dark:bg-[#14273c] rounded-lg translate-z-0 overscroll-x-contain">
+            <div className="flex space-x-4 p-3">
+              {filteredMedia.map(handleMediaRender)}
+            </div>
           </div>
-        </div>
-      )}
-    </>
-  );
-};
+        )}
+      </>
+    );
+  }
+);
 
 export { CreateMedia };
