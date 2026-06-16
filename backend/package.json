@@ -1,5 +1,6 @@
 {
   "name": "moviesks-backend",
+  "version": "1.0.0",
   "description": "Backend del proyecto MoviesKS",
   "main": "index.js",
   "scripts": {
