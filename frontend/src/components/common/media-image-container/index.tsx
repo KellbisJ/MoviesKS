@@ -130,7 +130,7 @@ const MediaImageContainer = ({
       {/* Image Viewer Modal */}
       {viewerIndex !== null && (
         <div
-          className={`fixed inset-0 z-[9999] flex items-center justify-center bg-black bg-opacity-90 transition-opacity duration-300 ${
+          className={`fixed inset-0 z-9999 flex items-center justify-center bg-black bg-opacity-90 transition-opacity duration-300 ${
             isViewerClosing ? "opacity-0" : "opacity-100"
           }`}
           onClick={closeViewer}>
