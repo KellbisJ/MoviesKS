@@ -1,13 +1,11 @@
 {
-	"version": 2,
-	"builds": [
-		{
-			"src": "index.ts",
-			"use": "@vercel/node",
-			"config": {
-				"includeFiles": ["**/*.ts", "**/*.json"]
-			}
-		}
-	],
-	"routes": [{ "src": "/api/(.*)", "dest": "/index.ts" }]
+  "version": 2,
+  "installCommand": "pnpm install",
+  "builds": [
+    {
+      "src": "index.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [{ "src": "/api/(.*)", "dest": "/index.ts" }]
 }

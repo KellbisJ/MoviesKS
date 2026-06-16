@@ -8,6 +8,7 @@
   },
   "author": "Kellbis Salazar",
   "license": "MIT",
+  "packageManager": "pnpm@11.3.0",
   "dependencies": {
     "cors": "^2.8.6",
     "express": "^5.2.1",
