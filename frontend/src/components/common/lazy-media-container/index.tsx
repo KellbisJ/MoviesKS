@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useMemo } from "react";
 import { useInView } from "react-intersection-observer";
 import { MediaContainer } from "../media-container";
 import {
@@ -18,26 +18,17 @@ const LazyMediaContainer: React.FC<LazyMediaContainerProps> = ({
   allImages,
   mediaImageId,
 }) => {
-  const pxIntersection =
-    containerType === "Normal"
-      ? "0px 0px"
-      : containerType === "Images"
-        ? "0px 0px"
-        : "200px 0px";
-
   const { ref, inView } = useInView({
     triggerOnce: true,
-    rootMargin: pxIntersection,
+    rootMargin: "200px 0px",
   });
 
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const isMounted = useRef<boolean>(true);
-
   const containerStyles = useMemo(() => {
+    const base = "transition-opacity duration-300 w-full h-full";
     switch (containerType) {
       case "Normal":
       case "Similar":
-        return "w-full h-36 sm:h-60 md:h-80 xl:h-[400px] transition-opacity duration-500";
+        return `${base} h-36 sm:h-60 md:h-80 xl:h-[400px]`;
       case "Minimal":
         return "flex-shrink-0 w-32 h-48 md:w-48 md:h-60 2xl:w-60 2xl:h-80";
       case "Images":
@@ -49,77 +40,41 @@ const LazyMediaContainer: React.FC<LazyMediaContainerProps> = ({
 
   const dynamicStyles = useMemo(
     () => ({
-      ...(colSpan !== undefined && { gridColumn: `span ${colSpan}` }),
-      ...(mediaImg?.aspect_ratio && { aspectRatio: mediaImg.aspect_ratio }),
+      gridColumn: colSpan ? `span ${colSpan}` : undefined,
+      aspectRatio: mediaImg?.aspect_ratio ?? "auto",
     }),
     [colSpan, mediaImg?.aspect_ratio]
   );
 
-  const variantForMediaContainer =
-    containerType === "Minimal" ? "Minimal" : "Default";
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (inView && isMounted.current) {
-        setIsLoaded(true);
-      }
-    }, 150);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [inView]);
-
-  const renderContent = () => {
-    if (!inView || !isLoaded) {
-      if (
-        containerType === "Normal" ||
-        containerType === "Similar" ||
-        containerType === "Images"
-      ) {
-        return <SingleMediaSkeleton />;
-      }
-      return <MediaHomeSkeleton />;
-    }
-
-    if (
-      containerType === "Normal" ||
-      containerType === "Similar" ||
-      containerType === "Minimal"
-    ) {
-      if (media_ && type) {
-        return (
-          <MediaContainer
-            media_={media_}
-            type={type}
-            variant={variantForMediaContainer}
-          />
-        );
-      }
-      return <div className="text-red-500">Missing media or type</div>;
-    }
-
-    if (containerType === "Images") {
-      if (mediaImg && colSpan && imgUrl && allImages && mediaImageId) {
-        return (
-          <MediaImageContainer
-            mediaImg={mediaImg}
-            colSpan={colSpan}
-            imgUrl={imgUrl}
-            allImages={allImages}
-            mediaImageId={mediaImageId}
-          />
-        );
-      }
-      return <div className="text-red-500">No images available</div>;
-    }
-
-    return <div className="text-red-500">Unhandled container type</div>;
-  };
-
   return (
     <div ref={ref} className={containerStyles} style={dynamicStyles}>
-      {renderContent()}
+      {inView ? (
+        containerType === "Images" ? (
+          mediaImg ? (
+            <MediaImageContainer
+              mediaImg={mediaImg}
+              colSpan={colSpan!}
+              imgUrl={imgUrl!}
+              allImages={allImages!}
+              mediaImageId={mediaImageId!}
+            />
+          ) : (
+            <div className="text-red-500">No images</div>
+          )
+        ) : (
+          <MediaContainer
+            media_={media_!}
+            type={type!}
+            variant={containerType === "Minimal" ? "Minimal" : "Default"}
+          />
+        )
+      ) : containerType === "Normal" ||
+        containerType === "Similar" ||
+        containerType === "Images" ? (
+        <SingleMediaSkeleton />
+      ) : (
+        <MediaHomeSkeleton />
+      )}
     </div>
   );
 };

@@ -39,8 +39,8 @@ const MediaContainer: React.FC<MediaContainerPropsInterface> = ({
 
   const containerClasses =
     variant === "Minimal"
-      ? "group relative w-full h-full rounded-lg transition-transform duration-300 hover:scale-105 active:scale-[1.03] p-2"
-      : "group w-full h-full flex flex-col relative";
+      ? "group relative w-full h-full rounded-lg transition-transform duration-300 hover:scale-105 active:scale-[1.03] p-2 animate-fade-in"
+      : "group w-full h-full flex flex-col relative animate-fade-in";
 
   const aspectClass =
     variant === "Minimal"
