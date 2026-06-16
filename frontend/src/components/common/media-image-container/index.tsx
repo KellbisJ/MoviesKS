@@ -111,7 +111,7 @@ const MediaImageContainer = ({
         onLoad={(e) => (e.currentTarget.style.opacity = "1")}
       />
 
-      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+      <div className="absolute inset-0 bg-black/80 bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
         <div className="text-white text-center p-2">
           <p className="font-bold">
             {mediaImg.type === "backdrop" ? "Backdrop" : "Poster"}
@@ -130,7 +130,7 @@ const MediaImageContainer = ({
       {/* Image Viewer Modal */}
       {viewerIndex !== null && (
         <div
-          className={`fixed inset-0 z-9999 flex items-center justify-center bg-black bg-opacity-90 transition-opacity duration-300 ${
+          className={`fixed inset-0 z-9999 flex items-center justify-center bg-black transition-opacity duration-300 ${
             isViewerClosing ? "opacity-0" : "opacity-100"
           }`}
           onClick={closeViewer}>
