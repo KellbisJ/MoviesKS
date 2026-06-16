@@ -1,21 +1,21 @@
 {
-	"compilerOptions": {
-		"target": "ES6",
-		"module": "commonjs",
-		"outDir": "./dist",
-		"rootDir": "./",
-		"strict": true,
-		"esModuleInterop": true,
-		"skipLibCheck": true,
-		"forceConsistentCasingInFileNames": true,
-		"moduleResolution": "node",
-		"resolveJsonModule": true,
-		"allowSyntheticDefaultImports": true,
-		"noImplicitAny": true,
-		"noImplicitReturns": true,
-		"typeRoots": ["./node_modules/@types", "./api/types"],
-		"types": ["express"]
-	},
-	"include": ["/**/*", "api/**/*"],
-	"exclude": ["node_modules", "dist"]
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "nodenext",
+    "outDir": "./dist",
+    "rootDir": "./",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "nodenext",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "typeRoots": ["./node_modules/@types", "./api/types"],
+    "types": ["express"]
+  },
+  "include": ["/**/*", "api/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

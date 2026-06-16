@@ -213,5 +213,7 @@ $RECYCLE.BIN/
 *.lnk
 *.vercel
 
+
+.continue
 # Auth
 # src/auth.js

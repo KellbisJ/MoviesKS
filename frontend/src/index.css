@@ -1,11 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 body {
-	/* font-family: 'Roboto Mono', monospace; */
-	font-family: 'Inter', sans-serif;
-	background-color: #000;
+  /* font-family: 'Roboto Mono', monospace; */
+  font-family: "Inter", sans-serif;
+  background-color: #000;
 }
 
 h1,
@@ -14,22 +12,22 @@ h3,
 h4,
 h5,
 h6 {
-	font-family: 'Inter', sans-serif;
-	font-weight: 700;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
 }
 
 .scrollbar-minimal::-webkit-scrollbar {
-	height: 6px;
-	background: transparent;
+  height: 6px;
+  background: transparent;
 }
 
 .scrollbar-minimal::-webkit-scrollbar-thumb {
-	background: #4a5568;
-	border-radius: 3px;
+  background: #4a5568;
+  border-radius: 3px;
 }
 
 .scrollbar-minimal::-webkit-scrollbar-thumb:hover {
-	background: #718096;
+  background: #718096;
 }
 /* 
 @keyframes christmasLights {

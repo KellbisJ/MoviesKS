@@ -1,0 +1,23 @@
+{
+  "name": "MoviesKS",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "pnpm --filter=./backend --filter=./frontend dev",
+    "dev:backend": "pnpm --filter ./backend dev",
+    "dev:frontend": "pnpm --filter ./frontend dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "^11.3.0",
+      "onFail": "download"
+    }
+  },
+  "type": "module"
+}
