@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { MediaImagesContainerProps } from "./types";
-import { MediaImagesInterface } from "@/services/media-images/types";
 import { MediaImageT } from "@/components/specific/create-media-images";
 import { ChevronLeft, ChevronRight, Expand, X } from "lucide-react";
+import { useWindowSize } from "@/hooks/use-window-size";
 
 const MediaImageContainer = ({
   mediaImg,
@@ -19,8 +18,10 @@ const MediaImageContainer = ({
 }): React.JSX.Element => {
   // console.log(mediaImg);
 
+  const [clicked, setClicked] = useState<boolean>(false);
   const [viewerIndex, setViewerIndex] = useState<number | null>(null);
   const [isViewerClosing, setIsViewerClosing] = useState(false);
+  const { isMobile } = useWindowSize();
 
   const getCurrentIndex = useCallback(() => {
     return allImages.findIndex((img) => img.file_path === mediaImg.file_path);
@@ -98,7 +99,7 @@ const MediaImageContainer = ({
 
   return (
     <div
-      className="relative overflow-hidden rounded-lg shadow-lg group w-full h-full"
+      className="relative overflow-hidden rounded-lg shadow-lg w-full h-full"
       style={{
         gridColumn: `span ${colSpan}`,
         aspectRatio: mediaImg.aspect_ratio,
@@ -111,7 +112,11 @@ const MediaImageContainer = ({
         onLoad={(e) => (e.currentTarget.style.opacity = "1")}
       />
 
-      <div className="absolute inset-0 bg-black/80 bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+      <div
+        className={`absolute inset-0 bg-black/80 opacity-0 hover:opacity-100 transition-all duration-300 flex items-center justify-center z-200 ${clicked && "opacity-100"}`}
+        onClick={() => {
+          if (isMobile) setClicked(!clicked);
+        }}>
         <div className="text-white text-center p-2">
           <p className="font-bold">
             {mediaImg.type === "backdrop" ? "Backdrop" : "Poster"}
@@ -122,7 +127,7 @@ const MediaImageContainer = ({
         </div>
         <Expand
           onClick={openViewer}
-          className="absolute top-2 right-2 text-white cursor-pointer hover:scale-110 transition-transform"
+          className={`absolute top-2 right-2 text-white cursor-pointer hover:scale-110 transition-transform`}
           size={22}
         />
       </div>
