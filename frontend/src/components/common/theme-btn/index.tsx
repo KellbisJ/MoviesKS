@@ -7,11 +7,11 @@ const ThemeBtn = (): React.JSX.Element => {
   return (
     <button
       type="button"
-      className="p-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg text-gray-600 dark:text-gray-300 hover:text-gray-300 hover:bg-[#16C47F] dark:hover:bg-[#16C47F] transition-colors duration-200 cursor-pointer"
+      className="p-1.5 bg-surface-1 dark:bg-dark-surface-1 rounded-lg text-text-low dark:text-dark-text-low hover:text-text-high hover:bg-accent transition-colors duration-200 cursor-pointer"
       onClick={() => setIsDarkMode(!isDarkMode)}
       aria-label={isDarkMode ? "Light mode" : "Dark mode"}>
       {isDarkMode ? (
-        <Sun className="text-yellow-500" size={20} />
+        <Sun className="text-accent" size={20} />
       ) : (
         <Moon size={20} />
       )}

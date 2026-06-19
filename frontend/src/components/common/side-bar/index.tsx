@@ -19,16 +19,16 @@ const SideBar: React.FC<SideBarPropsInterface> = ({
           <div
             className="fixed inset-0 bg-slate-800 bg-opacity-50 backdrop-blur-md z-100 min-h-screen"
             onClick={toggleSideBar}></div>
-          <div className="flex fixed bg-white/80 dark:bg-[#1E1A2F] top-0 left-0 w-3/6 sm:w-2/5 min-h-screen overflow-hidden transition duration-500 z-101 text-black dark:text-gray-100">
+          <div className="flex fixed bg-surface-1 dark:bg-dark-surface-1 top-0 left-0 w-3/6 sm:w-2/5 min-h-screen overflow-hidden transition duration-500 z-101 text-text-high dark:text-dark-text-high">
             <ul className="flex flex-col items-start w-full max-w-xs gap-2 mt-20 px-4 text-base">
               <li className="w-full">
                 <button
                   type="button"
                   className="flex items-center w-full gap-3 px-4 py-3 rounded-lg transition-all 
-                       duration-200 hover:bg-gray-100 dark:hover:bg-gray-700
-                       text-gray-700 hover:text-cyan-500 
-                       dark:text-gray-300 dark:hover:text-cyan-400
-                       focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500"
+                       duration-200 hover:bg-surface-2 dark:hover:bg-dark-surface-2
+                       text-text-high hover:text-accent 
+                       dark:text-dark-text-high dark:hover:text-dark-accent
+                       focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                   aria-label="Toggle theme"
                   onClick={() => setIsDarkMode(!isDarkMode)}>
                   {isDarkMode ? (
@@ -76,11 +76,11 @@ const SideBar: React.FC<SideBarPropsInterface> = ({
                   <Link
                     to={to}
                     className="flex items-center w-full gap-3 px-4 py-3 rounded-lg transition-all 
-                           duration-200 hover:bg-gray-100 dark:hover:bg-gray-800
-                           text-gray-700 hover:text-cyan-500 
-                           dark:text-gray-300 dark:hover:text-cyan-400
-                           focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500
-                           [&.active]:text-cyan-500 [&.active]:dark:text-cyan-400"
+                         duration-200 hover:bg-surface-2 dark:hover:bg-dark-surface-2
+                         text-text-high hover:text-accent 
+                         dark:text-dark-text-high dark:hover:text-dark-accent
+                         focus:outline-none focus-visible:ring-2 focus-visible:ring-accent
+                         [&.active]:text-accent [&.active]:dark:text-dark-accent"
                     aria-label={aria}
                     onClick={toggle}>
                     <Icon size={22} className="shrink-0" />

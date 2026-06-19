@@ -5,7 +5,7 @@ import { useLanguages } from "@/context/lang";
 const Footer = (): React.JSX.Element => {
   const { language } = useLanguages();
   return (
-    <footer className="bg-transparent text-gray-700 dark:text-white text-center py-5 w-full min-h-72 h-72 text-base p-2 transition mb-12 lg:mb-0">
+    <footer className="bg-bg-main dark:bg-dark-bg-main text-text-low dark:text-dark-text-low text-center py-5 w-full min-h-72 h-72 text-base p-2 transition mb-12 lg:mb-0">
       <div className="flex flex-col justify-end w-full h-full gap-2">
         <p className="m-0">
           {isSpanishLang(language)
@@ -13,7 +13,7 @@ const Footer = (): React.JSX.Element => {
             : "This website was created using"}{" "}
           <a
             href="https://www.themoviedb.org/documentation/api"
-            className="no-underline transition-colors duration-300 hover:text-cyan-400 dark:hover:text-cyan-400">
+            className="no-underline transition-colors duration-300 hover:text-accent dark:hover:text-dark-accent">
             TheMovieDB API
           </a>
         </p>
@@ -27,16 +27,9 @@ const Footer = (): React.JSX.Element => {
             href="https://github.com/KellbisJ/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#9fa6b0] hover:text-cyan-400 dark:hover:text-cyan-400 no-underline text-sm  transition-colors duration-300 flex items-center justify-center">
+            className="text-secondary dark:text-dark-secondary hover:text-accent dark:hover:text-dark-accent no-underline text-sm  transition-colors duration-300 flex items-center justify-center">
             GitHub
           </a>
-          {/* <a
-						href="https://www.linkedin.com/in/kellbis-salazar-arnaez-3a844833a/"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="text-[#9fa6b0] hover:text-cyan-400 dark:hover:text-cyan-400 no-underline text-sm transition-colors duration-300 flex items-center justify-center">
-						LinkedIn
-					</a> */}
         </div>
       </div>
     </footer>

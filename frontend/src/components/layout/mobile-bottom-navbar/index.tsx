@@ -191,7 +191,7 @@ const MobileBottomNavBar = (): React.JSX.Element => {
             <input
               type="text"
               placeholder={`Search ${mediaType === MediaTypeT.movie ? "Movies" : "TV Series"}`}
-              className="w-full px-6 py-2 bg-transparent outline-none rounded-full placeholder-text-low dark:placeholder-dark-text-low text-sm transition-all"
+              className="w-full px-6 py-2 bg-transparent outline-none rounded-full placeholder-text-low dark:placeholder-dark-text-low text-sm transition-all text-text-high dark:text-dark-text-high"
               value={searchQuery}
               onChange={(e) => updateSearchQuery(e.target.value)}
               name="BottomNavbarInputSearchMedia"

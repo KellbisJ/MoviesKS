@@ -10,10 +10,10 @@ const TranslateBtn = ({
   return (
     <button
       type="button"
-      className={`cursor-pointer p-1.5 rounded-lg dark:text-gray-300 hover:text-gray-300 hover:bg-[#16C47F] dark:hover:bg-[#16C47F] transition-colors duration-200 ${
+      className={`cursor-pointer p-1.5 rounded-lg dark:text-dark-text-low hover:text-text-high hover:bg-accent transition-colors duration-200 ${
         showLangSidebar
-          ? "bg-[#16C47F] text-gray-300"
-          : "bg-gray-200 dark:bg-gray-700 text-gray-600"
+          ? "bg-accent text-text-high"
+          : "bg-surface-1 dark:bg-dark-surface-1 text-text-low"
       }`}
       aria-label={"translate"}
       onClick={() => {
