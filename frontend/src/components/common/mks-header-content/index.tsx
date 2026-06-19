@@ -6,13 +6,13 @@ const MksHeaderContent = (): React.JSX.Element => {
   return (
     <div className="flex flex-col items-center gap-1 text-center mt-4 mb-4">
       <div className="relative mb-2">
-        <h1 className="text-3xl md:text-5xl font-bold text-gray-800 dark:text-gray-100 p-1">
+        <h1 className="text-3xl md:text-5xl font-bold text-text-high dark:text-dark-text-high p-1">
           MoviesKS
         </h1>
-        <div className="absolute inset-0 rounded-lg opacity-20 dark:opacity-15"></div>
+        <div className="absolute inset-0 rounded-lg opacity-20 dark:opacity-15 bg-bg-main dark:bg-dark-bg-main"></div>
       </div>
 
-      <p className="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto my-4">
+      <p className="text-lg text-text-low dark:text-dark-text-low max-w-2xl mx-auto my-4">
         {isSpanishLang(language)
           ? `Explora y descubre información detallada sobre tus películas y series favoritas.
 								Solo explora y recopila información.`

@@ -86,9 +86,9 @@ const MobileBottomNavBar = (): React.JSX.Element => {
   ];
 
   return (
-    <nav className="fixed bottom-0 h-12 w-full bg-[#222831] backdrop-blur-sm shadow-md z-100 lg:hidden">
+    <nav className="fixed bottom-0 h-12 w-full bg-surface-1 dark:bg-dark-surface-1 backdrop-blur-sm shadow-md z-100 lg:hidden">
       {/* Navbar accessibility menu */}
-      <div className="flex justify-around w-full h-full items-center text-gray-300">
+      <div className="flex justify-around w-full h-full items-center text-text-low dark:text-dark-text-low">
         <Globe
           size={21}
           onClick={() => {
@@ -113,7 +113,7 @@ const MobileBottomNavBar = (): React.JSX.Element => {
 
       {/* Navigation Menu Overlay */}
       <div
-        className={`fixed bottom-12 left-0 right-0 h-12 bg-[#222831] transition-all duration-300 ease-out ${
+        className={`fixed bottom-12 left-0 right-0 h-12 bg-surface-1 dark:bg-dark-surface-1 transition-all duration-300 ease-out ${
           showNavigationPathsBottomMenu
             ? "translate-y-0 opacity-100"
             : "translate-y-full opacity-0 pointer-events-none"
@@ -125,8 +125,8 @@ const MobileBottomNavBar = (): React.JSX.Element => {
               to={item.to}
               className={`flex flex-col items-center gap-1 text-xs transition-colors duration-200 ${
                 underlinePath(item.base, location)
-                  ? "text-[#16C47F]"
-                  : "text-gray-300 hover:text-[#16C47F]"
+                  ? "text-accent dark:text-dark-accent"
+                  : "text-text-low dark:text-dark-text-low hover:text-accent dark:hover:text-dark-accent"
               }`}
               aria-label={item.label}>
               <item.icon size={18} className="shrink-0" />
@@ -136,8 +136,8 @@ const MobileBottomNavBar = (): React.JSX.Element => {
           <div
             className={`flex flex-col items-center gap-1 text-xs transition-colors duration-200 ${
               underlinePath("/search", location)
-                ? "text-[#16C47F]"
-                : "text-gray-300"
+                ? "text-accent dark:text-dark-accent"
+                : "text-text-low dark:text-dark-text-low"
             } `}
             onClick={() => {
               setShowSearchBar((prev) => !prev);
@@ -153,7 +153,7 @@ const MobileBottomNavBar = (): React.JSX.Element => {
 
       {/* Settings Menu Overlay */}
       <div
-        className={`fixed bottom-12 left-0 right-0 h-12 bg-[#222831] transition-all duration-300 ease-out ${
+        className={`fixed bottom-12 left-0 right-0 h-12 bg-surface-1 dark:bg-dark-surface-1 transition-all duration-300 ease-out ${
           showSettingsBottomMenu
             ? "translate-y-0 opacity-100"
             : "translate-y-full opacity-0 pointer-events-none"
@@ -166,7 +166,7 @@ const MobileBottomNavBar = (): React.JSX.Element => {
               setShowLangSideBar={setShowLangSideBar}
             />
             <div
-              className={`absolute bottom-80 -right-4 rounded-lg shadow-lg transition-all duration-200 ease-out ${
+              className={`absolute bottom-80 -right-4 rounded-lg shadow-lg transition-all duration-200 ease-out bg-surface-1 dark:bg-dark-surface-1 ${
                 showLangSidebar
                   ? "opacity-100 scale-100"
                   : "opacity-0 scale-95 pointer-events-none"
@@ -179,7 +179,7 @@ const MobileBottomNavBar = (): React.JSX.Element => {
 
       {/* Search Bar */}
       <div
-        className={`fixed bottom-12 left-0 right-0 h-12 bg-[#222831] transition-all duration-300 ease-out ${
+        className={`fixed bottom-12 left-0 right-0 h-12 bg-surface-1 dark:bg-dark-surface-1 transition-all duration-300 ease-out ${
           showSearchBar
             ? "translate-y-0 opacity-100"
             : "translate-y-full opacity-0 pointer-events-none"
@@ -187,19 +187,22 @@ const MobileBottomNavBar = (): React.JSX.Element => {
         <div className="flex justify-center items-center h-full px-2">
           <form
             onSubmit={(e) => handleSearch2(e, searchQuery, mediaType, navigate)}
-            className="relative flex items-center w-4/5 max-w-xl bg-gray-100 dark:bg-gray-700 rounded-full transition-all focus-within:ring-2 focus-within:ring-[#16C47F]">
+            className="relative flex items-center w-4/5 max-w-xl bg-surface-2 dark:bg-dark-surface-2 rounded-full transition-all focus-within:ring-2 focus-within:ring-accent dark:focus-within:ring-dark-accent">
             <input
               type="text"
               placeholder={`Search ${mediaType === MediaTypeT.movie ? "Movies" : "TV Series"}`}
-              className="w-full px-6 py-2 bg-transparent outline-none rounded-full placeholder-gray-500 dark:placeholder-gray-400 text-sm transition-all"
+              className="w-full px-6 py-2 bg-transparent outline-none rounded-full placeholder-text-low dark:placeholder-dark-text-low text-sm transition-all"
               value={searchQuery}
               onChange={(e) => updateSearchQuery(e.target.value)}
               name="BottomNavbarInputSearchMedia"
             />
             <button
               type="submit"
-              className="p-2 mr-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-              <Search size={20} className="text-gray-600 dark:text-gray-300" />
+              className="p-2 mr-2 rounded-full hover:bg-surface-2 dark:hover:bg-dark-surface-2 transition-colors">
+              <Search
+                size={20}
+                className="text-text-low dark:text-dark-text-low"
+              />
             </button>
           </form>
         </div>

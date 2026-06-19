@@ -32,7 +32,7 @@ const HomeViewContent: React.FC<HomeViewContentInterfaceProps> = memo(
                   className="space-y-2 mt-12"
                   role="region"
                   lang="es">
-                  <h3 className="text-gray-700 dark:text-gray-300">
+                  <h3 className="text-primary dark:text-dark-primary">
                     {section.title}
                   </h3>
                   {isLoadingMedia ? (

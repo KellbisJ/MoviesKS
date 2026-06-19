@@ -75,7 +75,7 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
     updateMediaType(
       location.pathname.includes("/tv") ? MediaTypeT.tv : MediaTypeT.movie
     );
-  }, [location, updateMediaType]); // updating mediatype to search
+  }, [location, updateMediaType]);
 
   useEffect(() => {
     Scroll0();
@@ -105,7 +105,7 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
 
   return (
     <>
-      <nav className="hidden lg:flex justify-between items-center fixed top-0 w-full px-8 bg-white/80 dark:bg-[#1e1a2fe7] backdrop-blur-sm z-1000 shadow-md h-16 text-gray-700 dark:text-stone-100 transition">
+      <nav className="hidden lg:flex justify-between items-center fixed top-0 w-full px-8 bg-surface-3/80 dark:bg-dark-surface-3/80 backdrop-blur-sm z-1000 shadow-md h-16 text-text-high dark:text-dark-text-high transition">
         <div className="flex items-center gap-6 xl:gap-8 flex-1">
           <Link to="/" className="text-2xl font-bold">
             <span className="flex items-center gap-2">
@@ -119,10 +119,10 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
               <Link
                 key={item.to}
                 to={item.to}
-                className={`flex items-center gap-2 hover:text-[#16C47F] transition-colors duration-200 text-sm ${
+                className={`flex items-center gap-2 hover:text-accent transition-colors duration-200 text-sm ${
                   underlinePath(item.base, location)
-                    ? "text-[#16C47F]"
-                    : "text-gray-600 dark:text-gray-300 hover:text-[#16C47F] dark:hover:text-[#16C47F]"
+                    ? "text-accent"
+                    : "text-text-low dark:text-dark-text-low hover:text-accent dark:hover:text-accent"
                 }`}>
                 <item.icon size={18} className="shrink-0" />
                 {item.label}
@@ -134,19 +134,22 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
         <div className="flex items-center gap-4 xl:gap-6 flex-1 justify-end">
           <form
             onSubmit={(e) => handleSearch2(e, searchQuery, mediaType, navigate)}
-            className="relative flex items-center w-4/5 max-w-xl bg-gray-100 dark:bg-gray-700 rounded-full transition-all focus-within:ring-2 focus-within:ring-[#16C47F]">
+            className="relative flex items-center w-4/5 max-w-xl bg-surface-1 dark:bg-dark-surface-1 rounded-full transition-all focus-within:ring-2 focus-within:ring-accent">
             <input
               type="text"
               placeholder={`Search ${mediaType === MediaTypeT.movie ? "Movies" : "TV Series"}`}
-              className="w-full px-6 py-2 bg-transparent outline-none rounded-full placeholder-gray-500 dark:placeholder-gray-400 text-sm transition-all"
+              className="w-full px-6 py-2 bg-transparent outline-none rounded-full placeholder-text-low dark:placeholder-dark-text-low text-sm transition-all"
               value={searchQuery}
               onChange={(e) => updateSearchQuery(e.target.value)}
               name="2ndNavbarInputSearchMedia"
             />
             <button
               type="submit"
-              className="p-2 mr-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-              <Search size={20} className="text-gray-600 dark:text-gray-300" />
+              className="p-2 mr-2 rounded-full hover:bg-surface-2 dark:hover:bg-dark-surface-2 transition-colors">
+              <Search
+                size={20}
+                className="text-text-low dark:text-dark-text-low"
+              />
             </button>
           </form>
 

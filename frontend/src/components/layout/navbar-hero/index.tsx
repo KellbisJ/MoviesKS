@@ -74,15 +74,13 @@ const NavbarHero = (): React.JSX.Element => {
     },
   ];
 
-  // #16C47F good green color
-
   return (
     <>
       {/* Desktop*/}
-      <nav className="hidden lg:block bg-transparent  transition h-12 sm:h-14 w-full">
+      <nav className="hidden lg:block bg-bg-main dark:bg-dark-bg-main transition-colors duration-300 h-12 sm:h-14 w-full">
         <div className="container mx-auto px-4 sm:px-6 py-3">
           <div className="flex items-start sm:items-center sm:justify-between">
-            <span className="hidden sm:block text-xl font-bold text-gray-800 dark:text-gray-100 transition-colors duration-300">
+            <span className="hidden sm:block text-xl font-bold text-text-high dark:text-dark-text-high transition-colors duration-300">
               <Link to="/">MoviesKS</Link>
             </span>
 
@@ -94,8 +92,8 @@ const NavbarHero = (): React.JSX.Element => {
                   to={item.to}
                   className={`flex items-center gap-2 transition-colors duration-200 text-sm ${
                     underlinePath(item.base, location)
-                      ? "text-[#16C47F]"
-                      : "text-gray-600 dark:text-gray-300 hover:text-[#16C47F] dark:hover:text-[#16C47F]"
+                      ? "text-accent dark:text-dark-accent"
+                      : "text-text-low dark:text-dark-text-low hover:text-accent dark:hover:text-dark-accent"
                   }`}
                   aria-label={item.label}>
                   <item.icon size={20} className="shrink-0" />
@@ -113,7 +111,7 @@ const NavbarHero = (): React.JSX.Element => {
               <ThemeBtn />
 
               <div
-                className={`absolute top-0 right-0 rounded-lg shadow-lg transition-all duration-200 ease-out ${
+                className={`absolute top-0 right-0 rounded-lg shadow-lg transition-all duration-200 ease-out bg-surface-1 dark:bg-dark-surface-1 ${
                   showLangSidebar
                     ? "opacity-100 scale-100"
                     : "opacity-0 scale-95 pointer-events-none"

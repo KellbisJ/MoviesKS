@@ -50,7 +50,7 @@ const CreateMedia: React.FC<CreateMediaPropsInterface> = memo(
             </div>
           </div>
         ) : (
-          <div className="w-full overflow-x-auto overflow-y-hidden scrollbar-minimal bg-blue-100 dark:bg-[#14273c] rounded-lg translate-z-0 overscroll-x-contain">
+          <div className="w-full overflow-x-auto overflow-y-hidden scrollbar-minimal bg-surface-1 dark:bg-dark-surface-1 rounded-lg translate-z-0 overscroll-x-contain">
             <div className="flex space-x-4 p-3">
               {filteredMedia.map(handleMediaRender)}
             </div>
