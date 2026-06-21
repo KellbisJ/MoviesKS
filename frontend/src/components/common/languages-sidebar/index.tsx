@@ -41,7 +41,7 @@ const LanguagesSideBar = (): React.JSX.Element => {
   // console.log(languagesAvailable);
 
   return (
-    <div className="absolute w-44 h-60 lg:w-56 lg:h-80  top-10 right-0 lg:p-2 bg-blue-100 dark:bg-[#14273c] rounded-lg overflow-y-auto scrollbar-minimal text-sm transition text-gray-800 dark:text-gray-100">
+    <div className="absolute w-44 h-60 lg:w-56 lg:h-80 top-10 right-0 lg:p-2 bg-surface-2 dark:bg-dark-surface-2 rounded-lg overflow-y-auto scrollbar-minimal text-sm transition text-text-high dark:text-dark-text-high">
       <div className="flex flex-col p-2 gap-2.5">
         <p className="font-bold text-base">
           {menuLangStored === "en" ? "Menu Language:" : "Idioma del Menú:"}
@@ -51,16 +51,20 @@ const LanguagesSideBar = (): React.JSX.Element => {
           <button
             type="button"
             onClick={() => updateMenuLang("es")}
-            className={`p-2 rounded-md hover:bg-white dark:hover:bg-[#4a5568] duration-150 cursor-pointer ${
-              menuLangStored === "es" ? "bg-white dark:bg-[#4a5568]" : ""
+            className={`p-2 rounded-md hover:bg-surface-3 dark:hover:bg-dark-surface-3 duration-150 cursor-pointer ${
+              menuLangStored === "es"
+                ? "bg-surface-3 dark:bg-dark-surface-3"
+                : ""
             }`}>
             Español
           </button>
           <button
             type="button"
             onClick={() => updateMenuLang("en")}
-            className={`p-2 rounded-md hover:bg-white dark:hover:bg-[#4a5568] duration-150 cursor-pointer ${
-              menuLangStored === "en" ? "bg-white dark:bg-[#4a5568]" : ""
+            className={`p-2 rounded-md hover:bg-surface-3 dark:hover:bg-dark-surface-3 duration-150 cursor-pointer ${
+              menuLangStored === "en"
+                ? "bg-surface-3 dark:bg-dark-surface-3"
+                : ""
             }`}>
             English
           </button>
@@ -75,8 +79,10 @@ const LanguagesSideBar = (): React.JSX.Element => {
           languagesAvailable.map((lang) => (
             <button
               key={lang.code}
-              className={`p-2 lg:p-3.5 cursor-pointer wrap-break-word hover:bg-white dark:hover:bg-[#4a5568] rounded-md duration-150 relative ${
-                lang.code === language ? "bg-white dark:bg-[#4a5568]" : ""
+              className={`p-2 lg:p-3.5 cursor-pointer wrap-break-word hover:bg-surface-3 dark:hover:bg-dark-surface-3 rounded-md duration-150 relative ${
+                lang.code === language
+                  ? "bg-surface-3 dark:bg-dark-surface-3"
+                  : ""
               }`}
               onClick={() => {
                 handleSelectLanguage(lang.code)
@@ -93,7 +99,7 @@ const LanguagesSideBar = (): React.JSX.Element => {
               {lang.code === language && (
                 <Check
                   size={16}
-                  className="absolute top-0.5 right-0.5 text-green-500"
+                  className="absolute top-0.5 right-0.5 text-accent dark:text-dark-accent"
                 /> // Mark selected language to know
               )}
             </button>

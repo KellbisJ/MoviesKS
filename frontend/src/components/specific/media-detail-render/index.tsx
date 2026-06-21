@@ -3,8 +3,6 @@ import { MediaDetailPropsInterface } from "./types";
 import { BigPosterPathNullSkeleton } from "@/components/utilities/loading-skeletons";
 import { useSavedMedia } from "../../../context/favorite-media-context";
 import { CreateSimilarGenres } from "../create-similar-genres";
-import { CreateMedia } from "../create-media";
-import { CreateMediaImages } from "../create-media-images";
 import { TrailerMedia } from "../../modals/trailer-media";
 import {
   Star,
@@ -19,8 +17,6 @@ import { memo } from "react";
 import { MediaTypeT } from "@/types/media-type";
 import { isSpanishLang } from "@/utils/is-spanish-lang";
 import { useLanguages } from "@/context/lang";
-import { CreateMediaVideos } from "../create-media-videos";
-import { CreateMediaReviews } from "../create-media-reviews";
 import { UseHandleSaveMedia } from "@/hooks/use-handle-save-media";
 import { MovieInterface, TVInterface } from "@/types/movie-and-tv-interface";
 import { MediaImagesInterface } from "@/services/media-images/types";
@@ -31,6 +27,7 @@ import { getMediaVideos } from "@/services/media-videos";
 import { getMediaImages } from "@/services/media-images";
 import { getMediaReviews } from "@/services/reviews";
 import { currentLanguage } from "@/context/lang";
+import { AdditionalMediaData } from "../additional-media-data";
 
 const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
   ({ mediaDetail, similarGenres, isMovie, mediaType, mediaId }) => {
@@ -103,17 +100,6 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
       fetchMediaDetailAdditionalData();
     }, [mediaType, mediaId]);
 
-    const MEDIA_TABS = [
-      { id: "Similar", label: "Similar Content" },
-      { id: "Images", label: "Images" },
-      { id: "Videos", label: "Videos" },
-      { id: "Reviews", label: "Reviews" },
-    ] as const;
-
-    type TabID = (typeof MEDIA_TABS)[number]["id"];
-
-    const [activeTab, setActiveTab] = useState<TabID>("Similar");
-
     // New data points
     const productionCompanies = mediaDetail.production_companies || [];
     const spokenLanguages = mediaDetail.spoken_languages || [];
@@ -129,7 +115,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
     const bigPoster = mediaDetail.backdrop_path || mediaDetail.poster_path;
 
     return (
-      <section className="text-black dark:text-gray-100 mx-auto px-6 lg:px-0 lg:-mt-8">
+      <section className="text-text-high dark:text-dark-text-high mx-auto px-6 lg:px-0 lg:-mt-8">
         <div className="relative mb-12 h-[90vh] lg:min-h-screen lg:h-auto">
           <picture className="absolute inset-0 -mx-6 lg:-mx-8 overflow-hidden">
             {bigPoster && (
@@ -138,15 +124,15 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
                 src={`https://image.tmdb.org/t/p/w780/${bigPoster}`}
                 alt="Backdrop"
                 loading="eager"
-                onLoad={(e) => (e.currentTarget.style.opacity = "1")} // nice
+                onLoad={(e) => (e.currentTarget.style.opacity = "1")}
               />
             )}
-            <div className="absolute inset-0 bg-gray-900/80" />
-            <div className="absolute bottom-0 w-full h-14 bg-linear-to-t from-gray-800 via-gray-800/20 dark:from-gray-900 dark:via-gray-[#1E1A2F]/20" />
+            <div className="absolute inset-0 bg-bg-main/80 dark:bg-dark-bg-main/80" />
+            <div className="absolute bottom-0 w-full h-14 bg-linear-to-t from-surface-1 via-surface-1/20 dark:from-dark-surface-1 dark:via-dark-surface-1/20" />
           </picture>
 
           <article className="relative z-10 container mx-auto px-4 pb-4 lg:px-6 lg:pb-20 pt-12 sm:pt-20 opacity-100 h-full overflow-y-auto lg:overflow-visible">
-            <div className="flex flex-col lg:flex-row gap-8 text-gray-100">
+            <div className="flex flex-col lg:flex-row gap-8 text-text-high dark:text-dark-text-high">
               <div className="w-full lg:w-1/3 xl:w-1/4 relative group">
                 <div className="relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
                   {mediaDetail.poster_path ? (
@@ -155,7 +141,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
                       src={`https://image.tmdb.org/t/p/w400/${mediaDetail.poster_path}`}
                       alt="Poster"
                       loading="eager"
-                      onLoad={(e) => (e.currentTarget.style.opacity = "1")} // nice
+                      onLoad={(e) => (e.currentTarget.style.opacity = "1")}
                     />
                   ) : (
                     <BigPosterPathNullSkeleton />
@@ -164,8 +150,8 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
                     onClick={handleSaveMedia(mediaType, mediaDetail)}
                     className={`absolute top-4 right-4 p-2 rounded-full backdrop-blur-sm transition-all ${
                       isSavedMedia
-                        ? "text-cyan-400 bg-cyan-400/20"
-                        : "text-gray-200 hover:text-cyan-400 bg-gray-800/30 hover:bg-cyan-400/20"
+                        ? "text-accent bg-accent/20 dark:bg-dark-accent/20"
+                        : "text-text-high dark:text-dark-text-high hover:text-accent dark:hover:text-dark-accent bg-surface-1/30 dark:bg-dark-surface-1 hover:bg-accent/20 dark:hover:bg-dark-accent/20 cursor-pointer"
                     }`}>
                     <Save className="w-6 h-6" />
                   </button>
@@ -174,22 +160,22 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 
               <div className="flex-1 space-y-8">
                 <div className="space-y-4">
-                  <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+                  <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-text-high dark:text-dark-text-high">
                     {isMovie(mediaDetail)
                       ? mediaDetail.title
                       : mediaDetail.name}
-                    <span className="ml-4 text-2xl font-normal text-gray-300">
+                    <span className="ml-4 text-2xl font-normal text-text-low dark:text-dark-text-low">
                       ({new Date(releaseDate).getFullYear()})
                     </span>
                   </h1>
 
                   <div className="flex items-center flex-wrap gap-4">
-                    <div className="flex items-center bg-gray-800/70 px-3 py-1 rounded-full backdrop-blur-sm border border-gray-700">
-                      <Star className="w-5 h-5 mr-1 text-yellow-400" />
+                    <div className="flex items-center bg-surface-1/70 px-3 py-1 rounded-full backdrop-blur-sm border border-surface-2 dark:bg-dark-surface-1/70 dark:border-dark-surface-2">
+                      <Star className="w-5 h-5 mr-1 text-accent" />
                       <span className="font-medium">
                         {mediaDetail.vote_average.toFixed(1)}
                       </span>
-                      <span className="ml-2 text-gray-300">
+                      <span className="ml-2 text-text-low dark:text-dark-text-low">
                         ({mediaDetail.vote_count.toLocaleString()})
                       </span>
                     </div>
@@ -197,7 +183,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
                     {videoKey && (
                       <button
                         onClick={() => setShowTrailer(true)}
-                        className="flex items-center bg-cyan-500 hover:bg-cyan-600 px-4 py-2 rounded-full transition-all">
+                        className="flex items-center bg-accent hover:bg-accent/90 px-4 py-2 rounded-full transition-all">
                         <Clapperboard className="w-5 h-5 mr-2" />
                         {isSpanishLang(language)
                           ? "Ver Trailer"
@@ -213,7 +199,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex items-center space-x-2">
-                    <Film className="w-5 h-5 text-cyan-500" />
+                    <Film className="w-5 h-5 text-accent" />
                     <span>
                       {mediaType === MediaTypeT.movie
                         ? isSpanishLang(language)
@@ -228,17 +214,17 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
                   </div>
 
                   <div className="flex items-center space-x-2">
-                    <Clock className="w-5 h-5 text-cyan-500" />
+                    <Clock className="w-5 h-5 text-accent" />
                     <span>{runtime}</span>
                   </div>
 
                   <div className="flex items-center space-x-2">
-                    <Ticket className="w-5 h-5 text-cyan-500" />
+                    <Ticket className="w-5 h-5 text-accent" />
                     <span>{mediaDetail.status}</span>
                   </div>
 
                   <div className="flex items-center space-x-2">
-                    <Globe className="w-5 h-5 text-cyan-500" />
+                    <Globe className="w-5 h-5 text-accent" />
                     <span>{mediaDetail.original_language.toUpperCase()}</span>
                   </div>
 
@@ -291,7 +277,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 
                 {spokenLanguages.length > 1 && (
                   <div className="space-y-4">
-                    <h3 className="text-lg font-semibold ">
+                    <h3 className="text-lg font-semibold">
                       {isSpanishLang(language)
                         ? "Lenguajes disponibles"
                         : "Available languages"}
@@ -301,13 +287,13 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
                         lang.name ? (
                           <span
                             key={lang.name}
-                            className="p-2 min-w-20 w-20 max-w-28 text-sm text-center rounded-full bg-cyan-500">
+                            className="p-2 min-w-20 w-20 max-w-28 text-sm text-center rounded-full bg-accent/10 text-accent">
                             {lang.english_name}
                           </span>
                         ) : (
                           <span
                             key={lang.name}
-                            className="p-2 min-w-20 w-20 max-w-28 text-sm text-center rounded-full bg-cyan-500">
+                            className="p-2 min-w-20 w-20 max-w-28 text-sm text-center rounded-full bg-accent/10 text-accent">
                             {lang.iso_639_1}
                           </span>
                         )
@@ -343,50 +329,14 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
           </article>
         </div>
 
-        <div className="mx-auto mt-32 relative">
-          <div
-            className="absolute -top-32 left-0 right-0 h-14 
-             bg-linear-to-b from-gray-800 via-gray-800/20 to-transparent
-             dark:from-gray-900/90 dark:via-gray-900/20 dark:to-transparent
-             pointer-events-none inset-0 -mx-6 lg:-mx-8 overflow-hidden"
-          />
-
-          <section className="flex space-y-12justify-center flex-col items-center">
-            {!loadingAdditionalMediaData ? (
-              <>
-                <div className="flex flex-col sm:flex-row justify-center gap-4 mb-14">
-                  {MEDIA_TABS.map((tab) => (
-                    <button
-                      key={tab.id}
-                      onClick={() => setActiveTab(tab.id)}
-                      className={`px-2 py-1 rounded-md text-gray-600 dark:text-gray-300  border-r-8 border-l-8 bg-gray-200 dark:bg-gray-900 transition ${
-                        activeTab === tab.id
-                          ? "border-[#16C47F] dark:border-[#16C47F]"
-                          : "border-cyan-500 dark:border-cyan-500"
-                      }`}>
-                      {tab.label}
-                    </button>
-                  ))}
-                </div>
-
-                {activeTab === "Similar" && (
-                  <CreateMedia media={similarMedia} type={mediaType} />
-                )}
-                {activeTab === "Images" && (
-                  <CreateMediaImages images={mediaImages} />
-                )}
-                {activeTab === "Videos" && (
-                  <CreateMediaVideos mediaVideos={mediaVideos} />
-                )}
-                {activeTab === "Reviews" && (
-                  <CreateMediaReviews mediaReviews={mediaReviews.results} />
-                )}
-              </>
-            ) : (
-              <></>
-            )}
-          </section>
-        </div>
+        <AdditionalMediaData
+          loadingAdditionalMediaData={loadingAdditionalMediaData}
+          similarMedia={similarMedia}
+          mediaType={mediaType}
+          mediaImages={mediaImages}
+          mediaVideos={mediaVideos}
+          mediaReviews={mediaReviews}
+        />
 
         <TrailerMedia
           isOpen={showTrailer}

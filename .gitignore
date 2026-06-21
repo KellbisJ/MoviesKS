@@ -214,6 +214,10 @@ $RECYCLE.BIN/
 *.vercel
 
 
-.continue
+.continue/
+
+doc_int/
+
+.vscode/
 # Auth
 # src/auth.js

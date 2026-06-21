@@ -3,9 +3,33 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+  /* Custom Animations */
+
   --animate-pulse-slow: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   --animate-ping-slow: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
   --animate-particle-float: particle-float 1.8s ease-out infinite;
+
+  /* Light Mode Palette */
+  --color-bg-main: #e2e2e2;
+  --color-surface-1: #f0f0f0;
+  --color-surface-2: #f8f8f8;
+  --color-surface-3: #ffffff;
+  --color-primary: #4a4a4a;
+  --color-secondary: #8e8e8e;
+  --color-accent: #c08457;
+  --color-text-high: #2a2a2a;
+  --color-text-low: #666666;
+
+  /* Dark Mode Palette */
+  --color-dark-bg-main: #1a1a1a;
+  --color-dark-surface-1: #242424;
+  --color-dark-surface-2: #2d2d2d;
+  --color-dark-surface-3: #383838;
+  --color-dark-primary: #d1d1d1;
+  --color-dark-secondary: #888888;
+  --color-dark-accent: #d4a373;
+  --color-dark-text-high: #e0e0e0;
+  --color-dark-text-low: #a0a0a0;
 }
 
 @keyframes particle-float {
@@ -35,7 +59,6 @@
 body {
   /* font-family: 'Roboto Mono', monospace; */
   font-family: "Inter", sans-serif;
-  background-color: #000;
 }
 
 h1,

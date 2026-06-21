@@ -14,7 +14,7 @@ const MediaSkeleton = () => {
         {Array.from({ length: count }, (_, index) => (
           <div
             key={index}
-            className="w-full h-36 md:h-80 xl:h-[400px] aspect-2/3 bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
+            className="w-full h-36 md:h-80 xl:h-[400px] aspect-2/3 bg-surface-2 dark:bg-dark-surface-2 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
         ))}
       </div>
     </div>
@@ -39,7 +39,7 @@ const MediaNullSkeleton: React.FC<MediaNullSkeletonPropsInterface> = ({
   };
   return (
     <div
-      className="w-full h-[280px] md:h-80 xl:h-[400px] aspect-2/3 bg-gray-700 rounded-lg shadow-lg cursor-pointer flex justify-center items-center p-4 text-center text-gray-100 text-sm"
+      className="w-full h-[280px] md:h-80 xl:h-[400px] aspect-2/3 bg-surface-2 dark:bg-dark-surface-2 rounded-lg shadow-lg cursor-pointer flex justify-center items-center p-4 text-center text-text-high dark:text-dark-text-high text-sm"
       onClick={() => handleNavigation(data)}>
       No image available for: {title}
     </div>
@@ -53,7 +53,7 @@ const CategoriesSkeleton = () => {
       {Array.from({ length: count }, (_, index) => (
         <div
           key={index}
-          className="flex justify-center items-center w-full bg-gray-700 animate-pulse shadow-md cursor-pointer p-1 rounded-md min-w-[40px] min-h-[38px] max-w-full"></div>
+          className="flex justify-center items-center w-full bg-surface-2 dark:bg-dark-surface-2 animate-pulse shadow-md cursor-pointer p-1 rounded-md min-w-[40px] min-h-[38px] max-w-full"></div>
       ))}
     </>
   );
@@ -61,7 +61,7 @@ const CategoriesSkeleton = () => {
 
 const BigPosterPathNullSkeleton = () => {
   return (
-    <div className="w-full h-full aspect-2/3 bg-gray-700 rounded-lg flex justify-center items-center">
+    <div className="w-full h-full aspect-2/3 bg-surface-2 dark:bg-dark-surface-2 rounded-lg flex justify-center items-center">
       No image available
     </div>
   );
@@ -69,27 +69,16 @@ const BigPosterPathNullSkeleton = () => {
 
 const SimilarGenresNullSkeleton = () => {
   return (
-    <div className="flex justify-center items-center bg-gray-100 dark:bg-gray-700 rounded-md p-1 m-1 min-w-[40px] min-h-[38px] max-w-full text-center text-gray-700 dark:text-stone-100 text-sm">
+    <div className="flex justify-center items-center bg-surface-2 dark:bg-dark-surface-2 rounded-md p-1 m-1 min-w-[40px] min-h-[38px] max-w-full text-center text-text-low dark:text-dark-text-low text-sm">
       No similar genres available
     </div>
   );
 };
 
-// const SimilarMediaSkeleton = () => {
-// 	const count = 20;
-// 	return (
-// 		<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
-// 			{Array.from({ length: count }, (_, index) => (
-// 				<div key={index} className="w-full h-80 bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
-// 			))}
-// 		</div>
-// 	);
-// };
-
 const MediaSavedVoid = () => {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-5 lg:gap-8 w-full">
-      <div className="col-span-full w-full bg-gray-200 dark:bg-gray-700 border-2 border-dashed border-gray-400 rounded-lg h-80 flex items-center justify-center text-gray-500 dark:text-gray-400 italic">
+      <div className="col-span-full w-full bg-surface-2 dark:bg-dark-surface-2 border-2 border-dashed border-secondary dark:border-dark-secondary rounded-lg h-80 flex items-center justify-center text-text-low dark:text-dark-text-low italic">
         No Favorites Yet
       </div>
     </div>
@@ -100,12 +89,12 @@ const MediaHomeSkeleton = () => {
   const count = 20;
 
   return (
-    <div className="w-full overflow-x-auto scrollbar-minimal wrap-break-word bg-blue-100 dark:bg-[#14273c]">
+    <div className="w-full overflow-x-auto scrollbar-minimal wrap-break-word bg-bg-main dark:bg-dark-bg-main">
       <div className="flex space-x-4 p-3">
         {Array.from({ length: count }, (_, index) => (
           <div
             key={index}
-            className="shrink-0 w-32 h-48 md:w-48 md:h-60 2xl:w-60 2xl:h-80 bg-gray-700 rounded-lg shadow-lg cursor-pointer p-2 text-red-500 animate-pulse"></div>
+            className="shrink-0 w-32 h-48 md:w-48 md:h-60 2xl:w-60 2xl:h-80 bg-surface-2 dark:bg-dark-surface-2 rounded-lg shadow-lg cursor-pointer p-2 animate-pulse"></div>
         ))}
       </div>
     </div>
@@ -116,12 +105,12 @@ const MediaHomeErrorSkeleton = () => {
   const count = 20;
 
   return (
-    <div className="w-full overflow-x-auto scrollbar-minimal wrap-break-word bg-blue-100 dark:bg-[#14273c]">
+    <div className="w-full overflow-x-auto scrollbar-minimal wrap-break-word bg-bg-main dark:bg-dark-bg-main">
       <div className="flex space-x-4 p-3">
         {Array.from({ length: count }, (_, index) => (
           <div
             key={index}
-            className="shrink-0 w-32 h-48 md:w-48 md:h-60 2xl:w-60 2xl:h-80 bg-gray-700 rounded-lg shadow-lg cursor-pointer p-2 text-red-500">
+            className="shrink-0 w-32 h-48 md:w-48 md:h-60 2xl:w-60 2xl:h-80 bg-surface-2 dark:bg-dark-surface-2 rounded-lg shadow-lg cursor-pointer p-2">
             Error loading this, check internet connection or reload the page.
           </div>
         ))}
@@ -148,7 +137,7 @@ const MediaNullSkeletonHome: React.FC<MediaNullSkeletonPropsInterface> = ({
   };
   return (
     <div
-      className="w-32 h-48 md:w-48 md:h-60 2xl:w-60 2xl:h-80 bg-gray-700 rounded-lg shadow-lg cursor-pointer flex justify-center items-center p-4 text-center text-gray-100 text-sm"
+      className="w-32 h-48 md:w-48 md:h-60 2xl:w-60 2xl:h-80 bg-surface-2 dark:bg-dark-surface-2 rounded-lg shadow-lg cursor-pointer flex justify-center items-center p-4 text-center text-text-high dark:text-dark-text-high text-sm"
       onClick={() => handleNavigation(data)}>
       No image available for: {title}
     </div>
@@ -156,7 +145,7 @@ const MediaNullSkeletonHome: React.FC<MediaNullSkeletonPropsInterface> = ({
 };
 
 const SingleMediaSkeleton = () => (
-  <div className="w-full h-36 md:h-80 xl:h-[400px] aspect-2/3 bg-gray-700 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
+  <div className="w-full h-36 md:h-80 xl:h-[400px] aspect-2/3 bg-surface-2 dark:bg-dark-surface-2 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
 );
 
 export {
@@ -165,7 +154,6 @@ export {
   CategoriesSkeleton,
   BigPosterPathNullSkeleton,
   SimilarGenresNullSkeleton,
-  // SimilarMediaSkeleton,
   MediaSavedVoid,
   MediaHomeSkeleton,
   MediaHomeErrorSkeleton,

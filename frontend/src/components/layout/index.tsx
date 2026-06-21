@@ -33,7 +33,7 @@ const Layout = (): React.JSX.Element => {
   }, []);
 
   return (
-    <main className="bg-gray-100 dark:bg-[#1E1A2F] flex flex-col min-h-screen dark:bg-linear-to-b transition">
+    <main className="bg-bg-main dark:bg-dark-bg-main flex flex-col min-h-screen transition-colors duration-300">
       {showNavbarHero && isLoading && <NavbarSkeletonHero />}
 
       {!showNavbarHero && isLoading && <NavbarSkeletonForwards />}
