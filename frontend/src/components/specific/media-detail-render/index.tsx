@@ -3,8 +3,6 @@ import { MediaDetailPropsInterface } from "./types";
 import { BigPosterPathNullSkeleton } from "@/components/utilities/loading-skeletons";
 import { useSavedMedia } from "../../../context/favorite-media-context";
 import { CreateSimilarGenres } from "../create-similar-genres";
-import { CreateMedia } from "../create-media";
-import { CreateMediaImages } from "../create-media-images";
 import { TrailerMedia } from "../../modals/trailer-media";
 import {
   Star,
@@ -19,8 +17,6 @@ import { memo } from "react";
 import { MediaTypeT } from "@/types/media-type";
 import { isSpanishLang } from "@/utils/is-spanish-lang";
 import { useLanguages } from "@/context/lang";
-import { CreateMediaVideos } from "../create-media-videos";
-import { CreateMediaReviews } from "../create-media-reviews";
 import { UseHandleSaveMedia } from "@/hooks/use-handle-save-media";
 import { MovieInterface, TVInterface } from "@/types/movie-and-tv-interface";
 import { MediaImagesInterface } from "@/services/media-images/types";
@@ -31,6 +27,7 @@ import { getMediaVideos } from "@/services/media-videos";
 import { getMediaImages } from "@/services/media-images";
 import { getMediaReviews } from "@/services/reviews";
 import { currentLanguage } from "@/context/lang";
+import { AdditionalMediaData } from "../additional-media-data";
 
 const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
   ({ mediaDetail, similarGenres, isMovie, mediaType, mediaId }) => {
@@ -102,17 +99,6 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
       };
       fetchMediaDetailAdditionalData();
     }, [mediaType, mediaId]);
-
-    const MEDIA_TABS = [
-      { id: "Similar", label: "Similar Content" },
-      { id: "Images", label: "Images" },
-      { id: "Videos", label: "Videos" },
-      { id: "Reviews", label: "Reviews" },
-    ] as const;
-
-    type TabID = (typeof MEDIA_TABS)[number]["id"];
-
-    const [activeTab, setActiveTab] = useState<TabID>("Similar");
 
     // New data points
     const productionCompanies = mediaDetail.production_companies || [];
@@ -343,50 +329,14 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
           </article>
         </div>
 
-        <div className="mx-auto mt-32 relative">
-          <div
-            className="absolute -top-32 left-0 right-0 h-14 
-         bg-linear-to-b from-surface-1 via-surface-1/20 to-transparent
-         dark:from-dark-surface-1 dark:via-dark-surface-1/20 dark:to-transparent
-         pointer-events-none inset-0 -mx-6 lg:-mx-8 overflow-hidden"
-          />
-
-          <section className="flex space-y-12justify-center flex-col items-center">
-            {!loadingAdditionalMediaData ? (
-              <>
-                <div className="flex flex-col sm:flex-row justify-center gap-4 mb-14">
-                  {MEDIA_TABS.map((tab) => (
-                    <button
-                      key={tab.id}
-                      onClick={() => setActiveTab(tab.id)}
-                      className={`px-2 py-1 rounded-md text-text-low dark:text-dark-text-low border-r-8 border-l-8 transition ${
-                        activeTab === tab.id
-                          ? "border-accent dark:border-accent"
-                          : "border-surface-2 dark:border-dark-surface-2"
-                      } bg-surface-2 dark:bg-dark-surface-2`}>
-                      {tab.label}
-                    </button>
-                  ))}
-                </div>
-
-                {activeTab === "Similar" && (
-                  <CreateMedia media={similarMedia} type={mediaType} />
-                )}
-                {activeTab === "Images" && (
-                  <CreateMediaImages images={mediaImages} />
-                )}
-                {activeTab === "Videos" && (
-                  <CreateMediaVideos mediaVideos={mediaVideos} />
-                )}
-                {activeTab === "Reviews" && (
-                  <CreateMediaReviews mediaReviews={mediaReviews.results} />
-                )}
-              </>
-            ) : (
-              <></>
-            )}
-          </section>
-        </div>
+        <AdditionalMediaData
+          loadingAdditionalMediaData={loadingAdditionalMediaData}
+          similarMedia={similarMedia}
+          mediaType={mediaType}
+          mediaImages={mediaImages}
+          mediaVideos={mediaVideos}
+          mediaReviews={mediaReviews}
+        />
 
         <TrailerMedia
           isOpen={showTrailer}
