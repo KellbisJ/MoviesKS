@@ -20,7 +20,7 @@ const CreateMediaImages = ({ images }: { images: MediaImagesInterface }): React.
 	};
 
 	if (allImages.length === 0) {
-		return <h3 className="text-center py-8 text-xl">There are no additional images</h3>;
+		return <h2 className="text-center py-8 text-xl">There are no additional images</h2>;
 	}
 
 	return (

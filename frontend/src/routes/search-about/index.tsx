@@ -97,22 +97,22 @@ const SearchAboutPage = () => {
 
           {movies.results.length > 0 && (
             <div className="mt-8">
-              <h3 className="text-text-low dark:text-dark-text-low mb-4 p-3 bg-surface-1 dark:bg-dark-surface-1 rounded-t-lg">
+              <h2 className="text-text-low dark:text-dark-text-low mb-4 p-3 bg-surface-1 dark:bg-dark-surface-1 rounded-t-lg">
                 {isSpanishLang(language)
                   ? "Acerca de las películas"
                   : "About Movies"}
-              </h3>
+              </h2>
               <CreateMedia type={MediaTypeT.movie} media={limitedMovies} />
             </div>
           )}
 
           {tv.results.length > 0 && (
             <div className="mt-8">
-              <h3 className="text-text-low dark:text-dark-text-low mb-4 p-3 bg-surface-1 dark:bg-dark-surface-1 rounded-t-lg">
+              <h2 className="text-text-low dark:text-dark-text-low mb-4 p-3 bg-surface-1 dark:bg-dark-surface-1 rounded-t-lg">
                 {isSpanishLang(language)
                   ? "Acerca de series de televisión"
                   : "About Tv Series"}
-              </h3>
+              </h2>
               <CreateMedia type={MediaTypeT.tv} media={limitedTv} />
             </div>
           )}

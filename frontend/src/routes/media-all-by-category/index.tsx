@@ -90,11 +90,11 @@ const MediaAllByCategory = (): React.JSX.Element => {
 
   return (
     <>
-      <h2 className="my-8 text-text-high dark:text-dark-text-high">
+      <h1 className="my-8 text-text-high dark:text-dark-text-high">
         {isSpanishLang(language)
           ? "Todo el multimedia filtrado por esta categoría"
           : "All multimedia filtered by this category"}
-      </h2>
+      </h1>
       {media.length === 0 && loadingComponents && <MediaSkeleton />}
 
       <CreateMedia media={allMedia} type={mediaType} />

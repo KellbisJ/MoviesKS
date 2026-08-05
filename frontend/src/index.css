@@ -97,7 +97,98 @@ h6 {
 .scrollbar-minimal::-webkit-scrollbar-thumb:hover {
   background: #718096;
 }
-/* 
+/* Home page section layout — spotlight + scroll-row */
+.home-section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.home-section-header::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  background-color: #c08457;
+  border-radius: 9999px;
+  opacity: 0.6;
+}
+.dark .home-section-header::after {
+  background-color: #d4a373;
+}
+.home-featured-card {
+  width: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+.home-featured-card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  aspect-ratio: 16/9;
+}
+.home-scroll-row {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding: 0.75rem;
+  scroll-behavior: smooth;
+}
+.home-scroll-row .home-card-inner {
+  flex-shrink: 0;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Home page section layout — grid + featured */
+.home-media-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+.home-media-grid .home-featured-card {
+  grid-column: 1 / -1;
+}
+.home-media-grid .home-featured-card img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+.home-grid-regular {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+}
+.home-grid-regular .home-card-inner {
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Home page section layout — enhanced headers */
+.home-section-header-relative {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+.home-section-header-relative::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 48px;
+  height: 3px;
+  background-color: #c08457;
+  border-radius: 9999px;
+}
+.dark .home-section-header-relative::after {
+  background-color: #d4a373;
+}
+
+/*
 @keyframes christmasLights {
 	0% {
 		background: linear-gradient(to right, #ff0e0e, #01a801, #fff707);

@@ -102,7 +102,7 @@ const MediaBySearch = (): React.JSX.Element => {
     <>
       {loadingComponents && media.length === 0 && <PopcornParticlesLoader />}
 
-      <h3 className="mb-8 text-text-high dark:text-dark-text-high p-3">
+      <h1 className="mb-8 text-text-high dark:text-dark-text-high p-3">
         {mediaType === MediaTypeT.movie
           ? isSpanishLang(language)
             ? `Resultados de búsqueda de "${querySearch}" en Películas`
@@ -112,7 +112,7 @@ const MediaBySearch = (): React.JSX.Element => {
               ? `Resultados de búsqueda de "${querySearch}" en Series de TV`
               : `Search results for "${querySearch}" in TV Series`
             : "MOCO VERDE"}
-      </h3>
+      </h1>
       <CreateMedia media={allMedia} type={mediaType} section="Default" />
 
       {searchWasMade && media.length === 0 && <NoResults />}

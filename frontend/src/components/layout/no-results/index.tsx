@@ -19,9 +19,9 @@ const NoResults = () => {
       </div>
 
       <div className="space-y-2 max-w-md">
-        <h3 className="text-xl font-semibold text-text-high dark:text-dark-text-high">
+        <h2 className="text-xl font-semibold text-text-high dark:text-dark-text-high">
           {title}
-        </h3>
+        </h2>
         <p className="text-text-low dark:text-dark-text-low">{description}</p>
       </div>
 

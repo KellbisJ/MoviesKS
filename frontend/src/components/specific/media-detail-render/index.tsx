@@ -251,11 +251,11 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 
                 {productionCompanies.length > 0 && (
                   <div className="space-y-4">
-                    <h3 className="text-lg font-semibold">
+                    <h2 className="text-lg font-semibold">
                       {isSpanishLang(language)
                         ? "Empresas Productoras"
                         : "Production Companies"}
-                    </h3>
+                    </h2>
                     <div className="flex flex-wrap gap-4">
                       {productionCompanies.map((company) =>
                         company.logo_path ? (
@@ -277,11 +277,11 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 
                 {spokenLanguages.length > 1 && (
                   <div className="space-y-4">
-                    <h3 className="text-lg font-semibold">
+                    <h2 className="text-lg font-semibold">
                       {isSpanishLang(language)
                         ? "Lenguajes disponibles"
                         : "Available languages"}
-                    </h3>
+                    </h2>
                     <div className="flex flex-wrap gap-2">
                       {spokenLanguages.map((lang) =>
                         lang.name ? (
@@ -304,19 +304,19 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
 
                 {mediaDetail.overview && (
                   <div className="space-y-4">
-                    <h3 className="text-lg font-semibold">
+                    <h2 className="text-lg font-semibold">
                       {isSpanishLang(language) ? "Sinopsis" : "Synopsis"}
-                    </h3>
+                    </h2>
                     <p className="leading-relaxed">{mediaDetail.overview}</p>
                   </div>
                 )}
 
                 <div className="space-y-4">
-                  <h3 className="text-lg font-semibold">
+                  <h2 className="text-lg font-semibold">
                     {isSpanishLang(language)
                       ? "Géneros similares"
                       : "Similar genres"}
-                  </h3>
+                  </h2>
                   <div className="flex flex-wrap gap-2">
                     <CreateSimilarGenres
                       genres={similarGenres}
