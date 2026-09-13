@@ -215,9 +215,13 @@ $RECYCLE.BIN/
 
 
 .continue/
+.claude/
 
 doc_int/
 
 .vscode/
 # Auth
 # src/auth.js
+# Claude Code / impeccable local settings
+.claude/settings.local.json
+.impeccable/config.local.json
