@@ -9,6 +9,10 @@ import { HomeViewContentInterfaceProps } from "./types";
 import { PopcornParticlesLoader } from "@/components/utilities/loaders-animation";
 import { MksHeaderContent } from "@/components/common/mks-header-content";
 import { SearchBar } from "@/components/common/search-bar";
+import { Link } from "react-router-dom";
+import { Star, ChevronRight, ChevronLeft } from "lucide-react";
+import { useLanguages } from "@/context/lang";
+import { isSpanishLang } from "@/utils/is-spanish-lang";
 
 const HomeViewContent: React.FC<HomeViewContentInterfaceProps> = memo(
   ({
@@ -17,6 +21,8 @@ const HomeViewContent: React.FC<HomeViewContentInterfaceProps> = memo(
     isErrorCatched,
     mediaSectionData,
   }) => {
+    const { language } = useLanguages();
+    const isEs = isSpanishLang(language);
     return (
       <>
         {isLoadingComponents ? (
@@ -29,50 +35,137 @@ const HomeViewContent: React.FC<HomeViewContentInterfaceProps> = memo(
               {mediaSectionData.map((section, index) => (
                 <section
                   key={`${section.type}-${index}`}
-                  className="space-y-2 mt-12"
+                  className="mt-10 sm:mt-14"
                   role="region"
                   lang="es">
-                  <h2 className="home-section-header text-primary dark:text-dark-primary">
-                    {section.title}
-                  </h2>
-                  {isLoadingMedia ? (
-                    <MediaHomeSkeleton />
-                  ) : isErrorCatched ? (
-                    <MediaHomeErrorSkeleton />
-                  ) : section.media && section.media.length > 0 ? (
-                    <>
-                      <div className="home-featured-card relative overflow-hidden rounded-xl">
-                        <a href={`/${section.type}/detail/${section.media[0].id}`} className="block">
-                          <img
-                            src={`https://image.tmdb.org/t/p/original${section.media[0].backdrop_path}`}
-                            alt={section.media[0].title || section.media[0].name}
-                            loading="lazy"
-                          />
-                        </a>
-                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 md:p-6">
-                          <h3 className="text-white text-lg md:text-xl font-bold mb-1">{section.media[0].title || section.media[0].name}</h3>
-                          <div className="flex items-center gap-2 text-white/70 text-sm">
-                            <span className="flex items-center gap-1">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star" style={{ color: "#facc15" }}><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
-                              {section.media[0].vote_average?.toFixed(1)}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="home-scroll-row">
-                        {section.media.slice(1).map((item, i) => (
-                          <div key={`${item.id}-${i}`} className="home-card-inner">
-                            <LazyMediaContainer
-                              key={item.id}
-                              media_={item}
-                              type={section.type}
-                              containerType="Minimal"
+                  <div className="relative isolate overflow-hidden rounded-[1.25rem] shadow-[0_1px_2px_rgba(0,0,0,0.06),0_12px_32px_-20px_rgba(0,0,0,0.35)] bg-surface-1 dark:bg-dark-surface-1 p-4 sm:p-5 md:p-6">
+                    {section.media && section.media.length > 0 ? (
+                      <>
+                        <img
+                          className="absolute -inset-[15%] w-[130%] h-[130%] -z-[2] object-cover blur-[48px] saturate-110 opacity-28 pointer-events-none"
+                          src={`https://image.tmdb.org/t/p/w300${section.media[0].backdrop_path ?? section.media[0].poster_path}`}
+                          alt=""
+                          aria-hidden="true"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 -z-[1] pointer-events-none bg-gradient-to-b from-surface-1/55 via-surface-1/85 to-surface-1/95 dark:from-dark-surface-1/55 dark:via-dark-surface-1/85 dark:to-dark-surface-1/95" aria-hidden="true" />
+                      </>
+                    ) : null}
+                    <div className="mb-4 sm:mb-5 flex items-end justify-between gap-2 sm:gap-4">
+                      <h2 className="text-xl md:text-2xl font-bold tracking-tight text-text-high dark:text-dark-text-high">
+                        {section.title}
+                      </h2>
+                      <Link
+                        to={`/${section.type}/all`}
+                        className="group inline-flex shrink-0 items-center gap-1 rounded-full px-3 py-1.5 text-sm font-medium text-text-low dark:text-dark-text-low hover:text-accent dark:hover:text-dark-accent hover:bg-surface-3 dark:hover:bg-dark-surface-2 transition-colors">
+                        {isEs ? "Ver todo" : "See all"}
+                        <ChevronRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                      </Link>
+                    </div>
+                    {isLoadingMedia ? (
+                      <MediaHomeSkeleton />
+                    ) : isErrorCatched ? (
+                      <MediaHomeErrorSkeleton />
+                    ) : section.media && section.media.length > 0 ? (
+                      <>
+                        <div className="grid gap-5 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)] lg:items-stretch lg:gap-6">
+                          <Link
+                            to={`/${section.type}/detail/${section.media[0].id}`}
+                            className="group relative block overflow-hidden rounded-2xl bg-dark-surface-2 shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                            <img
+                              className="w-full aspect-[16/10] sm:aspect-video object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                              src={`https://image.tmdb.org/t/p/w1280${section.media[0].backdrop_path ?? section.media[0].poster_path}`}
+                              alt=""
+                              loading="lazy"
                             />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
+                            <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 md:p-7">
+                              <h3 className="text-white text-xl sm:text-2xl md:text-3xl font-bold tracking-tight leading-tight text-balance">
+                                {"title" in section.media[0] ? section.media[0].title : section.media[0].name}
+                              </h3>
+                              <div className="mt-2 flex items-center gap-3 text-sm text-[#e8cdb0]">
+                                <span className="inline-flex items-center gap-1 font-semibold tabular-nums text-dark-accent">
+                                  <Star className="w-4 h-4 fill-current" />
+                                  {section.media[0].vote_average?.toFixed(1)}
+                                </span>
+                                <span aria-hidden="true">·</span>
+                                <span className="tabular-nums">
+                                  {String(("release_date" in section.media[0] ? section.media[0].release_date : section.media[0].first_air_date) ?? "").slice(0, 4)}
+                                </span>
+                              </div>
+                              <p className="mt-2 sm:mt-3 max-w-prose text-sm md:text-[15px] leading-relaxed text-white/85 line-clamp-2">
+                                {section.media[0].overview}
+                              </p>
+                            </div>
+                          </Link>
+                          <ol className="min-w-0 flex flex-col gap-2 sm:grid sm:grid-cols-2 sm:gap-3 lg:flex lg:flex-col lg:gap-2">
+                            {section.media.slice(1, 5).map((item, i) => (
+                              <li key={`${item.id}-${i}`} className="min-w-0 sm:w-auto lg:flex lg:flex-1 lg:min-h-0">
+                                <Link
+                                  to={`/${section.type}/detail/${item.id}`}
+                                  className="group min-w-0 flex items-center gap-3 rounded-xl p-2 pr-3 bg-surface-3 dark:bg-dark-surface-2 shadow-sm transition-all duration-200 hover:bg-surface-2 dark:hover:bg-dark-surface-3 hover:shadow-md lg:flex-1">
+                                  <img
+                                    className="w-14 aspect-[2/3] rounded-md object-cover bg-dark-surface-3 sm:w-11 sm:h-16 sm:aspect-auto"
+                                    src={`https://image.tmdb.org/t/p/w185${item.poster_path}`}
+                                    alt=""
+                                    loading="lazy"
+                                  />
+                                  <div className="min-w-0 flex-1">
+                                    <p className="truncate font-semibold text-text-high dark:text-dark-text-high">
+                                      {"title" in item ? item.title : item.name}
+                                    </p>
+                                    <p className="text-xs tabular-nums text-text-low dark:text-dark-text-low">
+                                      {String(("release_date" in item ? item.release_date : item.first_air_date) ?? "").slice(0, 4)}
+                                    </p>
+                                  </div>
+                                  <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold tabular-nums text-accent dark:text-dark-accent">
+                                    <Star className="w-3.5 h-3.5 fill-current" />
+                                    {item.vote_average?.toFixed(1)}
+                                  </span>
+                                </Link>
+                              </li>
+                            ))}
+                          </ol>
+                        </div>
+                        <div className="relative mt-3">
+                          <button
+                            type="button"
+                            className="absolute top-1/2 z-5 hidden w-10 h-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-text-high shadow-[0_6px_18px_-6px_rgba(0,0,0,0.45),0_0_0_1px_rgba(0,0,0,0.06)] cursor-pointer transition-[transform,background-color,color] duration-[180ms] ease-out hover:bg-accent hover:text-white focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 active:scale-95 dark:bg-dark-surface-3/90 dark:text-dark-text-high dark:shadow-[0_6px_18px_-6px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.08)] dark:hover:bg-dark-accent dark:hover:text-dark-bg-main [@media(min-width:768px)_and_(hover:hover)]:flex -left-2"
+                            aria-label={isEs ? "Anterior" : "Previous"}
+                            onClick={(e) =>
+                              e.currentTarget.parentElement
+                                ?.querySelector<HTMLElement>("[data-rail-row]")
+                                ?.scrollBy({ left: -e.currentTarget.parentElement.clientWidth * 0.8, behavior: "smooth" })
+                            }>
+                            <ChevronLeft className="w-5 h-5" />
+                          </button>
+                          <div className="flex gap-3 overflow-x-auto overflow-y-hidden py-3 snap-x snap-mandatory overscroll-x-contain scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" data-rail-row="">
+                            {section.media.slice(5).map((item, i) => (
+                              <div key={`${item.id}-${i}`} className="shrink-0 snap-start">
+                                <LazyMediaContainer
+                                  key={item.id}
+                                  media_={item}
+                                  type={section.type}
+                                  containerType="Minimal"
+                                />
+                              </div>
+                            ))}
                           </div>
-                        ))}
-                      </div>
-                    </>
-                  ) : null}
+                          <button
+                            type="button"
+                            className="absolute top-1/2 z-5 hidden w-10 h-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-text-high shadow-[0_6px_18px_-6px_rgba(0,0,0,0.45),0_0_0_1px_rgba(0,0,0,0.06)] cursor-pointer transition-[transform,background-color,color] duration-[180ms] ease-out hover:bg-accent hover:text-white focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 active:scale-95 dark:bg-dark-surface-3/90 dark:text-dark-text-high dark:shadow-[0_6px_18px_-6px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.08)] dark:hover:bg-dark-accent dark:hover:text-dark-bg-main [@media(min-width:768px)_and_(hover:hover)]:flex -right-2"
+                            aria-label={isEs ? "Siguiente" : "Next"}
+                            onClick={(e) =>
+                              e.currentTarget.parentElement
+                                ?.querySelector<HTMLElement>("[data-rail-row]")
+                                ?.scrollBy({ left: e.currentTarget.parentElement.clientWidth * 0.8, behavior: "smooth" })
+                            }>
+                            <ChevronRight className="w-5 h-5" />
+                          </button>
+                        </div>
+                      </>
+                    ) : null}
+                  </div>
                 </section>
               ))}
             </div>
