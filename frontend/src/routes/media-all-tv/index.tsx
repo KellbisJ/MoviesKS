@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { getPreviewTrendingMedia } from '../../services/preview-trending-media';
 import { CreateMedia } from '../../components/specific/create-media';
 import { useInfiniteScroll } from '../../hooks/use-infinite-scroll';
-import { MediaSkeleton } from '../../components/utilities/loading-skeletons';
+import { WithSkeleton } from '@/components/utilities/loading-skeletons/WithSkeleton';
 import { TVInterface } from '@/types/movie-and-tv-interface';
 import { MediaTypeT } from '@/types/media-type';
 
@@ -74,9 +74,12 @@ const MediaAllTV = (): React.JSX.Element => {
 
 	return (
 		<>
-			{tv.length === 0 && loadingComponents && <MediaSkeleton />}
-
-			<CreateMedia media={allTv} type={mediaType} />
+			<WithSkeleton loading={loadingComponents}>
+				<CreateMedia
+					media={allTv}
+					type={mediaType}
+				/>
+			</WithSkeleton>
 		</>
 	);
 };

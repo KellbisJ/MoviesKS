@@ -28,6 +28,7 @@ import { getMediaImages } from "@/services/media-images";
 import { getMediaReviews } from "@/services/reviews";
 import { currentLanguage } from "@/context/lang";
 import { AdditionalMediaData } from "../additional-media-data";
+import { mediaImageSrc } from "@/utils/media-image-src";
 
 const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
   ({ mediaDetail, similarGenres, isMovie, mediaType, mediaId }) => {
@@ -121,7 +122,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
             {bigPoster && (
               <img
                 className="w-full h-full object-cover object-center shadow-2xl opacity-0 transition-opacity duration-500"
-                src={`https://image.tmdb.org/t/p/w780/${bigPoster}`}
+                src={mediaImageSrc(bigPoster, "w780")}
                 alt="Backdrop"
                 loading="eager"
                 onLoad={(e) => (e.currentTarget.style.opacity = "1")}
@@ -138,7 +139,7 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
                   {mediaDetail.poster_path ? (
                     <img
                       className="w-full h-auto aspect-2/3 object-cover opacity-0 transition-opacity duration-500"
-                      src={`https://image.tmdb.org/t/p/w400/${mediaDetail.poster_path}`}
+                      src={mediaImageSrc(mediaDetail.poster_path, "w400")}
                       alt="Poster"
                       loading="eager"
                       onLoad={(e) => (e.currentTarget.style.opacity = "1")}

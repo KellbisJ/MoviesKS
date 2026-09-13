@@ -17,6 +17,7 @@ import {
 } from "@/services/media-detail/types";
 import { MediaTypeT } from "@/types/media-type";
 import { UseHandleSaveMedia } from "@/hooks/use-handle-save-media";
+import { mediaImageSrc } from "@/utils/media-image-src";
 
 const isMovie = (
   media: MovieInterface | TVInterface | MovieDetailInterface | TVDetailInterface
@@ -74,7 +75,7 @@ const MediaContainer: React.FC<MediaContainerPropsInterface> = memo(
             <img
               className={`${aspectClass} opacity-0 transition-opacity duration-500 bg-gray-800`}
               alt={isMovie(media_) ? media_.title : media_.name}
-              src={`https://image.tmdb.org/t/p/${imgSize}/${media_.poster_path}`}
+              src={mediaImageSrc(media_.poster_path, imgSize)}
               loading="lazy"
               onLoad={(e) => (e.currentTarget.style.opacity = "1")}
             />

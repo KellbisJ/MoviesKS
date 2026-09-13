@@ -5,21 +5,7 @@ import {
   MovieDetailInterface,
   TVDetailInterface,
 } from "@/services/media-detail/types";
-
-const MediaSkeleton = () => {
-  const count = 20;
-  return (
-    <div className="max-w-[1536px] mx-auto">
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-3">
-        {Array.from({ length: count }, (_, index) => (
-          <div
-            key={index}
-            className="w-full h-36 md:h-80 xl:h-[400px] aspect-2/3 bg-surface-2 dark:bg-dark-surface-2 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
-        ))}
-      </div>
-    </div>
-  );
-};
+import { ShimmerBox } from "./ShimmerBox";
 
 const MediaNullSkeleton: React.FC<MediaNullSkeletonPropsInterface> = ({
   data,
@@ -51,9 +37,10 @@ const CategoriesSkeleton = () => {
   return (
     <>
       {Array.from({ length: count }, (_, index) => (
-        <div
+        <ShimmerBox
           key={index}
-          className="flex justify-center items-center w-full bg-surface-2 dark:bg-dark-surface-2 animate-pulse shadow-md cursor-pointer p-1 rounded-md min-w-[40px] min-h-[38px] max-w-full"></div>
+          className="shadow-md p-1 rounded-md min-w-[40px] min-h-[38px] max-w-full"
+        />
       ))}
     </>
   );
@@ -85,40 +72,6 @@ const MediaSavedVoid = () => {
   );
 };
 
-const MediaHomeSkeleton = () => {
-  const count = 20;
-
-  return (
-    <div className="w-full overflow-x-auto scrollbar-minimal wrap-break-word bg-bg-main dark:bg-dark-bg-main">
-      <div className="flex space-x-4 p-3">
-        {Array.from({ length: count }, (_, index) => (
-          <div
-            key={index}
-            className="shrink-0 w-32 h-48 md:w-48 md:h-60 2xl:w-60 2xl:h-80 bg-surface-2 dark:bg-dark-surface-2 rounded-lg shadow-lg cursor-pointer p-2 animate-pulse"></div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const MediaHomeErrorSkeleton = () => {
-  const count = 20;
-
-  return (
-    <div className="w-full overflow-x-auto scrollbar-minimal wrap-break-word bg-bg-main dark:bg-dark-bg-main">
-      <div className="flex space-x-4 p-3">
-        {Array.from({ length: count }, (_, index) => (
-          <div
-            key={index}
-            className="shrink-0 w-32 h-48 md:w-48 md:h-60 2xl:w-60 2xl:h-80 bg-surface-2 dark:bg-dark-surface-2 rounded-lg shadow-lg cursor-pointer p-2">
-            Error loading this, check internet connection or reload the page.
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
 const MediaNullSkeletonHome: React.FC<MediaNullSkeletonPropsInterface> = ({
   data,
   type,
@@ -145,18 +98,15 @@ const MediaNullSkeletonHome: React.FC<MediaNullSkeletonPropsInterface> = ({
 };
 
 const SingleMediaSkeleton = () => (
-  <div className="w-full h-36 md:h-80 xl:h-[400px] aspect-2/3 bg-surface-2 dark:bg-dark-surface-2 animate-pulse rounded-lg shadow-lg cursor-pointer p-2"></div>
+  <ShimmerBox className="w-full h-36 md:h-80 xl:h-[400px] aspect-2/3 rounded-lg shadow-lg p-2" />
 );
 
 export {
-  MediaSkeleton,
   MediaNullSkeleton,
   CategoriesSkeleton,
   BigPosterPathNullSkeleton,
   SimilarGenresNullSkeleton,
   MediaSavedVoid,
-  MediaHomeSkeleton,
-  MediaHomeErrorSkeleton,
   SingleMediaSkeleton,
   MediaNullSkeletonHome,
 };

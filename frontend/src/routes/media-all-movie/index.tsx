@@ -5,7 +5,7 @@ import { CreateMedia } from '../../components/specific/create-media';
 import { useInfiniteScroll } from '../../hooks/use-infinite-scroll';
 import { MovieInterface } from '@/types/movie-and-tv-interface';
 import { MediaTypeT } from '@/types/media-type';
-import { MediaSkeleton } from '@/components/utilities/loading-skeletons';
+import { WithSkeleton } from '@/components/utilities/loading-skeletons/WithSkeleton';
 
 const MediaAllMovie = (): React.JSX.Element => {
 	const location = useLocation();
@@ -73,9 +73,12 @@ const MediaAllMovie = (): React.JSX.Element => {
 
 	return (
 		<>
-			{movies.length === 0 && loadingComponents && <MediaSkeleton />}
-
-			<CreateMedia media={allMovies} type={mediaType} />
+			<WithSkeleton loading={loadingComponents}>
+				<CreateMedia
+					media={allMovies}
+					type={mediaType}
+				/>
+			</WithSkeleton>
 		</>
 	);
 };

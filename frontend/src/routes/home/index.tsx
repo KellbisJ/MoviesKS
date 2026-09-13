@@ -15,7 +15,6 @@ import { useLanguages } from "@/context/lang";
 const Home = (): React.JSX.Element => {
   const { language } = useLanguages();
 
-  const [isLoadingComponents, setIsLoadingComponents] = useState<boolean>(true);
   const [isLoadingMedia, setIsLoadingMedia] = useState<boolean>(true);
   const [isErrorCatched, setIsErrorCatched] = useState<boolean>(false);
   const [movieMediaPopularList, setMovieMediaPopularList] = useState<
@@ -52,7 +51,6 @@ const Home = (): React.JSX.Element => {
         setTvSeriesMediaPopularList(popularTvSeriesList.results);
         setTvSeriesMediaTopRatedList(topRatedTvSeriesList.results);
       } catch (err) {
-        setIsLoadingComponents(false);
         setIsLoadingMedia(false);
         setIsErrorCatched(true);
         console.error(err);
@@ -62,11 +60,6 @@ const Home = (): React.JSX.Element => {
     };
 
     fetchPopularMediaList();
-  }, []);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => setIsLoadingComponents(false), 300);
-    return () => clearTimeout(timeout);
   }, []);
 
   const mediaSectionData = useMemo(
@@ -111,7 +104,6 @@ const Home = (): React.JSX.Element => {
 
   return (
     <HomeViewContent
-      isLoadingComponents={isLoadingComponents}
       isLoadingMedia={isLoadingMedia}
       isErrorCatched={isErrorCatched}
       mediaSectionData={mediaSectionData}

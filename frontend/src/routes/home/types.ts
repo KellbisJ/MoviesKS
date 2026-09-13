@@ -8,7 +8,6 @@ interface MediaSectionData {
 }
 
 interface HomeViewContentInterfaceProps {
-	isLoadingComponents: boolean;
 	isLoadingMedia: boolean;
 	isErrorCatched: boolean;
 

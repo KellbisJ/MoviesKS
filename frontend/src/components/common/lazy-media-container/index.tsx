@@ -1,10 +1,8 @@
 import React, { useMemo, memo } from "react";
 import { useInView } from "react-intersection-observer";
 import { MediaContainer } from "../media-container";
-import {
-  SingleMediaSkeleton,
-  MediaHomeSkeleton,
-} from "@/components/utilities/loading-skeletons";
+import { ShimmerBox } from "@/components/utilities/loading-skeletons/ShimmerBox";
+import { SingleMediaSkeleton } from "@/components/utilities/loading-skeletons";
 import { LazyMediaContainerProps } from "./types";
 import { MediaImageContainer } from "../media-image-container";
 
@@ -74,7 +72,7 @@ const LazyMediaContainer: React.FC<LazyMediaContainerProps> = memo(
           containerType === "Images" ? (
           <SingleMediaSkeleton />
         ) : (
-          <MediaHomeSkeleton />
+          <ShimmerBox className="w-full h-full rounded-lg shadow-lg p-2" />
         )}
       </div>
     );

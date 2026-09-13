@@ -9,7 +9,7 @@ import {
   TVInterface,
 } from "../../types/movie-and-tv-interface";
 import { MediaTypeT } from "@/types/media-type";
-import { MediaSkeleton } from "@/components/utilities/loading-skeletons";
+import { WithSkeleton } from "@/components/utilities/loading-skeletons/WithSkeleton";
 import { isSpanishLang } from "@/utils/is-spanish-lang";
 import { useLanguages } from "@/context/lang";
 
@@ -95,9 +95,12 @@ const MediaAllByCategory = (): React.JSX.Element => {
           ? "Todo el multimedia filtrado por esta categoría"
           : "All multimedia filtered by this category"}
       </h1>
-      {media.length === 0 && loadingComponents && <MediaSkeleton />}
-
-      <CreateMedia media={allMedia} type={mediaType} />
+      <WithSkeleton loading={loadingComponents}>
+        <CreateMedia
+          media={allMedia}
+          type={mediaType}
+        />
+      </WithSkeleton>
     </>
   );
 };

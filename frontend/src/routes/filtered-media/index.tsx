@@ -6,7 +6,7 @@ import { getMediaByCategory } from '@/services/media-by-category';
 import { CreateMedia } from '@/components/specific/create-media';
 import { MovieInterface, TVInterface } from '@/types/movie-and-tv-interface';
 import { MediaTypeT } from '@/types/media-type';
-import { MediaSkeleton } from '@/components/utilities/loading-skeletons';
+import { WithSkeleton } from '@/components/utilities/loading-skeletons/WithSkeleton';
 
 const FilteredMedia = () => {
 	const location = useLocation();
@@ -47,9 +47,12 @@ const FilteredMedia = () => {
 
 	return (
 		<>
-			{media.length === 0 && loadingComponents && <MediaSkeleton />}
-
-			<CreateMedia media={media} type={mediaType} />
+			<WithSkeleton loading={loadingComponents}>
+				<CreateMedia
+					media={media}
+					type={mediaType}
+				/>
+			</WithSkeleton>
 		</>
 	);
 };

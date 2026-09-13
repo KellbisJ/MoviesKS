@@ -5,7 +5,7 @@ import { getMediaDetail } from '../../services/media-detail';
 import { MovieDetailInterface, TVDetailInterface } from '@/services/media-detail/types';
 import { GenreInterface } from '../../types/genre-interface';
 import { MediaDetailRender } from '../../components/specific/media-detail-render';
-import { PopcornParticlesLoader } from '@/components/utilities/loaders-animation';
+import { WithSkeleton } from '@/components/utilities/loading-skeletons/WithSkeleton';
 
 const MediaDetail = (): React.JSX.Element => {
 	const { id } = useParams();
@@ -53,21 +53,15 @@ const MediaDetail = (): React.JSX.Element => {
 	};
 
 	return (
-		<>
-			{loadingComponents ? (
-				<>
-					<PopcornParticlesLoader />
-				</>
-			) : (
-				<MediaDetailRender
-					mediaDetail={mediaDetail}
-					similarGenres={similarGenres}
-					mediaId={mediaId}
-					isMovie={isMovie}
-					mediaType={mediaType}
-				/>
-			)}
-		</>
+		<WithSkeleton loading={loadingComponents}>
+			<MediaDetailRender
+				mediaDetail={mediaDetail}
+				similarGenres={similarGenres}
+				mediaId={mediaId}
+				isMovie={isMovie}
+				mediaType={mediaType}
+			/>
+		</WithSkeleton>
 	);
 };
 
