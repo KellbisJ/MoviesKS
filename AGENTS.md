@@ -71,3 +71,21 @@ Env: `frontend/.env` needs `VITE_APP_SERVER`; `backend/.env` needs `API_KEY`, `P
 - Commit only when asked. Branch off `master` for anything non-trivial.
 - Keep components small and colocated with their route or feature folder.
 - Both packages use strict TypeScript and ESLint 10. Keep new code typed; no `any`.
+
+<!-- knowledge:auto:begin -->
+<!-- generated from knowledge/index.ts via `node knowledge/validate.ts --sync` — hand-edits get overwritten -->
+
+## Knowledge routing
+
+Find the row for the area you are about to work in. Read that entry doc and its bindings BEFORE editing anything there.
+
+| Subject | Read first when | Entry doc · bindings |
+|---|---|---|
+| Bilingual product (EN/ES) | before adding or editing any user-facing text, the language toggle, or any language-aware fetch | `knowledge/index.ts` · frontend/src/context/lang/KNOWLEDGE.binding.ts |
+| Design DNA — "The Screening Room" | before creating or styling any component, page, or interaction | `knowledge/index.ts` · frontend/KNOWLEDGE.binding.ts |
+| Discovery & browse loop | before building or changing any browse, search, filter, or detail flow (services, pages, routes) | `knowledge/index.ts` · frontend/src/services/KNOWLEDGE.binding.ts |
+| Movie/TV twin tracks | before adding types, routes, or services that handle media — movie or tv | `knowledge/index.ts` · frontend/src/types/media-type/KNOWLEDGE.binding.ts |
+| Saved media collection | before editing save/favorite flows, the saved-media page, or persistence keys | `knowledge/index.ts` · frontend/src/context/favorite-media-context/KNOWLEDGE.binding.ts |
+| Backend as constrained gateway | before adding or changing backend endpoints, query params, CORS, CSP, or anything that touches the TMDB proxy | `knowledge/index.ts` · backend/api/routes/movies-and-tvseries/KNOWLEDGE.binding.ts |
+
+<!-- knowledge:auto:end -->

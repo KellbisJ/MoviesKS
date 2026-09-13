@@ -225,3 +225,6 @@ doc_int/
 # Claude Code / impeccable local settings
 .claude/settings.local.json
 .impeccable/config.local.json
+
+# Knowledge — for agents and humans, not the runtime
+knowledge/
