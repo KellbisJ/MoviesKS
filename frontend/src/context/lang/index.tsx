@@ -1,5 +1,5 @@
 import { LanguageISOCode } from '@/types/languages';
-import { createContext, useContext, useMemo, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { LanguageContextInterface } from './types';
 
 const DEFAULT_LANG = 'es-MX' as LanguageISOCode;
@@ -14,6 +14,11 @@ const LanguagesProvider = ({ children }: { children: React.ReactNode }) => {
 		currentLanguage = storedLang || DEFAULT_LANG;
 		return currentLanguage;
 	});
+
+	// Screen readers pick their voice from <html lang>; keep it in sync with the page language.
+	useEffect(() => {
+		document.documentElement.lang = language;
+	}, [language]);
 
 	const contextValue = useMemo<LanguageContextInterface>(
 		() => ({

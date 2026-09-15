@@ -1,36 +1,45 @@
-import { useNavigate } from "react-router-dom";
-import { MovieInterface, TVInterface } from "@/types/movie-and-tv-interface";
+import { Link } from "react-router-dom";
+import { Film } from "lucide-react";
 import { MediaNullSkeletonPropsInterface } from "./types";
-import {
-  MovieDetailInterface,
-  TVDetailInterface,
-} from "@/services/media-detail/types";
+import { useLanguages } from "@/context/lang";
+import { isSpanishLang } from "@/utils/is-spanish-lang";
 import { ShimmerBox } from "./ShimmerBox";
 
-const MediaNullSkeleton: React.FC<MediaNullSkeletonPropsInterface> = ({
+/**
+ * Poster-less media: still a real link to the detail page, labelled with the
+ * title, so keyboard and screen-reader users reach it like any other card.
+ */
+const MediaNullPoster = ({
   data,
   type,
   title,
-}) => {
-  const navigate = useNavigate();
-  const handleNavigation = (
-    data:
-      | MovieInterface
-      | TVInterface
-      | MovieDetailInterface
-      | TVDetailInterface
-  ) => {
-    const idParam = data.id;
-    navigate(`/${type}/detail/${idParam}`);
-  };
+  className,
+}: MediaNullSkeletonPropsInterface & { className: string }) => {
+  const { language } = useLanguages();
   return (
-    <div
-      className="w-full h-[280px] md:h-80 xl:h-[400px] aspect-2/3 bg-surface-2 dark:bg-dark-surface-2 rounded-lg shadow-lg cursor-pointer flex justify-center items-center p-4 text-center text-text-high dark:text-dark-text-high text-sm"
-      onClick={() => handleNavigation(data)}>
-      No image available for: {title}
-    </div>
+    <Link
+      to={`/${type}/detail/${data.id}`}
+      className={`flex flex-col items-center justify-center gap-2 rounded-lg bg-surface-2 p-4 text-center shadow-lg transition-shadow duration-300 hover:shadow-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:bg-dark-surface-2 dark:focus-visible:outline-dark-accent ${className}`}>
+      <Film
+        className="h-7 w-7 text-secondary dark:text-dark-secondary"
+        aria-hidden="true"
+      />
+      <span className="line-clamp-3 text-sm font-semibold text-text-high dark:text-dark-text-high">
+        {title}
+      </span>
+      <span className="text-xs text-text-low dark:text-dark-text-low">
+        {isSpanishLang(language) ? "Sin póster" : "No poster"}
+      </span>
+    </Link>
   );
 };
+
+const MediaNullSkeleton: React.FC<MediaNullSkeletonPropsInterface> = (props) => (
+  <MediaNullPoster
+    {...props}
+    className="w-full h-[280px] md:h-80 xl:h-[400px] aspect-2/3"
+  />
+);
 
 const CategoriesSkeleton = () => {
   const count = 16;
@@ -47,9 +56,11 @@ const CategoriesSkeleton = () => {
 };
 
 const BigPosterPathNullSkeleton = () => {
+  const { language } = useLanguages();
   return (
-    <div className="w-full h-full aspect-2/3 bg-surface-2 dark:bg-dark-surface-2 rounded-lg flex justify-center items-center">
-      No image available
+    <div className="w-full h-full aspect-2/3 bg-surface-2 dark:bg-dark-surface-2 rounded-lg flex flex-col gap-2 justify-center items-center text-sm text-text-low dark:text-dark-text-low">
+      <Film className="h-10 w-10 text-secondary dark:text-dark-secondary" aria-hidden="true" />
+      {isSpanishLang(language) ? "Sin póster" : "No poster"}
     </div>
   );
 };
@@ -72,33 +83,12 @@ const MediaSavedVoid = () => {
   );
 };
 
-const MediaNullSkeletonHome: React.FC<MediaNullSkeletonPropsInterface> = ({
-  data,
-  type,
-  title,
-}) => {
-  const navigate = useNavigate();
-  const handleNavigation = (
-    data:
-      | MovieInterface
-      | TVInterface
-      | MovieDetailInterface
-      | TVDetailInterface
-  ) => {
-    const idParam = data.id;
-    navigate(`/${type}/detail/${idParam}`);
-  };
-  return (
-    <div
-      className="w-32 h-48 md:w-48 md:h-60 2xl:w-60 2xl:h-80 bg-surface-2 dark:bg-dark-surface-2 rounded-lg shadow-lg cursor-pointer flex justify-center items-center p-4 text-center text-text-high dark:text-dark-text-high text-sm"
-      onClick={() => handleNavigation(data)}>
-      No image available for: {title}
-    </div>
-  );
-};
+const MediaNullSkeletonHome: React.FC<MediaNullSkeletonPropsInterface> = (
+  props
+) => <MediaNullPoster {...props} className="h-full w-full" />;
 
 const SingleMediaSkeleton = () => (
-  <ShimmerBox className="w-full h-36 md:h-80 xl:h-[400px] aspect-2/3 rounded-lg shadow-lg p-2" />
+  <ShimmerBox className="w-full h-full rounded-lg shadow-lg" />
 );
 
 export {

@@ -1,14 +1,22 @@
 import { MediaTypeT } from '@/types/media-type';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { NavigateFunction } from 'react-router-dom';
 
-const handleSearch = (e: React.FormEvent, query: string, navigate: NavigateFunction) => {
-	// const navigate = useNavigate();
+// Keep letters and digits from any script (á, ñ, ü, 日本…) plus spaces.
+const sanitizeQuery = (query: string): string =>
+	query
+		.replace(/[^\p{L}\p{N}\s]/gu, '')
+		.replace(/\s+/g, ' ')
+		.trim();
+
+/** Navigates to the search page. Returns false when nothing searchable is left. */
+const handleSearch = (e: React.FormEvent, query: string, navigate: NavigateFunction): boolean => {
 	e.preventDefault();
 
-	if (query.length > 0) {
-		const sanitizedQuery = query.replace(/[^a-zA-Z0-9\s]/g, '').trim();
-		navigate(`/search/about/${sanitizedQuery}`); // isn't allowed an empty search query
-	}
+	const sanitizedQuery = sanitizeQuery(query);
+	if (sanitizedQuery.length === 0) return false; // an empty search query isn't allowed
+
+	navigate(`/search/about/${encodeURIComponent(sanitizedQuery)}`);
+	return true;
 };
 
 const handleSearch2 = (
@@ -16,14 +24,14 @@ const handleSearch2 = (
 	query: string,
 	mediaType: MediaTypeT.movie | MediaTypeT.tv,
 	navigate: NavigateFunction
-) => {
-	// const navigate = useNavigate();
+): boolean => {
 	e.preventDefault();
 
-	if (query.length > 0) {
-		const sanitizedQuery = query.replace(/[^a-zA-Z0-9\s]/g, '').trim();
-		navigate(`/search/${mediaType}/${sanitizedQuery}`);
-	}
+	const sanitizedQuery = sanitizeQuery(query);
+	if (sanitizedQuery.length === 0) return false;
+
+	navigate(`/search/${mediaType}/${encodeURIComponent(sanitizedQuery)}`);
+	return true;
 };
 
-export { handleSearch, handleSearch2 };
+export { handleSearch, handleSearch2, sanitizeQuery };

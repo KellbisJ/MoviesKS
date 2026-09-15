@@ -46,6 +46,11 @@ const LanguagesSideBar = (): React.JSX.Element => {
         <p className="font-bold text-base">
           {menuLangStored === "en" ? "Menu Language:" : "Idioma del Menú:"}
         </p>
+        <p className="-mt-1.5 text-xs text-text-low dark:text-dark-text-low">
+          {menuLangStored === "en"
+            ? "How the language names below are written."
+            : "Cómo se escriben los nombres de idioma de abajo."}
+        </p>
 
         <div className="flex flex-col lg:flex-row justify-between">
           <button
@@ -74,6 +79,11 @@ const LanguagesSideBar = (): React.JSX.Element => {
       <div className="flex flex-col gap-2.5 w-full h-full p-2">
         <p className="font-bold text-base">
           {menuLangStored === "en" ? "Page Language:" : "Idioma de la Página:"}
+        </p>
+        <p className="-mt-1.5 text-xs text-text-low dark:text-dark-text-low">
+          {menuLangStored === "en"
+            ? "Titles and synopses. Spanish or English also switches the interface; the page reloads."
+            : "Títulos y sinopsis. Español o inglés también cambian la interfaz; la página se recarga."}
         </p>
         {languagesAvailable.length > 0 &&
           languagesAvailable.map((lang) => (

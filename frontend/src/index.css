@@ -20,6 +20,8 @@
   --color-primary: #4a4a4a;
   --color-secondary: #8e8e8e;
   --color-accent: #c08457;
+  /* Accent deepened for small text on light surfaces (≥4.5:1 on surface-1/2/3) */
+  --color-accent-ink: #94603a;
   --color-text-high: #2a2a2a;
   --color-text-low: #666666;
 
@@ -96,10 +98,55 @@ h6 {
 }
 
 .scrollbar-minimal::-webkit-scrollbar-thumb {
-  background: #4a5568;
+  background: var(--color-secondary);
   border-radius: 3px;
 }
 
 .scrollbar-minimal::-webkit-scrollbar-thumb:hover {
-  background: #718096;
+  background: var(--color-primary);
+}
+
+.dark .scrollbar-minimal::-webkit-scrollbar-thumb {
+  background: var(--color-dark-surface-3);
+}
+
+.dark .scrollbar-minimal::-webkit-scrollbar-thumb:hover {
+  background: var(--color-dark-secondary);
+}
+
+/* Browser surfaces carry the palette too */
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 30%, transparent);
+  color: var(--color-text-high);
+}
+
+.dark ::selection {
+  background: color-mix(in srgb, var(--color-dark-accent) 35%, transparent);
+  color: var(--color-dark-text-high);
+}
+
+html {
+  accent-color: var(--color-accent);
+  caret-color: var(--color-accent);
+}
+
+.dark {
+  accent-color: var(--color-dark-accent);
+  caret-color: var(--color-dark-accent);
+}
+
+/* Horizontal rails: fade the trailing edge so it reads as "more this way" */
+@utility rail-fade {
+  mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 3rem), transparent 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

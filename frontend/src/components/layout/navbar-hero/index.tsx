@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Globe, Settings, User, House, Film, Tv, Save } from "lucide-react";
+import { House, Film, Tv, Bookmark } from "lucide-react";
 import { LanguagesSideBar } from "@/components/common/languages-sidebar";
 import { useEffect, useState } from "react";
 import { isSpanishLang } from "@/utils/is-spanish-lang";
@@ -16,32 +16,13 @@ const NavbarHero = (): React.JSX.Element => {
 
   const [showLangSidebar, setShowLangSideBar] = useState<boolean>(false);
 
-  const [labels, setLabels] = useState<{
-    home: string;
-    movies: string;
-    tv: string;
-    saved: string;
-    search: string;
-  }>({
-    home: "Inicio",
-    movies: "Películas",
-    tv: "Series de TV",
-    saved: "Guardado",
-    search: "Buscar",
-  });
-
-  useEffect(() => {
-    if (!isSpanishLang(language)) {
-      setLabels((prevLabels) => ({
-        ...prevLabels,
-        home: "Home",
-        movies: "Movies",
-        tv: "TV Series",
-        saved: "Saved",
-        search: "Search",
-      }));
-    }
-  }, [language]);
+  const isEs = isSpanishLang(language);
+  const labels = {
+    home: isEs ? "Inicio" : "Home",
+    movies: isEs ? "Películas" : "Movies",
+    tv: isEs ? "Series de TV" : "TV Series",
+    saved: isEs ? "Guardado" : "Saved",
+  };
 
   useEffect(() => {
     Scroll0();
@@ -70,14 +51,15 @@ const NavbarHero = (): React.JSX.Element => {
       to: "/saved-media",
       base: "/saved-media",
       label: labels.saved,
-      icon: Save,
+      icon: Bookmark,
     },
   ];
 
   return (
     <>
       {/* Desktop*/}
-      <nav className="hidden lg:block bg-bg-main dark:bg-dark-bg-main transition-colors duration-300 h-12 sm:h-14 w-full">
+      {/* relative z-50: the in-flow navbar must stack above the home lead feature so the language dropdown isn't covered */}
+      <nav className="hidden lg:block relative z-50 bg-bg-main dark:bg-dark-bg-main transition-colors duration-300 h-12 sm:h-14 w-full">
         <div className="container mx-auto px-4 sm:px-6 py-3">
           <div className="flex items-start sm:items-center sm:justify-between">
             <span className="hidden sm:block text-xl font-bold text-text-high dark:text-dark-text-high transition-colors duration-300">
@@ -92,11 +74,11 @@ const NavbarHero = (): React.JSX.Element => {
                   to={item.to}
                   className={`flex items-center gap-2 transition-colors duration-200 text-sm ${
                     underlinePath(item.base, location)
-                      ? "text-accent dark:text-dark-accent"
+                      ? "text-accent-ink dark:text-dark-accent"
                       : "text-text-low dark:text-dark-text-low hover:text-accent dark:hover:text-dark-accent"
-                  }`}
-                  aria-label={item.label}>
-                  <item.icon size={20} className="shrink-0" />
+                  } focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent dark:focus-visible:outline-dark-accent rounded-sm`}
+                  aria-current={underlinePath(item.base, location) ? "page" : undefined}>
+                  <item.icon size={20} className="shrink-0" aria-hidden="true" />
                   <span className="font-medium">{item.label}</span>
                 </Link>
               ))}
