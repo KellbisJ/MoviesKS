@@ -1,10 +1,12 @@
 import { MediaTypeT } from '@/types/media-type';
 import { NavigateFunction } from 'react-router-dom';
 
-// Keep letters and digits from any script (á, ñ, ü, 日本…) plus spaces.
+// Keep letters and digits from any script (á, ñ, ü, 日本…), spaces, and the punctuation titles
+// actually use (Spider-Man, Ocean's 11, Mission: Impossible, ¿Qué pasó ayer?). Path-breaking
+// characters (/ \ # % and friends) are still dropped.
 const sanitizeQuery = (query: string): string =>
 	query
-		.replace(/[^\p{L}\p{N}\s]/gu, '')
+		.replace(/[^\p{L}\p{N}\s'’:&.,!¡?¿-]/gu, '')
 		.replace(/\s+/g, ' ')
 		.trim();
 

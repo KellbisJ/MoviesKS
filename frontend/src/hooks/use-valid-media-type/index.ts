@@ -1,12 +1,13 @@
 import { useParams, useLocation } from 'react-router-dom';
-import { getValidMediaType } from '@/utils/media-type-validation';
+import { getValidMediaType, mediaTypeFromPath } from '@/utils/media-type-validation';
 import { MediaTypeT } from '@/types/media-type';
 
 const useValidMediaType = (): MediaTypeT => {
 	const { type } = useParams();
 	const location = useLocation();
 
-	return getValidMediaType(type || location.pathname.split('/').filter(Boolean)[0]); // works for both, dynamics and statics routes
+	// `:type` routes (detail) name it; static routes carry it as a segment: /tv, /search/tv/:query.
+	return type ? getValidMediaType(type) : mediaTypeFromPath(location.pathname);
 };
 
-export { useValidMediaType }; // better
+export { useValidMediaType };

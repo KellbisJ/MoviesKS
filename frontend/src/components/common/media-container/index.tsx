@@ -85,10 +85,15 @@ const MediaContainer: React.FC<MediaContainerPropsInterface> = memo(
               </span>
             ) : null}
 
-            {/* Title and rating stay readable at rest; hover only deepens the scrim */}
+            {/* Title and rating stay readable at rest; hover only deepens the scrim.
+                The deeper scrim is its own layer fading in, so hover never animates layout. */}
             <div
               aria-hidden="true"
-              className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 bg-gradient-to-t from-black/85 via-black/45 to-transparent px-2.5 pt-10 pb-2.5 transition-[padding] duration-300 group-hover:pt-16">
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 bg-gradient-to-t from-black/85 via-black/45 to-transparent px-2.5 pt-10 pb-2.5">
               <span className="line-clamp-2 text-left text-xs font-semibold leading-snug text-white md:text-sm">
                 {title}
               </span>

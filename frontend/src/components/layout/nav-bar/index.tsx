@@ -28,6 +28,7 @@ import { ThemeBtn } from "@/components/common/theme-btn";
 import { underlinePath } from "@/utils/underline-path";
 import { isSpanishLang } from "@/utils/is-spanish-lang";
 import { useLanguages } from "@/context/lang";
+import { mediaTypeFromPath } from "@/utils/media-type-validation";
 
 const NavBar: React.FC<NavBarPropsInterface> = ({
   isMobile,
@@ -54,9 +55,7 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
   };
 
   useEffect(() => {
-    updateMediaType(
-      location.pathname.includes("/tv") ? MediaTypeT.tv : MediaTypeT.movie
-    );
+    updateMediaType(mediaTypeFromPath(location.pathname));
   }, [location, updateMediaType]);
 
   useEffect(() => {

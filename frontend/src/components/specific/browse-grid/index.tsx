@@ -4,8 +4,9 @@ import { LoaderCircle, RotateCw } from "lucide-react";
 import { LazyMediaContainer } from "@/components/common/lazy-media-container";
 import { ShimmerBox } from "@/components/utilities/loading-skeletons/ShimmerBox";
 import { MediaTypeT } from "@/types/media-type";
-import { BrowseItem } from "./use-browse-media";
+import { MovieInterface, TVInterface } from "@/types/movie-and-tv-interface";
 
+/** Shared poster grid columns (browse, search, saved). */
 const gridClasses =
   "grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6";
 
@@ -20,13 +21,15 @@ const BrowseGridSkeleton = () => (
 );
 
 interface BrowseGridProps {
-  items: BrowseItem[];
+  items: (MovieInterface | TVInterface)[];
   type: MediaTypeT;
   refreshing: boolean;
   hasMore: boolean;
   more: "idle" | "loading" | "error";
   onLoadMore: () => void;
   isEs: boolean;
+  /** Line shown under a complete list; null hides it (e.g. a personal collection). */
+  endMessage?: string | null;
 }
 
 const BrowseGrid = ({
@@ -37,6 +40,7 @@ const BrowseGrid = ({
   more,
   onLoadMore,
   isEs,
+  endMessage,
 }: BrowseGridProps) => {
   // Auto-load when the end comes into view; the button stays as the explicit path.
   const { ref: sentinelRef, inView } = useInView({ rootMargin: "600px 0px" });
@@ -92,9 +96,9 @@ const BrowseGrid = ({
                 "Load more"
               )}
             </button>
-          ) : items.length > 0 ? (
+          ) : items.length > 0 && endMessage !== null ? (
             <p className="text-text-low dark:text-dark-text-low">
-              {isEs ? "Llegaste al final de la lista." : "You've reached the end of the list."}
+              {endMessage ?? (isEs ? "Llegaste al final de la lista." : "You've reached the end of the list.")}
             </p>
           ) : null}
         </div>
@@ -103,4 +107,4 @@ const BrowseGrid = ({
   );
 };
 
-export { BrowseGrid, BrowseGridSkeleton };
+export { BrowseGrid, BrowseGridSkeleton, gridClasses };

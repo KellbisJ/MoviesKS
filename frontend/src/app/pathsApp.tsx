@@ -10,7 +10,7 @@ import { MediaDetail } from '../routes/media-detail';
 import { PageNotFound } from '../components/layout/page-not-found';
 import { MediaBySearch } from '../routes/media-by-search';
 import { SearchAboutPage } from '@/routes/search-about';
-import { SearchDiscoverPage } from '@/routes/search-discover';
+import { LegacySearchRedirect } from '@/routes/media-by-search/LegacySearchRedirect';
 // VIEW COMPONENTS
 
 const PathsApp = () => {
@@ -85,11 +85,11 @@ const PathsApp = () => {
 				},
 				{
 					path: 'search/discover/movie',
-					element: <SearchDiscoverPage />,
+					element: <LegacySearchRedirect />,
 				},
 				{
 					path: 'search/discover/tv',
-					element: <SearchDiscoverPage />,
+					element: <LegacySearchRedirect />,
 				},
 				{
 					path: '*',

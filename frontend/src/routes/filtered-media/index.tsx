@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
-import { RotateCw, SearchX, TriangleAlert, X } from "lucide-react";
+import { SearchX, X } from "lucide-react";
 import { useLanguages } from "@/context/lang";
+import { LoadError, primaryButton } from "@/components/common/load-error";
 import { isSpanishLang } from "@/utils/is-spanish-lang";
 import { useValidMediaType } from "@/hooks/use-valid-media-type";
 import { BrowseFilters } from "@/services/browse-media/types";
@@ -10,10 +11,7 @@ import { browseTitle, countLabel, sortLabel, typeNoun } from "./browse-copy";
 import { useGenres } from "./use-genres";
 import { useBrowseMedia } from "./use-browse-media";
 import { BrowseControls } from "./BrowseControls";
-import { BrowseGrid, BrowseGridSkeleton } from "./BrowseGrid";
-
-const primaryButton =
-  "inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-accent-ink px-5 py-2.5 text-sm font-semibold text-white cursor-pointer transition-colors duration-200 hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:bg-dark-accent dark:text-dark-bg-main dark:hover:bg-dark-primary dark:focus-visible:outline-dark-accent";
+import { BrowseGrid, BrowseGridSkeleton } from "@/components/specific/browse-grid";
 
 /**
  * Browse page for /movie and /tv. Every filter lives in the query string
@@ -127,23 +125,15 @@ const FilteredMedia = (): React.JSX.Element => {
         aria-busy={status === "loading"}
         className="mt-8">
         {status === "error" ? (
-          <div
-            role="alert"
-            className="mx-auto flex max-w-3xl flex-col gap-4 rounded-xl bg-surface-1 px-5 py-4 text-sm text-text-high shadow-sm dark:bg-dark-surface-1 dark:text-dark-text-high sm:flex-row sm:items-center">
-            <TriangleAlert
-              className="h-5 w-5 shrink-0 text-accent-ink dark:text-dark-accent"
-              aria-hidden="true"
-            />
-            <p className="flex-1 text-text-low dark:text-dark-text-low">
-              {isEs
+          <LoadError
+            message={
+              isEs
                 ? "No pudimos cargar los títulos: el servidor no respondió."
-                : "We couldn't load the titles: the server didn't respond."}
-            </p>
-            <button type="button" onClick={browse.retry} className={`${primaryButton} self-start sm:self-auto`}>
-              <RotateCw className="h-4 w-4" aria-hidden="true" />
-              {isEs ? "Reintentar" : "Try again"}
-            </button>
-          </div>
+                : "We couldn't load the titles: the server didn't respond."
+            }
+            onRetry={browse.retry}
+            isEs={isEs}
+          />
         ) : status === "loading" && items.length === 0 ? (
           <>
             <span className="sr-only" role="status">
