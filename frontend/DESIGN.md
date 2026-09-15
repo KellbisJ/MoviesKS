@@ -11,7 +11,7 @@ colors:
   accent: "#c08457"
   accent-ink: "#94603a"
   text-high: "#2a2a2a"
-  text-low: "#666666"
+  text-low: "#636363"
   dark-bg-main: "#1a1a1a"
   dark-surface-1: "#242424"
   dark-surface-2: "#2d2d2d"
@@ -108,7 +108,7 @@ A restrained neutral palette anchored by a single warm accent. The light mode us
 - **Warm Gray-2** (#f8f8f8): Surface-2 — subtle backgrounds for empty states and secondary surfaces.
 - **Deep Canvas** (#e2e2e2 light / #1a1a1a dark): The main background. Light mode is a soft warm gray; dark mode is a deep near-black.
 - **Text High** (#2a2a2a light / #e0e0e0 dark): Primary body text and headings.
-- **Text Low** (#666666 light / #a0a0a0 dark): Secondary body text, placeholders, and muted descriptions.
+- **Text Low** (#636363 light / #a0a0a0 dark): Secondary body text, placeholders, and muted descriptions.
 
 **The Single Accent Rule.** The amber accent appears on no more than 15% of any given screen. Its warmth is the point — it should feel like a spotlight, not a floodlight.
 
@@ -201,9 +201,24 @@ All images are `overflow-hidden` with their parent's `rounded-*` applied to the 
 - **Genre chips:** `<button aria-pressed>` pills (h-10 on touch, h-9 at sm) inside a labelled group, starting with "Todos/All". Unselected: surface-1 → surface-3 on hover. Selected: Amber Ink fill (`accent-ink`, white text; `dark-accent` with dark text) with a Check icon. Chip order never changes on toggle, so keyboard focus stays put. Phones get one horizontally scrolling line with the `rail-fade` mask; sm and up wrap. Multiple genres combine as AND, and the empty state says so.
 - **Never:** side-border selection markers, dropdown panels, or modals for filtering.
 
+### Search Results (/search/movie|tv/:query)
+- **Same skeleton as browse:** container, header, then the shared `BrowseGrid` (`components/specific/browse-grid`: sentinel auto-load, "Load more" button, "end of the list" line) and its skeleton.
+- **Header:** h1 "Resultados para “query”" with the query in Amber Ink, an `aria-live` meta line (type · count), and the Movies | TV type toggle, which keeps the query and switches track. Tab title: `“query” · Películas · MoviesKS`.
+- **No matches:** SearchX icon, "Ninguna película coincide con “query”", a spelling hint that suggests the other track, a solid pill to search the other track, and a text link to browse.
+- **Failures are never shown as "no results".** The search service throws; the page shows `LoadError`.
+- **One full-results page per type.** Old `/search/discover/:type?query=` links redirect here (replace). The home search's summary page (search-about) links each type to this page with the real total, never the 20-per-page count.
+- **Queries keep title punctuation** (Spider-Man, Ocean's 11); only path-breaking characters are stripped.
+
+### Saved (/saved-media)
+- **Same frame as browse and search:** container, h1 "Guardados", a meta line with per-type counts ("8 películas · 4 series") and "Se guardan solo en este navegador.", then a Movies | TV toggle showing counts and a Sort select pill (Recientes, Título, Calificación). Type and sort live in the query string. With no explicit type it opens the track that has titles. Grid: the shared poster grid classes as `ul`/`li`.
+- **Nothing saved:** one state for the page (never one per section): Bookmark icon, "Aún no has guardado nada", a line explaining the bookmark, an Amber Ink "Explorar películas" pill and an "Explorar series" text link. One empty track: a short line with links to the other track and to browse.
+- **Removing a title here:** the card leaves, focus moves to the card that took its place (or the h1), an sr-only status announces it, and an undo bar appears for 6 s (held while hovered or focused). Undo restores the title to its original position and focuses it.
+- **Undo bar / storage alert:** fixed above the mobile bottom nav (bottom-16, bottom-6 at lg), max-w-md, rounded-xl, shadow-2xl, z-1050. Undo bar: text-high fill, white text, `dark-accent` action. If the browser refuses a write, a global bilingual alert says the change only lasts while the tab stays open.
+- **Data rules:** the collection is read synchronously and validated (corrupt or old data never crashes the app), stored slim (`id`, title/name, poster, rating, `savedAt`), changed read-modify-write, and synced across tabs with the `storage` event.
+
 ### Buttons (CTA)
 - **Shape:** Rounded-full (pill)
-- **Solid Amber Ink (Watch trailer, Back to home, Try again, Clear filters):** `bg-accent-ink` text-white (`dark-accent` with dark text), px-5 py-2.5, font-semibold; hover goes to Charcoal (`primary` / `dark-primary`)
+- **Solid Amber Ink (Watch trailer, Back to home, Try again, Clear filters, Search the other track):** `bg-accent-ink` text-white (`dark-accent` with dark text), px-5 py-2.5, font-semibold; hover goes to Charcoal (`primary` / `dark-primary`)
 - **Save (bookmark):** Pill-shaped, glassmorphic, appears on card hover
 
 ### Empty State / No Results
@@ -227,7 +242,8 @@ All images are `overflow-hidden` with their parent's `rounded-*` applied to the 
 ### Loading States
 - **Skeletons:** Placeholder shapes matching the content they replace (HomeSkeleton mirrors the lead, search, ranked rows and rail; SingleMediaSkeleton)
 - **Errors (home):** Sections load independently. A failed section is hidden and one alert above the sections says what failed, with an Amber Ink "Try again" pill that refetches.
-- **Popcorn loader:** Animated popcorn icon with pulsing ring and floating particle dots — a signature loading experience
+- **Errors (browse, search):** one shared `LoadError` alert (`components/common/load-error`): surface-1 row, TriangleAlert, a sentence naming what failed, and an Amber Ink "Try again" pill. A failed "load more" keeps the grid and retries in place.
+- **Popcorn loader:** Legacy, still on the search-about page only. New pages use skeletons.
 
 ## Do's and Don'ts
 

@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import { Menu } from "./Menu";
 import { NavbarHero } from "./navbar-hero";
 import { Footer } from "./Footer";
+import { SaveStorageAlert } from "@/components/common/save-storage-alert";
 import { useLocation } from "react-router-dom";
 
 const Layout = (): React.JSX.Element => {
@@ -11,7 +12,6 @@ const Layout = (): React.JSX.Element => {
     "/",
     "/home",
     "/search/about",
-    "/search/discover",
   ];
 
   const showNavbarHero = showNavbarHeroPaths.some(
@@ -31,6 +31,7 @@ const Layout = (): React.JSX.Element => {
         <Outlet />
       </div>
       <Footer />
+      <SaveStorageAlert />
     </main>
   );
 };

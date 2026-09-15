@@ -120,7 +120,11 @@ const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
                     type="button"
                     onClick={handleSaveMedia(mediaType, media)}
                     aria-pressed={isSaved}
-                    aria-label={isEs ? `Guardar ${title}` : `Save ${title}`}
+                    aria-label={
+                      isSaved
+                        ? isEs ? `Quitar ${title} de guardados` : `Remove ${title} from saved`
+                        : isEs ? `Guardar ${title}` : `Save ${title}`
+                    }
                     title={isSaved ? (isEs ? "Guardada" : "Saved") : isEs ? "Guardar" : "Save"}
                     className={`absolute top-3 right-3 flex h-11 w-11 items-center justify-center rounded-full backdrop-blur-sm cursor-pointer transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:focus-visible:outline-dark-accent ${
                       isSaved

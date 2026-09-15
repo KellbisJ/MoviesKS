@@ -73,16 +73,6 @@ const SimilarGenresNullSkeleton = () => {
   );
 };
 
-const MediaSavedVoid = () => {
-  return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-5 lg:gap-8 w-full">
-      <div className="col-span-full w-full bg-surface-2 dark:bg-dark-surface-2 border-2 border-dashed border-secondary dark:border-dark-secondary rounded-lg h-80 flex items-center justify-center text-text-low dark:text-dark-text-low italic">
-        No Favorites Yet
-      </div>
-    </div>
-  );
-};
-
 const MediaNullSkeletonHome: React.FC<MediaNullSkeletonPropsInterface> = (
   props
 ) => <MediaNullPoster {...props} className="h-full w-full" />;
@@ -96,7 +86,6 @@ export {
   CategoriesSkeleton,
   BigPosterPathNullSkeleton,
   SimilarGenresNullSkeleton,
-  MediaSavedVoid,
   SingleMediaSkeleton,
   MediaNullSkeletonHome,
 };
