@@ -19,7 +19,7 @@ export const bindings: KnowledgeBinding[] = [
     id: 'tmdb_proxy_allowlist',
     target: 'backend/api/utils/endpointVerifier.ts',
     mechanism:
-      'Builds the outgoing TMDB URL only when the cleaned request path matches a table entry; appends api_key + include_adult=false, plus page/query/with_genres/language params — a param absent from this signature is dropped silently. Header language is skipped for paths containing /images or /reviews. Timeout paths return 504 via customReqMediaDataUtil (10 s AbortController).',
+      'Builds the outgoing TMDB URL only when the cleaned request path matches a table entry; appends api_key + include_adult=false, plus page/query/with_genres/language params (with_genres must match digits joined by , or |) and, on discover/* only, the DISCOVER_PARAM_PATTERNS allowlist (sort_by, primary_release_year, first_air_date_year, vote_count.gte, primary_release_date.lte, first_air_date.lte), each regex-validated and encoded — a param absent from the signature or allowlist is dropped silently. Header language is skipped for paths containing /images or /reviews. Timeout paths return 504 via customReqMediaDataUtil (10 s AbortController).',
     verified: true,
   },
 ];

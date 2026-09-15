@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSearch } from "../../../context/search-media-context";
 import { useDarkMode } from "../../../hooks/use-dark-mode";
@@ -7,7 +7,7 @@ import {
   House,
   Film,
   Tv,
-  Save,
+  Bookmark,
   Sun,
   Moon,
   PanelLeftOpen,
@@ -34,8 +34,6 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
   toggleSideBar,
   isSideBarOpen,
   setIsSideBarOpen,
-  setIsMoviesModalOpen,
-  setIsGenresModalOpen,
   showLangSidebar,
   setShowLangSideBar,
 }) => {
@@ -46,30 +44,14 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
   const location = useLocation();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isSpanishLang(language)) {
-      setLabels((prevLabels) => ({
-        ...prevLabels,
-        home: "Home",
-        movies: "Movies",
-        tv: "TV Series",
-        saved: "Saved",
-        search: "Search",
-      }));
-    }
-  }, [language]);
-
-  const [labels, setLabels] = useState<{
-    home: string;
-    movies: string;
-    tv: string;
-    saved: string;
-  }>({
-    home: "Inicio",
-    movies: "Películas",
-    tv: "Series de TV",
-    saved: "Guardado",
-  });
+  const isEs = isSpanishLang(language);
+  const labels = {
+    home: isEs ? "Inicio" : "Home",
+    movies: isEs ? "Películas" : "Movies",
+    tv: isEs ? "Series de TV" : "TV Series",
+    saved: isEs ? "Guardado" : "Saved",
+    search: isEs ? "Buscar" : "Search",
+  };
 
   useEffect(() => {
     updateMediaType(
@@ -84,13 +66,13 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
   const navItems = [
     { to: "/home", base: "/home", label: labels.home, icon: House },
     {
-      to: location.pathname.startsWith("/movie") ? "/movie/all" : "/movie",
+      to: "/movie",
       base: "/movie",
       label: labels.movies,
       icon: Film,
     },
     {
-      to: location.pathname.startsWith("/tv") ? "/tv/all" : "/tv",
+      to: "/tv",
       base: "/tv",
       label: labels.tv,
       icon: Tv,
@@ -99,7 +81,7 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
       to: "/saved-media",
       base: "/saved-media",
       label: labels.saved,
-      icon: Save,
+      icon: Bookmark,
     },
   ];
 
@@ -119,12 +101,13 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
               <Link
                 key={item.to}
                 to={item.to}
-                className={`flex items-center gap-2 hover:text-accent transition-colors duration-200 text-sm ${
+                aria-current={underlinePath(item.base, location) ? "page" : undefined}
+                className={`flex items-center gap-2 rounded-sm transition-colors duration-200 text-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent dark:focus-visible:outline-dark-accent ${
                   underlinePath(item.base, location)
-                    ? "text-accent"
-                    : "text-text-low dark:text-dark-text-low hover:text-accent dark:hover:text-accent"
+                    ? "text-accent-ink dark:text-dark-accent"
+                    : "text-text-low dark:text-dark-text-low hover:text-accent-ink dark:hover:text-dark-accent"
                 }`}>
-                <item.icon size={18} className="shrink-0" />
+                <item.icon size={18} className="shrink-0" aria-hidden="true" />
                 {item.label}
               </Link>
             ))}
@@ -136,8 +119,13 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
             onSubmit={(e) => handleSearch2(e, searchQuery, mediaType, navigate)}
             className="relative flex items-center w-4/5 max-w-xl bg-surface-1 dark:bg-dark-surface-1 rounded-full transition-all focus-within:ring-2 focus-within:ring-accent">
             <input
-              type="text"
-              placeholder={`Search ${mediaType === MediaTypeT.movie ? "Movies" : "TV Series"}`}
+              type="search"
+              aria-label={labels.search}
+              placeholder={
+                mediaType === MediaTypeT.movie
+                  ? isEs ? "Buscar películas" : "Search movies"
+                  : isEs ? "Buscar series" : "Search TV series"
+              }
               className="w-full px-6 py-2 bg-transparent outline-none rounded-full placeholder-text-low dark:placeholder-dark-text-low text-sm transition-all"
               value={searchQuery}
               onChange={(e) => updateSearchQuery(e.target.value)}
@@ -145,6 +133,7 @@ const NavBar: React.FC<NavBarPropsInterface> = ({
             />
             <button
               type="submit"
+              aria-label={labels.search}
               className="p-2 mr-2 rounded-full hover:bg-surface-2 dark:hover:bg-dark-surface-2 transition-colors">
               <Search
                 size={20}

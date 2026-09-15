@@ -4,11 +4,9 @@ import { useRoutes } from 'react-router-dom';
 import { Layout } from '@/components/layout';
 import { Home } from '@/routes/home';
 import { FilteredMedia } from '@/routes/filtered-media';
-import { MediaAllMovie } from '../routes/media-all-movie';
+import { LegacyBrowseRedirect } from '@/routes/filtered-media/LegacyBrowseRedirect';
 import { SavedMedia } from '../routes/saved-media';
-import { MediaAllTV } from '../routes/media-all-tv';
 import { MediaDetail } from '../routes/media-detail';
-import { MediaAllByCategory } from '../routes/media-all-by-category';
 import { PageNotFound } from '../components/layout/page-not-found';
 import { MediaBySearch } from '../routes/media-by-search';
 import { SearchAboutPage } from '@/routes/search-about';
@@ -39,19 +37,19 @@ const PathsApp = () => {
 				},
 				{
 					path: 'movie/preview/genre/:id',
-					element: <FilteredMedia />,
+					element: <LegacyBrowseRedirect />,
 				},
 				{
 					path: 'tv/preview/genre/:id',
-					element: <FilteredMedia />,
+					element: <LegacyBrowseRedirect />,
 				},
 				{
 					path: 'movie/all',
-					element: <MediaAllMovie />,
+					element: <LegacyBrowseRedirect />,
 				},
 				{
 					path: 'tv/all',
-					element: <MediaAllTV />,
+					element: <LegacyBrowseRedirect />,
 				},
 				{
 					path: 'movie/detail/:id',
@@ -63,11 +61,11 @@ const PathsApp = () => {
 				},
 				{
 					path: 'movie/all/category/:id',
-					element: <MediaAllByCategory />,
+					element: <LegacyBrowseRedirect />,
 				},
 				{
 					path: 'tv/all/category/:id',
-					element: <MediaAllByCategory />,
+					element: <LegacyBrowseRedirect />,
 				},
 				{
 					path: 'search/movie/:query',

@@ -36,7 +36,7 @@ Entry point is `backend/index.ts`. It builds the Express app, mounts middleware 
 ### Routes
 
 - `api/routes/index.ts` — `GET /api/` returns a JSON index of example endpoints. Mounts the two routers below and exports the TMDB base URL.
-- `api/routes/movies-and-tvseries/index.ts` — table-driven proxy. The `mediaRoutes` array lists every allowed TMDB path (detail, similar, videos, images, reviews, popular/top_rated/upcoming/now_playing lists, genres, discover, trending, search). Each entry becomes a `GET /api/<path>` handler that forwards `page`, `query`, `with_genres`, and `language` query params.
+- `api/routes/movies-and-tvseries/index.ts` — table-driven proxy. The `mediaRoutes` array lists every allowed TMDB path (detail, similar, videos, images, reviews, popular/top_rated/upcoming/now_playing lists, genres, discover, trending, search). Each entry becomes a `GET /api/<path>` handler that forwards `page`, `query`, `with_genres`, and `language` query params. On `discover/*` it also forwards a pattern-validated allowlist (`sort_by`, `primary_release_year`, `first_air_date_year`, `vote_count.gte`, `primary_release_date.lte`, `first_air_date.lte`) used by the browse page.
 - `api/routes/addons/index.ts` — proxies `configuration/languages` and `configuration/primary_translations`. Passes TMDB error status codes through.
 - `*/types.ts` — TMDB response interfaces and the language-code maps used by the frontend.
 

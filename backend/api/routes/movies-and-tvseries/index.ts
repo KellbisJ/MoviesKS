@@ -65,7 +65,8 @@ const getMediaData = async (req: Request, res: Response, pathToGet: string) => {
     page,
     query,
     with_genres,
-    language
+    language,
+    req.query
   );
 
   try {

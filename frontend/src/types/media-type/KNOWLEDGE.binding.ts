@@ -19,7 +19,7 @@ export const bindings: KnowledgeBinding[] = [
     id: 'movie_tv_duality',
     target: 'frontend/src/app/pathsApp.tsx',
     mechanism:
-      'Route table: /movie, /tv, /movie/all, /tv/all, /movie/preview/genre/:id, /tv/preview/genre/:id, genre-filtered lists — every browse route has a twin; detail route validates the track from the URL.',
+      'Route table: /movie and /tv share one browse page (routes/filtered-media) with filters in the query string (?genres=&sort=&year=); legacy /all, /preview/genre/:id and /all/category/:id twins redirect there via LegacyBrowseRedirect. Detail route validates the track from the URL.',
     verified: true,
   },
 ];

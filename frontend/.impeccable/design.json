@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-08-05T00:00:00.000Z",
+  "generatedAt": "2026-09-15T16:21:42Z",
   "title": "Design System: MoviesKS",
   "extensions": {
     "colorMeta": {
@@ -8,126 +8,392 @@
         "role": "neutral",
         "displayName": "Deep Canvas",
         "canonical": "#e2e2e2",
-        "tonalRamp": ["#1a1a1a", "#3a3a3a", "#5a5a5a", "#7a7a7a", "#9a9a9a", "#bababa", "#dadbdb", "#e2e2e2"]
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
       },
       "surface-1": {
         "role": "neutral",
         "displayName": "Warm Gray-1",
         "canonical": "#f0f0f0",
-        "tonalRamp": ["#242424", "#3a3a3a", "#505050", "#6a6a6a", "#848484", "#9e9e9e", "#b8b8b8", "#f0f0f0"]
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
       },
       "surface-2": {
         "role": "neutral",
         "displayName": "Warm Gray-2",
         "canonical": "#f8f8f8",
-        "tonalRamp": ["#2d2d2d", "#454545", "#5d5d5d", "#767676", "#8f8f8f", "#a8a8a8", "#c1c1c1", "#f8f8f8"]
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
       },
       "surface-3": {
         "role": "neutral",
         "displayName": "Paper White",
         "canonical": "#ffffff",
-        "tonalRamp": ["#383838", "#505050", "#686868", "#808080", "#989898", "#b0b0b0", "#c8c8c8", "#ffffff"]
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
       },
       "primary": {
         "role": "primary",
         "displayName": "Charcoal",
         "canonical": "#4a4a4a",
-        "tonalRamp": ["#1a1a1a", "#303030", "#4a4a4a", "#636363", "#7d7d7d", "#969696", "#b0b0b0", "#d1d1d1"]
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
       },
       "secondary": {
         "role": "neutral",
         "displayName": "Warm Gray",
         "canonical": "#8e8e8e",
-        "tonalRamp": ["#888888", "#969696", "#a4a4a4", "#b2b2b2", "#c0c0c0", "#cecere", "#dcdcdc", "#e8e8e8"]
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
       },
       "accent": {
         "role": "primary",
         "displayName": "Amber Glow",
         "canonical": "#c08457",
-        "tonalRamp": ["#5a3a20", "#7a5535", "#9a6e4a", "#c08457", "#d4a373", "#e8c498", "#f0d8b8", "#f8e8d8"]
+        "tonalRamp": [
+          "#1a0400",
+          "#451300",
+          "#673200",
+          "#895224",
+          "#ae7346",
+          "#d39668",
+          "#f9ba8b",
+          "#ffe6cd"
+        ]
+      },
+      "accent-ink": {
+        "role": "primary",
+        "displayName": "Amber Ink",
+        "canonical": "#94603a",
+        "tonalRamp": [
+          "#190500",
+          "#421500",
+          "#643409",
+          "#86532d",
+          "#aa744e",
+          "#cf9770",
+          "#f5bb93",
+          "#ffe7d1"
+        ]
       },
       "text-high": {
         "role": "neutral",
         "displayName": "Text High",
         "canonical": "#2a2a2a",
-        "tonalRamp": ["#2a2a2a", "#4a4a4a", "#6a6a6a", "#8a8a8a", "#aaaaaa", "#cacaca", "#eaeaea", "#e0e0e0"]
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
       },
       "text-low": {
         "role": "neutral",
         "displayName": "Text Low",
         "canonical": "#666666",
-        "tonalRamp": ["#a0a0a0", "#b0b0b0", "#c0c0c0", "#d0d0d0", "#dcdcdc", "#e5e5e5", "#eeeeee", "#f0f0f0"]
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "dark-bg-main": {
+        "role": "neutral",
+        "displayName": "Deep Canvas (Dark)",
+        "canonical": "#1a1a1a",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "dark-surface-1": {
+        "role": "neutral",
+        "displayName": "Dark Surface-1",
+        "canonical": "#242424",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "dark-surface-2": {
+        "role": "neutral",
+        "displayName": "Dark Surface-2",
+        "canonical": "#2d2d2d",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "dark-surface-3": {
+        "role": "neutral",
+        "displayName": "Dark Surface-3",
+        "canonical": "#383838",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "dark-primary": {
+        "role": "primary",
+        "displayName": "Charcoal (Dark)",
+        "canonical": "#d1d1d1",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "dark-secondary": {
+        "role": "neutral",
+        "displayName": "Warm Gray (Dark)",
+        "canonical": "#888888",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "dark-accent": {
+        "role": "primary",
+        "displayName": "Amber Glow (Dark)",
+        "canonical": "#d4a373",
+        "tonalRamp": [
+          "#180600",
+          "#401800",
+          "#603700",
+          "#825627",
+          "#a67748",
+          "#cb9a6a",
+          "#f1be8d",
+          "#ffe9ce"
+        ]
+      },
+      "dark-text-high": {
+        "role": "neutral",
+        "displayName": "Text High (Dark)",
+        "canonical": "#e0e0e0",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "dark-text-low": {
+        "role": "neutral",
+        "displayName": "Text Low (Dark)",
+        "canonical": "#a0a0a0",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
       }
     },
     "typographyMeta": {
       "body": {
         "displayName": "Body",
-        "purpose": "Body text, descriptions, synopsis, and all reading content."
+        "purpose": "Body text, descriptions and synopses (lead synopsis capped at 62ch, 2–3 lines)."
       },
       "heading": {
         "displayName": "Heading",
-        "purpose": "All headings and titles from display size down to headline."
+        "purpose": "All headings: lead feature title (6xl, tracking-tight, balanced), section titles (xl/2xl), rank numerals (3xl, tabular)."
       },
       "label": {
         "displayName": "Label",
-        "purpose": "Navigation labels, filter titles, and secondary UI text."
+        "purpose": "Navigation labels, bottom-bar button labels (xs), filter titles, meta rows and pills."
       }
     },
     "shadows": [
       {
-        "name": "nav-shadow",
-        "value": "0 4px 12px rgba(0,0,0,0.08)",
-        "purpose": "Fixed navbar ambient depth. Subtle enough to not compete with content."
+        "name": "shadow-sm",
+        "value": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+        "purpose": "Ranked rows at rest."
       },
       {
-        "name": "card-shadow",
-        "value": "0 8px 24px rgba(0,0,0,0.12)",
-        "purpose": "Default elevation for media cards and dropdown panels."
+        "name": "shadow-md",
+        "value": "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+        "purpose": "Navbars, filter panels, ranked-row hover."
       },
       {
-        "name": "card-shadow-hover",
-        "value": "0 16px 48px rgba(0,0,0,0.18)",
-        "purpose": "Lift effect on hover. Creates a tactile 'rising' sensation."
+        "name": "shadow-lg",
+        "value": "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+        "purpose": "Default elevation for poster cards, the lead feature and the search pill."
       },
       {
-        "name": "backdrop-shadow",
-        "value": "0 32px 80px rgba(0,0,0,0.35)",
-        "purpose": "Deep shadow for the hero backdrop image on detail pages."
+        "name": "shadow-2xl",
+        "value": "0 25px 50px -12px rgb(0 0 0 / 0.25)",
+        "purpose": "Hover/focus lift for cards and the lead feature; detail backdrop."
+      },
+      {
+        "name": "section-card",
+        "value": "0 1px 2px rgba(0,0,0,0.06), 0 12px 32px -20px rgba(0,0,0,0.35)",
+        "purpose": "Home section containers: a soft grounded drop under the blurred-backdrop card."
+      },
+      {
+        "name": "rail-arrow",
+        "value": "0 6px 18px -6px rgba(0,0,0,0.45)",
+        "purpose": "Floating rail scroll buttons (0.7 alpha in dark mode)."
       }
     ],
     "motion": [
       {
         "name": "ease-standard",
         "value": "cubic-bezier(0.4, 0, 0.2, 1)",
-        "purpose": "Default easing for all state transitions and animations."
+        "purpose": "Default easing for state transitions and the skeleton sweep."
       },
       {
         "name": "ease-out",
         "value": "ease-out",
-        "purpose": "Used for menu slide-down animations (translate-y transitions)."
+        "purpose": "Menu slide-ups and the lead image hover zoom."
       },
       {
         "name": "duration-fast",
         "value": "200ms",
-        "purpose": "Color transitions, hover state changes."
+        "purpose": "Color, background and opacity state changes (buttons, links, save button reveal)."
       },
       {
         "name": "duration-standard",
         "value": "300ms",
-        "purpose": "Menu animations, card scale transitions, overlay fade-ins."
+        "purpose": "Card scale and shadow lift, overlay menus, fade-in."
       },
       {
         "name": "duration-slow",
         "value": "500ms",
-        "purpose": "Image loading fade-in, content transitions."
+        "purpose": "Poster image load fade-in."
+      },
+      {
+        "name": "duration-feature",
+        "value": "700ms",
+        "purpose": "Lead feature backdrop scale to 1.02 on hover (motion-safe only)."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "@media (prefers-reduced-motion: reduce)",
+        "purpose": "Collapses all animations, transitions and smooth scrolling to ~0ms."
       }
     ],
     "breakpoints": [
-      { "name": "sm", "value": "640px" },
-      { "name": "md", "value": "768px" },
-      { "name": "lg", "value": "1024px" },
-      { "name": "xl", "value": "1280px" },
-      { "name": "2xl", "value": "1536px" }
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      },
+      {
+        "name": "2xl",
+        "value": "1536px"
+      }
     ]
   },
   "components": [
@@ -135,62 +401,86 @@
       "name": "Media Card (Poster)",
       "kind": "card",
       "refersTo": "card-media",
-      "description": "Portrait poster card with hover lift, overlay title, and save button.",
-      "html": "<div class=\"ds-media-card\"><img src=\"poster.jpg\" alt=\"Movie Title\" /><button class=\"ds-save-btn\">♥</button><div class=\"ds-overlay\"><span>Movie Title</span></div><div class=\"ds-rating\">★ 7.8</div></div>",
-      "css": ".ds-media-card { position: relative; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.12); transition: box-shadow 0.3s cubic-bezier(0.4,0,0.2,1), transform 0.3s cubic-bezier(0.4,0,0.2,1); aspect-ratio: 2/3; touch-action: manipulation; }\n.ds-media-card:hover { box-shadow: 0 16px 48px rgba(0,0,0,0.18); transform: scale(1.05); }\n.ds-media-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.5s ease-in-out; }\n.ds-media-card img.loaded { opacity: 1; }\n.ds-save-btn { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; border-radius: 9999px; background: rgba(31,41,55,0.3); backdrop-filter: blur(4px); border: none; color: #e5e7eb; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; opacity: 0; z-index: 10; }\n.ds-media-card:hover .ds-save-btn { opacity: 1; }\n.ds-save-btn:hover { background: rgba(192,132,87,0.2); color: #c08457; }\n.ds-save-btn.saved { opacity: 1; color: #16c47f; background: rgba(22,196,127,0.2); }\n.ds-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }\n.ds-media-card:hover .ds-overlay { opacity: 1; }\n.ds-overlay span { color: #fff; text-align: center; padding: 8px; font-size: 0.875rem; }\n.ds-rating { position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.5); color: #facc15; font-size: 0.75rem; padding: 2px 4px; border-radius: 9999px; opacity: 0; transition: opacity 0.3s; display: flex; align-items: center; gap: 2px; }\n.ds-media-card:hover .ds-rating { opacity: 1; }"
+      "description": "2:3 poster link with an at-rest title/rating scrim; the round save button is a sibling of the link, visible on hover/focus (always on touch), filled amber when saved.",
+      "html": "<div class=\"ds-media-card\"><a class=\"ds-media-link\" href=\"#\"><img src=\"https://image.tmdb.org/t/p/w185/qJ2tW6WMUDux911r6m7haRef0WH.jpg\" alt=\"The Dark Knight\" /><div class=\"ds-media-scrim\" aria-hidden=\"true\"><span class=\"ds-media-title\">The Dark Knight</span><span class=\"ds-media-rating\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"currentColor\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>8.5</span></div></a><button type=\"button\" class=\"ds-save-btn\" aria-label=\"Save The Dark Knight\" aria-pressed=\"false\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z\"/></svg></button></div>",
+      "css": ".ds-media-card { position: relative; width: 176px; aspect-ratio: 2/3; padding: 8px; transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); }\n.ds-media-card:hover { transform: scale(1.05); }\n.ds-media-link { position: relative; display: block; width: 100%; height: 100%; overflow: hidden; border-radius: 16px; background: var(--color-dark-surface-2); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); transition: box-shadow 0.3s; }\n.ds-media-card:hover .ds-media-link { box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); }\n.ds-media-link:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }\n.ds-media-link img { width: 100%; height: 100%; object-fit: cover; display: block; }\n.ds-media-scrim { position: absolute; inset: auto 0 0 0; display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; padding: 40px 10px 10px; background: linear-gradient(to top, rgb(0 0 0 / 0.85), rgb(0 0 0 / 0.45), transparent); transition: padding 0.3s; }\n.ds-media-card:hover .ds-media-scrim { padding-top: 64px; }\n.ds-media-title { color: #fff; font: 600 0.875rem/1.35 Inter, sans-serif; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }\n.ds-media-rating { display: inline-flex; align-items: center; gap: 2px; flex-shrink: 0; color: var(--color-dark-accent); font: 600 0.75rem Inter, sans-serif; font-variant-numeric: tabular-nums; }\n.ds-save-btn { position: absolute; top: 14px; right: 14px; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border: none; border-radius: 9999px; background: rgb(0 0 0 / 0.45); backdrop-filter: blur(4px); color: #fff; cursor: pointer; opacity: 0; transition: opacity 0.2s, background-color 0.2s; }\n.ds-media-card:hover .ds-save-btn, .ds-media-card:focus-within .ds-save-btn { opacity: 1; }\n.ds-save-btn:hover { background: var(--color-accent); }\n.ds-save-btn:focus-visible { opacity: 1; outline: 2px solid var(--color-accent); outline-offset: 2px; }\n.ds-save-btn[aria-pressed=\"true\"] { opacity: 1; background: var(--color-accent); }\n@media (hover: none) { .ds-save-btn { opacity: 1; } }"
     },
     {
-      "name": "Desktop Navigation Bar",
-      "kind": "nav",
-      "refersTo": "nav-bar",
-      "description": "Fixed top navbar with glassmorphic background, search bar, and icon navigation.",
-      "html": "<nav class=\"ds-navbar\"><div class=\"ds-brand\">MoviesKS</div><div class=\"ds-nav-links\"><a href=\"/home\" class=\"ds-nav-link\">Home</a><a href=\"/movie\" class=\"ds-nav-link\">Movies</a><a href=\"/tv\" class=\"ds-nav-link\">TV Series</a><a href=\"/saved\" class=\"ds-nav-link\">Saved</a></div><div class=\"ds-search\"><input type=\"text\" placeholder=\"Search Movies\" class=\"ds-search-input\" /><button class=\"ds-search-btn\">🔍</button></div></nav>",
-      "css": ".ds-navbar { position: fixed; top: 0; left: 0; right: 0; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; background: rgba(255,255,255,0.8); backdrop-filter: blur(4px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); z-index: 1000; transition: background 0.2s; }\n.ds-brand { font-size: 1.5rem; font-weight: 700; color: #2a2a2a; text-decoration: none; display: flex; align-items: center; gap: 8px; }\n.ds-nav-links { display: flex; gap: 16px; align-items: center; }\n.ds-nav-link { display: flex; align-items: center; gap: 6px; font-size: 0.875rem; color: #666666; text-decoration: none; transition: color 0.2s; }\n.ds-nav-link:hover { color: #c08457; }\n.ds-nav-link.active { color: #c08457; }\n.ds-search { position: relative; display: flex; align-items: center; width: 80%; max-width: 448px; }\n.ds-search-input { width: 100%; padding: 8px 24px; border-radius: 9999px; border: none; background: #f0f0f0; font-size: 0.875rem; outline: none; transition: box-shadow 0.2s; }\n.ds-search-input:focus { box-shadow: 0 0 0 2px #c08457; }\n.ds-search-input::placeholder { color: #8e8e8e; }\n.ds-search-btn { position: absolute; right: 8px; width: 36px; height: 36px; border-radius: 9999px; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }\n.ds-search-btn:hover { background: #f8f8f8; }"
+      "name": "Lead Feature",
+      "kind": "custom",
+      "refersTo": "lead-feature",
+      "description": "Home page's single full-width feature: backdrop with a dark gradient, 6xl title as a stretched link, rating/year meta, 2-line synopsis, an amber 'View details' pill and a translucent Save pill.",
+      "html": "<article class=\"ds-lead\"><img class=\"ds-lead-img\" src=\"https://image.tmdb.org/t/p/w1280/nMKdUUepR0i5zn0y1T4CsSB5chy.jpg\" alt=\"\" /><div class=\"ds-lead-shade\" aria-hidden=\"true\"></div><div class=\"ds-lead-body\"><h2 class=\"ds-lead-title\"><a href=\"#\">Dune: Part Two</a></h2><p class=\"ds-lead-meta\"><span class=\"ds-lead-rating\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"currentColor\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>8.2</span><span>2024</span><span>No. 1 in popular movies</span></p><p class=\"ds-lead-overview\">Paul Atreides unites with Chani and the Fremen while on a path of revenge against the conspirators who destroyed his family.</p><div class=\"ds-lead-actions\"><span class=\"ds-lead-cta\" aria-hidden=\"true\">View details</span><button type=\"button\" class=\"ds-lead-save\" aria-pressed=\"false\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z\"/></svg>Save</button></div></div></article>",
+      "css": ".ds-lead { position: relative; isolation: isolate; display: grid; overflow: hidden; border-radius: 20px; background: var(--color-dark-surface-1); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); transition: box-shadow 0.3s; min-height: 420px; }\n.ds-lead:hover, .ds-lead:focus-within { box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); }\n.ds-lead-img { grid-area: 1/1; width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 0.7s ease-out; }\n.ds-lead:hover .ds-lead-img { transform: scale(1.02); }\n.ds-lead-shade { position: absolute; inset: 0; background: linear-gradient(to right, rgb(0 0 0 / 0.85), rgb(0 0 0 / 0.45), transparent); }\n.ds-lead-body { grid-area: 1/1; z-index: 1; align-self: end; max-width: 48rem; padding: 32px 32px 48px; }\n.ds-lead-title { margin: 0; color: #fff; font: 700 3rem/1.05 Inter, sans-serif; letter-spacing: -0.025em; text-wrap: balance; }\n.ds-lead-title a { color: inherit; text-decoration: none; outline: none; }\n.ds-lead-title a::after { content: \"\"; position: absolute; inset: 0; border-radius: 20px; }\n.ds-lead-title a:focus-visible::after { outline: 2px solid var(--color-dark-accent); outline-offset: -4px; }\n.ds-lead-meta { display: flex; flex-wrap: wrap; gap: 4px 12px; margin: 12px 0 0; color: rgb(255 255 255 / 0.8); font: 400 1rem Inter, sans-serif; }\n.ds-lead-rating { display: inline-flex; align-items: center; gap: 4px; color: var(--color-dark-accent); font-weight: 600; font-variant-numeric: tabular-nums; }\n.ds-lead-overview { max-width: 62ch; margin: 12px 0 0; color: rgb(255 255 255 / 0.85); font: 400 1rem/1.625 Inter, sans-serif; }\n.ds-lead-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }\n.ds-lead-cta { display: inline-flex; align-items: center; padding: 10px 20px; border-radius: 9999px; background: var(--color-dark-accent); color: var(--color-dark-bg-main); font: 600 0.875rem Inter, sans-serif; transition: background-color 0.2s; }\n.ds-lead:hover .ds-lead-cta { background: color-mix(in srgb, var(--color-dark-accent) 88%, white); }\n.ds-lead-save { position: relative; z-index: 10; display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border: none; border-radius: 9999px; background: rgb(255 255 255 / 0.15); backdrop-filter: blur(4px); color: #fff; font: 600 0.875rem Inter, sans-serif; cursor: pointer; transition: background-color 0.2s; }\n.ds-lead-save:hover { background: rgb(255 255 255 / 0.25); }\n.ds-lead-save:focus-visible { outline: 2px solid var(--color-dark-accent); outline-offset: 2px; }\n.ds-lead-save[aria-pressed=\"true\"] { background: #fff; color: var(--color-dark-bg-main); }"
     },
     {
-      "name": "Mobile Bottom Navigation",
-      "kind": "nav",
-      "refersTo": "mobile-bottom-nav",
-      "description": "Fixed bottom nav bar with icon-only navigation and expandable overlay menus.",
-      "html": "<nav class=\"ds-bottom-nav\"><div class=\"ds-bottom-bar\"><button class=\"ds-nav-icon\">🏠</button><button class=\"ds-nav-icon\">🎬</button><button class=\"ds-nav-icon\">📺</button><button class=\"ds-nav-icon\">⭐</button></div></nav>",
-      "css": ".ds-bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; }\n.ds-bottom-bar { display: flex; justify-content: space-around; align-items: center; height: 48px; background: #f0f0f0; backdrop-filter: blur(4px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }\n.ds-nav-icon { width: 48px; height: 48px; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #666666; border-radius: 8px; transition: color 0.2s; }\n.ds-nav-icon:hover { color: #c08457; }\n.ds-nav-icon.active { color: #c08457; }"
+      "name": "Ranked Row",
+      "kind": "custom",
+      "refersTo": "ranked-row",
+      "description": "Home section list item: large muted rank numeral, 44×64 poster thumb, title, year and Amber Ink rating. Lives in an <ol start> so the rank is announced.",
+      "html": "<ol class=\"ds-ranked\" start=\"2\"><li><a class=\"ds-ranked-row\" href=\"#\"><span class=\"ds-rank\" aria-hidden=\"true\">2</span><img class=\"ds-thumb\" src=\"https://image.tmdb.org/t/p/w185/qJ2tW6WMUDux911r6m7haRef0WH.jpg\" alt=\"\" /><span class=\"ds-ranked-text\"><span class=\"ds-ranked-title\">The Dark Knight</span><span class=\"ds-ranked-meta\"><span>2008</span><span class=\"ds-ranked-rating\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"currentColor\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>8.5</span></span></span></a></li></ol>",
+      "css": ".ds-ranked { list-style: none; margin: 0; padding: 0; max-width: 360px; }\n.ds-ranked-row { display: flex; align-items: center; gap: 12px; padding: 8px 12px 8px 8px; border-radius: 12px; background: var(--color-surface-3); box-shadow: 0 1px 2px rgb(0 0 0 / 0.05); text-decoration: none; transition: background-color 0.2s, box-shadow 0.2s; }\n.ds-ranked-row:hover { background: var(--color-surface-2); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }\n.ds-ranked-row:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }\n.ds-rank { width: 36px; flex-shrink: 0; text-align: center; color: var(--color-secondary); font: 700 1.875rem/1 Inter, sans-serif; letter-spacing: -0.025em; font-variant-numeric: tabular-nums; }\n.ds-thumb { width: 44px; height: 64px; flex-shrink: 0; border-radius: 6px; object-fit: cover; background: var(--color-dark-surface-3); }\n.ds-ranked-text { min-width: 0; flex: 1; }\n.ds-ranked-title { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; color: var(--color-text-high); font: 600 1rem Inter, sans-serif; }\n.ds-ranked-meta { display: flex; align-items: center; gap: 8px; margin-top: 2px; color: var(--color-text-low); font: 400 0.75rem Inter, sans-serif; font-variant-numeric: tabular-nums; }\n.ds-ranked-rating { display: inline-flex; align-items: center; gap: 2px; color: var(--color-accent-ink); font-weight: 600; }"
     },
     {
       "name": "Search Input (Pill)",
       "kind": "input",
       "refersTo": "input-search",
-      "description": "Pill-shaped search input with focus ring and transparent background.",
-      "html": "<div class=\"ds-search-wrapper\"><input type=\"text\" placeholder=\"Search Movies\" class=\"ds-pill-input\" /><button class=\"ds-pill-btn\">🔍</button></div>",
-      "css": ".ds-pill-input { width: 100%; padding: 8px 24px; border-radius: 9999px; border: none; background: #f0f0f0; font-size: 0.875rem; color: #2a2a2a; outline: none; transition: box-shadow 0.2s; }\n.ds-pill-input:focus { box-shadow: 0 0 0 2px #c08457; }\n.ds-pill-input::placeholder { color: #8e8e8e; }\n.ds-pill-btn { width: 36px; height: 36px; border-radius: 9999px; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; margin-right: 8px; }\n.ds-pill-btn:hover { background: #f8f8f8; }"
+      "description": "Home search: raised surface-3 pill with shadow-lg, amber focus-within ring, and a round submit button that fills Amber Ink on hover.",
+      "html": "<form class=\"ds-search\" role=\"search\"><input class=\"ds-search-input\" type=\"search\" aria-label=\"Search movies and TV series\" placeholder=\"Search for movies, series…\" /><button type=\"submit\" class=\"ds-search-btn\" aria-label=\"Search\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg></button></form>",
+      "css": ".ds-search { display: flex; align-items: center; gap: 8px; max-width: 48rem; padding: 8px 8px 8px 24px; border-radius: 9999px; background: var(--color-surface-3); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); transition: box-shadow 0.2s; }\n.ds-search:focus-within { box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1), 0 0 0 2px var(--color-accent); }\n.ds-search-input { flex: 1; min-width: 0; padding: 8px 0; border: none; background: transparent; outline: none; color: var(--color-text-high); caret-color: var(--color-accent); font: 400 1rem Inter, sans-serif; }\n.ds-search-input::placeholder { color: var(--color-text-low); }\n.ds-search-btn { width: 40px; height: 40px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; border: none; border-radius: 9999px; background: transparent; color: var(--color-text-low); cursor: pointer; transition: background-color 0.2s, color 0.2s; }\n.ds-search-btn:hover { background: var(--color-accent-ink); color: #fff; }\n.ds-search-btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }"
     },
     {
       "name": "Primary CTA Button",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "Pill-shaped primary button with accent background and white text.",
-      "html": "<button class=\"ds-btn-primary\">Watch Trailer</button>",
-      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 9999px; background: #c08457; color: #ffffff; font-size: 0.875rem; font-weight: 500; border: none; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }\n.ds-btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }\n.ds-btn-primary:active { transform: translateY(0); }\n.ds-btn-primary:focus-visible { box-shadow: 0 0 0 2px #c08457, 0 0 0 4px rgba(192,132,87,0.3); }"
+      "description": "Pill-shaped primary button with the amber accent (e.g. Watch Trailer on detail pages).",
+      "html": "<button type=\"button\" class=\"ds-btn-primary\">Watch Trailer</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border: none; border-radius: 9999px; background: var(--color-accent); color: #fff; font: 500 0.875rem Inter, sans-serif; cursor: pointer; transition: opacity 0.2s; }\n.ds-btn-primary:hover { opacity: 0.9; }\n.ds-btn-primary:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }"
     },
     {
-      "name": "Filter Bar Dropdown",
+      "name": "Retry Button (Amber Ink)",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Accessible filled pill for small white labels on light surfaces: Amber Ink background (5.3:1 with white), hover shifts to Charcoal. Used by the home error notice.",
+      "html": "<button type=\"button\" class=\"ds-btn-ink\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8\"/><path d=\"M21 3v5h-5\"/></svg>Try again</button>",
+      "css": ".ds-btn-ink { display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px; border: none; border-radius: 9999px; background: var(--color-accent-ink); color: #fff; font: 600 0.875rem Inter, sans-serif; cursor: pointer; transition: background-color 0.2s; }\n.ds-btn-ink:hover { background: var(--color-primary); }\n.ds-btn-ink:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }"
+    },
+    {
+      "name": "Desktop Navigation Bar",
+      "kind": "nav",
+      "refersTo": "nav-bar",
+      "description": "Fixed 64px glassmorphic top bar on browse/detail pages: brand, icon+label links (Amber Ink when active), pill search.",
+      "html": "<nav class=\"ds-navbar\"><a class=\"ds-brand\" href=\"#\">MoviesKS</a><div class=\"ds-nav-links\"><a href=\"#\" class=\"ds-nav-link\" aria-current=\"page\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8\"/><path d=\"M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/></svg>Home</a><a href=\"#\" class=\"ds-nav-link\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\"/><path d=\"M7 3v18\"/><path d=\"M3 7.5h4\"/><path d=\"M3 12h18\"/><path d=\"M3 16.5h4\"/><path d=\"M17 3v18\"/><path d=\"M17 7.5h4\"/><path d=\"M17 16.5h4\"/></svg>Movies</a><a href=\"#\" class=\"ds-nav-link\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect width=\"20\" height=\"15\" x=\"2\" y=\"7\" rx=\"2\" ry=\"2\"/><polyline points=\"17 2 12 7 7 2\"/></svg>TV Series</a><a href=\"#\" class=\"ds-nav-link\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z\"/></svg>Saved</a></div><form class=\"ds-nav-search\" role=\"search\"><input type=\"search\" aria-label=\"Search movies\" placeholder=\"Search movies\" /><button type=\"submit\" aria-label=\"Search\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg></button></form></nav>",
+      "css": ".ds-navbar { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 64px; padding: 0 32px; background: color-mix(in srgb, var(--color-surface-3) 80%, transparent); backdrop-filter: blur(4px); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }\n.ds-brand { color: var(--color-text-high); font: 700 1.5rem Inter, sans-serif; text-decoration: none; }\n.ds-nav-links { display: flex; align-items: center; gap: 24px; }\n.ds-nav-link { display: inline-flex; align-items: center; gap: 8px; color: var(--color-text-low); font: 500 0.875rem Inter, sans-serif; text-decoration: none; border-radius: 4px; transition: color 0.2s; }\n.ds-nav-link:hover, .ds-nav-link[aria-current=\"page\"] { color: var(--color-accent-ink); }\n.ds-nav-link:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 4px; }\n.ds-nav-search { display: flex; align-items: center; width: 320px; border-radius: 9999px; background: var(--color-surface-2); transition: box-shadow 0.2s; }\n.ds-nav-search:focus-within { box-shadow: 0 0 0 2px var(--color-accent); }\n.ds-nav-search input { flex: 1; min-width: 0; padding: 8px 24px; border: none; background: transparent; outline: none; color: var(--color-text-high); font: 400 0.875rem Inter, sans-serif; }\n.ds-nav-search button { margin-right: 8px; padding: 8px; border: none; border-radius: 9999px; background: transparent; color: var(--color-text-low); cursor: pointer; }"
+    },
+    {
+      "name": "Mobile Bottom Navigation",
+      "kind": "nav",
+      "refersTo": "mobile-bottom-nav",
+      "description": "Fixed 48px bottom bar with two labelled toggle buttons (Explore, Settings) using aria-expanded; the open one turns Amber Ink.",
+      "html": "<nav class=\"ds-bottom-nav\"><button type=\"button\" class=\"ds-bottom-btn\" aria-expanded=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><polygon points=\"16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76\"/></svg><span>Explore</span></button><button type=\"button\" class=\"ds-bottom-btn\" aria-expanded=\"false\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/></svg><span>Settings</span></button></nav>",
+      "css": ".ds-bottom-nav { display: flex; justify-content: space-around; align-items: center; height: 48px; max-width: 420px; background: var(--color-surface-1); backdrop-filter: blur(4px); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }\n.ds-bottom-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; height: 100%; min-width: 64px; padding: 0 16px; border: none; background: transparent; color: var(--color-text-low); font: 500 0.75rem Inter, sans-serif; cursor: pointer; transition: color 0.2s; }\n.ds-bottom-btn[aria-expanded=\"true\"] { color: var(--color-accent-ink); }\n.ds-bottom-btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: -2px; }"
+    },
+    {
+      "name": "Browse Controls",
       "kind": "custom",
-      "refersTo": "filter-bar",
-      "description": "Filter bar with pill-style selectors and dropdown panels with accent left-border on selected state.",
-      "html": "<div class=\"ds-filter-bar\"><div class=\"ds-filter-select\">Movies <span class=\"ds-chevron\">›</span></div></div>",
-      "css": ".ds-filter-bar { display: flex; flex-direction: column; gap: 16px; padding: 24px; min-height: 176px; }\n.ds-filter-select { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: #f0f0f0; border-radius: 12px; cursor: pointer; font-size: 0.875rem; transition: background 0.2s; }\n.ds-filter-select:hover { background: #e5e5e5; }\n.ds-chevron { transition: transform 0.2s; }\n.ds-filter-panel { position: absolute; top: 0; left: 100%; margin-left: 8px; width: 320px; padding: 10px; background: #f0f0f0; box-shadow: 0 8px 24px rgba(0,0,0,0.12); border-radius: 12px; }\n.ds-filter-option { display: flex; padding: 10px; font-size: 0.875rem; border-left: 5px solid transparent; border-radius: 8px; transition: all 0.3s ease-in-out; }\n.ds-filter-option.selected { background: #ffffff; border-left-color: #4a4a4a; box-shadow: 0 8px 24px rgba(0,0,0,0.12); }\n.ds-filter-option:hover { background: rgba(192,132,87,0.1); }"
+      "refersTo": "browse-controls",
+      "description": "Browse-page filters: Movies | TV segmented pill, Sort and Year native-select pills, and aria-pressed genre chips whose selected state is an Amber Ink fill with a check.",
+      "html": "<div class=\"ds-browse\"><div class=\"ds-browse-row\"><nav class=\"ds-seg\" aria-label=\"Title type\"><a href=\"#\" class=\"ds-seg-item\" aria-current=\"page\">Movies</a><a href=\"#\" class=\"ds-seg-item\">TV series</a></nav><label class=\"ds-select\"><span>Sort</span><select><option>Top rated</option><option>Most popular</option></select><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m6 9 6 6 6-6\"/></svg></label><label class=\"ds-select\"><span>Year</span><select><option>Any</option><option>2024</option></select><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m6 9 6 6 6-6\"/></svg></label></div><div class=\"ds-chips\" role=\"group\" aria-label=\"Genres\"><button type=\"button\" class=\"ds-chip\" aria-pressed=\"false\">All</button><button type=\"button\" class=\"ds-chip\" aria-pressed=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 6 9 17l-5-5\"/></svg>Action</button><button type=\"button\" class=\"ds-chip\" aria-pressed=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 6 9 17l-5-5\"/></svg>Comedy</button><button type=\"button\" class=\"ds-chip\" aria-pressed=\"false\">Drama</button></div></div>",
+      "css": ".ds-browse { display: grid; gap: 16px; font-family: Inter, sans-serif; }\n.ds-browse-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }\n.ds-seg { display: inline-flex; padding: 4px; border-radius: 9999px; background: var(--color-surface-1); box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1); }\n.ds-seg-item { display: inline-flex; align-items: center; height: 32px; padding: 0 16px; border-radius: 9999px; color: var(--color-text-low); font: 600 0.875rem Inter, sans-serif; text-decoration: none; transition: color 0.2s, background-color 0.2s; }\n.ds-seg-item:hover { color: var(--color-text-high); }\n.ds-seg-item[aria-current=\"page\"] { background: var(--color-surface-3); color: var(--color-text-high); box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1); }\n.ds-seg-item:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }\n.ds-select { position: relative; display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 36px 0 16px; border-radius: 9999px; background: var(--color-surface-1); box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1); font-size: 0.875rem; }\n.ds-select:focus-within { box-shadow: 0 0 0 2px var(--color-accent); }\n.ds-select span { color: var(--color-text-low); }\n.ds-select select { appearance: none; border: none; background: transparent; color: var(--color-text-high); font: 600 0.875rem Inter, sans-serif; outline: none; cursor: pointer; }\n.ds-select svg { position: absolute; right: 12px; color: var(--color-text-low); pointer-events: none; }\n.ds-chips { display: flex; flex-wrap: wrap; gap: 8px; }\n.ds-chip { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 16px; border: none; border-radius: 9999px; background: var(--color-surface-1); color: var(--color-text-high); font: 500 0.875rem Inter, sans-serif; cursor: pointer; transition: background-color 0.2s, color 0.2s; }\n.ds-chip:hover { background: var(--color-surface-3); }\n.ds-chip[aria-pressed=\"true\"] { background: var(--color-accent-ink); color: #fff; }\n.ds-chip[aria-pressed=\"true\"]:hover { background: var(--color-primary); }\n.ds-chip svg { margin-left: -4px; }\n.ds-chip:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }"
     },
     {
       "name": "No Results Empty State",
       "kind": "custom",
       "refersTo": "no-results",
-      "description": "Centered empty state with icon, heading, description, and CTA button.",
-      "html": "<div class=\"ds-empty-state\"><div class=\"ds-empty-icon\">🔍</div><h3>No results found</h3><p>Try other keywords or check your spelling.</p><a href=\"/home\" class=\"ds-btn-cta\">Return to Homepage</a></div>",
-      "css": ".ds-empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px; margin-top: 32px; background: #f8f8f8; border-radius: 16px; text-align: center; max-width: 448px; gap: 16px; }\n.ds-empty-icon { width: 64px; height: 64px; border-radius: 9999px; background: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 24px; }\n.ds-empty-state h3 { font-size: 1.25rem; font-weight: 700; color: #2a2a2a; margin: 0; }\n.ds-empty-state p { color: #666666; margin: 0; }\n.ds-btn-cta { display: inline-flex; align-items: center; padding: 8px 16px; background: #c08457; color: #ffffff; border-radius: 9999px; font-weight: 500; text-decoration: none; transition: opacity 0.2s; }\n.ds-btn-cta:hover { opacity: 0.9; }"
+      "description": "Centered empty state: search icon in a round surface-3 badge, heading, description and a solid Amber Ink pill back to home.",
+      "html": "<div class=\"ds-empty\"><div class=\"ds-empty-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg></div><h3>No results found</h3><p>Try other keywords or check your spelling.</p><a href=\"#\" class=\"ds-empty-cta\">Back to home</a></div>",
+      "css": ".ds-empty { display: flex; flex-direction: column; align-items: center; gap: 16px; max-width: 448px; padding: 32px; border-radius: 16px; background: var(--color-surface-2); text-align: center; }\n.ds-empty-icon { display: flex; align-items: center; justify-content: center; padding: 16px; border-radius: 9999px; background: var(--color-surface-3); color: var(--color-text-low); }\n.ds-empty h3 { margin: 0; color: var(--color-text-high); font: 700 1.25rem/1.2 Inter, sans-serif; }\n.ds-empty p { margin: 0; color: var(--color-text-low); font: 400 0.875rem/1.5 Inter, sans-serif; }\n.ds-empty-cta { display: inline-flex; padding: 10px 20px; border-radius: 9999px; background: var(--color-accent-ink); color: #fff; font: 600 0.875rem Inter, sans-serif; text-decoration: none; transition: background-color 0.2s; }\n.ds-empty-cta:hover { background: var(--color-primary); }\n.ds-empty-cta:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }"
     }
   ],
   "narrative": {
     "northStar": "The Screening Room",
-    "overview": "A warm, cinematic interface where content is the star and the interface fades into the background. Dark-mode depths meet soft neutral surfaces, with a warm amber accent that recalls the glow of a projector beam. The system feels fluid and vivid — transitions are smooth, hover states reveal depth, and every interaction is deliberate without being heavy.",
+    "overview": "A warm, cinematic interface where content is the star and the interface fades into the background. Dark-mode depths meet soft neutral surfaces, with a warm amber accent that recalls the glow of a projector beam. The system feels fluid and vivid — transitions are smooth, hover states reveal depth, and every interaction is deliberate without being heavy.\n\nThe layout is spacious on desktop with a fixed top navbar and centered content, collapsing to a compact bottom nav on mobile. Cards lift with shadows on hover, posters scale gently, and the accent color appears sparingly — only where it matters: active states, ratings, and call-to-action buttons.",
     "keyCharacteristics": [
       "Warm amber accent on deep neutral canvases",
       "Shadow-based depth (lifted, not flat)",

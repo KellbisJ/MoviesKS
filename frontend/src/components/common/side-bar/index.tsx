@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDarkMode } from "@/hooks/use-dark-mode";
-import { House, Film, Tv, Save, Sun, Moon } from "lucide-react";
+import { House, Film, Tv, Bookmark, Sun, Moon } from "lucide-react";
 import { SideBarPropsInterface } from "./types";
 import { MediaTypeT } from "@/types/media-type";
 
@@ -51,14 +51,14 @@ const SideBar: React.FC<SideBarPropsInterface> = ({
                   toggle: toggleSideBar,
                 },
                 {
-                  to: `/${MediaTypeT.movie}/all`,
+                  to: `/${MediaTypeT.movie}`,
                   label: "Películas",
                   icon: Film,
                   aria: "Películas",
                   toggle: toggleSideBar,
                 },
                 {
-                  to: `/${MediaTypeT.tv}/all`,
+                  to: `/${MediaTypeT.tv}`,
                   label: "Series de TV",
                   icon: Tv,
                   aria: "Series de TV",
@@ -67,7 +67,7 @@ const SideBar: React.FC<SideBarPropsInterface> = ({
                 {
                   to: "/saved-media",
                   label: "Guardado",
-                  icon: Save,
+                  icon: Bookmark,
                   aria: "Guardado",
                   toggle: toggleSideBar,
                 },

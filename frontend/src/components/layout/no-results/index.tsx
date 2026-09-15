@@ -15,7 +15,7 @@ const NoResults = () => {
   return (
     <div className="flex flex-col items-center justify-center p-8 mt-8 space-y-4 text-center bg-surface-2 dark:bg-dark-surface-2 rounded-lg">
       <div className="p-4 bg-surface-3 dark:bg-dark-surface-3 rounded-full">
-        <Search size={24} className="text-secondary dark:text-dark-secondary" />
+        <Search size={24} className="text-secondary dark:text-dark-secondary" aria-hidden="true" />
       </div>
 
       <div className="space-y-2 max-w-md">
@@ -26,9 +26,9 @@ const NoResults = () => {
       </div>
 
       <Link
-        to="/home"
-        className="mt-4 px-4 py-2 bg-accent dark:bg-dark-accent text-white rounded-full hover:bg-opacity-90 dark:hover:bg-opacity-90 transition-colors duration-300 font-medium">
-        Return to Homepage
+        to="/"
+        className="mt-4 px-5 py-2.5 rounded-full bg-accent-ink text-white font-semibold transition-colors duration-200 hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:bg-dark-accent dark:text-dark-bg-main dark:hover:bg-dark-primary dark:focus-visible:outline-dark-accent">
+        {isSpanishLang(language) ? "Volver al inicio" : "Back to home"}
       </Link>
     </div>
   );

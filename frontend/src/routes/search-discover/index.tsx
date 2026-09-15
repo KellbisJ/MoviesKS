@@ -37,6 +37,8 @@ const SearchDiscoverPage = () => {
       try {
         const data = await getMediaBySearch(mediaType, query);
         setMedia(data);
+      } catch {
+        setMedia({ page: 1, results: [], total_pages: 0, total_results: 0 });
       } finally {
         setLoadingComponents(false);
         setSearchWasMade(true);
@@ -56,13 +58,11 @@ const SearchDiscoverPage = () => {
           <h1 className="mb-8 p-3 text-text-high dark:text-dark-text-high">
             {mediaType === MediaTypeT.movie
               ? isSpanishLang(language)
-                ? `Busqueda de peliculas: ${query}`
-                : `Movie Search: ${query}`
-              : mediaType === MediaTypeT.tv
-                ? isSpanishLang(language)
-                  ? `Búsqueda de series de televisión: ${query}`
-                  : `Tv series search: ${query}`
-                : "Polladurarocadura"}
+                ? `Búsqueda de películas: ${query}`
+                : `Movie search: ${query}`
+              : isSpanishLang(language)
+                ? `Búsqueda de series: ${query}`
+                : `TV series search: ${query}`}
           </h1>
           <CreateMedia type={mediaType} media={media.results} />
         </>
@@ -71,14 +71,6 @@ const SearchDiscoverPage = () => {
       {searchWasMade && media.results.length === 0 && (
         <div className="mt-4 sm:mt-20">
           <NoResults />
-
-          <p className="text-lg text-center text-text-low dark:text-dark-text-low">
-            {isSpanishLang(language) ? "Vuelve al" : "Return to"}{" "}
-            <a href="/home" className="text-accent hover:underline">
-              Homepage
-            </a>
-            .
-          </p>
         </div>
       )}
     </>
