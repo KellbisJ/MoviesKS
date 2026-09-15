@@ -1,348 +1,312 @@
-import React, { useEffect, useState } from "react";
-import { MediaDetailPropsInterface } from "./types";
-import { BigPosterPathNullSkeleton } from "@/components/utilities/loading-skeletons";
-import { useSavedMedia } from "../../../context/favorite-media-context";
-import { CreateSimilarGenres } from "../create-similar-genres";
-import { TrailerMedia } from "../../modals/trailer-media";
+import React, { memo, useState } from "react";
 import {
-  Star,
-  Save,
+  Bookmark,
+  BookmarkCheck,
   Clapperboard,
-  Globe,
-  Film,
   Clock,
+  Film,
+  Globe,
+  Star,
   Ticket,
 } from "lucide-react";
-import { memo } from "react";
-import { MediaTypeT } from "@/types/media-type";
-import { isSpanishLang } from "@/utils/is-spanish-lang";
+import { MediaDetailPropsInterface } from "./types";
+import { BigPosterPathNullSkeleton } from "@/components/utilities/loading-skeletons";
+import { useSavedMedia } from "@/context/favorite-media-context";
 import { useLanguages } from "@/context/lang";
 import { UseHandleSaveMedia } from "@/hooks/use-handle-save-media";
-import { MovieInterface, TVInterface } from "@/types/movie-and-tv-interface";
-import { MediaImagesInterface } from "@/services/media-images/types";
-import { MediaReviewInterface } from "@/services/reviews/types";
-import { MediaVideosResultInterface } from "@/services/media-videos/types";
-import { getSimilarMediaDetail } from "@/services/similar-media-detail";
-import { getMediaVideos } from "@/services/media-videos";
-import { getMediaImages } from "@/services/media-images";
-import { getMediaReviews } from "@/services/reviews";
-import { currentLanguage } from "@/context/lang";
-import { AdditionalMediaData } from "../additional-media-data";
+import { MediaTypeT } from "@/types/media-type";
 import { mediaImageSrc } from "@/utils/media-image-src";
+import { CreateSimilarGenres } from "../create-similar-genres";
+import { TrailerMedia } from "../../modals/trailer-media";
+import { AdditionalMediaData } from "../additional-media-data";
+import {
+  formatMoney,
+  isMovieDetail,
+  languageName,
+  localeFor,
+  mediaTitle,
+  mediaYear,
+  runtimeLabel,
+  statusLabel,
+} from "./detail-copy";
+import { pickTrailer, useMediaExtras } from "./use-media-extras";
+
+const sectionHeading = "text-lg font-semibold text-text-high dark:text-dark-text-high";
+
+const Fact = ({
+  icon: Icon,
+  label,
+  children,
+}: {
+  icon: typeof Film;
+  label: string;
+  children: React.ReactNode;
+}) => (
+  <div className="flex items-center gap-2">
+    <Icon className="h-5 w-5 shrink-0 text-secondary dark:text-dark-secondary" aria-hidden="true" />
+    <span className="sr-only">{label}:</span>
+    <span>{children}</span>
+  </div>
+);
 
 const MediaDetailRender: React.FC<MediaDetailPropsInterface> = memo(
-  ({ mediaDetail, similarGenres, isMovie, mediaType, mediaId }) => {
+  ({ media, mediaType, mediaId, isEs }) => {
     const { language } = useLanguages();
     const { savedMedia } = useSavedMedia();
-    const allSavedMedia = [...savedMedia.movies, ...savedMedia.tv]; // This is to check is the media is saved whether is movie or tv
-    const isSavedMedia = allSavedMedia.some(
-      (favMedia) => favMedia.id === mediaDetail.id
-    );
-
     const handleSaveMedia = UseHandleSaveMedia();
+    const extras = useMediaExtras(mediaType, mediaId, language);
+    const [showTrailer, setShowTrailer] = useState(false);
 
-    const [loadingAdditionalMediaData, setLoadingAdditionalMediaData] =
-      useState<boolean>(true);
+    // Movie and TV ids overlap, so only look in this title's own track.
+    const track = mediaType === MediaTypeT.movie ? "movies" : MediaTypeT.tv;
+    const isSaved = (savedMedia[track] || []).some((saved) => saved.id === media.id);
 
-    const [similarMedia, setSimilarMedia] = useState<
-      MovieInterface[] | TVInterface[]
-    >([]);
-    const [mediaImages, setMediaImages] = useState<MediaImagesInterface>(
-      {} as MediaImagesInterface
-    );
-    const [mediaVideos, setMediaVideos] = useState<
-      MediaVideosResultInterface[]
-    >([]);
-    const [mediaReviews, setMediaReviews] = useState<MediaReviewInterface>(
-      {} as MediaReviewInterface
-    );
+    const title = mediaTitle(media);
+    const year = mediaYear(media);
+    const runtime = runtimeLabel(media, isEs);
+    const status = statusLabel(media.status, isEs);
+    const originalLanguage = languageName(media.original_language, isEs);
+    const trailer = pickTrailer(extras.videos.data ?? []);
+    const locale = localeFor(isEs);
 
-    const [showTrailer, setShowTrailer] = useState<boolean>(false);
-    const [videoKey, setVideoKey] = useState<string>();
+    const genres = media.genres ?? [];
+    const productionCompanies = media.production_companies ?? [];
+    const spokenLanguages = media.spoken_languages ?? [];
+    const budget = isMovieDetail(media) && media.budget > 0 ? media.budget : null;
+    const revenue = isMovieDetail(media) && media.revenue > 0 ? media.revenue : null;
+    const hasDetails =
+      budget !== null || revenue !== null || productionCompanies.length > 0 || spokenLanguages.length > 0;
 
-    useEffect(() => {
-      const fetchMediaDetailAdditionalData = async () => {
-        try {
-          const [
-            similarMediaData,
-            mediaVideosData,
-            mediaImagesData,
-            mediaReviewsData,
-          ] = await Promise.all([
-            getSimilarMediaDetail(mediaType, mediaId),
-            getMediaVideos(mediaType, mediaId),
-            getMediaImages(mediaType, mediaId),
-            getMediaReviews(mediaType, mediaId, currentLanguage),
-          ]);
-          setSimilarMedia(similarMediaData);
-
-          if (mediaVideosData && mediaVideosData.results.length > 0) {
-            const video = mediaVideosData.results.find(
-              (video: any) =>
-                video.type === "Trailer" ||
-                video.type === "Teaser" ||
-                (video.type === "Clip" && video.site === "YouTube")
-            );
-            if (video) {
-              setVideoKey(video.key);
-            }
-            setMediaVideos(mediaVideosData.results);
-          } else {
-            setMediaVideos([]);
-          }
-          setMediaImages(mediaImagesData);
-          setMediaReviews(mediaReviewsData);
-        } catch (err) {
-          console.error(err);
-        } finally {
-          setLoadingAdditionalMediaData(false);
-        }
-      };
-      fetchMediaDetailAdditionalData();
-    }, [mediaType, mediaId]);
-
-    // New data points
-    const productionCompanies = mediaDetail.production_companies || [];
-    const spokenLanguages = mediaDetail.spoken_languages || [];
-    const releaseDate = isMovie(mediaDetail)
-      ? mediaDetail.release_date
-      : mediaDetail.first_air_date;
-    const runtime = isMovie(mediaDetail)
-      ? `${mediaDetail.runtime} min`
-      : mediaDetail.episode_run_time?.[0]
-        ? `${mediaDetail.episode_run_time[0]} min/episode`
-        : "N/A";
-
-    const bigPoster = mediaDetail.backdrop_path || mediaDetail.poster_path;
+    const backdrop = media.backdrop_path || media.poster_path;
+    const hasRating = typeof media.vote_average === "number" && media.vote_count > 0;
 
     return (
       <section className="text-text-high dark:text-dark-text-high mx-auto px-6 lg:px-0 lg:-mt-8">
-        <div className="relative mb-12 h-[90vh] lg:min-h-screen lg:h-auto">
-          <picture className="absolute inset-0 -mx-6 lg:-mx-8 overflow-hidden">
-            {bigPoster && (
-              <img
-                className="w-full h-full object-cover object-center shadow-2xl opacity-0 transition-opacity duration-500"
-                src={mediaImageSrc(bigPoster, "w780")}
-                alt="Backdrop"
-                loading="eager"
-                onLoad={(e) => (e.currentTarget.style.opacity = "1")}
-              />
+        {/* min-h, not h: a fixed height made the hero a scroll box inside the page on phones. */}
+        <div className="relative mb-12 min-h-[90vh] lg:min-h-screen">
+          <picture className="absolute inset-0 -mx-6 lg:-mx-8 overflow-hidden" aria-hidden="true">
+            {backdrop && (
+              <>
+                <source media="(min-width: 1024px)" srcSet={mediaImageSrc(backdrop, "w1280")} />
+                <img
+                  className="w-full h-full object-cover object-center shadow-2xl opacity-0 transition-opacity duration-500"
+                  src={mediaImageSrc(backdrop, "w780")}
+                  alt=""
+                  fetchPriority="high"
+                  onLoad={(e) => (e.currentTarget.style.opacity = "1")}
+                />
+              </>
             )}
             <div className="absolute inset-0 bg-bg-main/80 dark:bg-dark-bg-main/80" />
             <div className="absolute bottom-0 w-full h-14 bg-linear-to-t from-surface-1 via-surface-1/20 dark:from-dark-surface-1 dark:via-dark-surface-1/20" />
           </picture>
 
-          <article className="relative z-10 container mx-auto px-4 pb-4 lg:px-6 lg:pb-20 pt-12 sm:pt-20 opacity-100 h-full overflow-y-auto lg:overflow-visible">
-            <div className="flex flex-col lg:flex-row gap-8 text-text-high dark:text-dark-text-high">
-              <div className="w-full lg:w-1/3 xl:w-1/4 relative group">
+          <article className="relative z-10 container mx-auto px-4 pb-4 lg:px-6 lg:pb-20 pt-12 sm:pt-20">
+            <div className="flex flex-col lg:flex-row gap-8">
+              <div className="w-full lg:w-1/3 xl:w-1/4 relative">
                 <div className="relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                  {mediaDetail.poster_path ? (
+                  {media.poster_path ? (
                     <img
                       className="w-full h-auto aspect-2/3 object-cover opacity-0 transition-opacity duration-500"
-                      src={mediaImageSrc(mediaDetail.poster_path, "w400")}
-                      alt="Poster"
-                      loading="eager"
+                      src={mediaImageSrc(media.poster_path, "w500")}
+                      alt={isEs ? `Póster de ${title}` : `${title} poster`}
+                      fetchPriority="high"
                       onLoad={(e) => (e.currentTarget.style.opacity = "1")}
                     />
                   ) : (
                     <BigPosterPathNullSkeleton />
                   )}
                   <button
-                    onClick={handleSaveMedia(mediaType, mediaDetail)}
-                    className={`absolute top-4 right-4 p-2 rounded-full backdrop-blur-sm transition-all ${
-                      isSavedMedia
-                        ? "text-accent bg-accent/20 dark:bg-dark-accent/20"
-                        : "text-text-high dark:text-dark-text-high hover:text-accent dark:hover:text-dark-accent bg-surface-1/30 dark:bg-dark-surface-1 hover:bg-accent/20 dark:hover:bg-dark-accent/20 cursor-pointer"
+                    type="button"
+                    onClick={handleSaveMedia(mediaType, media)}
+                    aria-pressed={isSaved}
+                    aria-label={isEs ? `Guardar ${title}` : `Save ${title}`}
+                    title={isSaved ? (isEs ? "Guardada" : "Saved") : isEs ? "Guardar" : "Save"}
+                    className={`absolute top-3 right-3 flex h-11 w-11 items-center justify-center rounded-full backdrop-blur-sm cursor-pointer transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:focus-visible:outline-dark-accent ${
+                      isSaved
+                        ? "bg-accent-ink text-white dark:bg-dark-accent dark:text-dark-bg-main"
+                        : "bg-surface-3/80 text-text-high hover:bg-surface-3 dark:bg-dark-surface-1/80 dark:text-dark-text-high dark:hover:bg-dark-surface-1"
                     }`}>
-                    <Save className="w-6 h-6" />
+                    {isSaved ? (
+                      <BookmarkCheck className="h-5 w-5" aria-hidden="true" />
+                    ) : (
+                      <Bookmark className="h-5 w-5" aria-hidden="true" />
+                    )}
                   </button>
                 </div>
               </div>
 
-              <div className="flex-1 space-y-8">
+              <div className="flex-1 min-w-0 space-y-8">
                 <div className="space-y-4">
-                  <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-text-high dark:text-dark-text-high">
-                    {isMovie(mediaDetail)
-                      ? mediaDetail.title
-                      : mediaDetail.name}
-                    <span className="ml-4 text-2xl font-normal text-text-low dark:text-dark-text-low">
-                      ({new Date(releaseDate).getFullYear()})
-                    </span>
+                  <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-balance break-words">
+                    {title}
+                    {year !== null ? (
+                      <>
+                        {" "}
+                        <span className="whitespace-nowrap text-2xl font-normal tabular-nums text-text-low dark:text-dark-text-low">
+                          ({year})
+                        </span>
+                      </>
+                    ) : null}
                   </h1>
 
-                  <div className="flex items-center flex-wrap gap-4">
-                    <div className="flex items-center bg-surface-1/70 px-3 py-1 rounded-full backdrop-blur-sm border border-surface-2 dark:bg-dark-surface-1/70 dark:border-dark-surface-2">
-                      <Star className="w-5 h-5 mr-1 text-accent" />
-                      <span className="font-medium">
-                        {mediaDetail.vote_average.toFixed(1)}
-                      </span>
-                      <span className="ml-2 text-text-low dark:text-dark-text-low">
-                        ({mediaDetail.vote_count.toLocaleString()})
-                      </span>
-                    </div>
+                  <div className="flex items-center flex-wrap gap-3">
+                    {hasRating ? (
+                      <p className="flex items-center gap-1.5 rounded-full bg-surface-1/70 px-3 py-2 text-sm backdrop-blur-sm dark:bg-dark-surface-1/70">
+                        <Star className="h-4 w-4 fill-current text-accent-ink dark:text-dark-accent" aria-hidden="true" />
+                        <span className="sr-only">{isEs ? "Calificación:" : "Rating:"}</span>
+                        <span className="font-semibold tabular-nums">{media.vote_average.toFixed(1)}</span>
+                        <span className="tabular-nums text-text-low dark:text-dark-text-low">
+                          ({media.vote_count.toLocaleString(locale)}{" "}
+                          {isEs
+                            ? media.vote_count === 1 ? "voto" : "votos"
+                            : media.vote_count === 1 ? "vote" : "votes"}
+                          )
+                        </span>
+                      </p>
+                    ) : null}
 
-                    {videoKey && (
+                    {trailer ? (
                       <button
+                        type="button"
                         onClick={() => setShowTrailer(true)}
-                        className="flex items-center bg-accent hover:bg-accent/90 px-4 py-2 rounded-full transition-all">
-                        <Clapperboard className="w-5 h-5 mr-2" />
-                        {isSpanishLang(language)
-                          ? "Ver Trailer"
-                          : "Watch Trailer"}
+                        aria-haspopup="dialog"
+                        className="inline-flex items-center gap-2 rounded-full bg-accent-ink px-5 py-2.5 text-sm font-semibold text-white cursor-pointer transition-colors duration-200 hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:bg-dark-accent dark:text-dark-bg-main dark:hover:bg-dark-primary dark:focus-visible:outline-dark-accent">
+                        <Clapperboard className="h-4 w-4" aria-hidden="true" />
+                        {isEs ? "Ver tráiler" : "Watch trailer"}
                       </button>
-                    )}
+                    ) : null}
                   </div>
 
-                  {mediaDetail.tagline && (
-                    <p className="text-xl italic">"{mediaDetail.tagline}"</p>
-                  )}
+                  {media.tagline ? (
+                    <p className="text-xl italic text-text-low dark:text-dark-text-low">“{media.tagline}”</p>
+                  ) : null}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex items-center space-x-2">
-                    <Film className="w-5 h-5 text-accent" />
-                    <span>
-                      {mediaType === MediaTypeT.movie
-                        ? isSpanishLang(language)
-                          ? "Película"
-                          : "Movie"
-                        : mediaType === MediaTypeT.tv
-                          ? isSpanishLang(language)
-                            ? `Serie de TV`
-                            : "TV serie"
-                          : "mocoverde multimedia"}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center space-x-2">
-                    <Clock className="w-5 h-5 text-accent" />
-                    <span>{runtime}</span>
-                  </div>
-
-                  <div className="flex items-center space-x-2">
-                    <Ticket className="w-5 h-5 text-accent" />
-                    <span>{mediaDetail.status}</span>
-                  </div>
-
-                  <div className="flex items-center space-x-2">
-                    <Globe className="w-5 h-5 text-accent" />
-                    <span>{mediaDetail.original_language.toUpperCase()}</span>
-                  </div>
-
-                  {isMovie(mediaDetail) && mediaDetail.budget > 0 && (
-                    <div className="flex items-center space-x-2">
-                      <span className="font-medium">
-                        {isSpanishLang(language) ? "Presupuesto:" : "Budget:"}
-                      </span>
-                      <span>${mediaDetail.budget.toLocaleString()}</span>
-                    </div>
-                  )}
-
-                  {isMovie(mediaDetail) && mediaDetail.revenue > 0 && (
-                    <div className="flex items-center space-x-2">
-                      <span className="font-medium">
-                        {isSpanishLang(language)
-                          ? "Recaudación:"
-                          : "Revenue:"}{" "}
-                      </span>
-                      <span>${mediaDetail.revenue.toLocaleString()}</span>
-                    </div>
-                  )}
+                  <Fact icon={Film} label={isEs ? "Tipo" : "Type"}>
+                    {mediaType === MediaTypeT.movie
+                      ? isEs ? "Película" : "Movie"
+                      : isEs ? "Serie de TV" : "TV series"}
+                  </Fact>
+                  {runtime ? (
+                    <Fact icon={Clock} label={isEs ? "Duración" : "Runtime"}>
+                      {runtime}
+                    </Fact>
+                  ) : null}
+                  {status ? (
+                    <Fact icon={Ticket} label={isEs ? "Estado" : "Status"}>
+                      {status}
+                    </Fact>
+                  ) : null}
+                  {originalLanguage ? (
+                    <Fact icon={Globe} label={isEs ? "Idioma original" : "Original language"}>
+                      {originalLanguage}
+                    </Fact>
+                  ) : null}
                 </div>
 
-                {productionCompanies.length > 0 && (
-                  <div className="space-y-4">
-                    <h2 className="text-lg font-semibold">
-                      {isSpanishLang(language)
-                        ? "Empresas Productoras"
-                        : "Production Companies"}
-                    </h2>
-                    <div className="flex flex-wrap gap-4">
-                      {productionCompanies.map((company) =>
-                        company.logo_path ? (
-                          <img
-                            key={company.id}
-                            src={`https://image.tmdb.org/t/p/w200${company.logo_path}`}
-                            alt={company.name}
-                            className="h-8 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
-                          />
-                        ) : (
-                          <span key={company.id} className="text-sm">
-                            {company.name}
-                          </span>
-                        )
-                      )}
-                    </div>
+                {media.overview ? (
+                  <div className="space-y-3">
+                    <h2 className={sectionHeading}>{isEs ? "Sinopsis" : "Synopsis"}</h2>
+                    <p className="max-w-[70ch] leading-relaxed">{media.overview}</p>
                   </div>
-                )}
+                ) : null}
 
-                {spokenLanguages.length > 1 && (
-                  <div className="space-y-4">
-                    <h2 className="text-lg font-semibold">
-                      {isSpanishLang(language)
-                        ? "Lenguajes disponibles"
-                        : "Available languages"}
-                    </h2>
-                    <div className="flex flex-wrap gap-2">
-                      {spokenLanguages.map((lang) =>
-                        lang.name ? (
-                          <span
-                            key={lang.name}
-                            className="p-2 min-w-20 w-20 max-w-28 text-sm text-center rounded-full bg-accent/10 text-accent">
-                            {lang.english_name}
-                          </span>
-                        ) : (
-                          <span
-                            key={lang.name}
-                            className="p-2 min-w-20 w-20 max-w-28 text-sm text-center rounded-full bg-accent/10 text-accent">
-                            {lang.iso_639_1}
-                          </span>
-                        )
-                      )}
-                    </div>
+                {genres.length > 0 ? (
+                  <div className="space-y-3">
+                    <h2 className={sectionHeading}>{isEs ? "Géneros" : "Genres"}</h2>
+                    <ul className="flex flex-wrap gap-2">
+                      <CreateSimilarGenres genres={genres} type={mediaType} />
+                    </ul>
                   </div>
-                )}
+                ) : null}
 
-                {mediaDetail.overview && (
-                  <div className="space-y-4">
-                    <h2 className="text-lg font-semibold">
-                      {isSpanishLang(language) ? "Sinopsis" : "Synopsis"}
-                    </h2>
-                    <p className="leading-relaxed">{mediaDetail.overview}</p>
+                {hasDetails ? (
+                  <div className="space-y-3">
+                    <h2 className={sectionHeading}>{isEs ? "Detalles" : "Details"}</h2>
+                    <dl className="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
+                      {budget !== null ? (
+                        <div>
+                          <dt className="text-sm text-text-low dark:text-dark-text-low">
+                            {isEs ? "Presupuesto" : "Budget"}
+                          </dt>
+                          <dd className="font-semibold tabular-nums">{formatMoney(budget, isEs)}</dd>
+                        </div>
+                      ) : null}
+                      {revenue !== null ? (
+                        <div>
+                          <dt className="text-sm text-text-low dark:text-dark-text-low">
+                            {isEs ? "Recaudación" : "Box office"}
+                          </dt>
+                          <dd className="font-semibold tabular-nums">{formatMoney(revenue, isEs)}</dd>
+                        </div>
+                      ) : null}
+                      {productionCompanies.length > 0 ? (
+                        <div className="sm:col-span-2">
+                          <dt className="mb-2 text-sm text-text-low dark:text-dark-text-low">
+                            {isEs ? "Productoras" : "Production companies"}
+                          </dt>
+                          <dd>
+                            <ul className="flex flex-wrap items-center gap-2">
+                              {productionCompanies.map((company) => (
+                                <li key={company.id}>
+                                  {company.logo_path ? (
+                                    // Most logos are dark artwork; a light plate keeps them visible in dark mode.
+                                    <span className="flex h-10 items-center rounded-lg bg-surface-3 px-3 shadow-sm dark:bg-dark-primary">
+                                      <img
+                                        src={mediaImageSrc(company.logo_path, "w185")}
+                                        alt={company.name}
+                                        title={company.name}
+                                        loading="lazy"
+                                        className="h-6 w-auto max-w-32 object-contain"
+                                      />
+                                    </span>
+                                  ) : (
+                                    <span className="flex h-10 items-center rounded-lg bg-surface-2 px-3 text-sm dark:bg-dark-surface-2">
+                                      {company.name}
+                                    </span>
+                                  )}
+                                </li>
+                              ))}
+                            </ul>
+                          </dd>
+                        </div>
+                      ) : null}
+                      {spokenLanguages.length > 0 ? (
+                        <div className="sm:col-span-2">
+                          <dt className="mb-2 text-sm text-text-low dark:text-dark-text-low">
+                            {isEs ? "Idiomas hablados" : "Spoken languages"}
+                          </dt>
+                          <dd>
+                            <ul className="flex flex-wrap gap-2">
+                              {spokenLanguages.map((lang) => (
+                                <li
+                                  key={lang.iso_639_1}
+                                  className="rounded-full bg-surface-2 px-3 py-1.5 text-sm dark:bg-dark-surface-2">
+                                  {languageName(lang.iso_639_1, isEs, lang.english_name)}
+                                </li>
+                              ))}
+                            </ul>
+                          </dd>
+                        </div>
+                      ) : null}
+                    </dl>
                   </div>
-                )}
-
-                <div className="space-y-4">
-                  <h2 className="text-lg font-semibold">
-                    {isSpanishLang(language)
-                      ? "Géneros similares"
-                      : "Similar genres"}
-                  </h2>
-                  <div className="flex flex-wrap gap-2">
-                    <CreateSimilarGenres
-                      genres={similarGenres}
-                      type={mediaType}
-                    />
-                  </div>
-                </div>
+                ) : null}
               </div>
             </div>
           </article>
         </div>
 
-        <AdditionalMediaData
-          loadingAdditionalMediaData={loadingAdditionalMediaData}
-          similarMedia={similarMedia}
-          mediaType={mediaType}
-          mediaImages={mediaImages}
-          mediaVideos={mediaVideos}
-          mediaReviews={mediaReviews}
-        />
+        <AdditionalMediaData extras={extras} mediaType={mediaType} title={title} isEs={isEs} />
 
         <TrailerMedia
           isOpen={showTrailer}
           onClose={() => setShowTrailer(false)}
-          videoKey={videoKey as string}
+          videoKey={trailer?.key}
+          title={trailer?.name || title}
+          isEs={isEs}
         />
       </section>
     );

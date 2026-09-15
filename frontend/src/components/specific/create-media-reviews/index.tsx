@@ -1,194 +1,146 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { ExternalLink, MessageSquareOff, Star } from "lucide-react";
 import { AuthorReview } from "@/services/reviews/types";
-import { Star, ExternalLink } from "lucide-react";
+
+/** Reviews longer than this start collapsed. */
+const LONG_REVIEW = 700;
+
+const StarRating = ({ rating, isEs }: { rating: number; isEs: boolean }) => {
+  const outOfFive = rating / 2;
+  return (
+    <p className="flex items-center gap-2">
+      <span className="flex" aria-hidden="true">
+        {Array.from({ length: 5 }, (_, i) => {
+          const fill = Math.max(0, Math.min(1, outOfFive - i));
+          return (
+            <span key={i} className="relative h-4 w-4">
+              <Star className="absolute inset-0 h-4 w-4 fill-current text-secondary/40 dark:text-dark-secondary/40" strokeWidth={0} />
+              {fill >= 0.5 ? (
+                <span className="absolute inset-0 overflow-hidden" style={{ width: fill >= 1 ? "100%" : "50%" }}>
+                  <Star className="h-4 w-4 fill-current text-accent-ink dark:text-dark-accent" strokeWidth={0} />
+                </span>
+              ) : null}
+            </span>
+          );
+        })}
+      </span>
+      <span className="text-sm font-semibold tabular-nums text-text-high dark:text-dark-text-high">
+        <span className="sr-only">{isEs ? "Calificación: " : "Rating: "}</span>
+        {rating}
+        <span className="font-normal text-text-low dark:text-dark-text-low">/10</span>
+      </span>
+    </p>
+  );
+};
+
+const ReviewCard = ({ review, isEs }: { review: AuthorReview; isEs: boolean }) => {
+  const [expanded, setExpanded] = useState(false);
+  const author = review.author_details.name || review.author;
+  const long = review.content.length > LONG_REVIEW;
+  const date = (value: string) =>
+    new Date(value).toLocaleDateString(isEs ? "es-MX" : "en-US", { year: "numeric", month: "short", day: "numeric" });
+  const edited = review.updated_at && review.updated_at.slice(0, 10) !== review.created_at.slice(0, 10);
+
+  return (
+    <article className="rounded-xl bg-surface-2 p-5 shadow-sm dark:bg-dark-surface-2 sm:p-6">
+      <header className="flex items-start justify-between gap-4">
+        <div className="flex min-w-0 items-center gap-3">
+          {review.author_details.avatar_path ? (
+            <img
+              src={`https://image.tmdb.org/t/p/w64_and_h64_face${review.author_details.avatar_path}`}
+              alt=""
+              loading="lazy"
+              className="h-10 w-10 shrink-0 rounded-full object-cover"
+            />
+          ) : (
+            <span
+              aria-hidden="true"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-surface-3 text-lg font-semibold uppercase text-text-low dark:bg-dark-surface-3 dark:text-dark-text-low">
+              {author.charAt(0)}
+            </span>
+          )}
+          <div className="min-w-0">
+            <h3 className="truncate font-semibold text-text-high dark:text-dark-text-high">{author}</h3>
+            {review.author_details.username && review.author_details.username !== author ? (
+              <p className="truncate text-sm text-text-low dark:text-dark-text-low">@{review.author_details.username}</p>
+            ) : null}
+          </div>
+        </div>
+        <p className="shrink-0 text-right text-sm text-text-low dark:text-dark-text-low">
+          <time dateTime={review.created_at}>{date(review.created_at)}</time>
+          {edited ? <span className="block text-xs">{isEs ? "Editada" : "Edited"}</span> : null}
+        </p>
+      </header>
+
+      {review.author_details.rating ? (
+        <div className="mt-4">
+          <StarRating rating={review.author_details.rating} isEs={isEs} />
+        </div>
+      ) : null}
+
+      <p
+        id={`review-${review.id}`}
+        className={`mt-4 max-w-[70ch] whitespace-pre-line wrap-break-word leading-relaxed text-text-high dark:text-dark-text-high ${
+          long && !expanded ? "line-clamp-6" : ""
+        }`}>
+        {review.content}
+      </p>
+
+      <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+        {long ? (
+          <button
+            type="button"
+            onClick={() => setExpanded((open) => !open)}
+            aria-expanded={expanded}
+            aria-controls={`review-${review.id}`}
+            className="rounded-full text-sm font-semibold text-accent-ink cursor-pointer underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:text-dark-accent dark:focus-visible:outline-dark-accent">
+            {expanded ? (isEs ? "Mostrar menos" : "Show less") : isEs ? "Leer reseña completa" : "Read full review"}
+          </button>
+        ) : null}
+        <a
+          href={review.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 rounded-full text-sm text-text-low underline-offset-4 hover:text-accent-ink hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:text-dark-text-low dark:hover:text-dark-accent dark:focus-visible:outline-dark-accent">
+          {isEs ? "Ver en TMDB" : "View on TMDB"}
+          <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+          <span className="sr-only">{isEs ? "(abre en otra pestaña)" : "(opens in a new tab)"}</span>
+        </a>
+      </div>
+    </article>
+  );
+};
 
 const CreateMediaReviews = ({
   mediaReviews,
+  isEs,
 }: {
   mediaReviews: AuthorReview[];
+  isEs: boolean;
 }): React.JSX.Element => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setIsLoading(false);
-    }, 200);
-    return () => clearTimeout(timeoutId);
-  }, [mediaReviews]);
-
-  const StarRating = ({ rating }: { rating?: number }) => {
-    if (!rating) return null;
-
-    const normalizedRating = rating / 2;
-    const fullStars = Math.floor(normalizedRating);
-    const hasHalfStar = normalizedRating - fullStars >= 0.5;
-    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
-
+  if (mediaReviews.length === 0) {
     return (
-      <div className="flex items-center">
-        <div className="flex">
-          {/* Full stars */}
-          {[...Array(fullStars)].map((_, i) => (
-            <Star
-              key={`full-${i}`}
-              className="w-4 h-4 text-accent fill-current"
-              strokeWidth={0}
-            />
-          ))}
-
-          {hasHalfStar && (
-            <div key="half" className="relative">
-              <Star
-                className="w-4 h-4 text-secondary fill-current"
-                strokeWidth={0}
-              />
-
-              <div
-                className="absolute top-0 left-0 overflow-hidden"
-                style={{ width: "50%" }}>
-                <Star
-                  className="w-4 h-4 text-accent fill-current"
-                  strokeWidth={0}
-                />
-              </div>
-            </div>
-          )}
-
-          {[...Array(emptyStars)].map((_, i) => (
-            <Star
-              key={`empty-${i}`}
-              className="w-4 h-4 text-secondary fill-current"
-              strokeWidth={0}
-            />
-          ))}
-        </div>
-        <span className="ml-2 text-sm font-medium text-text-low dark:text-dark-text-low">
-          {rating}
-        </span>
+      <div className="mx-auto flex max-w-md flex-col items-center gap-2 rounded-xl bg-surface-2 px-5 py-10 text-center text-text-low dark:bg-dark-surface-2 dark:text-dark-text-low">
+        <MessageSquareOff className="h-8 w-8 text-secondary dark:text-dark-secondary" aria-hidden="true" />
+        {isEs ? "Todavía nadie ha reseñado este título." : "No one has reviewed this title yet."}
       </div>
     );
-  };
-
-  const formatDate = (dateString: string) => {
-    const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    };
-    return new Date(dateString).toLocaleDateString(undefined, options);
-  };
+  }
 
   return (
-    <div className="w-full max-w-3xl mx-auto py-8">
-      {isLoading ? (
-        <div className="flex flex-col gap-8 animate-pulse my-16">
-          {[...Array(3)].map((_, i) => (
-            <div
-              key={i}
-              className="bg-surface-2 dark:bg-dark-surface-2 rounded-xl shadow-sm p-6 mt-18">
-              <div className="flex justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className="bg-surface-1 dark:bg-dark-surface-1 rounded-full h-10 w-10"></div>
-                  <div className="space-y-2">
-                    <div className="h-4 bg-surface-1 dark:bg-dark-surface-1 rounded w-24"></div>
-                    <div className="h-4 bg-surface-1 dark:bg-dark-surface-1 rounded w-16"></div>
-                  </div>
-                </div>
-                <div className="h-4 bg-surface-1 dark:bg-dark-surface-1 rounded w-20"></div>
-              </div>
-              <div className="mt-4 space-y-3">
-                <div className="h-5 bg-surface-1 dark:bg-dark-surface-1 rounded w-3/4"></div>
-                <div className="h-4 bg-surface-1 dark:bg-dark-surface-1 rounded"></div>
-                <div className="h-4 bg-surface-1 dark:bg-dark-surface-1 rounded w-5/6"></div>
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : !isLoading && mediaReviews.length === 0 ? (
-        <div className="bg-surface-1 dark:bg-dark-surface-1 text-text-low dark:text-dark-text-low p-4 rounded-lg">
-          <p>No reviews available for this media.</p>
-        </div>
-      ) : (
-        <>
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold text-text-high dark:text-dark-text-high">
-              User Reviews
-            </h2>
-            <div className="text-sm text-text-low dark:text-dark-text-low">
-              {mediaReviews.length} reviews
-            </div>
-          </div>
-
-          <div className="space-y-6 w-full max-w-3xl">
-            {mediaReviews.map((review) => (
-              <div
-                key={review.id}
-                className="bg-surface-2 dark:bg-dark-surface-2 rounded-xl shadow-sm p-6 border border-secondary/20 dark:border-dark-secondary/20 hover:shadow-md dark:hover:shadow-lg transition-shadow">
-                <div className="flex justify-between items-start">
-                  <div className="flex items-center">
-                    {review.author_details.avatar_path ? (
-                      <img
-                        src={`https://image.tmdb.org/t/p/w64_and_h64_face${review.author_details.avatar_path}`}
-                        alt={review.author_details.name || review.author}
-                        className="w-10 h-10 rounded-full object-cover"
-                      />
-                    ) : (
-                      <div className="bg-surface-1 dark:bg-dark-surface-1 border-2 border-secondary/20 dark:border-dark-secondary/20 rounded-full w-10 h-10 flex items-center justify-center">
-                        <span className="text-secondary dark:text-dark-secondary text-lg">
-                          {review.author_details.name?.charAt(0) ||
-                            review.author.charAt(0)}
-                        </span>
-                      </div>
-                    )}
-                    <div className="ml-3">
-                      <h3 className="font-semibold text-text-high dark:text-dark-text-high">
-                        {review.author_details.name || review.author}
-                      </h3>
-                      {review.author_details.username && (
-                        <p className="text-sm text-text-low dark:text-dark-text-low">
-                          @{review.author_details.username}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="text-right">
-                    <span className="text-sm text-text-low dark:text-dark-text-low">
-                      {formatDate(review.created_at)}
-                    </span>
-                    {review.updated_at !== review.created_at && (
-                      <p className="text-xs text-secondary dark:text-dark-secondary mt-1">
-                        (Edited)
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                <div className="mt-4">
-                  <StarRating rating={review.author_details.rating} />
-                </div>
-
-                <div className="mt-4">
-                  <p className="text-text-high dark:text-dark-text-high whitespace-pre-line wrap-break-word">
-                    {review.content}
-                  </p>
-                </div>
-
-                <div className="mt-4">
-                  <a
-                    href={review.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-accent hover:underline text-sm">
-                    <ExternalLink className="w-4 h-4 mr-1" />
-                    View original review
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </>
-      )}
+    <div className="mx-auto w-full max-w-3xl">
+      <p className="mb-4 text-sm text-text-low dark:text-dark-text-low">
+        {isEs
+          ? `${mediaReviews.length} ${mediaReviews.length === 1 ? "reseña" : "reseñas"} de usuarios de TMDB`
+          : `${mediaReviews.length} ${mediaReviews.length === 1 ? "review" : "reviews"} from TMDB users`}
+      </p>
+      <ul className="space-y-4">
+        {mediaReviews.map((review) => (
+          <li key={review.id}>
+            <ReviewCard review={review} isEs={isEs} />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

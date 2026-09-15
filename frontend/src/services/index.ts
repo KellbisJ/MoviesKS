@@ -77,8 +77,10 @@ async function apiClient<T>(
 
     // 5. Check HTTP Status
     if (!response.ok) {
-      // You can implement custom error handling classes here if needed
-      throw new Error(`HTTP error! status: ${response.status}`);
+      // The proxy wraps TMDB failures (e.g. an unknown id is a TMDB 404) as a 500 whose body
+      // names the upstream status, so keep that text for callers that tell "not found" apart.
+      const detail = await response.text().catch(() => "");
+      throw new Error(`HTTP error! status: ${response.status}${detail ? ` ${detail}` : ""}`);
     }
 
     return (await response.json()) as T;
